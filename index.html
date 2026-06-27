@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Poriado — Upratovanie Bratislava | Airbnb a domácnosti</title>
-<meta name="description" content="Spoľahlivé upratovanie v Bratislave. Špecializácia na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Zľava pri pravidelnom upratovaní.">
+<meta name="description" content="Spoľahlivé upratovanie v Bratislave. Špecializácia na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Balíčky podľa hodín.">
 <style>
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
@@ -15,7 +15,6 @@
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   a{color:inherit;text-decoration:none}
-  /* Header */
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid #e7edf5}
   .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
   .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
@@ -28,7 +27,6 @@
   .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
   .btn-ghost:hover{background:var(--blue);color:#fff}
   @media(max-width:720px){.nav-links a:not(.btn){display:none}}
-  /* Hero */
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:92px 0 100px;position:relative;overflow:hidden}
   .hero h1{font-size:2.65rem;line-height:1.2;font-weight:800;max-width:720px;margin-bottom:20px;letter-spacing:-.5px}
   .hero p{font-size:1.16rem;max-width:600px;opacity:.94;margin-bottom:32px;line-height:1.65}
@@ -42,13 +40,11 @@
   .badge b{font-size:1.2rem;display:block;line-height:1.1;font-weight:800}
   .badge span{font-size:.85rem;opacity:.92;line-height:1.25}
   @media(max-width:720px){.hero h1{font-size:2rem}.hero p{font-size:1.05rem}}
-  /* Sections */
   section{padding:72px 0}
   .section-head{text-align:center;max-width:680px;margin:0 auto 48px}
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
   .section-head h2{font-size:2rem;color:var(--navy);margin-bottom:12px}
   .section-head p{color:#5b6675;font-size:1.05rem}
-  /* Services cards */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
   .card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:30px 26px;transition:.2s}
   .card:hover{box-shadow:0 14px 36px rgba(31,56,100,.12);transform:translateY(-3px);border-color:var(--light)}
@@ -56,18 +52,8 @@
   .card h3{color:var(--navy);font-size:1.22rem;margin-bottom:10px}
   .card p{color:#5b6675;font-size:.97rem;margin-bottom:14px}
   .card .price{font-weight:800;color:var(--blue);font-size:1.05rem}
-  /* Pricing table */
   .pricing{background:var(--bg)}
-  .ptable{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(31,56,100,.07);max-width:780px;margin:0 auto}
-  .ptable .row{display:grid;grid-template-columns:2fr 1fr 1.2fr;align-items:center;padding:16px 26px;border-bottom:1px solid #eef2f7;font-size:.97rem}
-  .ptable .row:last-child{border-bottom:none}
-  .ptable .head{background:var(--navy);color:#fff;font-weight:700}
-  .ptable .row b{color:var(--ink)}
-  .ptable .reg{color:var(--accent);font-weight:700}
-  .ptable .row:nth-child(even):not(.head){background:#fafcff}
-  @media(max-width:600px){.ptable .row{grid-template-columns:1.5fr 1fr 1fr;padding:13px 16px;font-size:.85rem}}
   .note{text-align:center;color:#8893a3;font-size:.86rem;margin-top:16px}
-  /* Package cards */
   .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:14px}
   .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:24px 20px;text-align:center;position:relative;transition:.2s}
   .pack:hover{box-shadow:0 14px 32px rgba(31,56,100,.13);transform:translateY(-3px)}
@@ -80,7 +66,6 @@
   .pack.custom{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
   .pack.custom .hrs,.pack.custom .pname,.pack.custom .amt{color:#fff}
   .pack.custom .ideal{color:#d3e0f0}
-  /* Feature comparison table */
   .ftable-wrap{overflow-x:auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07);margin-top:26px}
   table.ftable{border-collapse:collapse;width:100%;min-width:560px}
   table.ftable th,table.ftable td{padding:13px 14px;border-bottom:1px solid #eef2f7;text-align:center;font-size:.92rem}
@@ -89,7 +74,6 @@
   table.ftable tr:nth-child(even) td{background:#fafcff}
   table.ftable .yes{color:var(--accent);font-weight:800}
   table.ftable .no{color:#c7cfda}
-  /* Add-ons */
   .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:26px}
   .addon{background:#fff;border:1px solid #e3eaf3;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
   .addon span{color:var(--ink);font-size:.95rem}
@@ -97,7 +81,6 @@
   .custom-box{background:var(--light);border-radius:14px;padding:24px 26px;margin-top:26px;text-align:center}
   .custom-box h3{color:var(--navy);font-size:1.2rem;margin-bottom:8px}
   .custom-box p{color:#445162;font-size:.97rem;margin-bottom:16px}
-  /* Airbnb highlight */
   .airbnb{background:linear-gradient(135deg,#0f2747,#1f3864);color:#fff}
   .airbnb .section-head h2{color:#fff}
   .airbnb .section-head .kicker{color:#7fb0e6}
@@ -107,11 +90,9 @@
   .feat .f h4{font-size:1.08rem;margin-bottom:8px}
   .feat .f p{color:#c5d3e6;font-size:.94rem}
   .airbnb-cta{text-align:center;margin-top:42px}
-  /* Why us */
   .why .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
   .why .card{text-align:center;border:none;background:var(--bg)}
   .why .ic{margin:0 auto 16px}
-  /* FAQ */
   .faq-list{max-width:760px;margin:0 auto}
   details{background:#fff;border:1px solid #e7edf5;border-radius:11px;margin-bottom:12px;overflow:hidden}
   summary{padding:18px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
@@ -119,7 +100,6 @@
   summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400}
   details[open] summary::after{content:"\2212"}
   details p{padding:0 22px 20px;color:#5b6675;font-size:.97rem}
-  /* Contact */
   .contact{background:var(--bg)}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
   @media(max-width:760px){.contact-grid{grid-template-columns:1fr}}
@@ -131,7 +111,7 @@
   form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue)}
   form .btn{width:100%}
-  /* Footer */
+  #form-ok{display:none;color:var(--accent);font-weight:700;text-align:center;margin-top:14px}
   footer{background:var(--navy);color:#c5d3e6;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
   footer a{color:#9fc0e8}
@@ -153,11 +133,10 @@
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="wrap">
     <h1>Spoľahlivé upratovanie v Bratislave — bez starostí</h1>
-    <p>Špecializujeme sa na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Dochvíľne, dôkladne, s výmenou bielizne. Pri pravidelnom upratovaní získate zľavu.</p>
+    <p>Špecializujeme sa na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Dochvíľne, dôkladne, s výmenou bielizne. Vyberte si balík podľa hodín.</p>
     <div class="hero-cta">
       <a href="#rezervacia" class="btn">Rezervovať termín</a>
       <a href="#cennik" class="btn-ghost btn">Pozrieť cenník</a>
@@ -165,12 +144,11 @@
     <div class="badges">
       <div class="badge"><b>do 24 h</b><span>od dopytu<br>ozveme sa</span></div>
       <div class="badge"><b>Airbnb</b><span>turnover vrátane<br>výmeny bielizne</span></div>
-      <div class="badge"><b>Zľava</b><span>pri pravidelnom<br>upratovaní</span></div>
+      <div class="badge"><b>Balíčky</b><span>jasná cena<br>podľa hodín</span></div>
     </div>
   </div>
 </section>
 
-<!-- SLUZBY -->
 <section id="sluzby">
   <div class="wrap">
     <div class="section-head">
@@ -187,14 +165,14 @@
       </div>
       <div class="card">
         <div class="ic">&#129529;</div>
-        <h3>Pravidelné domácnosti</h3>
-        <p>Týždenné alebo dvojtýždenné upratovanie bytov a domov. Stabilný termín, zľava za pravidelnosť, vždy ten istý štandard.</p>
+        <h3>Byty a domy</h3>
+        <p>Jednorazové aj pravidelné upratovanie bytov a domov. Stabilný termín, vždy ten istý štandard, pri pravidelnom zvýhodnená cena.</p>
         <div class="price">Balíčky od 39,90 €</div>
       </div>
       <div class="card">
         <div class="ic">&#10024;</div>
         <h3>Dôkladné a po rekonštrukcii</h3>
-        <p>Generálne upratovanie, umývanie okien, rúr, upratovanie po maľovaní či rekonštrukcii. Podľa rozsahu a dohody.</p>
+        <p>Generálne upratovanie, umývanie okien, rúr, tepovanie, upratovanie po maľovaní či rekonštrukcii.</p>
         <div class="price">Balíčky 6–8 hodín</div>
       </div>
       <div class="card">
@@ -207,7 +185,6 @@
   </div>
 </section>
 
-<!-- CENNIK -->
 <section id="cennik" class="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -292,10 +269,142 @@
   </div>
 </section>
 
-<!-- AIRBNB -->
 <section id="airbnb" class="airbnb">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Pre hostiteľov a správcov</div>
       <h2>Upratovanie Airbnb &amp; Booking bez stresu</h2>
-      <p>Spravujete jeden byt alebo celé portfólio? Postaráme sa o turnover, aby boli vaše                                                                                                                                                                                                                                          
+      <p>Spravujete jeden byt alebo celé portfólio? Postaráme sa o turnover, aby boli vaše hodnotenia päťhviezdičkové.</p>
+    </div>
+    <div class="feat">
+      <div class="f"><h4>&#9201; Rýchly turnover</h4><p>Upratané a pripravené v dohodnutom okne medzi check-outom a check-inom.</p></div>
+      <div class="f"><h4>&#128719; Výmena bielizne</h4><p>Čistá posteľná bielizeň a uteráky v cene turnoveru. Možnosť náhradných setov.</p></div>
+      <div class="f"><h4>&#128241; Hlásenie stavu</h4><p>Upozorníme vás na chýbajúce zásoby, poškodenia alebo zabudnuté veci hostí.</p></div>
+      <div class="f"><h4>&#128176; Zľava pri viacerých bytoch</h4><p>Spravujete viac apartmánov? Dohodneme výhodnejšiu paušálnu cenu.</p></div>
+    </div>
+    <div class="airbnb-cta">
+      <a href="#kontakt" class="btn">Mám záujem o spoluprácu</a>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Prečo my</div>
+      <h2>Na čom nám záleží</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ic">&#9989;</div><h3>Spoľahlivosť</h3><p>Dochvíľnosť a konzistentný štandard pri každej návšteve. Na čo sa dohodneme, to platí.</p></div>
+      <div class="card"><div class="ic">&#128274;</div><h3>Dôvera</h3><p>Poistenie zodpovednosti za škodu a diskrétny prístup k vášmu priestoru.</p></div>
+      <div class="card"><div class="ic">&#11088;</div><h3>Kvalita</h3><p>Pracujeme podľa kontrolného zoznamu — nič dôležité sa nevynechá.</p></div>
+      <div class="card"><div class="ic">&#128172;</div><h3>Rýchla komunikácia</h3><p>Na dopyt sa ozveme do 24 hodín. Jednoduchá dohoda cez telefón či WhatsApp.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Časté otázky</div>
+      <h2>Možno vás zaujíma</h2>
+    </div>
+    <div class="faq-list">
+      <details open><summary>V akých častiach Bratislavy upratujete?</summary><p>Pôsobíme v celej Bratislave, s ťažiskom na centrum a Staré Mesto. Pri dopyte uveďte mestskú časť a radi potvrdíme dostupnosť.</p></details>
+      <details><summary>Musím byť doma počas upratovania?</summary><p>Nie. Po vzájomnej dohode a odovzdaní kľúčov (alebo cez kľúčový trezor pri Airbnb) zvládneme upratovanie aj počas vašej neprítomnosti.</p></details>
+      <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami. Ak preferujete konkrétne produkty, prispôsobíme sa.</p></details>
+      <details><summary>Čo ak balík nestačí alebo potrebujem niečo navyše?</summary><p>K akémukoľvek balíku si viete priplatiť doplnkové služby (okná, tepovanie, rúra). Pri väčšom rozsahu pripravíme cenu na mieru.</p></details>
+      <details><summary>Ako vás môžem kontaktovať a ako rýchlo sa ozvete?</summary><p>Vyplňte formulár nižšie alebo nám napíšte na WhatsApp/telefón. Na každý dopyt reagujeme do 24 hodín.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="rezervacia">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Rezervujte online</div>
+      <h2>Rezervácia termínu</h2>
+      <p>Vyberte si službu a voľný termín — potvrdenie aj platbu vybavíte hneď online.</p>
+    </div>
+    <!-- Po registrácii v Reeniu sem vložte odkaz/iFrame namiesto VLOZTE_ODKAZ_Z_REENIA -->
+    <div style="max-width:920px;margin:0 auto;background:#fff;border:1px solid #e7edf5;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(31,56,100,.07)">
+      <iframe title="Rezervácia Poriado" src="VLOZTE_ODKAZ_Z_REENIA"
+              style="width:100%;height:780px;border:0;display:block" loading="lazy"></iframe>
+    </div>
+    <p class="note">Zatiaľ je tu zástupný rámik. Po nastavení Reenia sem príde živý rezervačný formulár — zákazník si vyberie termín a zaplatí priamo tu.</p>
+  </div>
+</section>
+
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ozvite sa</div>
+      <h2>Nezáväzný dopyt</h2>
+      <p>Napíšte nám, čo potrebujete, a pripravíme cenovú ponuku na mieru.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Poriado — upratovanie Bratislava</h3>
+        <div class="line"><div class="ic">&#128222;</div><div><b>+421 9XX XXX XXX</b><br><span style="color:#5b6675;font-size:.9rem">Po–Ne, 8:00–20:00</span></div></div>
+        <div class="line"><div class="ic">&#9993;</div><div>info@poriado.sk</div></div>
+        <div class="line"><div class="ic">&#128205;</div><div>Bratislava a okolie</div></div>
+        <div class="line"><div class="ic">&#128241;</div><div>WhatsApp: +421 9XX XXX XXX</div></div>
+        <p style="color:#5b6675;font-size:.92rem;margin-top:10px">Nájdete nás aj na Google — pridajte hodnotenie po prvej návšteve.</p>
+      </div>
+      <form id="dopyt-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
+        <label for="meno">Meno</label>
+        <input type="text" id="meno" name="meno" required placeholder="Vaše meno">
+        <label for="kontakt">Telefón alebo e-mail</label>
+        <input type="text" id="kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
+        <label for="typ">Typ upratovania</label>
+        <select id="typ" name="typ">
+          <option>Airbnb / krátkodobý prenájom</option>
+          <option>Byt alebo dom</option>
+          <option>Dôkladné / generálne upratovanie</option>
+          <option>Kancelária / prevádzka</option>
+          <option>Viac nehnuteľností / firma (cena na mieru)</option>
+        </select>
+        <label for="mc">Mestská časť</label>
+        <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
+        <label for="sprava">Správa</label>
+        <textarea id="sprava" name="sprava" rows="3" placeholder="Veľkosť priestoru, balík, termín..."></textarea>
+        <button type="submit" class="btn">Odoslať dopyt</button>
+        <p id="form-ok">Ďakujeme! Dopyt sme prijali, čoskoro sa vám ozveme.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">Poriado<span>.</span></div>
+    <p>Upratovanie Bratislava — Airbnb, byty, domy, kancelárie</p>
+    <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var form = document.getElementById('dopyt-form');
+    if(!form) return;
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var btn = form.querySelector('button[type=submit]');
+      var orig = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Odosielam...';
+      fetch(form.action, { method:'POST', body:new FormData(form), mode:'no-cors' })
+        .then(function(){
+          form.reset();
+          btn.disabled = false; btn.textContent = orig;
+          document.getElementById('form-ok').style.display = 'block';
+        })
+        .catch(function(){
+          btn.disabled = false; btn.textContent = orig;
+          alert('Dopyt sa nepodarilo odoslať. Skúste znova alebo nám zavolajte.');
+        });
+    });
+  })();
+</script>
+
+</body>
+</html>
