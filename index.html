@@ -193,13 +193,13 @@
       </div>
       <div class="card">
         <div class="ic">&#129683;</div>
-        <h3>Tepovanie a koženky</h3>
+        <h3>Tepovanie a ošetrenie koženej sedačky</h3>
         <p>Tepovanie sedačiek a kobercov, prípadne ošetrenie koženej sedačky. Súčasť balíka Maxi, doplatok k iným, alebo samostatne.</p>
         <div class="price">od 40 € / hod</div>
       </div>
       <div class="card">
         <div class="ic">&#127991;</div>
-        <h3>Airbnb a špeciálne priestory</h3>
+        <h3>Airbnb / Booking a špeciálne priestory</h3>
         <p>Krátkodobé prenájmy (Airbnb, Booking), väčšie domy a netypické priestory riešime individuálne — ponuka na mieru.</p>
         <a href="#" class="btn btn-ghost" data-open-individ>Individuálny dopyt</a>
       </div>
@@ -255,7 +255,7 @@
           <tr><td>Priority si určíte vy (dohoda pred upratovaním)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
           <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
           <tr><td>Kuchyňa – povrchy a drez</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Umytie okien (interiér)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Umytie okien</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
           <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
           <tr><td>Balkón alebo terasa</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
           <tr><td>Umytie rúry a spotrebičov zvnútra</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
@@ -273,8 +273,10 @@
       <div class="addon"><span>Ošetrenie koženej sedačky</span><b>od 25 €</b></div>
       <div class="addon"><span>Umytie okien (nad rámec balíka)</span><b>od 15 €</b></div>
       <div class="addon"><span>Umytie rúry / spotrebičov</span><b>od 15 €</b></div>
+      <div class="addon"><span>Rebrík k oknám vo výške (ak nie je u vás)</span><b>10 € jednorazovo</b></div>
       <div class="addon"><span>Pranie a výmena bielizne navyše</span><b>od 10 €</b></div>
     </div>
+    <p class="note">Pri umývaní okien vo výške, ktoré nie sú prístupné zvnútra, je potrebný rebrík — uveďte to prosím v dopyte. Ak rebrík nemáte k dispozícii, donesieme vlastný za jednorazový príplatok 10 €.</p>
 
     <div class="tepo-box">
       <h3>Tepovanie aj samostatne</h3>
@@ -324,6 +326,7 @@
       <details><summary>Musíte si prísť priestor najprv pozrieť?</summary><p>Domácnosti (byty a domy) upratujeme bez obhliadky. Pri kanceláriách a iných priestoroch si dohodneme obhliadku, alebo nám pošlite fotky a na ich základe pripravíme ponuku.</p></details>
       <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami — sú v cene balíka. Ak preferujete konkrétne produkty, prispôsobíme sa.</p></details>
       <details><summary>Robíte tepovanie?</summary><p>Áno. V balíku Maxi je zahrnuté (čas tepovania sa odčíta z času upratovania). K Mini a Klasik si ho doplatíte za zvýhodnenú cenu, alebo prídeme len tepovať samostatne za 40 €/hod. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.</p></details>
+      <details><summary>A okná vo výške?</summary><p>Pri oknách vo výške, ktoré nie sú prístupné zvnútra, je potrebný rebrík — uveďte to v dopyte. Ak rebrík nemáte, donesieme vlastný za jednorazový príplatok 10 €.</p></details>
       <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>V prípade extrémneho znečistenia alebo nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. Vždy sa vopred dohodneme, aby nedošlo k prekvapeniu.</p></details>
       <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky, prednostné termíny a ohľaduplný prístup. Stačí sa preukázať pri prvej návšteve.</p></details>
     </div>
@@ -357,7 +360,7 @@
           <option>Dôkladné / generálne upratovanie</option>
           <option>Tepovanie</option>
           <option>Kancelária / prevádzka</option>
-          <option>Airbnb / iné priestory</option>
+          <option>Airbnb / Booking / iné priestory</option>
         </select>
         <label for="mc">Mestská časť</label>
         <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
@@ -386,10 +389,10 @@
     <form id="individ-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
       <label for="i-typ">O aký priestor ide?</label>
       <select id="i-typ" name="typ">
-        <option>Airbnb 1-izbový</option>
-        <option>Airbnb 2-izbový</option>
-        <option>Airbnb 3-izbový a viac</option>
-        <option>Dom</option>
+        <option>Airbnb / Booking 1-izbový</option>
+        <option>Airbnb / Booking 2-izbový</option>
+        <option>Airbnb / Booking 3-izbový a viac</option>
+        <option>Rodinný dom / väčší byt</option>
         <option>Kancelária / prevádzka</option>
         <option>Iné priestory</option>
       </select>
