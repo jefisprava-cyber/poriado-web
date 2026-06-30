@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poriado — Upratovanie Bratislava | Airbnb a domácnosti</title>
-<meta name="description" content="Spoľahlivé upratovanie v Bratislave. Špecializácia na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Balíčky podľa hodín.">
+<title>Poriado — Upratovanie Bratislava a okolie | Byty, domy, kancelárie</title>
+<meta name="description" content="Spoľahlivé upratovanie v Bratislave a okolí. Vlastné čistiace prostriedky v cene, rozsah si určíte vy. Domácnosti bez obhliadky. Balíčky Mini, Klasik, Maxi.">
 <style>
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
@@ -19,17 +19,17 @@
   .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
   .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
   .logo span{color:var(--blue)}
-  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links{display:flex;gap:24px;align-items:center}
   .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink)}
   .nav-links a:hover{color:var(--blue)}
   .btn{display:inline-block;background:var(--blue);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;transition:.2s;border:none;cursor:pointer;font-size:.95rem}
   .btn:hover{background:var(--navy);transform:translateY(-1px)}
   .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
   .btn-ghost:hover{background:var(--blue);color:#fff}
-  @media(max-width:720px){.nav-links a:not(.btn){display:none}}
+  @media(max-width:820px){.nav-links a:not(.btn){display:none}}
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:92px 0 100px;position:relative;overflow:hidden}
-  .hero h1{font-size:2.65rem;line-height:1.2;font-weight:800;max-width:720px;margin-bottom:20px;letter-spacing:-.5px}
-  .hero p{font-size:1.16rem;max-width:600px;opacity:.94;margin-bottom:32px;line-height:1.65}
+  .hero h1{font-size:2.6rem;line-height:1.2;font-weight:800;max-width:780px;margin-bottom:20px;letter-spacing:-.5px}
+  .hero p{font-size:1.16rem;max-width:640px;opacity:.94;margin-bottom:32px;line-height:1.65}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
   .hero .btn{background:#fff;color:var(--navy)}
   .hero .btn:hover{background:var(--light)}
@@ -37,59 +37,60 @@
   .hero .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
   .badges{display:flex;gap:16px;margin-top:46px;flex-wrap:wrap}
   .badge{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:14px 20px;border-radius:13px}
-  .badge b{font-size:1.2rem;display:block;line-height:1.1;font-weight:800}
-  .badge span{font-size:.85rem;opacity:.92;line-height:1.25}
-  @media(max-width:720px){.hero h1{font-size:2rem}.hero p{font-size:1.05rem}}
+  .badge b{font-size:1.05rem;display:block;line-height:1.2;font-weight:800}
+  .badge span{font-size:.82rem;opacity:.92;line-height:1.25}
   section{padding:72px 0}
-  .section-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .section-head{text-align:center;max-width:720px;margin:0 auto 48px}
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
   .section-head h2{font-size:2rem;color:var(--navy);margin-bottom:12px}
   .section-head p{color:#5b6675;font-size:1.05rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
   .card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:30px 26px;transition:.2s}
   .card:hover{box-shadow:0 14px 36px rgba(31,56,100,.12);transform:translateY(-3px);border-color:var(--light)}
   .card .ic{width:50px;height:50px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px}
-  .card h3{color:var(--navy);font-size:1.22rem;margin-bottom:10px}
-  .card p{color:#5b6675;font-size:.97rem;margin-bottom:14px}
-  .card .price{font-weight:800;color:var(--blue);font-size:1.05rem}
+  .card h3{color:var(--navy);font-size:1.18rem;margin-bottom:10px}
+  .card p{color:#5b6675;font-size:.96rem;margin-bottom:14px}
+  .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
+  .highlight{background:linear-gradient(135deg,#eef3fa,#f7f9fc)}
   .pricing{background:var(--bg)}
   .note{text-align:center;color:#8893a3;font-size:.86rem;margin-top:16px}
-  .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:14px}
-  .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:24px 20px;text-align:center;position:relative;transition:.2s}
+  .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-bottom:14px}
+  .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:26px 22px;text-align:center;position:relative;transition:.2s;display:flex;flex-direction:column}
   .pack:hover{box-shadow:0 14px 32px rgba(31,56,100,.13);transform:translateY(-3px)}
   .pack.popular{border:2px solid var(--blue);box-shadow:0 14px 32px rgba(46,117,182,.16)}
   .pack .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
   .pack .hrs{color:var(--blue);font-weight:700;font-size:.92rem;text-transform:uppercase;letter-spacing:1px}
   .pack .pname{color:var(--navy);font-weight:800;font-size:1.18rem;margin:4px 0 10px}
   .pack .amt{font-size:2rem;font-weight:800;color:var(--navy);line-height:1}
-  .pack .ideal{color:#5b6675;font-size:.86rem;margin-top:12px;min-height:34px}
+  .pack .ideal{color:#5b6675;font-size:.86rem;margin-top:12px;flex-grow:1}
+  .pack .pbtn{margin-top:16px}
   .pack.custom{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
   .pack.custom .hrs,.pack.custom .pname,.pack.custom .amt{color:#fff}
   .pack.custom .ideal{color:#d3e0f0}
+  .pack.custom .btn{background:#fff;color:var(--navy)}
+  .pack.custom .btn:hover{background:var(--light)}
   .ftable-wrap{overflow-x:auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07);margin-top:26px}
-  table.ftable{border-collapse:collapse;width:100%;min-width:560px}
+  table.ftable{border-collapse:collapse;width:100%;min-width:520px}
   table.ftable th,table.ftable td{padding:13px 14px;border-bottom:1px solid #eef2f7;text-align:center;font-size:.92rem}
   table.ftable th{background:var(--navy);color:#fff;font-weight:700}
   table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
   table.ftable tr:nth-child(even) td{background:#fafcff}
   table.ftable .yes{color:var(--accent);font-weight:800}
   table.ftable .no{color:#c7cfda}
-  .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:26px}
+  .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px}
   .addon{background:#fff;border:1px solid #e3eaf3;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .addon span{color:var(--ink);font-size:.95rem}
+  .addon span{color:var(--ink);font-size:.94rem}
   .addon b{color:var(--blue);font-weight:800;white-space:nowrap}
-  .custom-box{background:var(--light);border-radius:14px;padding:24px 26px;margin-top:26px;text-align:center}
-  .custom-box h3{color:var(--navy);font-size:1.2rem;margin-bottom:8px}
-  .custom-box p{color:#445162;font-size:.97rem;margin-bottom:16px}
-  .airbnb{background:linear-gradient(135deg,#0f2747,#1f3864);color:#fff}
-  .airbnb .section-head h2{color:#fff}
-  .airbnb .section-head .kicker{color:#7fb0e6}
-  .airbnb .section-head p{color:#c5d3e6}
-  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:10px}
-  .feat .f{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:24px}
-  .feat .f h4{font-size:1.08rem;margin-bottom:8px}
-  .feat .f p{color:#c5d3e6;font-size:.94rem}
-  .airbnb-cta{text-align:center;margin-top:42px}
+  .tepo-box{background:linear-gradient(135deg,#0f2747,#1f3864);color:#fff;border-radius:16px;padding:30px 28px;margin-top:26px}
+  .tepo-box h3{font-size:1.3rem;margin-bottom:10px}
+  .tepo-box p{color:#cdd9e8;font-size:.96rem;margin-bottom:8px}
+  .tepo-box .big{font-size:1.05rem;color:#fff;font-weight:700}
+  .senior-box{background:#eaf6f0;border:1px solid #cdeadd;border-radius:14px;padding:22px 26px;margin-top:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .senior-box .em{font-size:2.2rem}
+  .senior-box h3{color:var(--navy);font-size:1.15rem;margin-bottom:4px}
+  .senior-box p{color:#3c5a4a;font-size:.95rem}
+  .senior-box .perc{margin-left:auto;font-size:1.8rem;font-weight:800;color:var(--accent);white-space:nowrap}
+  .disclaimer{background:#fff7ed;border:1px solid #fce2c2;border-radius:12px;padding:16px 20px;margin-top:22px;color:#7a5a2e;font-size:.9rem}
   .why .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
   .why .card{text-align:center;border:none;background:var(--bg)}
   .why .ic{margin:0 auto 16px}
@@ -111,10 +112,17 @@
   form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue)}
   form .btn{width:100%}
-  #form-ok{display:none;color:var(--accent);font-weight:700;text-align:center;margin-top:14px}
+  .form-ok{display:none;color:var(--accent);font-weight:700;text-align:center;margin-top:14px}
   footer{background:var(--navy);color:#c5d3e6;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
-  footer a{color:#9fc0e8}
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}
+  .modal-overlay.open{display:flex}
+  .modal{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+  .modal h3{color:var(--navy);font-size:1.4rem;margin-bottom:6px}
+  .modal .sub{color:#5b6675;font-size:.95rem;margin-bottom:20px;line-height:1.55}
+  .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#9aa6b5;cursor:pointer;line-height:1}
+  .modal-close:hover{color:var(--navy)}
+  .modal form{box-shadow:none;padding:0}
 </style>
 </head>
 <body>
@@ -123,28 +131,42 @@
   <div class="wrap nav">
     <div class="logo">Poriado<span>.</span></div>
     <nav class="nav-links">
+      <a href="#ako">Ako to funguje</a>
       <a href="#sluzby">Služby</a>
       <a href="#cennik">Cenník</a>
-      <a href="#airbnb">Airbnb</a>
-      <a href="#rezervacia">Rezervácia</a>
       <a href="#faq">Časté otázky</a>
-      <a href="#rezervacia" class="btn">Rezervovať termín</a>
+      <a href="#kontakt" class="btn">Nezáväzný dopyt</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <h1>Spoľahlivé upratovanie v Bratislave — bez starostí</h1>
-    <p>Špecializujeme sa na krátkodobé prenájmy (Airbnb, Booking) a pravidelné upratovanie domácností. Dochvíľne, dôkladne, s výmenou bielizne. Vyberte si balík podľa hodín.</p>
+    <h1>Spoľahlivé upratovanie v Bratislave a okolí — vy poviete čo, my to vyčistíme</h1>
+    <p>Byty, domy aj kancelárie. Prídeme s vlastnými čistiacimi prostriedkami a vybavením a pred upratovaním sa s vami dohodneme, čomu sa v rámci času balíka venovať najviac. Domácnosti upratujeme bez obhliadky.</p>
     <div class="hero-cta">
-      <a href="#rezervacia" class="btn">Rezervovať termín</a>
-      <a href="#cennik" class="btn-ghost btn">Pozrieť cenník</a>
+      <a href="#cennik" class="btn">Pozrieť balíčky</a>
+      <a href="#kontakt" class="btn-ghost btn">Nezáväzný dopyt</a>
     </div>
     <div class="badges">
-      <div class="badge"><b>do 24 h</b><span>od dopytu<br>ozveme sa</span></div>
-      <div class="badge"><b>Airbnb</b><span>turnover vrátane<br>výmeny bielizne</span></div>
-      <div class="badge"><b>Balíčky</b><span>jasná cena<br>podľa hodín</span></div>
+      <div class="badge"><b>Vlastné prostriedky</b><span>čistiace prostriedky<br>a vybavenie v cene</span></div>
+      <div class="badge"><b>Rozsah určíte vy</b><span>priority si poviete<br>pred upratovaním</span></div>
+      <div class="badge"><b>Bez obhliadky</b><span>domácnosti rovno<br>upraceme</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ako" class="highlight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ako to u nás funguje</div>
+      <h2>Vy si určíte, čo upratať</h2>
+      <p>Žiadne strnulé zoznamy. Pred upratovaním sa s vami dohodneme, čomu sa v rámci času balíka venovať najviac — priority sú na vás. Vyčistíme to, čo vás najviac trápi.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ic">&#128483;</div><h3>Poviete nám priority</h3><p>Kúpeľňa, kuchyňa, okná či podlahy? Povedzte, čo potrebujete najviac, a tomu sa budeme venovať prednostne v rámci času balíka.</p></div>
+      <div class="card"><div class="ic">&#129532;</div><h3>Vlastné prostriedky v cene</h3><p>Prichádzame s vlastným vybavením aj čistiacimi prostriedkami. Nemusíte nič pripravovať ani dokupovať.</p></div>
+      <div class="card"><div class="ic">&#127968;</div><h3>Domácnosti bez obhliadky</h3><p>Byty a domy upratujeme bez predchádzajúcej obhliadky. Pri kanceláriách a iných priestoroch si dohodneme obhliadku — alebo nám pošlite fotky a ozveme sa s ponukou.</p></div>
     </div>
   </div>
 </section>
@@ -154,32 +176,32 @@
     <div class="section-head">
       <div class="kicker">Čo robíme</div>
       <h2>Naše služby</h2>
-      <p>Od rýchleho turnoveru medzi hosťami až po pravidelné upratovanie domácností a kancelárií.</p>
+      <p>Pravidelné aj jednorazové upratovanie domácností, firiem a špeciálnych priestorov.</p>
     </div>
     <div class="grid">
       <div class="card">
-        <div class="ic">&#127968;</div>
-        <h3>Airbnb &amp; krátkodobé prenájmy</h3>
-        <p>Rýchle a dôkladné upratovanie medzi hosťami vrátane výmeny posteľnej bielizne a uterákov. Garancia času od check-outu.</p>
-        <div class="price">Balíčky od 39,90 €</div>
-      </div>
-      <div class="card">
         <div class="ic">&#129529;</div>
         <h3>Byty a domy</h3>
-        <p>Jednorazové aj pravidelné upratovanie bytov a domov. Stabilný termín, vždy ten istý štandard, pri pravidelnom zvýhodnená cena.</p>
-        <div class="price">Balíčky od 39,90 €</div>
-      </div>
-      <div class="card">
-        <div class="ic">&#10024;</div>
-        <h3>Dôkladné a po rekonštrukcii</h3>
-        <p>Generálne upratovanie, umývanie okien, rúr, tepovanie, upratovanie po maľovaní či rekonštrukcii.</p>
-        <div class="price">Balíčky 6–8 hodín</div>
+        <p>Jednorazové aj pravidelné upratovanie domácností. Bez obhliadky, s vlastnými prostriedkami a rozsahom podľa vašej dohody.</p>
+        <div class="price">Balíčky od 79,90 €</div>
       </div>
       <div class="card">
         <div class="ic">&#127970;</div>
         <h3>Kancelárie a prevádzky</h3>
-        <p>Pravidelné upratovanie menších kancelárií a prevádzok, aj po pracovnej dobe. Flexibilný harmonogram.</p>
+        <p>Pravidelné upratovanie menších kancelárií a prevádzok, aj po pracovnej dobe. Po dohode obhliadky alebo na základe fotiek.</p>
         <div class="price">Cena na mieru</div>
+      </div>
+      <div class="card">
+        <div class="ic">&#129683;</div>
+        <h3>Tepovanie a koženky</h3>
+        <p>Tepovanie sedačiek a kobercov, prípadne ošetrenie koženej sedačky. Súčasť balíka Maxi, doplatok k iným, alebo samostatne.</p>
+        <div class="price">od 40 € / hod</div>
+      </div>
+      <div class="card">
+        <div class="ic">&#127991;</div>
+        <h3>Airbnb a špeciálne priestory</h3>
+        <p>Krátkodobé prenájmy (Airbnb, Booking), väčšie domy a netypické priestory riešime individuálne — ponuka na mieru.</p>
+        <a href="#" class="btn btn-ghost" data-open-individ>Individuálny dopyt</a>
       </div>
     </div>
   </div>
@@ -190,100 +212,88 @@
     <div class="section-head">
       <div class="kicker">Transparentné ceny</div>
       <h2>Cenník – balíčky podľa hodín</h2>
-      <p>Pre byty, domy aj Airbnb. Vyberte si balík podľa veľkosti a rozsahu — čím viac hodín, tým viac je v cene.</p>
+      <p>Vyberte si balík podľa veľkosti priestoru a rozsahu. V rámci času balíka sa venujeme tomu, čo si určíte vy.</p>
     </div>
 
     <div class="packs">
       <div class="pack">
-        <div class="hrs">2 hodiny</div>
-        <div class="pname">Sviežo</div>
-        <div class="amt">39,90 €</div>
-        <div class="ideal">Menší byt, Airbnb turnover, udržiavacie upratovanie</div>
-      </div>
-      <div class="pack">
-        <div class="hrs">4 hodiny</div>
-        <div class="pname">Lesk</div>
-        <div class="amt">69,90 €</div>
-        <div class="ideal">Väčší byt a dôkladnejšie upratovanie vrátane okien</div>
+        <div class="hrs">3 hodiny</div>
+        <div class="pname">Mini</div>
+        <div class="amt">79,90 €</div>
+        <div class="ideal">Menší byt alebo udržiavacie upratovanie. Základ, kúpeľňa, kuchyňa.</div>
       </div>
       <div class="pack popular">
         <div class="tag">Obľúbené</div>
         <div class="hrs">6 hodín</div>
-        <div class="pname">Krištáľ</div>
-        <div class="amt">99,90 €</div>
-        <div class="ideal">Dom alebo generálka väčšieho bytu vrátane tepovania</div>
+        <div class="pname">Klasik</div>
+        <div class="amt">129,90 €</div>
+        <div class="ideal">Väčší byt alebo dôkladnejšie upratovanie vrátane okien a kuchyne do hĺbky.</div>
       </div>
       <div class="pack">
-        <div class="hrs">8 hodín</div>
-        <div class="pname">Generál</div>
-        <div class="amt">129,90 €</div>
-        <div class="ideal">Kompletná generálka, po rekonštrukcii, veľký dom</div>
+        <div class="hrs">9 hodín</div>
+        <div class="pname">Maxi</div>
+        <div class="amt">169,90 €</div>
+        <div class="ideal">Dom alebo generálka. Vrátane tepovania (čas sa odčíta z času upratovania).</div>
       </div>
       <div class="pack custom">
         <div class="hrs">Na mieru</div>
-        <div class="pname">Individuálne</div>
+        <div class="pname">Individuálny</div>
         <div class="amt">Dohodou</div>
-        <div class="ideal">Viac nehnuteľností, firmy a pravidelné kontrakty</div>
+        <div class="ideal">Airbnb, väčšie domy, kancelárie a špeciálne priestory.</div>
+        <a href="#" class="btn pbtn" data-open-individ>Vyplniť dopyt</a>
       </div>
     </div>
 
     <div class="ftable-wrap">
       <table class="ftable">
         <thead>
-          <tr><th>Čo je v cene</th><th>2 h</th><th>4 h</th><th>6 h</th><th>8 h</th></tr>
+          <tr><th>Čo je v cene</th><th>Mini 3 h</th><th>Klasik 6 h</th><th>Maxi 9 h</th></tr>
         </thead>
         <tbody>
-          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Použitie vlastných čistiacich prostriedkov a vybavenia</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Výmena posteľnej bielizne (Airbnb)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Umytie okien (interiér)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Tepovanie sedačky a kresiel</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Umytie rúry a spotrebičov zvnútra</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Balkón alebo terasa</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Tepovanie kobercov</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Použitie vlastných čistiacich prostriedkov a vybavenia</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Priority si určíte vy (dohoda pred upratovaním)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Umytie okien (interiér)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Balkón alebo terasa</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Umytie rúry a spotrebičov zvnútra</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Tepovanie sedačky/kobercov alebo ošetrenie koženej sedačky</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
         </tbody>
       </table>
     </div>
+    <p class="note">V balíku Maxi je tepovanie zahrnuté — čas tepovania sa odčíta z celkového času upratovania. Nemáte textilnú sedačku? Namiesto tepovania ponúkneme ošetrenie koženej sedačky.</p>
 
     <h3 style="color:var(--navy);text-align:center;margin:34px 0 4px;font-size:1.3rem">Doplnkové služby (doplatky)</h3>
     <p class="note" style="margin-top:4px;margin-bottom:18px">K akémukoľvek balíku si môžete priplatiť za služby navyše. Ceny sú orientačné.</p>
     <div class="addons">
+      <div class="addon"><span>Tepovanie ako doplatok k Mini / Klasik</span><b>od 25 €</b></div>
+      <div class="addon"><span>Ošetrenie koženej sedačky</span><b>od 25 €</b></div>
       <div class="addon"><span>Umytie okien (nad rámec balíka)</span><b>od 15 €</b></div>
-      <div class="addon"><span>Tepovanie sedačky</span><b>od 25 €</b></div>
-      <div class="addon"><span>Tepovanie koberca</span><b>od 3 €/m&sup2;</b></div>
       <div class="addon"><span>Umytie rúry / spotrebičov</span><b>od 15 €</b></div>
       <div class="addon"><span>Pranie a výmena bielizne navyše</span><b>od 10 €</b></div>
     </div>
 
-    <div class="custom-box">
-      <h3>Máte viac nehnuteľností alebo firmu?</h3>
-      <p>Pre správcov apartmánov, viac bytov a pravidelné firemné upratovanie pripravíme cenu na mieru so zvýhodnenými sadzbami.</p>
-      <a href="#kontakt" class="btn">Vyžiadať cenu na mieru</a>
+    <div class="tepo-box">
+      <h3>Tepovanie aj samostatne</h3>
+      <p>Potrebujete len vytepovať sedačku alebo koberce, bez upratovania? Prídeme samostatne.</p>
+      <p class="big">Samostatné tepovanie: 40 € / hodina</p>
+      <p>V balíku Maxi je tepovanie zahrnuté (čas sa odčíta z času upratovania). K balíkom Mini a Klasik si ho doplatíte za zvýhodnenú cenu od 25 €. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.</p>
     </div>
 
-    <p class="note">Ceny sú konečné za uvedený rozsah balíka. Presný obsah upratovania prispôsobíme vašej nehnuteľnosti.</p>
-  </div>
-</section>
+    <div class="senior-box">
+      <div class="em">&#128150;</div>
+      <div>
+        <h3>Zvýhodnená ponuka pre dôchodcov a držiteľov ZŤP</h3>
+        <p>Zľava na všetky balíky, prednostné termíny a trpezlivý, ohľaduplný prístup. Stačí sa preukázať pri prvej návšteve.</p>
+      </div>
+      <div class="perc">−15 %</div>
+    </div>
 
-<section id="airbnb" class="airbnb">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Pre hostiteľov a správcov</div>
-      <h2>Upratovanie Airbnb &amp; Booking bez stresu</h2>
-      <p>Spravujete jeden byt alebo celé portfólio? Postaráme sa o turnover, aby boli vaše hodnotenia päťhviezdičkové.</p>
-    </div>
-    <div class="feat">
-      <div class="f"><h4>&#9201; Rýchly turnover</h4><p>Upratané a pripravené v dohodnutom okne medzi check-outom a check-inom.</p></div>
-      <div class="f"><h4>&#128719; Výmena bielizne</h4><p>Čistá posteľná bielizeň a uteráky v cene turnoveru. Možnosť náhradných setov.</p></div>
-      <div class="f"><h4>&#128241; Hlásenie stavu</h4><p>Upozorníme vás na chýbajúce zásoby, poškodenia alebo zabudnuté veci hostí.</p></div>
-      <div class="f"><h4>&#128176; Zľava pri viacerých bytoch</h4><p>Spravujete viac apartmánov? Dohodneme výhodnejšiu paušálnu cenu.</p></div>
-    </div>
-    <div class="airbnb-cta">
-      <a href="#kontakt" class="btn">Mám záujem o spoluprácu</a>
+    <div class="disclaimer">
+      <b>Dobré vedieť:</b> v prípade extrémneho znečistenia alebo zvolenia nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. Vždy sa vopred dohodneme.
     </div>
   </div>
 </section>
@@ -297,7 +307,7 @@
     <div class="grid">
       <div class="card"><div class="ic">&#9989;</div><h3>Spoľahlivosť</h3><p>Dochvíľnosť a konzistentný štandard pri každej návšteve. Na čo sa dohodneme, to platí.</p></div>
       <div class="card"><div class="ic">&#128274;</div><h3>Dôvera</h3><p>Poistenie zodpovednosti za škodu a diskrétny prístup k vášmu priestoru.</p></div>
-      <div class="card"><div class="ic">&#11088;</div><h3>Kvalita</h3><p>Pracujeme podľa kontrolného zoznamu — nič dôležité sa nevynechá.</p></div>
+      <div class="card"><div class="ic">&#11088;</div><h3>Kvalita</h3><p>Pracujeme podľa toho, čo si určíte — nič dôležité sa nevynechá.</p></div>
       <div class="card"><div class="ic">&#128172;</div><h3>Rýchla komunikácia</h3><p>Na dopyt sa ozveme do 24 hodín. Jednoduchá dohoda cez telefón či WhatsApp.</p></div>
     </div>
   </div>
@@ -310,29 +320,14 @@
       <h2>Možno vás zaujíma</h2>
     </div>
     <div class="faq-list">
-      <details open><summary>V akých častiach Bratislavy upratujete?</summary><p>Pôsobíme v celej Bratislave, s ťažiskom na centrum a Staré Mesto. Pri dopyte uveďte mestskú časť a radi potvrdíme dostupnosť.</p></details>
-      <details><summary>Musím byť doma počas upratovania?</summary><p>Nie. Po vzájomnej dohode a odovzdaní kľúčov (alebo cez kľúčový trezor pri Airbnb) zvládneme upratovanie aj počas vašej neprítomnosti.</p></details>
-      <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami. Ak preferujete konkrétne produkty, prispôsobíme sa.</p></details>
-      <details><summary>Čo ak balík nestačí alebo potrebujem niečo navyše?</summary><p>K akémukoľvek balíku si viete priplatiť doplnkové služby (okná, tepovanie, rúra). Pri väčšom rozsahu pripravíme cenu na mieru.</p></details>
-      <details><summary>Ako vás môžem kontaktovať a ako rýchlo sa ozvete?</summary><p>Vyplňte formulár nižšie alebo nám napíšte na WhatsApp/telefón. Na každý dopyt reagujeme do 24 hodín.</p></details>
+      <details open><summary>Ako sa určí, čo presne upracete?</summary><p>Pred upratovaním sa s vami dohodneme na prioritách — poviete, čomu sa máme v rámci času balíka venovať najviac (kúpeľňa, kuchyňa, okná, podlahy...). Robíme to, čo najviac potrebujete.</p></details>
+      <details><summary>Musíte si prísť priestor najprv pozrieť?</summary><p>Domácnosti (byty a domy) upratujeme bez obhliadky. Pri kanceláriách a iných priestoroch si dohodneme obhliadku, alebo nám pošlite fotky a na ich základe pripravíme ponuku.</p></details>
+      <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami — sú v cene balíka. Ak preferujete konkrétne produkty, prispôsobíme sa.</p></details>
+      <details><summary>Robíte tepovanie?</summary><p>Áno. V balíku Maxi je zahrnuté (čas tepovania sa odčíta z času upratovania). K Mini a Klasik si ho doplatíte za zvýhodnenú cenu, alebo prídeme len tepovať samostatne za 40 €/hod. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.</p></details>
+      <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>V prípade extrémneho znečistenia alebo nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. Vždy sa vopred dohodneme, aby nedošlo k prekvapeniu.</p></details>
+      <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky, prednostné termíny a ohľaduplný prístup. Stačí sa preukázať pri prvej návšteve.</p></details>
     </div>
   </div>
-</section>
-
-<section id="rezervacia">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Rezervujte online</div>
-      <h2>Rezervácia termínu</h2>
-      <p>Vyberte si službu a voľný termín — potvrdenie aj platbu vybavíte hneď online.</p>
-    </div>
-    <!-- Po spustení Reenia tento blok nahradíme živým rezervačným kalendárom (iFrame). -->
-    <div style="max-width:680px;margin:0 auto;text-align:center;background:var(--bg);border:1px dashed #c3d2e6;border-radius:16px;padding:46px 28px">
-      <div style="font-size:2.4rem;margin-bottom:10px">&#128197;</div>
-      <h3 style="color:var(--navy);font-size:1.3rem;margin-bottom:8px">Online rezervácia čoskoro</h3>
-      <p style="color:#5b6675;margin-bottom:22px">Pripravujeme rezervačný kalendár s online platbou. Dovtedy nám napíšte a termín potvrdíme do 24 hodín.</p>
-      <a href="#kontakt" class="btn">Dohodnúť termín</a>
-    </div>
 </section>
 
 <section id="kontakt" class="contact">
@@ -344,12 +339,12 @@
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <h3>Poriado — upratovanie Bratislava</h3>
+        <h3>Poriado — upratovanie Bratislava a okolie</h3>
         <div class="line"><div class="ic">&#128222;</div><div><b>+421 9XX XXX XXX</b><br><span style="color:#5b6675;font-size:.9rem">Po–Ne, 8:00–20:00</span></div></div>
         <div class="line"><div class="ic">&#9993;</div><div>info@poriado.sk</div></div>
         <div class="line"><div class="ic">&#128205;</div><div>Bratislava a okolie</div></div>
         <div class="line"><div class="ic">&#128241;</div><div>WhatsApp: +421 9XX XXX XXX</div></div>
-        <p style="color:#5b6675;font-size:.92rem;margin-top:10px">Nájdete nás aj na Google — pridajte hodnotenie po prvej návšteve.</p>
+        <p style="color:#5b6675;font-size:.92rem;margin-top:10px">Pre Airbnb, väčšie domy a kancelárie využite <a href="#" data-open-individ style="color:var(--blue);font-weight:600">individuálny dopyt</a>.</p>
       </div>
       <form id="dopyt-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
         <label for="meno">Meno</label>
@@ -358,18 +353,18 @@
         <input type="text" id="kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
         <label for="typ">Typ upratovania</label>
         <select id="typ" name="typ">
-          <option>Airbnb / krátkodobý prenájom</option>
           <option>Byt alebo dom</option>
           <option>Dôkladné / generálne upratovanie</option>
+          <option>Tepovanie</option>
           <option>Kancelária / prevádzka</option>
-          <option>Viac nehnuteľností / firma (cena na mieru)</option>
+          <option>Airbnb / iné priestory</option>
         </select>
         <label for="mc">Mestská časť</label>
         <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
         <label for="sprava">Správa</label>
         <textarea id="sprava" name="sprava" rows="3" placeholder="Veľkosť priestoru, balík, termín..."></textarea>
         <button type="submit" class="btn">Odoslať dopyt</button>
-        <p id="form-ok">Ďakujeme! Dopyt sme prijali, čoskoro sa vám ozveme.</p>
+        <p id="form-ok" class="form-ok">Ďakujeme! Dopyt sme prijali, do 24 hodín sa vám ozveme.</p>
       </form>
     </div>
   </div>
@@ -378,32 +373,90 @@
 <footer>
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
-    <p>Upratovanie Bratislava — Airbnb, byty, domy, kancelárie</p>
+    <p>Upratovanie Bratislava a okolie — byty, domy, kancelárie, tepovanie</p>
     <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
   </div>
 </footer>
 
+<div class="modal-overlay" id="individ-modal">
+  <div class="modal">
+    <button class="modal-close" id="individ-close" aria-label="Zavrieť">&times;</button>
+    <h3>Individuálny dopyt</h3>
+    <p class="sub">Pre Airbnb, väčšie domy, kancelárie a špeciálne priestory. Vyplňte a ozveme sa do 24 hodín s ponukou na mieru. Fotky priestoru môžete priložiť e-mailom.</p>
+    <form id="individ-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
+      <label for="i-typ">O aký priestor ide?</label>
+      <select id="i-typ" name="typ">
+        <option>Airbnb 1-izbový</option>
+        <option>Airbnb 2-izbový</option>
+        <option>Airbnb 3-izbový a viac</option>
+        <option>Dom</option>
+        <option>Kancelária / prevádzka</option>
+        <option>Iné priestory</option>
+      </select>
+      <label for="i-balik">Záujem o balík (nepovinné)</label>
+      <select id="i-balik" name="balik">
+        <option>— vyberte —</option>
+        <option>Mini (3 h)</option>
+        <option>Klasik (6 h)</option>
+        <option>Maxi (9 h)</option>
+        <option>Neviem, poradíte mi</option>
+      </select>
+      <label for="i-meno">Meno alebo firma</label>
+      <input type="text" id="i-meno" name="meno" required placeholder="Meno / názov firmy">
+      <label for="i-kontakt">Kontakt (telefón alebo e-mail)</label>
+      <input type="text" id="i-kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
+      <label for="i-mc">Mestská časť (nepovinné)</label>
+      <input type="text" id="i-mc" name="mestska_cast" placeholder="napr. Ružinov">
+      <label for="i-text">Správa</label>
+      <textarea id="i-text" name="text" rows="3" placeholder="Veľkosť priestoru, čo potrebujete, termín..."></textarea>
+      <button type="submit" class="btn">Odoslať dopyt</button>
+      <p id="individ-ok" class="form-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>
+    </form>
+  </div>
+</div>
+
 <script>
-  (function(){
-    var form = document.getElementById('dopyt-form');
+  function wireForm(formId, okId, beforeSend){
+    var form = document.getElementById(formId);
     if(!form) return;
     form.addEventListener('submit', function(ev){
       ev.preventDefault();
       var btn = form.querySelector('button[type=submit]');
       var orig = btn.textContent;
       btn.disabled = true; btn.textContent = 'Odosielam...';
-      fetch(form.action, { method:'POST', body:new FormData(form), mode:'no-cors' })
+      var fd = new FormData(form);
+      if(beforeSend) beforeSend(fd);
+      fetch(form.action, { method:'POST', body:fd, mode:'no-cors' })
         .then(function(){
           form.reset();
           btn.disabled = false; btn.textContent = orig;
-          document.getElementById('form-ok').style.display = 'block';
+          var ok = document.getElementById(okId);
+          if(ok) ok.style.display = 'block';
         })
         .catch(function(){
           btn.disabled = false; btn.textContent = orig;
           alert('Dopyt sa nepodarilo odoslať. Skúste znova alebo nám zavolajte.');
         });
     });
-  })();
+  }
+  wireForm('dopyt-form', 'form-ok');
+  wireForm('individ-form', 'individ-ok', function(fd){
+    var balik = fd.get('balik') || 'neuvedené';
+    var text = fd.get('text') || '';
+    fd.set('sprava', '[Individuálny dopyt] Záujem o balík: ' + balik + ' | ' + text);
+    fd.delete('text'); fd.delete('balik');
+  });
+
+  var modal = document.getElementById('individ-modal');
+  function openModal(){ if(modal) modal.classList.add('open'); }
+  function closeModal(){ if(modal) modal.classList.remove('open'); }
+  document.querySelectorAll('[data-open-individ]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+  });
+  var closeBtn = document.getElementById('individ-close');
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
 </script>
 
 </body>
