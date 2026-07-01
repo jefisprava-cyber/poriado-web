@@ -123,13 +123,16 @@
   .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#9aa6b5;cursor:pointer;line-height:1}
   .modal-close:hover{color:var(--navy)}
   .modal form{box-shadow:none;padding:0}
+  .modal-wide{max-width:1000px;padding:30px 22px}
+  #reenio-container{min-height:280px}
+  @media(max-width:640px){.modal-wide{padding:24px 12px}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <div class="logo">Poriado<span>.</span></div>
+    <a href="/" class="logo">Poriado<span>.</span></a>
     <nav class="nav-links">
       <a href="#ako">Ako to funguje</a>
       <a href="#sluzby">Služby</a>
@@ -146,7 +149,7 @@
     <h1>Spoľahlivé upratovanie v Bratislave a okolí — vy poviete čo, my to vyčistíme</h1>
     <p>Byty, domy aj kancelárie. Prídeme s vlastnými čistiacimi prostriedkami a vybavením a pred upratovaním sa s vami dohodneme, čomu sa v rámci času balíka venovať najviac. Domácnosti upratujeme bez obhliadky.</p>
     <div class="hero-cta">
-      <a href="#rezervacia" class="btn">Rezervovať termín</a>
+      <a href="#rezervacia" class="btn" data-open-rezervacia>Rezervovať termín</a>
       <a href="#kontakt" class="btn-ghost btn">Nezáväzný dopyt</a>
     </div>
     <div class="badges">
@@ -185,7 +188,7 @@
         <h3>Byty a domy</h3>
         <p>Jednorazové aj pravidelné upratovanie domácností. Bez obhliadky, s vlastnými prostriedkami a rozsahom podľa vašej dohody.</p>
         <div class="price">Balíčky od 79,90 €</div>
-      </div>info@poriado.sk
+      </div>
       <div class="card">
         <div class="ic">&#127970;</div>
         <h3>Kancelárie a prevádzky</h3>
@@ -301,7 +304,6 @@
   </div>
 </section>
 
-<!-- REZERVACIA -->
 <section id="rezervacia">
   <div class="wrap">
     <div class="section-head">
@@ -309,13 +311,13 @@
       <h2>Rezervácia termínu</h2>
       <p>Vyberte si balík a voľný termín — potvrdenie aj platbu vybavíte hneď online. Pre Airbnb, kancelárie a väčšie priestory využite <a href="#" data-open-individ style="color:var(--blue);font-weight:600">individuálny dopyt</a>.</p>
     </div>
-    <div style="max-width:940px;margin:0 auto">
-      <div class="reenio-iframe" data-size="auto"></div>
-      <script src="https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js" async defer></script>
+    <div style="text-align:center">
+      <button class="btn" data-open-rezervacia style="font-size:1.05rem;padding:15px 34px">Otvoriť rezervačný kalendár</button>
+      <p class="note" style="margin-top:16px">Vyberiete si termín a zaplatíte online. Pre Airbnb a väčšie priestory použite radšej dopyt vyššie.</p>
     </div>
   </div>
 </section>
-  
+
 <section class="why">
   <div class="wrap">
     <div class="section-head">
@@ -342,7 +344,6 @@
       <details><summary>Musíte si prísť priestor najprv pozrieť?</summary><p>Domácnosti (byty a domy) upratujeme bez obhliadky. Pri kanceláriách a iných priestoroch si dohodneme obhliadku, alebo nám pošlite fotky a na ich základe pripravíme ponuku.</p></details>
       <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami — sú v cene balíka. Ak preferujete konkrétne produkty, prispôsobíme sa.</p></details>
       <details><summary>Robíte tepovanie?</summary><p>Áno. V balíku Maxi je zahrnuté (čas tepovania sa odčíta z času upratovania). K Mini a Klasik si ho doplatíte za zvýhodnenú cenu, alebo prídeme len tepovať samostatne za 40 €/hod. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.</p></details>
-      <details><summary>A okná vo výške?</summary><p>Pri oknách vo výške, ktoré nie sú prístupné zvnútra, je potrebný rebrík — uveďte to v dopyte. Ak rebrík nemáte, donesieme vlastný za jednorazový príplatok 10 €.</p></details>
       <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>V prípade extrémneho znečistenia alebo nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. Vždy sa vopred dohodneme, aby nedošlo k prekvapeniu.</p></details>
       <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky, prednostné termíny a ohľaduplný prístup. Stačí sa preukázať pri prvej návšteve.</p></details>
     </div>
@@ -434,6 +435,17 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="rezervacia-modal">
+  <div class="modal modal-wide">
+    <button class="modal-close" id="rezervacia-close" aria-label="Zavrieť">&times;</button>
+    <h3>Rezervácia termínu</h3>
+    <p class="sub">Vyberte si balík a voľný termín — potvrdenie aj platbu vybavíte hneď online.</p>
+    <div id="reenio-container">
+      <div class="reenio-iframe" data-size="auto"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   function wireForm(formId, okId, beforeSend){
     var form = document.getElementById(formId);
@@ -475,7 +487,30 @@
   var closeBtn = document.getElementById('individ-close');
   if(closeBtn) closeBtn.addEventListener('click', closeModal);
   if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  var rezModal = document.getElementById('rezervacia-modal');
+  var reenioLoaded = false;
+  function openRez(){
+    if(!rezModal) return;
+    rezModal.classList.add('open');
+    if(!reenioLoaded){
+      var s = document.createElement('script');
+      s.src = 'https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js';
+      s.async = true; s.defer = true;
+      var c = document.getElementById('reenio-container');
+      if(c) c.appendChild(s);
+      reenioLoaded = true;
+    }
+  }
+  function closeRez(){ if(rezModal) rezModal.classList.remove('open'); }
+  document.querySelectorAll('[data-open-rezervacia]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openRez(); });
+  });
+  var rezCloseBtn = document.getElementById('rezervacia-close');
+  if(rezCloseBtn) rezCloseBtn.addEventListener('click', closeRez);
+  if(rezModal) rezModal.addEventListener('click', function(e){ if(e.target === rezModal) closeRez(); });
+
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); closeRez(); } });
 </script>
 
 </body>
