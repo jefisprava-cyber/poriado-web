@@ -367,22 +367,32 @@
         <p style="color:#5b6675;font-size:.92rem;margin-top:10px">Pre Airbnb, väčšie domy a kancelárie využite <a href="#" data-open-individ style="color:var(--blue);font-weight:600">individuálny dopyt</a>.</p>
       </div>
       <form id="dopyt-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
-        <label for="meno">Meno</label>
-        <input type="text" id="meno" name="meno" required placeholder="Vaše meno">
+        <label for="d-typ">O aký priestor ide?</label>
+        <select id="d-typ" name="typ">
+          <option>Byt</option>
+          <option>Rodinný dom / väčší byt</option>
+          <option>Airbnb / Booking 1-izbový</option>
+          <option>Airbnb / Booking 2-izbový</option>
+          <option>Airbnb / Booking 3-izbový a viac</option>
+          <option>Kancelária / prevádzka</option>
+          <option>Iné priestory</option>
+        </select>
+        <label for="d-balik">Záujem o balík (nepovinné)</label>
+        <select id="d-balik" name="balik">
+          <option>— vyberte —</option>
+          <option>Mini (3 h)</option>
+          <option>Klasik (6 h)</option>
+          <option>Maxi (9 h)</option>
+          <option>Neviem, poradíte mi</option>
+        </select>
+        <label for="meno">Meno alebo firma</label>
+        <input type="text" id="meno" name="meno" required placeholder="Meno / názov firmy">
         <label for="kontakt">Telefón alebo e-mail</label>
         <input type="text" id="kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
-        <label for="typ">Typ upratovania</label>
-        <select id="typ" name="typ">
-          <option>Byt alebo dom</option>
-          <option>Dôkladné / generálne upratovanie</option>
-          <option>Tepovanie</option>
-          <option>Kancelária / prevádzka</option>
-          <option>Airbnb / Booking / iné priestory</option>
-        </select>
         <label for="mc">Mestská časť</label>
         <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
-        <label for="sprava">Správa</label>
-        <textarea id="sprava" name="sprava" rows="3" placeholder="Veľkosť priestoru, balík, termín..."></textarea>
+        <label for="d-text">Správa</label>
+        <textarea id="d-text" name="text" rows="3" placeholder="Veľkosť priestoru, termín, čo potrebujete..."></textarea>
         <button type="submit" class="btn">Odoslať dopyt</button>
         <p id="form-ok" class="form-ok">Ďakujeme! Dopyt sme prijali, do 24 hodín sa vám ozveme.</p>
       </form>
@@ -406,6 +416,7 @@
     <form id="individ-form" action="https://script.google.com/macros/s/AKfycbzIiIEAz_2-dpqepUBaM8EbXvfylZm2qM88YAVjrRjSeTX9GJHoqutaxLadfpV_9LKG/exec" method="POST">
       <label for="i-typ">O aký priestor ide?</label>
       <select id="i-typ" name="typ">
+        <option>Byt</option>
         <option>Airbnb / Booking 1-izbový</option>
         <option>Airbnb / Booking 2-izbový</option>
         <option>Airbnb / Booking 3-izbový a viac</option>
@@ -470,13 +481,14 @@
         });
     });
   }
-  wireForm('dopyt-form', 'form-ok');
-  wireForm('individ-form', 'individ-ok', function(fd){
+function combineFields(fd){
     var balik = fd.get('balik') || 'neuvedené';
     var text = fd.get('text') || '';
-    fd.set('sprava', '[Individuálny dopyt] Záujem o balík: ' + balik + ' | ' + text);
+    fd.set('sprava', 'Balík: ' + balik + ' | ' + text);
     fd.delete('text'); fd.delete('balik');
-  });
+  }
+  wireForm('dopyt-form', 'form-ok', combineFields);
+  wireForm('individ-form', 'individ-ok', combineFields); 
 
   var modal = document.getElementById('individ-modal');
   function openModal(){ if(modal) modal.classList.add('open'); }
