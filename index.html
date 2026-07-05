@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Poriado — Upratovanie Bratislava a okolie | Byty, domy, kancelárie</title>
 <meta name="description" content="Spoľahlivé upratovanie v Bratislave a okolí. Vlastné čistiace prostriedky v cene, rozsah si určíte vy. Domácnosti bez obhliadky. Balíčky Mini, Klasik, Maxi.">
+  footer a{color:#9fc0e8}
+  .cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #e3eaf3;box-shadow:0 -8px 30px rgba(15,25,45,.12);padding:18px 0;display:none}
+  .cookie-banner.show{display:block}
+  .cookie-inner{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .cookie-text{flex:1;min-width:240px;font-size:.9rem;color:#33424f}
+  .cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .cookie-actions .btn{padding:10px 18px;font-size:.88rem}
+  .cookie-modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}
+  .cookie-modal-overlay.open{display:flex}
+  .cookie-modal{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto}
+  .cookie-modal h3{color:var(--navy);font-size:1.3rem;margin-bottom:14px}
+  .cookie-cat{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid #eef2f7}
+  .cookie-cat b{color:var(--navy);display:block;font-size:.98rem}
+  .cookie-cat span{color:#5b6675;font-size:.85rem}
+  .switch{position:relative;width:44px;height:24px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;inset:0;background:#c7cfda;border-radius:24px;cursor:pointer;transition:.2s}
+  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+  .switch input:checked+.slider{background:var(--accent)}
+  .switch input:checked+.slider:before{transform:translateX(20px)}
+  .switch input:disabled+.slider{background:var(--blue);opacity:.5;cursor:not-allowed}
+  .cookie-modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .cookie-modal-actions .btn{flex:1}
 <style>
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
@@ -405,6 +428,7 @@
     <div class="logo">Poriado<span>.</span></div>
     <p>Upratovanie Bratislava a okolie — byty, domy, kancelárie, tepovanie</p>
     <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
+    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
   </div>
 </footer>
 
@@ -457,6 +481,38 @@
   </div>
 </div>
 
+  <div class="cookie-banner" id="cookie-banner">
+  <div class="cookie-inner">
+    <div class="cookie-text"><b>Používame cookies.</b> Nevyhnutné sú vždy aktívne. Analytické a marketingové používame len s vaším súhlasom. Viac v <a href="ochrana-osobnych-udajov.html" style="color:var(--blue);font-weight:600">zásadách ochrany údajov</a>.</div>
+    <div class="cookie-actions">
+      <button class="btn btn-ghost" id="ck-settings">Nastavenia</button>
+      <button class="btn btn-ghost" id="ck-reject">Odmietnuť</button>
+      <button class="btn" id="ck-accept">Prijať všetko</button>
+    </div>
+  </div>
+</div>
+<div class="cookie-modal-overlay" id="cookie-modal">
+  <div class="cookie-modal">
+    <h3>Nastavenia cookies</h3>
+    <div class="cookie-cat">
+      <div><b>Nevyhnutné</b><span>Potrebné pre chod a bezpečnosť stránky. Vždy zapnuté.</span></div>
+      <label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label>
+    </div>
+    <div class="cookie-cat">
+      <div><b>Analytické</b><span>Anonymné štatistiky návštevnosti.</span></div>
+      <label class="switch"><input type="checkbox" id="ck-analytics"><span class="slider"></span></label>
+    </div>
+    <div class="cookie-cat">
+      <div><b>Marketingové</b><span>Meranie reklamy a remarketing.</span></div>
+      <label class="switch"><input type="checkbox" id="ck-marketing"><span class="slider"></span></label>
+    </div>
+    <div class="cookie-modal-actions">
+      <button class="btn btn-ghost" id="ck-save">Uložiť výber</button>
+      <button class="btn" id="ck-accept-all">Prijať všetko</button>
+    </div>
+  </div>
+</div>
+  
 <script>
   function wireForm(formId, okId, beforeSend){
     var form = document.getElementById(formId);
@@ -523,6 +579,34 @@ function combineFields(fd){
   if(rezModal) rezModal.addEventListener('click', function(e){ if(e.target === rezModal) closeRez(); });
 
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); closeRez(); } });
+  (function(){
+    var KEY='poriado_cookie_consent';
+    var banner=document.getElementById('cookie-banner');
+    var cmodal=document.getElementById('cookie-modal');
+    var aChk=document.getElementById('ck-analytics');
+    var mChk=document.getElementById('ck-marketing');
+    function save(consent){
+      try{ localStorage.setItem(KEY, JSON.stringify(consent)); }catch(e){}
+      if(banner) banner.classList.remove('show');
+      if(cmodal) cmodal.classList.remove('open');
+    }
+    var stored=null;
+    try{ stored=JSON.parse(localStorage.getItem(KEY)); }catch(e){}
+    if(!stored){ if(banner) banner.classList.add('show'); }
+    else { if(aChk) aChk.checked=!!stored.analytics; if(mChk) mChk.checked=!!stored.marketing; }
+    function on(id,fn){ var el=document.getElementById(id); if(el) el.addEventListener('click',fn); }
+    on('ck-accept', function(){ save({necessary:true,analytics:true,marketing:true}); });
+    on('ck-accept-all', function(){ save({necessary:true,analytics:true,marketing:true}); });
+    on('ck-reject', function(){ save({necessary:true,analytics:false,marketing:false}); });
+    on('ck-settings', function(){ if(cmodal) cmodal.classList.add('open'); });
+    on('ck-save', function(){ save({necessary:true, analytics:!!(aChk&&aChk.checked), marketing:!!(mChk&&mChk.checked)}); });
+    if(cmodal) cmodal.addEventListener('click', function(e){ if(e.target===cmodal) cmodal.classList.remove('open'); });
+    on('cookie-reopen', function(e){ e.preventDefault();
+      var s=null; try{ s=JSON.parse(localStorage.getItem(KEY)); }catch(er){}
+      if(s){ if(aChk) aChk.checked=!!s.analytics; if(mChk) mChk.checked=!!s.marketing; }
+      if(cmodal) cmodal.classList.add('open'); });
+  })();
+  
 </script>
 
 </body>
