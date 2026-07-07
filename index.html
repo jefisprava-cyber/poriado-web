@@ -186,6 +186,30 @@
   .cookie-modal-actions .btn{flex:1}
 </style>
 </head>
+
+<script>
+(function(){
+  var GA_ID='G-BN8T9S3MTS';   /* ← sem daj svoje Measurement ID */
+  var loaded=false;
+  function loadGA(){
+    if(loaded || GA_ID.indexOf('XXXX')>-1) return; loaded=true;
+    var s=document.createElement('script'); s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments);};
+    gtag('js', new Date()); gtag('config', GA_ID);
+  }
+  function check(){
+    try{ var c=JSON.parse(localStorage.getItem('poriado_cookie_consent')); if(c && c.analytics) loadGA(); }catch(e){}
+  }
+  check();
+  ['ck-accept','ck-accept-all','ck-save'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('click', function(){ setTimeout(check,120); });
+  });
+})();
+</script>
 <body>
 
 <header>
