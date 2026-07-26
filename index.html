@@ -298,6 +298,9 @@
   .galeria img{width:100%;height:230px;object-fit:cover;border-radius:14px;box-shadow:0 6px 18px rgba(31,56,100,.10);display:block}
   header{box-shadow:0 1px 8px rgba(0,0,0,.06),0 10px 30px rgba(228,178,96,.22)}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
+  .foto-input{width:100%;padding:10px;border:1.5px dashed var(--blue);border-radius:9px;background:#f7f9fc;font-size:.9rem;margin-bottom:4px}
+  .foto-note{font-size:.8rem;color:var(--muted);margin-bottom:12px}
+  .foto-stav{color:var(--accent);font-weight:700}
 </style>
 </head>
 <body>
@@ -591,7 +594,10 @@
         <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
         <label for="d-text">Správa</label>
         <textarea id="d-text" name="text" rows="3" placeholder="Veľkosť priestoru, termín, čo potrebujete..."></textarea>
-        <button type="submit" class="btn">Odoslať dopyt</button>
+          <label>Fotky priestoru (nepovinné, max 5)</label>
+        <input type="file" class="foto-input" accept="image/*" multiple>
+        <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
+      <button type="submit" class="btn">Odoslať dopyt</button>
         <p id="form-ok" class="form-ok">Ďakujeme! Dopyt sme prijali, do 24 hodín sa vám ozveme.</p>
       </form>
     </div>
@@ -639,6 +645,9 @@
       <input type="text" id="i-mc" name="mestska_cast" placeholder="napr. Ružinov">
       <label for="i-text">Správa</label>
       <textarea id="i-text" name="text" rows="3" placeholder="Veľkosť priestoru, čo potrebujete, termín..."></textarea>
+        <label>Fotky priestoru (nepovinné, max 5)</label>
+        <input type="file" class="foto-input" accept="image/*" multiple>
+        <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
       <button type="submit" class="btn">Odoslať dopyt</button>
       <p id="individ-ok" class="form-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>
     </form>
@@ -687,9 +696,42 @@
 </div>
 
 <script>
+
+  // fotky v dopytovych formularoch: kompresia v prehliadaci + pribalenie ako base64
+  function wireFotky(form){
+    var input=form.querySelector('.foto-input'); if(!input)return;
+    var stav=form.querySelector('.foto-stav');
+    form._fotky=[];
+    input.addEventListener('change',function(){
+      var subory=Array.prototype.slice.call(input.files,0,5);
+      form._fotky=[]; if(!subory.length){stav.textContent='';return;}
+      stav.textContent='Spracovávam fotky…';
+      var hotovo=0;
+      subory.forEach(function(f,i){
+        var img=new Image(), url=URL.createObjectURL(f);
+        img.onload=function(){
+          var max=1400, w=img.width, hgt=img.height;
+          if(w>max||hgt>max){var k=max/Math.max(w,hgt);w=Math.round(w*k);hgt=Math.round(hgt*k);}
+          var c=document.createElement('canvas');c.width=w;c.height=hgt;
+          c.getContext('2d').drawImage(img,0,0,w,hgt);
+          form._fotky[i]=c.toDataURL('image/jpeg',0.75).split(',')[1];
+          URL.revokeObjectURL(url);
+          if(++hotovo===subory.length)stav.textContent='✓ '+subory.length+' '+(subory.length===1?'fotka pripravená':(subory.length<5?'fotky pripravené':'fotiek pripravených'));
+        };
+        img.onerror=function(){if(++hotovo===subory.length)stav.textContent='';};
+        img.src=url;
+      });
+    });
+  }
+  function pridajFotky(form,fd){
+    var f=(form._fotky||[]).filter(Boolean);
+    fd.append('foto_count',f.length);
+    f.forEach(function(b,i){fd.append('foto_'+(i+1),b);});
+  }
   function wireForm(formId, okId, beforeSend){
     var form = document.getElementById(formId);
     if(!form) return;
+    wireFotky(form);
     form.addEventListener('submit', function(ev){
       ev.preventDefault();
       var btn = form.querySelector('button[type=submit]');
@@ -697,6 +739,7 @@
       btn.disabled = true; btn.textContent = 'Odosielam...';
       var fd = new FormData(form);
       if(beforeSend) beforeSend(fd);
+      pridajFotky(form, fd);
       fetch(form.action, { method:'POST', body:fd, mode:'no-cors' })
         .then(function(){
           form.reset();
@@ -801,7 +844,6 @@ function combineFields(fd){
   });
 })();
 </script>
-<script src="poriado-chat.js" defer></script>
-  
+
 </body>
 </html>
