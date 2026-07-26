@@ -588,8 +588,10 @@
         </select>
         <label for="meno">Meno alebo firma</label>
         <input type="text" id="meno" name="meno" required placeholder="Meno / názov firmy">
-        <label for="kontakt">Telefón alebo e-mail</label>
-        <input type="text" id="kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
+        <label for="telefon">Telefón</label>
+        <input type="tel" id="telefon" name="telefon" required placeholder="+421 900 000 000">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required placeholder="vas@email.sk">
         <label for="mc">Mestská časť</label>
         <input type="text" id="mc" name="mestska_cast" placeholder="napr. Staré Mesto">
         <label for="d-text">Správa</label>
@@ -639,8 +641,10 @@
       </select>
       <label for="i-meno">Meno alebo firma</label>
       <input type="text" id="i-meno" name="meno" required placeholder="Meno / názov firmy">
-      <label for="i-kontakt">Kontakt (telefón alebo e-mail)</label>
-      <input type="text" id="i-kontakt" name="kontakt" required placeholder="Kam vám máme odpovedať">
+      <label for="i-telefon">Telefón</label>
+      <input type="tel" id="i-telefon" name="telefon" required placeholder="+421 900 000 000">
+      <label for="i-email">E-mail</label>
+      <input type="email" id="i-email" name="email" required placeholder="vas@email.sk">
       <label for="i-mc">Mestská časť (nepovinné)</label>
       <input type="text" id="i-mc" name="mestska_cast" placeholder="napr. Ružinov">
       <label for="i-text">Správa</label>
@@ -701,13 +705,13 @@
   function wireFotky(form){
     var input=form.querySelector('.foto-input'); if(!input)return;
     var stav=form.querySelector('.foto-stav');
-    form._fotky=[];
-    input.addEventListener('change',function(){
-      var subory=Array.prototype.slice.call(input.files,0,5);
-      form._fotky=[]; if(!subory.length){stav.textContent='';return;}
+    form._fotky=[]; form._subory=[];
+    function prepocitaj(){
+      form._fotky=[];
+      if(!form._subory.length){stav.innerHTML='';return;}
       stav.textContent='Spracovávam fotky…';
-      var hotovo=0;
-      subory.forEach(function(f,i){
+      var hotovo=0, n=form._subory.length;
+      form._subory.forEach(function(f,i){
         var img=new Image(), url=URL.createObjectURL(f);
         img.onload=function(){
           var max=1400, w=img.width, hgt=img.height;
@@ -716,11 +720,24 @@
           c.getContext('2d').drawImage(img,0,0,w,hgt);
           form._fotky[i]=c.toDataURL('image/jpeg',0.75).split(',')[1];
           URL.revokeObjectURL(url);
-          if(++hotovo===subory.length)stav.textContent='✓ '+subory.length+' '+(subory.length===1?'fotka pripravená':(subory.length<5?'fotky pripravené':'fotiek pripravených'));
+          if(++hotovo===n)hotove();
         };
-        img.onerror=function(){if(++hotovo===subory.length)stav.textContent='';};
+        img.onerror=function(){if(++hotovo===n)hotove();};
         img.src=url;
       });
+      function hotove(){
+        var p=form._fotky.filter(Boolean).length;
+        stav.innerHTML='✓ '+p+' '+(p===1?'fotka pripravená':(p<5?'fotky pripravené':'fotiek pripravených'))+
+          ' &nbsp;<a href="#" class="foto-zmaz" style="color:#d64545">✕ vymazať</a>';
+        var z=stav.querySelector('.foto-zmaz');
+        if(z)z.onclick=function(ev){ev.preventDefault();form._subory=[];form._fotky=[];input.value='';stav.innerHTML='';};
+      }
+    }
+    input.addEventListener('change',function(){
+      var nove=Array.prototype.slice.call(input.files);
+      for(var i=0;i<nove.length&&form._subory.length<5;i++)form._subory.push(nove[i]);
+      input.value='';           // umozni pridat dalsie po jednej
+      prepocitaj();
     });
   }
   function pridajFotky(form,fd){
@@ -743,6 +760,8 @@
       fetch(form.action, { method:'POST', body:fd, mode:'no-cors' })
         .then(function(){
           form.reset();
+          form._subory=[]; form._fotky=[];
+          var st=form.querySelector('.foto-stav'); if(st)st.innerHTML='';
           btn.disabled = false; btn.textContent = orig;
           var ok = document.getElementById(okId);
           if(ok) ok.style.display = 'block';
