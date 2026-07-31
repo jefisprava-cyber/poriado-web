@@ -300,6 +300,9 @@
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
   .foto-input{width:100%;padding:10px;border:1.5px dashed var(--blue);border-radius:9px;background:#f7f9fc;font-size:.9rem;margin-bottom:4px}
   .foto-note{font-size:.8rem;color:var(--muted);margin-bottom:12px}
+  .gdpr-check{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:2px 0 14px;font-weight:400}
+  .gdpr-check input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--blue)}
+  .gdpr-check a{color:var(--blue);text-decoration:underline}
   .foto-stav{color:var(--accent);font-weight:700}
 </style>
 </head>
@@ -599,6 +602,7 @@
           <label>Fotky priestoru (nepovinné, max 5)</label>
         <input type="file" class="foto-input" accept="image/*" multiple>
         <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
+      <label class="gdpr-check"><input type="checkbox" required> Potvrdzujem, že som sa oboznámil/a so <a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</label>
       <button type="submit" class="btn">Odoslať dopyt</button>
         <p id="form-ok" class="form-ok">Ďakujeme! Dopyt sme prijali, do 24 hodín sa vám ozveme.</p>
       </form>
@@ -652,6 +656,7 @@
         <label>Fotky priestoru (nepovinné, max 5)</label>
         <input type="file" class="foto-input" accept="image/*" multiple>
         <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
+      <label class="gdpr-check"><input type="checkbox" required> Potvrdzujem, že som sa oboznámil/a so <a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</label>
       <button type="submit" class="btn">Odoslať dopyt</button>
       <p id="individ-ok" class="form-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>
     </form>
