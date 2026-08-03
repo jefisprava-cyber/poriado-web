@@ -45,7 +45,7 @@
       a: "Áno! Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte od 25 €, alebo prídeme len tepovať samostatne za 40 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
     { q: "📅 Ako si rezervujem termín?",
-      a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Následne vám e-mailom príde faktúra s QR kódom, uhradíte ju pohodlne prevodom.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },
+      a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Zaplatíte podľa výberu: kartou online hneď pri rezervácii, alebo prevodom cez faktúru s QR kódom, ktorá príde e-mailom.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },
     { q: "💖 Máte zľavy?",
       a: "Áno — dôchodcom a držiteľom preukazu ZŤP ponúkame trvalú zľavu 15 % na všetky balíky. Stačí sa preukázať pri prvej návšteve." },
     { q: "🏢 Kancelárie / Airbnb?",
