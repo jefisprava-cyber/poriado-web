@@ -868,6 +868,31 @@ function combineFields(fd){
   });
 })();
 </script>
+<script>
+/* Meta Pixel — spusti sa LEN po súhlase s marketingovými cookies */
+(function(){
+  var PIXEL_ID='939652179152863';
+  var loaded=false;
+  function loadPixel(){
+    if(loaded) return; loaded=true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+  function check(){
+    try{ var c=JSON.parse(localStorage.getItem('poriado_cookie_consent')); if(c && c.marketing) loadPixel(); }catch(e){}
+  }
+  check();
+  ['ck-accept','ck-accept-all','ck-save'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('click', function(){ setTimeout(check,150); });
+  });
+})();
+</script>
 
 </body>
 </html>
