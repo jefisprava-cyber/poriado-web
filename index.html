@@ -168,7 +168,15 @@
   .btn:hover{background:var(--navy);transform:translateY(-1px)}
   .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
   .btn-ghost:hover{background:var(--blue);color:#fff}
-  @media(max-width:820px){.nav-links a:not(.btn){display:none}}
+  .nav{position:relative}
+  .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:4px 10px}
+  @media(max-width:820px){
+    .nav-burger{display:block}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(15,25,45,.14);border-top:1px solid #eef2f7}
+    .nav-links.open{display:flex}
+    .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
+    .nav-links .btn{margin:12px 24px 0;text-align:center}
+  }
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:92px 0 100px;position:relative;overflow:hidden}
   .hero h1{font-size:2.6rem;line-height:1.2;font-weight:800;max-width:780px;margin-bottom:20px;letter-spacing:-.5px}
   .hero p{font-size:1.16rem;max-width:640px;opacity:.94;margin-bottom:32px;line-height:1.65}
@@ -311,7 +319,8 @@
 <header>
   <div class="wrap nav">
     <a href="/" class="logo">Poriado<span>.</span></a>
-    <nav class="nav-links">
+    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
+    <nav class="nav-links" id="nav-links">
       <a href="#ako">Ako to funguje</a>
       <a href="#sluzby">Služby</a>
       <a href="#cennik">Cenník</a>
@@ -746,6 +755,10 @@
       prepocitaj();
     });
   }
+  function konverzia(gaNazov, fbNazov){
+    try{ if(window.gtag) gtag('event', gaNazov); }catch(e){}
+    try{ if(window.fbq) fbq('track', fbNazov); }catch(e){}
+  }
   function pridajFotky(form,fd){
     var f=(form._fotky||[]).filter(Boolean);
     fd.append('foto_count',f.length);
@@ -771,6 +784,7 @@
           btn.disabled = false; btn.textContent = orig;
           var ok = document.getElementById(okId);
           if(ok) ok.style.display = 'block';
+          konverzia('generate_lead','Lead');
         })
         .catch(function(){
           btn.disabled = false; btn.textContent = orig;
@@ -800,6 +814,7 @@ function combineFields(fd){
   function openRez(){
     if(!rezModal) return;
     rezModal.classList.add('open');
+    konverzia('begin_checkout','InitiateCheckout');
     if(!reenioLoaded){
       var s = document.createElement('script');
       s.src = 'https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js';
@@ -817,6 +832,13 @@ function combineFields(fd){
   if(rezCloseBtn) rezCloseBtn.addEventListener('click', closeRez);
   if(rezModal) rezModal.addEventListener('click', function(e){ if(e.target === rezModal) closeRez(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); closeRez(); } });
+  (function(){
+    var nb=document.getElementById('nav-burger'), nl=document.getElementById('nav-links');
+    if(nb&&nl){
+      nb.addEventListener('click',function(){ nl.classList.toggle('open'); });
+      nl.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ nl.classList.remove('open'); }); });
+    }
+  })();
   (function(){
     var KEY='poriado_cookie_consent';
     var banner=document.getElementById('cookie-banner');
