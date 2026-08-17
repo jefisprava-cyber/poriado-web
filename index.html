@@ -824,7 +824,7 @@ function combineFields(fd){
   function openRez(){
     if(!rezModal) return;
     rezModal.classList.add('open');
-    konverzia('begin_checkout','Lead');   /* Meta: Lead na zelanie marketingu; GA ostava begin_checkout */
+    konverzia('begin_checkout','InitiateCheckout');   /* Meta: InitiateCheckout (zmenene z Lead) - Lead sa posiela len po realnom odoslani dopytu; GA ostava begin_checkout */
     if(!reenioLoaded){
       var s = document.createElement('script');
       s.src = 'https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js';
