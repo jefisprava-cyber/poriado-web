@@ -49,8 +49,21 @@
     { q: "💖 Máte zľavy?",
       a: "Áno — dôchodcom a držiteľom preukazu ZŤP ponúkame trvalú zľavu 15 % na všetky balíky. Stačí sa preukázať pri prvej návšteve." },
     { q: "🏢 Kancelárie / Airbnb?",
-      a: "Kancelárie, prevádzky aj Airbnb apartmány riešime individuálne — pošlite nám nezáväzný dopyt a do 24 hodín dostanete ponuku na mieru. Obhliadka je zdarma.",
-      link: { text: "Nezáväzný dopyt →", href: "/#kontakt" } }
+      a: "Kancelárie, prevádzky aj Airbnb apartmány riešime individuálne — pošlite nám individuálny dopyt a do 24 hodín dostanete ponuku na mieru. Obhliadka je zdarma.",
+      link: { text: "Individuálny dopyt →", href: "/#individ" } },
+    { q: "👀 Musíte si priestor najprv pozrieť?",
+      a: "Domácnosti (byty a domy) upratujeme bez obhliadky — stačí si vybrať balík a termín.\n\nPri kanceláriách a iných priestoroch si dohodneme obhliadku a pripravíme vám ponuku na mieru." },
+    { q: "👥 Koľko ľudí príde upratovať?",
+      a: "Štandardne príde jedna upratovačka. Ak máme voľné kapacity, pošleme dve — čas upratovania sa vtedy skráti na polovicu.\n\nRozsah práce aj cena balíka zostávajú rovnaké." },
+    { q: "💳 Ako prebieha platba?",
+      a: "Vyberte si, čo vám vyhovuje:\n\n• kartou online priamo pri rezervácii\n• bankovým prevodom — do 24 hodín pošleme e-mailom faktúru s QR kódom, splatnú do 24 hodín od doručenia\n\nHotovosť neprijímame. Firmám radi vystavíme faktúru na IČO." },
+    { q: "🔄 Môžem zmeniť alebo zrušiť termín?",
+      a: "Áno. Termín zrušíte bezplatne najneskôr 24 hodín pred začiatkom priamo v rezervácii.\n\nAk ho chcete len presunúť, napíšte na info@poriado.sk alebo zavolajte na +421 949 076 917 (Po–Pi 8:00–17:00) — zmeníme ho bez poplatku.\n\nPri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny." },
+    { q: "⚠️ Čo ak je priestor veľmi znečistený?",
+      a: "Pri extrémnom znečistení alebo ak zvolený balík nestačí na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok.\n\nVždy sa dohodneme priamo na mieste ešte pred začatím upratovania — žiadne prekvapenia." },
+    { q: "📍 Pôsobíte aj mimo Bratislavy?",
+      a: "Zatiaľ upratujeme výhradne v Bratislave — doprava po celom meste je v cene.\n\nAk ste z blízkeho okolia, ozvite sa nám — po dohode vieme prísť aj k vám.",
+      link: { text: "Kontaktovať nás →", href: "/#kontakt" } }
   ];
 
   function el(tag, cls, html) {
