@@ -137,13 +137,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .pack .pname{color:var(--ink);font-weight:800;font-size:1.35rem;margin:10px 0 18px;letter-spacing:-.02em}
   .pack .amt{font-size:clamp(2.6rem,4.6vw,3.4rem);font-weight:800;color:var(--ink);line-height:.92;letter-spacing:-.045em}
   .pack .ideal{color:var(--ink-2);font-size:.9rem;margin-top:14px;padding-top:18px;border-top:1px solid var(--line)}
-  /* zvyrazneny balik: inverzny, tmavy */
-  .pack.popular{background:var(--ink);border-color:var(--ink)}
-  .pack.popular .hrs{color:#9aa3b0}
-  .pack.popular .pname,.pack.popular .amt{color:var(--paper)}
-  .pack.popular .ideal{color:#a8b0bc;border-top-color:rgba(255,255,255,.14)}
-  .pack.popular .pfeat li{color:#c3c9d2}
-  .pack.popular .pfeat .tick{color:var(--gold)}
 
   /* ---------- POROVNANIE (rozbalovacie) ---------- */
   details{border:1px solid var(--line);border-radius:0;background:var(--white);overflow:hidden}
@@ -157,7 +150,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   table.ftable th{background:var(--paper-2);color:var(--ink);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em}
   table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
   table.ftable td{color:var(--ink-2)}
-  table.ftable .yes{color:var(--ink);font-weight:800}
+  table.ftable .yes{color:var(--gold-ink);font-weight:800}
   table.ftable .no{color:var(--ink-2)}
 
   /* ---------- MOBILNE MENU ---------- */
@@ -234,7 +227,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .hero p{font-size:1.1rem;color:var(--ink-2);max-width:440px;margin-bottom:28px;line-height:1.6}
   .hero-list{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:0;max-width:460px;border-top:1px solid var(--line)}
   .hero-list li{display:flex;align-items:center;gap:12px;font-size:.95rem;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--line)}
-  .hero-list .tick{color:var(--ink);font-weight:800;flex:none;font-size:.9rem}
   .hero-micro{font-size:.84rem;color:var(--ink-2);margin-top:16px}
   .hero-foto{position:relative;border-radius:0;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2)}
   .hero-foto img{width:100%;height:100%;object-fit:cover}
@@ -247,7 +239,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   /* ---------- BALIKY: doplnky ---------- */
   .pack .pfeat{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:9px;flex-grow:1}
   .pack .pfeat li{display:flex;gap:9px;align-items:flex-start;font-size:.88rem;color:var(--ink-2);line-height:1.45}
-  .pack .pfeat .tick{color:var(--ink);font-weight:800;flex:none}
   .pack .btn-cta{margin-top:24px;width:100%;font-size:.94rem;padding:14px 18px;min-height:50px}
   .porovnanie{max-width:100%;margin:22px 0 0}
   .namieru{color:var(--ink-2);font-size:.95rem;margin-top:26px}
@@ -257,10 +248,10 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
 
   /* ---------- AKO TO FUNGUJE: velke cislice ---------- */
   .kroky{display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:k;border-top:1px solid var(--line)}
-  .krok{counter-increment:k;padding:36px 32px 36px 0;border-bottom:1px solid var(--line);position:relative}
-  .krok+.krok{border-left:1px solid var(--line);padding-left:32px}
-  .krok::before{content:counter(k);display:block;font-size:3.4rem;font-weight:800;color:var(--paper-2);line-height:.85;letter-spacing:-.05em;margin-bottom:14px}
-  .krok p{color:var(--ink);font-size:1.02rem;margin:0;font-weight:600;line-height:1.4}
+  .krok{counter-increment:k;padding:22px 28px 22px 0;border-bottom:1px solid var(--line);position:relative}
+  .krok+.krok{border-left:1px solid var(--line);padding-left:28px}
+  .krok::before{content:counter(k);display:block;font-size:2.2rem;font-weight:800;color:var(--line);line-height:.9;letter-spacing:-.05em;margin-bottom:8px}
+  .krok p{color:var(--ink);font-size:.95rem;margin:0;font-weight:600;line-height:1.35}
   @media(max-width:760px){
     .kroky{grid-template-columns:1fr}
     .krok,.krok+.krok{padding:26px 0;border-left:none;padding-left:0}
@@ -349,11 +340,12 @@ if(window.PORIADO_DEMO){
       <div class="hero-text">
         <div class="kicker">Upratovanie v Bratislave</div>
         <h1>Upratovanie bytu od <span class="cena">79,90 €</span></h1>
-        <p>Rezervácia online do minúty. Prídeme s vlastnými prostriedkami, priority určíte vy.</p>
         <ul class="hero-list">
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Jasná cena vopred, bez skrytých poplatkov</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Bez obhliadky — rezervujete rovno online</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Zrušenie zdarma do 24 h pred termínom</li>
+          <li>Jasná cena vopred, bez skrytých poplatkov</li>
+          <li>Bez obhliadky — rezervujete rovno online</li>
+          <li>Zrušenie zdarma do 24 h pred termínom</li>
+          <li>Prídeme s vlastnými prostriedkami</li>
+          <li>Doprava v Bratislave zadarmo</li>
         </ul>
         <div class="hero-cta">
           <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať termín</a>
@@ -393,7 +385,6 @@ if(window.PORIADO_DEMO){
     <div class="section-head">
       <div class="kicker">Transparentné ceny</div>
       <h2>Vyberte si balík</h2>
-      <p>Cena je konečná. V rámci času balíka sa venujeme tomu, čo si určíte vy.</p>
     </div>
     <div class="packs">
       <div class="pack">
@@ -402,9 +393,9 @@ if(window.PORIADO_DEMO){
         <div class="amt">79,90 €</div>
         <div class="ideal">Menší byt alebo udržiavacie upratovanie.</div>
         <ul class="pfeat">
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Prach, povrchy a podlahy</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Dezinfekcia kúpeľne a WC</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Kuchyňa — povrchy a drez</li>
+          <li>Prach, povrchy a podlahy</li>
+          <li>Dezinfekcia kúpeľne a WC</li>
+          <li>Kuchyňa — povrchy a drez</li>
         </ul>
         <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať Mini</a>
       </div>
@@ -415,9 +406,9 @@ if(window.PORIADO_DEMO){
         <div class="amt">129,90 €</div>
         <div class="ideal">Väčší byt alebo dôkladnejšie upratovanie.</div>
         <ul class="pfeat">
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Všetko z balíka Mini</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Umytie okien a balkón</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Kuchyňa do hĺbky (linka, obklady)</li>
+          <li>Všetko z balíka Mini</li>
+          <li>Umytie okien a balkón</li>
+          <li>Kuchyňa do hĺbky (linka, obklady)</li>
         </ul>
         <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať Klasik</a>
       </div>
@@ -427,9 +418,9 @@ if(window.PORIADO_DEMO){
         <div class="amt">169,90 €</div>
         <div class="ideal">Dom alebo generálne upratovanie.</div>
         <ul class="pfeat">
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Všetko z balíka Klasik</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Tepovanie sedačky alebo kobercov</li>
-          <li><span class="tick" aria-hidden="true">&#10003;</span>Generálka celej nehnuteľnosti</li>
+          <li>Všetko z balíka Klasik</li>
+          <li>Tepovanie sedačky alebo kobercov</li>
+          <li>Generálka celej nehnuteľnosti</li>
         </ul>
         <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať Maxi</a>
       </div>
@@ -470,7 +461,7 @@ if(window.PORIADO_DEMO){
     <div class="kroky">
       <div class="krok"><p>Vyberiete balík a termín online</p></div>
       <div class="krok"><p>Poviete nám priority</p></div>
-      <div class="krok"><p>Prídeme s vlastnými prostriedkami a upraceme</p></div>
+      <div class="krok"><p>Prídeme a upraceme</p></div>
     </div>
   </div>
 </section>
