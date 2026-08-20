@@ -112,8 +112,10 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .nav-burger{display:none;background:none;border:none;font-size:24px;line-height:1;color:var(--ink);cursor:pointer;padding:4px 10px}
 
   /* ---------- TLACIDLA ---------- */
-  .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:999px;font-weight:650;transition:.18s ease;border:none;cursor:pointer;font-size:.92rem;letter-spacing:.01em}
+  .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:0;font-weight:650;transition:.18s ease;border:none;cursor:pointer;font-size:.92rem;letter-spacing:.01em}
   .btn:hover{background:#000;transform:translateY(-1px)}
+  .nav-links a.btn{color:var(--gold)}
+  .nav-links a.btn:hover{background:var(--gold);color:var(--ink)}
   .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
   .btn-ghost:hover{background:var(--ink);color:var(--paper)}
 
@@ -128,9 +130,9 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
 
   /* ---------- BALIKY (bento, oversized ceny) ---------- */
   .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .pack{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:32px 28px 28px;position:relative;display:flex;flex-direction:column;transition:.2s ease}
+  .pack{background:var(--white);border:1px solid var(--line);border-radius:0;padding:32px 28px 28px;position:relative;display:flex;flex-direction:column;transition:.2s ease}
   .pack:hover{transform:translateY(-4px);border-color:#cfc6b8}
-  .pack .tag{position:absolute;top:20px;right:20px;background:var(--gold-ink);color:#fff;font-size:.66rem;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.1em;text-transform:uppercase}
+  .pack .tag{position:absolute;top:20px;right:20px;background:var(--gold-ink);color:#fff;font-size:.66rem;font-weight:700;padding:5px 11px;border-radius:0;letter-spacing:.1em;text-transform:uppercase}
   .pack .hrs{color:var(--ink-2);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em}
   .pack .pname{color:var(--ink);font-weight:800;font-size:1.35rem;margin:10px 0 18px;letter-spacing:-.02em}
   .pack .amt{font-size:clamp(2.6rem,4.6vw,3.4rem);font-weight:800;color:var(--ink);line-height:.92;letter-spacing:-.045em}
@@ -141,10 +143,10 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .pack.popular .pname,.pack.popular .amt{color:var(--paper)}
   .pack.popular .ideal{color:#a8b0bc;border-top-color:rgba(255,255,255,.14)}
   .pack.popular .pfeat li{color:#c3c9d2}
-  .pack.popular .pfeat .tick{color:#4fd4a0}
+  .pack.popular .pfeat .tick{color:var(--gold)}
 
   /* ---------- POROVNANIE (rozbalovacie) ---------- */
-  details{border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+  details{border:1px solid var(--line);border-radius:0;background:var(--white);overflow:hidden}
   summary{padding:20px 24px;font-weight:700;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.98rem}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";font-size:1.5rem;color:var(--gold-ink);font-weight:300;line-height:1}
@@ -155,7 +157,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   table.ftable th{background:var(--paper-2);color:var(--ink);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em}
   table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
   table.ftable td{color:var(--ink-2)}
-  table.ftable .yes{color:var(--accent-ink);font-weight:800}
+  table.ftable .yes{color:var(--ink);font-weight:800}
   table.ftable .no{color:var(--ink-2)}
 
   /* ---------- MOBILNE MENU ---------- */
@@ -166,17 +168,17 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     .nav-links a:not(.btn){display:block;padding:14px 24px;border-bottom:1px solid var(--line);font-size:1rem;color:var(--ink)}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
-  form{background:#fff;padding:30px;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07)}
+  form{background:#fff;padding:30px;border-radius:0;box-shadow:0 10px 30px rgba(31,56,100,.07)}
   form label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy)}
-  form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem}
+  form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:0;margin-bottom:16px;font-family:inherit;font-size:.97rem}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue)}
   form .btn{width:100%}
-  .form-ok{display:none;color:var(--accent-ink);font-weight:700;text-align:center;margin-top:14px}
+  .form-ok{display:none;color:var(--ink);font-weight:700;text-align:center;margin-top:14px}
   footer{background:var(--navy);color:#c5d3e6;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
   .modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}
   .modal-overlay.open{display:flex}
-  .modal{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+  .modal{background:#fff;border-radius:0;max-width:560px;width:100%;padding:34px 30px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35)}
   .modal h3{color:var(--navy);font-size:1.4rem;margin-bottom:6px}
   .modal .sub{color:#5b6675;font-size:.95rem;margin-bottom:20px;line-height:1.55}
   .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#9aa6b5;cursor:pointer;line-height:1}
@@ -194,33 +196,33 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .cookie-actions .btn{padding:10px 18px;font-size:.88rem}
   .cookie-modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}
   .cookie-modal-overlay.open{display:flex}
-  .cookie-modal{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto}
+  .cookie-modal{background:#fff;border-radius:0;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto}
   .cookie-modal h3{color:var(--navy);font-size:1.3rem;margin-bottom:14px}
   .cookie-cat{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid #eef2f7}
   .cookie-cat b{color:var(--navy);display:block;font-size:.98rem}
   .cookie-cat span{color:#5b6675;font-size:.85rem}
   .switch{position:relative;width:44px;height:24px;flex-shrink:0}
   .switch input{opacity:0;width:0;height:0}
-  .slider{position:absolute;inset:0;background:#c7cfda;border-radius:24px;cursor:pointer;transition:.2s}
-  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
-  .switch input:checked+.slider{background:var(--accent)}
+  .slider{position:absolute;inset:0;background:#c7cfda;border-radius:0;cursor:pointer;transition:.2s}
+  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:0;transition:.2s}
+  .switch input:checked+.slider{background:var(--ink)}
   .switch input:checked+.slider:before{transform:translateX(20px)}
   .switch input:disabled+.slider{background:var(--blue);opacity:.5;cursor:not-allowed}
   .cookie-modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
   .cookie-modal-actions .btn{flex:1}
-  .pack-img{width:100%;height:118px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block}
+  .pack-img{width:100%;height:118px;object-fit:cover;border-radius:0;margin-bottom:12px;display:block}
   header{box-shadow:0 1px 8px rgba(0,0,0,.06),0 10px 30px rgba(228,178,96,.22)}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
-  .foto-input{width:100%;padding:10px;border:1.5px dashed var(--blue);border-radius:9px;background:#f7f9fc;font-size:.9rem;margin-bottom:4px}
+  .foto-input{width:100%;padding:10px;border:1.5px dashed var(--blue);border-radius:0;background:#f7f9fc;font-size:.9rem;margin-bottom:4px}
   .foto-note{font-size:.8rem;color:var(--muted);margin-bottom:12px}
   .gdpr-check{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:2px 0 14px;font-weight:400}
-  .gdpr-check input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--blue)}
+  .gdpr-check input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--ink)}
   .gdpr-check a{color:var(--blue);text-decoration:underline}
-  .foto-stav{color:var(--accent-ink);font-weight:700}
+  .foto-stav{color:var(--ink);font-weight:700}
   /* ============ REDIZAJN: odvazny minimalizmus ============ */
   /* zelene konverzne CTA - jediny farebny prvok, ktory nieco spusta */
-  .btn-cta{background:var(--accent-ink);color:#fff;font-size:1rem;padding:17px 34px;min-height:54px;border-radius:999px;font-weight:700;letter-spacing:.005em;box-shadow:none}
-  .btn-cta:hover{background:#0b6142;color:#fff;transform:translateY(-2px)}
+  .btn-cta{background:var(--ink);color:var(--gold);font-size:1rem;padding:17px 34px;min-height:54px;border-radius:0;font-weight:700;letter-spacing:.02em;box-shadow:none;border:1px solid var(--ink)}
+  .btn-cta:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:translateY(-2px)}
   .btn-cta:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
 
   /* ---------- HERO: asymetricky split, oversized typografia ---------- */
@@ -232,9 +234,9 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .hero p{font-size:1.1rem;color:var(--ink-2);max-width:440px;margin-bottom:28px;line-height:1.6}
   .hero-list{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:0;max-width:460px;border-top:1px solid var(--line)}
   .hero-list li{display:flex;align-items:center;gap:12px;font-size:.95rem;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--line)}
-  .hero-list .tick{color:var(--accent-ink);font-weight:800;flex:none;font-size:.9rem}
+  .hero-list .tick{color:var(--ink);font-weight:800;flex:none;font-size:.9rem}
   .hero-micro{font-size:.84rem;color:var(--ink-2);margin-top:16px}
-  .hero-foto{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2)}
+  .hero-foto{position:relative;border-radius:0;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2)}
   .hero-foto img{width:100%;height:100%;object-fit:cover}
   @media(max-width:900px){
     .hero-grid{grid-template-columns:1fr;gap:36px;min-height:0;padding:44px 0 52px}
@@ -245,7 +247,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   /* ---------- BALIKY: doplnky ---------- */
   .pack .pfeat{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:9px;flex-grow:1}
   .pack .pfeat li{display:flex;gap:9px;align-items:flex-start;font-size:.88rem;color:var(--ink-2);line-height:1.45}
-  .pack .pfeat .tick{color:var(--accent-ink);font-weight:800;flex:none}
+  .pack .pfeat .tick{color:var(--ink);font-weight:800;flex:none}
   .pack .btn-cta{margin-top:24px;width:100%;font-size:.94rem;padding:14px 18px;min-height:50px}
   .porovnanie{max-width:100%;margin:22px 0 0}
   .namieru{color:var(--ink-2);font-size:.95rem;margin-top:26px}
@@ -265,7 +267,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   }
 
   /* ---------- DOVERA: vlasove linky, ziadne boxy ---------- */
-  .cipy{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .cipy{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:0;overflow:hidden}
   .cip{background:var(--paper-2);padding:30px 22px;font-weight:700;color:var(--ink);font-size:.95rem;line-height:1.35}
   .cip .ci{display:block;font-size:1.3rem;margin-bottom:12px;opacity:.85}
   @media(max-width:860px){.cipy{grid-template-columns:repeat(2,1fr)}}
@@ -293,9 +295,22 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .mlista .btn-cta{margin-left:auto;flex:1;max-width:210px;padding:13px 16px;font-size:.94rem;min-height:48px}
   @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:76px}}
 
+  /* ---------- GOOGLE HODNOTENIE (pas medzi hero a balikmi) ---------- */
+  .recenzie{padding:0;background:var(--paper)}
+  .rev-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;transition:.18s ease}
+  .rev-bar:hover{background:var(--paper-2)}
+  .rev-g{width:34px;height:34px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:var(--ink);flex:none;background:var(--white)}
+  .rev-num{font-size:1.6rem;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.03em}
+  .rev-stars{color:var(--gold-ink);letter-spacing:3px;font-size:1.05rem;white-space:nowrap}
+  .rev-count{color:var(--ink-2);font-size:.92rem}
+  .rev-cta{margin-left:auto;color:var(--ink);font-weight:700;font-size:.92rem;white-space:nowrap;border-bottom:2px solid var(--gold)}
+  @media(max-width:640px){
+    .rev-bar{gap:10px 14px;padding:18px 0}
+    .rev-cta{margin-left:0;width:100%;margin-top:4px}
+  }
   /* ---------- POVEDALI O NAS (pripravene) ---------- */
   .rk{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .rk-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px 26px}
+  .rk-card{background:var(--white);border:1px solid var(--line);border-radius:0;padding:28px 26px}
   .rk-card .hv{color:var(--gold-ink);letter-spacing:3px;margin-bottom:14px}
   .rk-card blockquote{color:var(--ink);font-size:1.02rem;line-height:1.55;margin:0 0 16px;letter-spacing:-.01em}
   .rk-card figcaption{color:var(--ink);font-weight:700;font-size:.9rem}
@@ -334,7 +349,7 @@ if(window.PORIADO_DEMO){
       <div class="hero-text">
         <div class="kicker">Upratovanie v Bratislave</div>
         <h1>Upratovanie bytu od <span class="cena">79,90 €</span></h1>
-        <p>Rezervácia online za minútu. Prídeme s vlastnými prostriedkami, priority určíte vy.</p>
+        <p>Rezervácia online do minúty. Prídeme s vlastnými prostriedkami, priority určíte vy.</p>
         <ul class="hero-list">
           <li><span class="tick" aria-hidden="true">&#10003;</span>Jasná cena vopred, bez skrytých poplatkov</li>
           <li><span class="tick" aria-hidden="true">&#10003;</span>Bez obhliadky — rezervujete rovno online</li>
@@ -352,6 +367,27 @@ if(window.PORIADO_DEMO){
   </div>
 </section>
 
+<!-- ============================================================
+     GOOGLE RECENZIE - ZATIAL NEAKTIVNE.
+     ZAPNUTIE: prepis dve hodnoty a zmaz prvy a posledny riadok
+     tohto komentara.
+       HODNOTENIE  = priemer, napr. 4,9
+       POCET       = pocet recenzii, napr. 12
+       data-rating = to iste co HODNOTENIE, ale s bodkou (4.9)
+                     - podla neho sa vykreslia hviezdicky
+     ============================================================
+<section id="recenzie" class="recenzie">
+  <div class="wrap">
+    <a class="rev-bar" href="https://www.google.com/maps?cid=11735417404303540434" target="_blank" rel="noopener" data-rating="5.0">
+      <span class="rev-g" aria-hidden="true">G</span>
+      <span class="rev-num">HODNOTENIE</span>
+      <span class="rev-stars" aria-hidden="true"></span>
+      <span class="rev-count">POCET hodnotení na Google</span>
+      <span class="rev-cta">Pozrieť recenzie &rarr;</span>
+    </a>
+  </div>
+</section>
+     ============================================================ -->
 <section id="cennik" class="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -455,7 +491,7 @@ if(window.PORIADO_DEMO){
      AKTIVACIA: doplnit realne citaty, mena a mestske casti,
      potom odstranit prvy a posledny riadok tohto komentara.
      ============================================================
-<section id="recenzie">
+<section id="referencie">
   <div class="wrap">
     <div class="section-head">
       <h2>Povedali o nás</h2>
@@ -483,7 +519,7 @@ if(window.PORIADO_DEMO){
 
 <section class="final" id="rezervacia">
   <div class="wrap">
-    <h2>Termín už tento týždeň. Rezervácia za minútu.</h2>
+    <h2>Termín už tento týždeň. Rezervácia do minúty.</h2>
     <p class="sub">Vyberiete balík, potvrdíme okamžite. Zrušenie zdarma do 24 hodín pred termínom.</p>
     <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať termín</a>
     <p class="tel">Radšej zavoláte? <a href="tel:+421949076917">+421 949 076 917</a></p>
