@@ -87,118 +87,91 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
 
 <style>
   :root{
-    --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
-    --ink:#1c2530; --muted:#5b6675; --white:#fff; --accent:#19b07a;
+    /* znacka */
+    --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --accent:#19b07a;
+    /* redizajn: tmavy atrament, teply papier, zlaty akcent */
+    --ink:#0d1521; --ink-2:#5c6470; --paper:#faf8f5; --paper-2:#f2eee7;
+    --line:#e3ddd3; --gold:#c8973f; --gold-ink:#8a5f16; --accent-ink:#0f7a53; --white:#fff; --bg:#f7f9fc; --muted:#5c6470;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
   a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid #e7edf5}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
-  .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
-  .logo span{color:var(--blue)}
-  .nav-links{display:flex;gap:24px;align-items:center}
-  .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink)}
-  .nav-links a:hover{color:var(--blue)}
-  .btn{display:inline-block;background:var(--blue);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;transition:.2s;border:none;cursor:pointer;font-size:.95rem}
-  .btn:hover{background:var(--navy);transform:translateY(-1px)}
-  .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
-  .btn-ghost:hover{background:var(--blue);color:#fff}
-  .nav{position:relative}
-  .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:4px 10px}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  /* ---------- HLAVICKA ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(250,248,245,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;position:relative}
+  .logo{font-weight:800;font-size:1.3rem;color:var(--ink);letter-spacing:-.02em}
+  .logo span{color:var(--gold-ink)}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-weight:600;font-size:.9rem;color:var(--ink-2);letter-spacing:.01em}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-burger{display:none;background:none;border:none;font-size:24px;line-height:1;color:var(--ink);cursor:pointer;padding:4px 10px}
+
+  /* ---------- TLACIDLA ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:999px;font-weight:650;transition:.18s ease;border:none;cursor:pointer;font-size:.92rem;letter-spacing:.01em}
+  .btn:hover{background:#000;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+  /* ---------- SEKCIE ---------- */
+  section{padding:96px 0}
+  .kicker{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:18px}
+  .section-head{max-width:760px;margin:0 0 52px}
+  .section-head h2{font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.02;letter-spacing:-.035em;font-weight:800;color:var(--ink);margin-bottom:14px}
+  .section-head p{color:var(--ink-2);font-size:1.05rem;max-width:560px}
+  .note{color:var(--ink-2);font-size:.86rem;margin-top:16px}
+  .highlight{background:var(--paper-2)}
+
+  /* ---------- BALIKY (bento, oversized ceny) ---------- */
+  .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .pack{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:32px 28px 28px;position:relative;display:flex;flex-direction:column;transition:.2s ease}
+  .pack:hover{transform:translateY(-4px);border-color:#cfc6b8}
+  .pack .tag{position:absolute;top:20px;right:20px;background:var(--gold-ink);color:#fff;font-size:.66rem;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.1em;text-transform:uppercase}
+  .pack .hrs{color:var(--ink-2);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em}
+  .pack .pname{color:var(--ink);font-weight:800;font-size:1.35rem;margin:10px 0 18px;letter-spacing:-.02em}
+  .pack .amt{font-size:clamp(2.6rem,4.6vw,3.4rem);font-weight:800;color:var(--ink);line-height:.92;letter-spacing:-.045em}
+  .pack .ideal{color:var(--ink-2);font-size:.9rem;margin-top:14px;padding-top:18px;border-top:1px solid var(--line)}
+  /* zvyrazneny balik: inverzny, tmavy */
+  .pack.popular{background:var(--ink);border-color:var(--ink)}
+  .pack.popular .hrs{color:#9aa3b0}
+  .pack.popular .pname,.pack.popular .amt{color:var(--paper)}
+  .pack.popular .ideal{color:#a8b0bc;border-top-color:rgba(255,255,255,.14)}
+  .pack.popular .pfeat li{color:#c3c9d2}
+  .pack.popular .pfeat .tick{color:#4fd4a0}
+
+  /* ---------- POROVNANIE (rozbalovacie) ---------- */
+  details{border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+  summary{padding:20px 24px;font-weight:700;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.98rem}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:1.5rem;color:var(--gold-ink);font-weight:300;line-height:1}
+  details[open] summary::after{content:"\2212"}
+  .ftable-wrap{overflow-x:auto}
+  table.ftable{border-collapse:collapse;width:100%;min-width:540px}
+  table.ftable th,table.ftable td{padding:13px 16px;border-top:1px solid var(--line);text-align:center;font-size:.9rem}
+  table.ftable th{background:var(--paper-2);color:var(--ink);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em}
+  table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
+  table.ftable td{color:var(--ink-2)}
+  table.ftable .yes{color:var(--accent-ink);font-weight:800}
+  table.ftable .no{color:var(--ink-2)}
+
+  /* ---------- MOBILNE MENU ---------- */
   @media(max-width:820px){
     .nav-burger{display:block}
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(15,25,45,.14);border-top:1px solid #eef2f7}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(13,21,33,.12);border-top:1px solid var(--line)}
     .nav-links.open{display:flex}
-    .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
+    .nav-links a:not(.btn){display:block;padding:14px 24px;border-bottom:1px solid var(--line);font-size:1rem;color:var(--ink)}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
-  /* HERO s fotkou na pozadi.
-     Cez fotku ide tmavy prekryv (scrim), aby bielo text spolahlivo presvital.
-     Prekryv je najsilnejsi vlavo, kde je text, a smerom doprava sa otvara,
-     takze fotka zostava vidiet. */
-  .hero{
-    color:#fff;padding:64px 0 70px;position:relative;overflow:hidden;
-    background-color:var(--navy);
-    background-image:linear-gradient(100deg,rgba(10,20,38,.94) 0%,rgba(10,20,38,.88) 40%,rgba(10,20,38,.80) 74%,rgba(10,20,38,.58) 100%),url('upratovanie-obyvacka-bratislava.webp');
-    background-size:cover;background-position:center right;background-repeat:no-repeat;
-  }
-  .hero h1{font-size:2.25rem;line-height:1.2;font-weight:800;max-width:720px;margin-bottom:14px;letter-spacing:-.5px;text-shadow:0 2px 14px rgba(0,0,0,.45)}
-  .hero p{font-size:1.06rem;max-width:600px;margin-bottom:24px;line-height:1.65;color:#eaf1fa;text-shadow:0 1px 10px rgba(0,0,0,.4)}
-  .hero-cta{display:flex;gap:14px 28px;flex-wrap:wrap;align-items:center}
-  .hero-kontakt{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:.98rem}
-  .hero-kontakt a{color:#fff;font-weight:600;display:flex;align-items:center;gap:8px;opacity:.92;transition:.2s}
-  .hero-kontakt a:hover{opacity:1;text-decoration:underline}
-  .hero-kontakt .ic{font-size:1.05rem}
-  @media(max-width:600px){.hero-kontakt{gap:14px;font-size:.92rem}}
-  .hero .btn{background:#fff;color:var(--navy)}
-  .hero .btn:hover{background:var(--light)}
-  .hero .btn-primary{font-size:1.04rem;padding:13px 30px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
-  .hero .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32)}
-  .hero .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
-  .hero .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
-  .badges{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}
-  .badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:10px 15px;border-radius:13px}
-  .badge b{font-size:.96rem;display:block;line-height:1.2;font-weight:800}
-  .badge span{font-size:.78rem;opacity:.92;line-height:1.25}
-  section{padding:52px 0}
-  .section-head{text-align:center;max-width:720px;margin:0 auto 32px}
-  .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
-  .section-head h2{font-size:1.8rem;color:var(--navy);margin-bottom:12px}
-  .section-head p{color:#5b6675;font-size:1.05rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
-  .card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:30px 26px;transition:.2s}
-  .card:hover{box-shadow:0 14px 36px rgba(31,56,100,.12);transform:translateY(-3px);border-color:var(--light)}
-  .card .ic{width:50px;height:50px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px}
-  .card h3{color:var(--navy);font-size:1.18rem;margin-bottom:10px}
-  .card p{color:#5b6675;font-size:.96rem;margin-bottom:14px}
-  .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
-  .highlight{background:linear-gradient(135deg,#eef3fa,#f7f9fc)}
-  .pricing{background:var(--bg)}
-  .note{text-align:center;color:#8893a3;font-size:.86rem;margin-top:16px}
-  .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
-  .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:20px 18px;text-align:center;position:relative;transition:.2s;display:flex;flex-direction:column}
-  .pack:hover{box-shadow:0 14px 32px rgba(31,56,100,.13);transform:translateY(-3px)}
-  .pack.popular{border:2px solid var(--blue);box-shadow:0 14px 32px rgba(46,117,182,.16)}
-  .pack .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
-  .pack .hrs{color:var(--blue);font-weight:700;font-size:.92rem;text-transform:uppercase;letter-spacing:1px}
-  .pack .pname{color:var(--navy);font-weight:800;font-size:1.1rem;margin:3px 0 8px}
-  .pack .amt{font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1}
-  .pack .ideal{color:#5b6675;font-size:.86rem;margin-top:10px;flex-grow:1}
-  .pack .pbtn{margin-top:14px}
-  .pack.custom{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
-  .pack.custom .hrs,.pack.custom .pname,.pack.custom .amt{color:#fff}
-  .pack.custom .ideal{color:#d3e0f0}
-  .pack.custom .btn{background:#fff;color:var(--navy)}
-  .pack.custom .btn:hover{background:var(--light)}
-  .ftable-wrap{overflow-x:auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07);margin-top:20px}
-  table.ftable{border-collapse:collapse;width:100%;min-width:520px}
-  table.ftable th,table.ftable td{padding:10px 13px;border-bottom:1px solid #eef2f7;text-align:center;font-size:.92rem}
-  table.ftable th{background:var(--navy);color:#fff;font-weight:700}
-  table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
-  table.ftable tr:nth-child(even) td{background:#fafcff}
-  table.ftable .yes{color:var(--accent);font-weight:800}
-  table.ftable .no{color:#c7cfda}
-  .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px}
-  .addon{background:#fff;border:1px solid #e3eaf3;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .addon span{color:var(--ink);font-size:.94rem}
-  .addon b{color:var(--blue);font-weight:800;white-space:nowrap}
-  .disclaimer{background:#fff7ed;border:1px solid #fce2c2;border-radius:12px;padding:16px 20px;margin-top:22px;color:#7a5a2e;font-size:.9rem}
-  .faq-list{max-width:760px;margin:0 auto}
-  details{background:#fff;border:1px solid #e7edf5;border-radius:11px;margin-bottom:12px;overflow:hidden}
-  summary{padding:18px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400}
-  details[open] summary::after{content:"\2212"}
-  details p{padding:0 22px 20px;color:#5b6675;font-size:.97rem}
   form{background:#fff;padding:30px;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07)}
   form label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy)}
   form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue)}
   form .btn{width:100%}
-  .form-ok{display:none;color:var(--accent);font-weight:700;text-align:center;margin-top:14px}
+  .form-ok{display:none;color:var(--accent-ink);font-weight:700;text-align:center;margin-top:14px}
   footer{background:var(--navy);color:#c5d3e6;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
   .modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}
@@ -243,93 +216,97 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .gdpr-check{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:2px 0 14px;font-weight:400}
   .gdpr-check input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--blue)}
   .gdpr-check a{color:var(--blue);text-decoration:underline}
-  .foto-stav{color:var(--accent);font-weight:700}
-  /* --- Google recenzie (hodnotenie + preklik) --- */
-  .reviews{background:#fff;padding:34px 0}
-  .rev-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;background:var(--bg);border:1px solid #e7edf5;border-radius:14px;padding:16px 24px;max-width:720px;margin:0 auto;transition:.2s}
-  .rev-bar:hover{box-shadow:0 10px 28px rgba(31,56,100,.10);border-color:var(--light);transform:translateY(-2px)}
-  .rev-g{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #e3eaf3;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:#4285f4;flex:none}
-  .rev-num{font-size:1.5rem;font-weight:800;color:var(--navy);line-height:1}
-  .rev-stars{color:#f5a623;letter-spacing:2px;font-size:1.1rem;white-space:nowrap}
-  .rev-count{color:#5b6675;font-size:.92rem}
-  .rev-cta{margin-left:auto;color:var(--blue);font-weight:700;font-size:.94rem;white-space:nowrap}
-  .rev-bar:hover .rev-cta{text-decoration:underline}
-  @media(max-width:640px){
-    .rev-bar{gap:10px 14px;padding:16px 18px}
-    .rev-cta{margin-left:0;width:100%;text-align:center;margin-top:4px}
+  .foto-stav{color:var(--accent-ink);font-weight:700}
+  /* ============ REDIZAJN: odvazny minimalizmus ============ */
+  /* zelene konverzne CTA - jediny farebny prvok, ktory nieco spusta */
+  .btn-cta{background:var(--accent-ink);color:#fff;font-size:1rem;padding:17px 34px;min-height:54px;border-radius:999px;font-weight:700;letter-spacing:.005em;box-shadow:none}
+  .btn-cta:hover{background:#0b6142;color:#fff;transform:translateY(-2px)}
+  .btn-cta:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
+
+  /* ---------- HERO: asymetricky split, oversized typografia ---------- */
+  .hero{background:var(--paper);padding:0;overflow:hidden}
+  .hero .wrap{max-width:1180px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;min-height:min(78vh,660px);padding:64px 0}
+  .hero h1{font-size:clamp(2.7rem,6.4vw,4.9rem);line-height:.96;letter-spacing:-.045em;font-weight:800;color:var(--ink);margin-bottom:22px}
+  .hero h1 .cena{color:var(--gold-ink);display:inline-block}
+  .hero p{font-size:1.1rem;color:var(--ink-2);max-width:440px;margin-bottom:28px;line-height:1.6}
+  .hero-list{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:0;max-width:460px;border-top:1px solid var(--line)}
+  .hero-list li{display:flex;align-items:center;gap:12px;font-size:.95rem;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--line)}
+  .hero-list .tick{color:var(--accent-ink);font-weight:800;flex:none;font-size:.9rem}
+  .hero-micro{font-size:.84rem;color:var(--ink-2);margin-top:16px}
+  .hero-foto{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2)}
+  .hero-foto img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:36px;min-height:0;padding:44px 0 52px}
+    .hero-foto{aspect-ratio:16/11;order:2}
+    .hero-text{order:1}
   }
-  /* --- Sluzby: jeden kompaktny riadok --- */
-  .sluzby-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  @media(max-width:900px){.sluzby-row{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.sluzby-row{grid-template-columns:1fr}}
-  .sluzba{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:22px 20px;text-align:center;transition:.2s}
-  .sluzba:hover{box-shadow:0 14px 36px rgba(31,56,100,.12);transform:translateY(-3px);border-color:var(--light)}
-  .sluzba .ic{width:44px;height:44px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 14px}
-  .sluzba h3{color:var(--navy);font-size:1.05rem;margin-bottom:6px}
-  .sluzba p{color:#5b6675;font-size:.9rem;margin-bottom:10px}
-  .sluzba .price{font-weight:800;color:var(--blue);font-size:.98rem}
-  .sluzba .price a{color:var(--blue);text-decoration:none}
-  .sluzba .price a:hover{text-decoration:underline}
-  /* ============ REDIZAJN: nove komponenty ============ */
-  /* zelene konverzne CTA - vsade rovnake, min. 48px vysoke */
-  .btn-cta,.hero .btn-cta,.pack .btn-cta,.final .btn-cta{background:var(--accent);color:#fff;font-size:1.02rem;padding:16px 36px;min-height:52px;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;border-radius:11px;font-weight:700;box-shadow:0 8px 22px rgba(25,176,122,.28)}
-  .btn-cta:hover,.hero .btn-cta:hover,.pack .btn-cta:hover,.final .btn-cta:hover{background:#149063;color:#fff;transform:translateY(-2px);box-shadow:0 12px 28px rgba(25,176,122,.36)}
-  .btn-cta:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ffd77a;outline-offset:3px}
-  /* HERO */
-  .hero-list{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:9px;max-width:560px}
-  .hero-list li{display:flex;align-items:flex-start;gap:10px;font-size:1rem;line-height:1.45;color:#f2f7fd;text-shadow:0 1px 10px rgba(0,0,0,.45)}
-  .hero-list .tick{color:#7fe3bd;font-weight:800;flex:none;margin-top:1px}
-  .hero-micro{font-size:.86rem;margin-top:12px;color:#d5e2f2;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-  /* Na mobile text zaberá celú šírku, preto rovnomerne silnejší prekryv. */
-  @media(max-width:820px){
-    .hero{background-image:linear-gradient(rgba(10,20,38,.90),rgba(10,20,38,.90)),url('upratovanie-obyvacka-bratislava.webp');background-position:center;padding:44px 0 52px}
-    .hero h1{font-size:1.95rem}
+
+  /* ---------- BALIKY: doplnky ---------- */
+  .pack .pfeat{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:9px;flex-grow:1}
+  .pack .pfeat li{display:flex;gap:9px;align-items:flex-start;font-size:.88rem;color:var(--ink-2);line-height:1.45}
+  .pack .pfeat .tick{color:var(--accent-ink);font-weight:800;flex:none}
+  .pack .btn-cta{margin-top:24px;width:100%;font-size:.94rem;padding:14px 18px;min-height:50px}
+  .porovnanie{max-width:100%;margin:22px 0 0}
+  .namieru{color:var(--ink-2);font-size:.95rem;margin-top:26px}
+  .namieru a{color:var(--ink);font-weight:700;border-bottom:2px solid var(--gold)}
+  .namieru a:hover{color:var(--gold-ink)}
+  @media(max-width:860px){.packs{grid-template-columns:1fr}}
+
+  /* ---------- AKO TO FUNGUJE: velke cislice ---------- */
+  .kroky{display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:k;border-top:1px solid var(--line)}
+  .krok{counter-increment:k;padding:36px 32px 36px 0;border-bottom:1px solid var(--line);position:relative}
+  .krok+.krok{border-left:1px solid var(--line);padding-left:32px}
+  .krok::before{content:counter(k);display:block;font-size:3.4rem;font-weight:800;color:var(--paper-2);line-height:.85;letter-spacing:-.05em;margin-bottom:14px}
+  .krok p{color:var(--ink);font-size:1.02rem;margin:0;font-weight:600;line-height:1.4}
+  @media(max-width:760px){
+    .kroky{grid-template-columns:1fr}
+    .krok,.krok+.krok{padding:26px 0;border-left:none;padding-left:0}
   }
-  /* BALIKY */
-  .pack .pfeat{list-style:none;margin:12px 0 0;padding:0;text-align:left;display:grid;gap:7px;flex-grow:1}
-  .pack .pfeat li{display:flex;gap:8px;align-items:flex-start;font-size:.88rem;color:#5b6675;line-height:1.4}
-  .pack .pfeat .tick{color:var(--accent);font-weight:800;flex:none}
-  .pack .btn-cta{margin-top:16px;width:100%;font-size:.98rem;padding:14px 18px}
-  .porovnanie{max-width:820px;margin:22px auto 0;background:#fff;border:1px solid #e3eaf3;border-radius:12px;overflow:hidden}
-  .porovnanie>summary{padding:15px 20px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.97rem}
-  .porovnanie>summary::-webkit-details-marker{display:none}
-  .porovnanie>summary::after{content:"+";font-size:1.35rem;color:var(--blue);font-weight:400;flex:none}
-  .porovnanie[open]>summary::after{content:"\2212"}
-  .porovnanie .ftable-wrap{margin:0;border-radius:0;box-shadow:none}
-  .namieru{text-align:center;color:#5b6675;font-size:.95rem;margin-top:20px}
-  .namieru a{color:var(--blue);font-weight:700;text-decoration:underline}
-  /* AKO TO FUNGUJE */
-  .kroky{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:k}
-  .krok{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:26px 20px 22px;text-align:center;position:relative}
-  .krok::before{counter-increment:k;content:counter(k);position:absolute;top:-17px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
-  .krok p{color:#3c4a58;font-size:.97rem;margin:0}
-  @media(max-width:760px){.kroky{grid-template-columns:1fr;gap:26px}}
-  /* DOVERA - cipy */
-  .cipy{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .cip{background:#fff;border:1px solid #e7edf5;border-radius:12px;padding:18px 16px;text-align:center;font-weight:700;color:var(--navy);font-size:.94rem;line-height:1.35}
-  .cip .ci{display:block;font-size:1.4rem;margin-bottom:8px}
+
+  /* ---------- DOVERA: vlasove linky, ziadne boxy ---------- */
+  .cipy{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .cip{background:var(--paper-2);padding:30px 22px;font-weight:700;color:var(--ink);font-size:.95rem;line-height:1.35}
+  .cip .ci{display:block;font-size:1.3rem;margin-bottom:12px;opacity:.85}
   @media(max-width:860px){.cipy{grid-template-columns:repeat(2,1fr)}}
-  /* FINALNE CTA */
-  .final{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;text-align:center}
-  .final h2{color:#fff;font-size:1.85rem;margin-bottom:10px}
-  .final p.sub{color:var(--light);margin-bottom:24px;font-size:1.02rem}
-  .final .tel{margin-top:16px;font-size:.98rem;color:var(--light)}
-  .final .tel a{color:#fff;font-weight:700;text-decoration:underline}
-  /* MOBILNA LEPIACA LISTA */
-  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:#fff;border-top:1px solid #e3eaf3;box-shadow:0 -6px 24px rgba(15,25,45,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .25s ease}
+  @media(max-width:460px){.cipy{grid-template-columns:1fr}}
+
+  /* ---------- FINALNE CTA: tmavy blok, oversized ---------- */
+  .final{background:var(--ink);color:var(--paper);text-align:center;padding:104px 0}
+  .final h2{color:var(--paper);font-size:clamp(2.1rem,5.2vw,3.6rem);line-height:1;letter-spacing:-.04em;font-weight:800;margin-bottom:16px}
+  .final p.sub{color:#a8b0bc;margin:0 auto 34px;font-size:1.05rem;max-width:520px}
+  .final .tel{margin-top:22px;font-size:.95rem;color:#8d96a3}
+  .final .tel a{color:var(--paper);font-weight:700;border-bottom:1px solid rgba(255,255,255,.35)}
+
+  /* ---------- PATICKA ---------- */
+  footer{background:var(--ink);color:#8d96a3;padding:56px 0 44px;text-align:center;font-size:.9rem;border-top:1px solid rgba(255,255,255,.08)}
+  footer .logo{color:var(--paper);margin-bottom:14px}
+  footer .logo span{color:var(--gold)}
+  footer a{color:#c3c9d2}
+  footer a:hover{color:var(--paper)}
+
+  /* ---------- MOBILNA LEPIACA LISTA ---------- */
+  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(250,248,245,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:11px 16px;display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .25s ease}
   .mlista.show{transform:translateY(0)}
-  .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
-  .mlista .cena small{display:block;font-weight:600;color:#5b6675;font-size:.72rem}
-  .mlista .btn-cta{margin-left:auto;flex:1;max-width:220px;padding:13px 16px;font-size:.96rem;min-height:48px;box-shadow:none}
-  @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}}
-  /* POVEDALI O NAS (pripravene na buduce recenzie) */
-  .rk{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .rk-card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:22px 20px}
-  .rk-card .hv{color:#f5a623;letter-spacing:2px;margin-bottom:10px}
-  .rk-card blockquote{color:#3c4a58;font-size:.96rem;line-height:1.6;margin:0 0 12px}
-  .rk-card figcaption{color:var(--navy);font-weight:700;font-size:.9rem}
-  .rk-card figcaption span{display:block;color:#5b6675;font-weight:600;font-size:.82rem}
+  .mlista .cena{font-weight:800;color:var(--ink);font-size:1.05rem;line-height:1.1;flex:none;letter-spacing:-.02em}
+  .mlista .cena small{display:block;font-weight:600;color:var(--ink-2);font-size:.7rem;letter-spacing:.02em}
+  .mlista .btn-cta{margin-left:auto;flex:1;max-width:210px;padding:13px 16px;font-size:.94rem;min-height:48px}
+  @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:76px}}
+
+  /* ---------- POVEDALI O NAS (pripravene) ---------- */
+  .rk{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .rk-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px 26px}
+  .rk-card .hv{color:var(--gold-ink);letter-spacing:3px;margin-bottom:14px}
+  .rk-card blockquote{color:var(--ink);font-size:1.02rem;line-height:1.55;margin:0 0 16px;letter-spacing:-.01em}
+  .rk-card figcaption{color:var(--ink);font-weight:700;font-size:.9rem}
+  .rk-card figcaption span{display:block;color:var(--ink-2);font-weight:600;font-size:.82rem;margin-top:2px}
   @media(max-width:860px){.rk{grid-template-columns:1fr}}
+
+  @media(max-width:820px){
+    section{padding:64px 0}
+    .section-head{margin-bottom:36px}
+    .final{padding:76px 0}
+  }
 </style>
 </head>
 <body>
@@ -353,17 +330,25 @@ if(window.PORIADO_DEMO){
 </header>
 <section class="hero" id="hero">
   <div class="wrap">
-    <h1>Upratovanie bytu od 79,90 € — rezervácia online za minútu</h1>
-    <p>Prídeme s vlastnými prostriedkami, priority určíte vy. Bez obhliadky, bez skrytých poplatkov.</p>
-    <ul class="hero-list">
-      <li><span class="tick" aria-hidden="true">&#10003;</span>Balíky od 79,90 € — jasná cena vopred</li>
-      <li><span class="tick" aria-hidden="true">&#10003;</span>Bez obhliadky — rezervujete rovno online</li>
-      <li><span class="tick" aria-hidden="true">&#10003;</span>Zrušenie zdarma do 24 h pred termínom</li>
-    </ul>
-    <div class="hero-cta">
-      <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať termín</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="kicker">Upratovanie v Bratislave</div>
+        <h1>Upratovanie bytu od <span class="cena">79,90 €</span></h1>
+        <p>Rezervácia online za minútu. Prídeme s vlastnými prostriedkami, priority určíte vy.</p>
+        <ul class="hero-list">
+          <li><span class="tick" aria-hidden="true">&#10003;</span>Jasná cena vopred, bez skrytých poplatkov</li>
+          <li><span class="tick" aria-hidden="true">&#10003;</span>Bez obhliadky — rezervujete rovno online</li>
+          <li><span class="tick" aria-hidden="true">&#10003;</span>Zrušenie zdarma do 24 h pred termínom</li>
+        </ul>
+        <div class="hero-cta">
+          <a href="#rezervacia" class="btn btn-cta" data-open-rezervacia>Rezervovať termín</a>
+        </div>
+        <p class="hero-micro">Platba kartou aj faktúrou s QR kódom</p>
+      </div>
+      <div class="hero-foto">
+        <img src="upratovanie-obyvacka-bratislava.webp" alt="Profesionálne upratovanie obývačky v Bratislave — čistý svetlý interiér" width="1600" height="900">
+      </div>
     </div>
-    <p class="hero-micro">Platba kartou aj faktúrou s QR kódom</p>
   </div>
 </section>
 
