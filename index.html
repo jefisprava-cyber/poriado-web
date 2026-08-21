@@ -331,6 +331,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         <div class="pname">Mini</div>
         <div class="amt">79,90 €</div>
         <div class="ideal">Menší byt alebo udržiavacie upratovanie. Základ, kúpeľňa, kuchyňa.</div>
+        <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="mini">Rezervovať Mini</a>
       </div>
       <div class="pack popular">
         <div class="tag">Obľúbené</div>
@@ -339,6 +340,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         <div class="pname">Klasik</div>
         <div class="amt">129,90 €</div>
         <div class="ideal">Väčší byt alebo dôkladnejšie upratovanie vrátane okien a kuchyne do hĺbky.</div>
+        <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="klasik">Rezervovať Klasik</a>
       </div>
       <div class="pack">
         <img src="rodinny-dom-balik-maxi.webp" alt="Rodinný dom — upratovací balík Maxi na 9 hodín vrátane tepovania" class="pack-img" loading="lazy" width="900" height="675">
@@ -346,6 +348,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         <div class="pname">Maxi</div>
         <div class="amt">169,90 €</div>
         <div class="ideal">Dom alebo generálka. Vrátane tepovania (čas sa odčíta z času upratovania).</div>
+        <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</a>
       </div>
       <div class="pack custom">
         <div class="hrs">Na mieru</div>
@@ -499,7 +502,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <h3>Rezervácia termínu</h3>
     <p class="sub"><b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> Zaplatíte, ako vám vyhovuje: kartou hneď online, alebo prevodom cez faktúru s QR kódom, ktorú pošleme e-mailom. Zrušenie zdarma do 24 hodín pred termínom.</p>
     <div id="reenio-container">
-      <div class="reenio-iframe" data-size="auto"></div>
     </div>
   </div>
 </div>
@@ -635,10 +637,46 @@ function combineFields(fd){
   window.addEventListener('hashchange', individZHashu);
   var rezModal = document.getElementById('rezervacia-modal');
   var reenioLoaded = false;
-  function openRez(){
+
+  /* Cesty do Reenia na konkretny balik. Widget ich berie cez atribut data-url
+     a pripaja k adrese https://poriado.reenio.sk/sk/iframe — zakaznik tak
+     preskoci vyber balika a rovno vidi kalendar. Bez baliku sa zobrazi zoznam. */
+  var REENIO_BALIKY = {
+    mini:      '/view/mini-3-hodiny-r132830',
+    klasik:    '/view/klasik-6-hodin-r132831',
+    maxi:      '/view/maxi-9-hodin-r132832',
+    tepovanie: '/view/tepovanie-r132833'
+  };
+
+  /* Kazdy balik ma vlastny panel s vlastnym widgetom. Panely sa iba prepinaju
+     zobrazenim, nikdy sa neodstranuju — keby sme uz nacitany widget vybrali
+     z DOM, jeho poslucháce by dalej volali postMessage na neexistujuci iframe
+     a sypali chyby do konzoly. */
+  function nastavBalik(balik){
+    var c = document.getElementById('reenio-container');
+    if(!c) return;
+    var kluc = balik && REENIO_BALIKY[balik] ? balik : 'vsetky';
+    var panely = c.querySelectorAll('[data-balik-panel]');
+    for(var i=0;i<panely.length;i++) panely[i].style.display = 'none';
+    var panel = c.querySelector('[data-balik-panel="'+kluc+'"]');
+    if(!panel){
+      panel = document.createElement('div');
+      panel.setAttribute('data-balik-panel', kluc);
+      var d = document.createElement('div');
+      d.className = 'reenio-iframe';
+      d.setAttribute('data-size','auto');
+      if(kluc !== 'vsetky') d.setAttribute('data-url', REENIO_BALIKY[kluc]);
+      panel.appendChild(d);
+      c.insertBefore(panel, c.firstChild);
+    }
+    panel.style.display = '';
+  }
+
+  function openRez(balik){
     if(!rezModal) return;
     rezModal.classList.add('open');
     konverzia('begin_checkout','InitiateCheckout');   /* Meta: InitiateCheckout (zmenene z Lead) - Lead sa posiela len po realnom odoslani dopytu; GA ostava begin_checkout */
+    nastavBalik(balik);
     if(!reenioLoaded){
       var s = document.createElement('script');
       s.src = 'https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js';
@@ -650,7 +688,7 @@ function combineFields(fd){
   }
   function closeRez(){ if(rezModal) rezModal.classList.remove('open'); }
   document.querySelectorAll('[data-open-rezervacia]').forEach(function(el){
-    el.addEventListener('click', function(e){ e.preventDefault(); openRez(); });
+    el.addEventListener('click', function(e){ e.preventDefault(); openRez(el.getAttribute('data-balik')); });
   });
   var rezCloseBtn = document.getElementById('rezervacia-close');
   if(rezCloseBtn) rezCloseBtn.addEventListener('click', closeRez);
