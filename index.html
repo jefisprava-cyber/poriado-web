@@ -418,41 +418,21 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   <div class="modal">
     <button class="modal-close" id="individ-close" aria-label="Zavrieť">&times;</button>
     <h3>Individuálny dopyt</h3>
-    <p class="sub">Pre Airbnb, kancelárie a špeciálne priestory. Vyplňte a ozveme sa do 24 hodín s ponukou na mieru. Fotky priestoru môžete priložiť e-mailom.</p>
+    <p class="sub">Pre Airbnb, kancelárie a špeciálne priestory. Napíšte nám, čo potrebujete, a ozveme sa do 24 hodín s ponukou na mieru.</p>
     <form id="individ-form" action="https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec" method="POST">
       <input type="hidden" name="token" value="poriado2026">
-        <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label for="i-typ">O aký priestor ide?</label>
-      <select id="i-typ" name="typ">
-        <option>Byt</option>
-        <option>Airbnb / Booking 1-izbový</option>
-        <option>Airbnb / Booking 2-izbový</option>
-        <option>Airbnb / Booking 3-izbový a viac</option>
-        <option>Rodinný dom / väčší byt</option>
-        <option>Kancelária / prevádzka</option>
-        <option>Iné priestory</option>
-      </select>
-      <label for="i-balik">Záujem o balík (nepovinné)</label>
-      <select id="i-balik" name="balik">
-        <option>— vyberte —</option>
-        <option>Mini (3 h)</option>
-        <option>Klasik (6 h)</option>
-        <option>Maxi (9 h)</option>
-        <option>Neviem, poradíte mi</option>
-      </select>
+      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label for="i-meno">Meno alebo firma</label>
-      <input type="text" id="i-meno" name="meno" required placeholder="Meno / názov firmy">
+      <input type="text" id="i-meno" name="meno" required autocomplete="name" placeholder="Meno / názov firmy">
       <label for="i-telefon">Telefón</label>
-      <input type="tel" id="i-telefon" name="telefon" required placeholder="+421 900 000 000">
+      <input type="tel" id="i-telefon" name="telefon" required autocomplete="tel" inputmode="tel" placeholder="+421 900 000 000">
       <label for="i-email">E-mail</label>
-      <input type="email" id="i-email" name="email" required placeholder="vas@email.sk">
-      <label for="i-mc">Mestská časť (nepovinné)</label>
-      <input type="text" id="i-mc" name="mestska_cast" placeholder="napr. Ružinov">
+      <input type="email" id="i-email" name="email" required autocomplete="email" inputmode="email" placeholder="vas@email.sk">
       <label for="i-text">Správa</label>
-      <textarea id="i-text" name="text" rows="3" placeholder="Veľkosť priestoru, čo potrebujete, termín..."></textarea>
-        <label>Fotky priestoru (nepovinné, max 5)</label>
-        <input type="file" class="foto-input" accept="image/*" multiple>
-        <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
+      <textarea id="i-text" name="text" rows="4" placeholder="O aký priestor ide, aká je jeho veľkosť, čo potrebujete a kedy — čím viac napíšete, tým presnejšiu ponuku pripravíme."></textarea>
+      <label>Fotky priestoru (nepovinné, max 5)</label>
+      <input type="file" class="foto-input" accept="image/*" multiple>
+      <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
       <label class="gdpr-check"><input type="checkbox" required> Potvrdzujem, že som sa oboznámil/a so <a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</label>
       <button type="submit" class="btn">Odoslať dopyt</button>
       <p id="individ-ok" class="form-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>
@@ -583,10 +563,9 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     });
   }
 function combineFields(fd){
-    var balik = fd.get('balik') || 'neuvedené';
-    var text = fd.get('text') || '';
-    fd.set('sprava', 'Balík: ' + balik + ' | ' + text);
-    fd.delete('text'); fd.delete('balik');
+    /* Formular uz nema vyber baliku ani typu priestoru — sprava je cely text. */
+    fd.set('sprava', fd.get('text') || '');
+    fd.delete('text');
   }
   wireForm('individ-form', 'individ-ok', combineFields);
   var modal = document.getElementById('individ-modal');
