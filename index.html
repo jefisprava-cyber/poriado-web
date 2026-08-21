@@ -76,7 +76,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
 <style>
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
-    --ink:#1c2530; --muted:#5b6675; --white:#fff; --accent:#19b07a;
+    --ink:#1c2530; --muted:#5b6675; --white:#fff; --accent:#19b07a; --gold:#d4a44c; --gold-tmava:#bd8d33;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -118,10 +118,16 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .hero .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32)}
   .hero .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
   .hero .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
-  .badges{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}
-  .badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:10px 15px;border-radius:13px}
-  .badge b{font-size:.96rem;display:block;line-height:1.2;font-weight:800}
-  .badge span{font-size:.78rem;opacity:.92;line-height:1.25}
+  /* rezervacne tlacidla - znackova zlata s navy pismom (kontrast 5,1:1) */
+  .btn-rez,.hero .btn-rez{background:var(--gold);color:var(--navy)}
+  .btn-rez:hover,.hero .btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
+  .nav-links a.btn-rez{color:var(--navy)}
+  .nav-links a.btn-rez:hover{color:var(--navy)}
+  .vyhody{background:#fff;padding:26px 0 6px}
+  .badges{display:flex;gap:11px;flex-wrap:wrap}
+  .badge{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid #e3eaf3;padding:10px 15px;border-radius:13px}
+  .badge b{font-size:.96rem;display:block;line-height:1.2;font-weight:800;color:var(--navy)}
+  .badge span{font-size:.78rem;line-height:1.25;color:#5b6675}
   section{padding:52px 0}
   .section-head{text-align:center;max-width:720px;margin:0 auto 32px}
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
@@ -157,6 +163,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   table.ftable th,table.ftable td{padding:10px 13px;border-bottom:1px solid #eef2f7;text-align:center;font-size:.92rem}
   table.ftable th{background:var(--navy);color:#fff;font-weight:700}
   table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
+  table.ftable th:first-child{color:#fff}
   table.ftable tr:nth-child(even) td{background:#fafcff}
   table.ftable .yes{color:var(--accent);font-weight:800}
   table.ftable .no{color:#c7cfda}
@@ -261,7 +268,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <a href="#sluzby">Služby</a>
       <a href="#onas">O nás</a>
       <a href="faq.html">Časté otázky</a>
-      <a href="#rezervacia" class="btn" data-open-rezervacia>Rezervácia</a>
+      <a href="#rezervacia" class="btn btn-rez" data-open-rezervacia>Rezervácia</a>
     </nav>
   </div>
 </header>
@@ -270,12 +277,16 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <h1>Spoľahlivé upratovanie v Bratislave — vy poviete čo, my to vyčistíme</h1>
     <p>Byty, domy aj kancelárie. Prídeme s vlastnými čistiacimi prostriedkami a vybavením a pred upratovaním sa s vami dohodneme, čomu sa v rámci času balíka venovať najviac. Domácnosti upratujeme bez obhliadky.</p>
     <div class="hero-cta">
-      <a href="#rezervacia" class="btn btn-primary" data-open-rezervacia>Rezervovať termín</a>
+      <a href="#rezervacia" class="btn btn-primary btn-rez" data-open-rezervacia>Rezervovať termín</a>
       <div class="hero-kontakt">
         <a href="tel:+421949076917"><span class="ic">&#128222;</span>+421 949 076 917</a>
         <a href="mailto:info@poriado.sk"><span class="ic">&#9993;</span>info@poriado.sk</a>
       </div>
     </div>
+  </div>
+</section>
+<section class="vyhody">
+  <div class="wrap">
     <div class="badges">
       <div class="badge"><b>Vlastné prostriedky</b><span>čistiace prostriedky<br>a vybavenie v cene</span></div>
       <div class="badge"><b>Rozsah určíte vy</b><span>priority si poviete<br>pred upratovaním</span></div>
@@ -408,7 +419,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <p>Vyberte si balík a voľný termín — rezerváciu vám potvrdíme okamžite. Zaplatíte kartou online alebo prevodom cez faktúru s QR kódom. Pre Airbnb a kancelárie využite <a href="#" data-open-individ style="color:var(--blue);font-weight:600">individuálny dopyt</a>.</p>
     </div>
     <div style="text-align:center">
-      <button class="btn" data-open-rezervacia style="font-size:1.05rem;padding:15px 34px">Otvoriť rezervačný kalendár</button>
+      <button class="btn btn-rez" data-open-rezervacia style="font-size:1.05rem;padding:15px 34px">Otvoriť rezervačný kalendár</button>
       <p class="note" style="margin-top:16px">Zaplatíte podľa výberu — kartou online pri rezervácii, alebo pohodlne prevodom cez faktúru s QR kódom. Pre Airbnb a kancelárie využite <a href="#" data-open-individ style="color:var(--blue);font-weight:600">individuálny dopyt</a>.</p>
     </div>
   </div>
