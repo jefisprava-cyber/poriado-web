@@ -239,6 +239,13 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .rev-count{color:#5b6675;font-size:.92rem}
   .rev-cta{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
   .rev-bar:hover .rev-cta{color:var(--navy);text-decoration:underline}
+  /* rotujúce citáty — všetky ležia v jednej bunke mriežky, takže sa neposúva rozloženie */
+  .rev-citaty{display:grid;max-width:720px;margin:0 auto;padding:20px 0 22px}
+  .rev-citaty blockquote{grid-area:1/1;margin:0;text-align:center;color:var(--ink);font-size:1rem;line-height:1.6;opacity:0;transition:opacity .5s ease}
+  .rev-citaty blockquote.on{opacity:1}
+  .rev-citaty cite{display:block;margin-top:10px;font-style:normal;font-weight:700;color:var(--navy);font-size:.86rem}
+  @media(prefers-reduced-motion:reduce){.rev-citaty blockquote{transition:none}}
+  @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
   /* rozbalovacie porovnanie balikov */
   .porovnanie{max-width:820px;margin:22px auto 0;background:#fff;border:1px solid #e3eaf3;border-radius:14px;overflow:hidden}
   .porovnanie>summary{padding:16px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.97rem}
@@ -295,6 +302,13 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <span class="rev-count">12 recenzií na Google</span>
       <span class="rev-cta">Pozrieť →</span>
     </a>
+    <div class="rev-citaty" id="rev-citaty">
+      <blockquote class="on">„Žiadne zdĺhavé objednávanie ani zbytočné obhliadky vopred — jednoducho prišli, upratali a výsledok bol perfektný. Stala som sa ich pravidelnou zákazníčkou a firmu som odporučila aj u nás v práci."<cite>Soňa M.</cite></blockquote>
+      <blockquote>„Hľadala som spoľahlivú upratovaciu firmu a toto bola trefa do čierneho. Pani upratovačka odviedla neskutočne skvelú prácu — dala si záležať aj na detailoch. Je skvelý pocit vrátiť sa do dokonale čistého domova."<cite>Alexandra A.</cite></blockquote>
+      <blockquote>„S upratovaním som bol veľmi spokojný. Všetko bolo urobené precízne, dôkladne a podľa mojich predstáv. Oceňujem profesionálny prístup, príjemné vystupovanie a dôraz na detaily."<cite>Dan A.</cite></blockquote>
+      <blockquote>„Pomer cena a kvalita výborná. Poctivé umývanie a upratovanie, bola som veľmi spokojná."<cite>Natália F.</cite></blockquote>
+      <blockquote>„Profesionálny prístup, rýchla komunikácia a kvalitne odvedená práca."<cite>Marek R.</cite></blockquote>
+    </div>
   </div>
 </section>
 <section class="vyhody">
@@ -680,6 +694,42 @@ function combineFields(fd){
       var s=null; try{ s=JSON.parse(localStorage.getItem(KEY)); }catch(er){}
       if(s){ if(aChk) aChk.checked=!!s.analytics; if(mChk) mChk.checked=!!s.marketing; }
       if(cmodal) cmodal.classList.add('open'); });
+  })();
+  /* Rotujúce recenzie. Bez JS ostane viditeľná prvá (má triedu "on" priamo v HTML).
+     Striedanie sa zastaví pri prejdení myšou alebo tabulátorom, aby sa dal text
+     dočítať, a nespustí sa vôbec, ak má návštevník obmedzené animácie. */
+  (function(){
+    var box = document.getElementById('rev-citaty');
+    if(!box) return;
+    var polozky = box.querySelectorAll('blockquote');
+    if(polozky.length < 2) return;
+
+    var i = 0, timer = null;
+    var bezPohybu = window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for(var k = 1; k < polozky.length; k++) polozky[k].setAttribute('aria-hidden','true');
+
+    function ukaz(n){
+      polozky[i].classList.remove('on');
+      polozky[i].setAttribute('aria-hidden','true');
+      i = n;
+      polozky[i].classList.add('on');
+      polozky[i].removeAttribute('aria-hidden');
+    }
+    function dalej(){ ukaz((i + 1) % polozky.length); }
+    function spusti(){ if(!bezPohybu && !timer) timer = setInterval(dalej, 6500); }
+    function zastav(){ if(timer){ clearInterval(timer); timer = null; } }
+
+    box.addEventListener('mouseenter', zastav);
+    box.addEventListener('mouseleave', spusti);
+    box.addEventListener('focusin', zastav);
+    box.addEventListener('focusout', spusti);
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) zastav(); else spusti();
+    });
+
+    spusti();
   })();
   /* Google recenzie: vykresli hviezdicky podla atributu data-rating na .rev-bar */
   (function(){
