@@ -127,10 +127,11 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .nav-links a.btn-rez:hover{color:var(--navy)}
   /* pas vyhod - suvisla mriezka s vlasovymi linkami namiesto plavajucich bubliniek */
   .vyhody{background:#fff;padding:26px 0 6px}
-  .badges{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#d4dfec;border:1px solid #d4dfec;border-radius:14px;overflow:hidden}
+  .badges{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:#d4dfec;border:1px solid #d4dfec;border-radius:14px;overflow:hidden}
   .badge{display:block;background:var(--bg);padding:18px 16px}
   .badge b{display:block;font-size:.9rem;line-height:1.25;font-weight:800;color:var(--navy);margin-bottom:5px}
   .badge span{display:block;font-size:.78rem;line-height:1.35;color:#5b6675}
+  @media(max-width:1120px){.badges{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:900px){.badges{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:460px){.badges{grid-template-columns:1fr}}
   section{padding:52px 0}
@@ -311,6 +312,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <div class="badge"><b>Bez obhliadky</b><span>domácnosti upraceme rovno</span></div>
       <div class="badge"><b>Bez skrytých poplatkov</b><span>čo si dohodneme, to zaplatíte</span></div>
       <div class="badge"><b>Doprava zdarma</b><span>v rámci celej Bratislavy</span></div>
+      <div class="badge"><b>Zrušenie zdarma</b><span>do 24 hodín pred termínom</span></div>
     </div>
   </div>
 </section>
