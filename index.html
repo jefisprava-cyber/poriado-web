@@ -245,18 +245,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     .rev-bar{gap:10px 14px;padding:16px 18px}
     .rev-cta{margin-left:0;width:100%;text-align:center;margin-top:4px}
   }
-  /* --- Sluzby: jeden kompaktny riadok --- */
-  .sluzby-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  @media(max-width:900px){.sluzby-row{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.sluzby-row{grid-template-columns:1fr}}
-  .sluzba{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:22px 20px;text-align:center;transition:.2s}
-  .sluzba:hover{box-shadow:0 14px 36px rgba(31,56,100,.12);transform:translateY(-3px);border-color:var(--light)}
-  .sluzba .ic{width:44px;height:44px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 14px}
-  .sluzba h3{color:var(--navy);font-size:1.05rem;margin-bottom:6px}
-  .sluzba p{color:#5b6675;font-size:.9rem;margin-bottom:10px}
-  .sluzba .price{font-weight:800;color:var(--blue);font-size:.98rem}
-  .sluzba .price a{color:var(--blue);text-decoration:none}
-  .sluzba .price a:hover{text-decoration:underline}
   /* rozbalovacie porovnanie balikov */
   .porovnanie{max-width:820px;margin:22px auto 0;background:#fff;border:1px solid #e3eaf3;border-radius:14px;overflow:hidden}
   .porovnanie>summary{padding:16px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.97rem}
@@ -284,7 +272,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
     <nav class="nav-links" id="nav-links">
       <a href="#cennik">Cenník</a>
-      <a href="#sluzby">Služby</a>
+      <a href="sluzby.html">Služby</a>
       <a href="#onas">O nás</a>
       <a href="faq.html">Časté otázky</a>
       <a href="#rezervacia" class="btn btn-rez" data-open-rezervacia>Rezervácia</a>
@@ -370,6 +358,14 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         <div class="ideal">Dom alebo generálka. Vrátane tepovania (čas sa odčíta z času upratovania).</div>
         <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</a>
       </div>
+      <div class="pack">
+        <img src="tepovanie-sedacky.webp" alt="Tepovanie látkovej sedačky extraktorom v Bratislave" class="pack-img" loading="lazy" width="900" height="675">
+        <div class="hrs">Samostatne</div>
+        <div class="pname">Tepovanie</div>
+        <div class="amt">40 € / hod</div>
+        <div class="ideal">Sedačky, koberce a matrace. V balíku Maxi je zahrnuté.</div>
+        <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="tepovanie">Rezervovať tepovanie</a>
+      </div>
     </div>
     <details class="porovnanie">
       <summary>Podrobné porovnanie balíkov</summary>
@@ -397,40 +393,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <p class="note">V balíku Maxi je tepovanie zahrnuté — čas tepovania sa odčíta z celkového času upratovania. Nemáte textilnú sedačku? Namiesto tepovania ponúkneme ošetrenie koženej sedačky za zvýhodnenú cenu.</p>
   </div>
 </section>
-<section id="sluzby">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Čo robíme</div>
-      <h2>Naše služby</h2>
-    </div>
-    <div class="sluzby-row">
-      <div class="sluzba">
-        <div class="ic">&#127969;</div>
-        <h3>Byty a domy</h3>
-        <p>Jednorazovo aj pravidelne, bez obhliadky.</p>
-        <div class="price">od 79,90 €</div>
-      </div>
-      <div class="sluzba">
-        <div class="ic">&#127970;</div>
-        <h3>Kancelárie a prevádzky</h3>
-        <p>Pravidelné upratovanie, aj po pracovnej dobe.</p>
-        <div class="price">cena na mieru</div>
-      </div>
-      <div class="sluzba">
-        <div class="ic">&#128715;</div>
-        <h3>Tepovanie a koža</h3>
-        <p>Sedačky a koberce. V balíku Maxi, inak doplatok.</p>
-        <div class="price"><a href="tepovanie-bratislava.html">Viac o tepovaní →</a></div>
-      </div>
-      <div class="sluzba">
-        <div class="ic">&#128273;</div>
-        <h3>Airbnb / Booking</h3>
-        <p>Krátkodobé prenájmy a netypické priestory.</p>
-        <div class="price"><a href="#" data-open-individ>Individuálny dopyt →</a></div>
-      </div>
-    </div>
-  </div>
-</section>
 <section id="rezervacia">
   <div class="wrap">
     <div class="section-head">
@@ -454,7 +416,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
       <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Preto sme sa rozhodli robiť to po svojom. Založili sme <b>Poriado</b> a všetky nazbierané skúsenosti sme vložili do služby, ktorá dáva zmysel vám — nie tabuľke. Prídeme s vlastným vybavením, dohodneme sa na prioritách a odvedieme prácu tak, akoby sme upratovali u seba doma.</p>
       <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:26px">Sme malý osobný tím, ktorý si zakladá na férovosti — bez skrytých poplatkov a bez výhovoriek. Čo si dohodneme, dodržíme, a k vášmu domovu pristupujeme spoľahlivo a diskrétne.</p>
-      <a href="#" class="btn" data-open-individ>Individuálny dopyt</a>
     </div>
   </div>
 </section>
@@ -464,7 +425,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
     <p style="margin-top:10px"><a href="tel:+421949076917" style="color:#9fc0e8">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#9fc0e8">info@poriado.sk</a></p>
     <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
-    <p style="margin-top:10px"><a href="faq.html" style="color:#9fc0e8">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#9fc0e8">Tepovanie sedačiek a kobercov</a></p>
+    <p style="margin-top:10px"><a href="sluzby.html" style="color:#9fc0e8">Služby</a> &nbsp;·&nbsp; <a href="faq.html" style="color:#9fc0e8">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#9fc0e8">Tepovanie sedačiek a kobercov</a></p>
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#9fc0e8">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
   </div>
 </footer>
