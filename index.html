@@ -142,7 +142,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
   .highlight{background:linear-gradient(135deg,#eef3fa,#f7f9fc)}
   .pricing{background:var(--bg)}
-  .note{text-align:center;color:#8893a3;font-size:.86rem;margin-top:16px}
+  .note{text-align:center;color:#5f6875;font-size:.86rem;margin-top:16px}
   .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
   .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:20px 18px;text-align:center;position:relative;transition:.2s;display:flex;flex-direction:column}
   .pack:hover{box-shadow:0 14px 32px rgba(31,56,100,.13);transform:translateY(-3px)}
@@ -153,11 +153,6 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .pack .amt{font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1}
   .pack .ideal{color:#5b6675;font-size:.86rem;margin-top:10px;flex-grow:1}
   .pack .pbtn{margin-top:14px}
-  .pack.custom{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
-  .pack.custom .hrs,.pack.custom .pname,.pack.custom .amt{color:#fff}
-  .pack.custom .ideal{color:#d3e0f0}
-  .pack.custom .btn{background:#fff;color:var(--navy)}
-  .pack.custom .btn:hover{background:var(--light)}
   .ftable-wrap{overflow-x:auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07);margin-top:20px}
   table.ftable{border-collapse:collapse;width:100%;min-width:520px}
   table.ftable th,table.ftable td{padding:10px 13px;border-bottom:1px solid #eef2f7;text-align:center;font-size:.92rem}
@@ -165,8 +160,8 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
   table.ftable th:first-child{color:#fff}
   table.ftable tr:nth-child(even) td{background:#fafcff}
-  table.ftable .yes{color:var(--accent);font-weight:800}
-  table.ftable .no{color:#c7cfda}
+  table.ftable .yes{color:#96691a;font-weight:800}
+  table.ftable .no{color:#5f6875}
   .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px}
   .addon{background:#fff;border:1px solid #e3eaf3;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
   .addon span{color:var(--ink);font-size:.94rem}
@@ -192,7 +187,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .modal{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35)}
   .modal h3{color:var(--navy);font-size:1.4rem;margin-bottom:6px}
   .modal .sub{color:#5b6675;font-size:.95rem;margin-bottom:20px;line-height:1.55}
-  .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#9aa6b5;cursor:pointer;line-height:1}
+  .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#5f6875;cursor:pointer;line-height:1}
   .modal-close:hover{color:var(--navy)}
   .modal form{box-shadow:none;padding:0}
   .modal-wide{max-width:1000px;padding:30px 22px}
@@ -256,6 +251,24 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .sluzba .price{font-weight:800;color:var(--blue);font-size:.98rem}
   .sluzba .price a{color:var(--blue);text-decoration:none}
   .sluzba .price a:hover{text-decoration:underline}
+  /* rozbalovacie porovnanie balikov */
+  .porovnanie{max-width:820px;margin:22px auto 0;background:#fff;border:1px solid #e3eaf3;border-radius:14px;overflow:hidden}
+  .porovnanie>summary{padding:16px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.97rem}
+  .porovnanie>summary::-webkit-details-marker{display:none}
+  .porovnanie>summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400;line-height:1}
+  .porovnanie[open]>summary::after{content:"\2212"}
+  .porovnanie .ftable-wrap{margin:0;border-radius:0;box-shadow:none}
+  /* veticka pre priestory na mieru (nahradila kartu Individualny) */
+  .namieru{text-align:center;color:#5b6675;font-size:.95rem;margin-top:20px}
+  .namieru a{color:var(--navy);font-weight:700;border-bottom:2px solid var(--gold)}
+  .namieru a:hover{color:var(--blue)}
+  /* mobilna lepiaca lista */
+  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e3eaf3;box-shadow:0 -6px 24px rgba(15,25,45,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
+  .mlista.show{transform:translateY(0)}
+  .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
+  .mlista .cena small{display:block;font-weight:600;color:#5b6675;font-size:.72rem}
+  .mlista .btn{margin-left:auto;flex:1;max-width:215px;padding:13px 16px;font-size:.96rem;min-height:48px;text-align:center}
+  @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}}
 </style>
 </head>
 <body>
@@ -275,7 +288,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
 <section class="hero">
   <div class="wrap">
     <h1>Spoľahlivé upratovanie v Bratislave — vy poviete čo, my to vyčistíme</h1>
-    <p>Byty, domy aj kancelárie. Prídeme s vlastnými čistiacimi prostriedkami a vybavením a pred upratovaním sa s vami dohodneme, čomu sa v rámci času balíka venovať najviac. Domácnosti upratujeme bez obhliadky.</p>
+    <p>Byty, domy aj kancelárie. Jasná cena vopred, rezervácia online do minúty.</p>
     <div class="hero-cta">
       <a href="#rezervacia" class="btn btn-primary btn-rez" data-open-rezervacia>Rezervovať termín</a>
       <div class="hero-kontakt">
@@ -350,14 +363,9 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         <div class="ideal">Dom alebo generálka. Vrátane tepovania (čas sa odčíta z času upratovania).</div>
         <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</a>
       </div>
-      <div class="pack custom">
-        <div class="hrs">Na mieru</div>
-        <div class="pname">Individuálny</div>
-        <div class="amt">Dohodou</div>
-        <div class="ideal">Airbnb, kancelárie a špeciálne priestory.</div>
-        <a href="#" class="btn pbtn" data-open-individ>Vyplniť dopyt</a>
-      </div>
     </div>
+    <details class="porovnanie">
+      <summary>Podrobné porovnanie balíkov</summary>
     <div class="ftable-wrap">
       <table class="ftable">
         <thead>
@@ -377,6 +385,8 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
         </tbody>
       </table>
     </div>
+    </details>
+    <p class="namieru">Kancelárie, Airbnb a špeciálne priestory riešime na mieru — <a href="#" data-open-individ>pošlite nezáväzný dopyt</a></p>
     <p class="note">V balíku Maxi je tepovanie zahrnuté — čas tepovania sa odčíta z celkového času upratovania. Nemáte textilnú sedačku? Namiesto tepovania ponúkneme ošetrenie koženej sedačky za zvýhodnenú cenu.</p>
   </div>
 </section>
@@ -535,6 +545,10 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
       <button class="btn" id="ck-accept-all">Prijať všetko</button>
     </div>
   </div>
+</div>
+<div class="mlista" id="mlista">
+  <div class="cena">od 79,90 €<small>balík Mini, 3 hodiny</small></div>
+  <a href="#rezervacia" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
 </div>
 
 <script>
@@ -744,6 +758,49 @@ function combineFields(fd){
     }
     box.textContent = s;
     bar.setAttribute('aria-label', 'Hodnotenie ' + bar.getAttribute('data-rating') + ' z 5 na Google — otvoriť recenzie');
+  })();
+  /* Mobilna lepiaca lista: ukaze sa po odrolovani hero, skryje sa pri
+     otvorenom modali alebo cookie liste. Klik riesi data-open-rezervacia,
+     takze plati rovnaka logika aj konverzia ako pri ostatnych CTA. */
+  (function(){
+    var lista = document.getElementById('mlista');
+    var hero  = document.querySelector('.hero');
+    if(!lista || !hero) return;
+    var zaHerom = false;
+    var IDS = ['individ-modal','rezervacia-modal','cookie-modal','cookie-banner'];
+
+    function prekazka(){
+      for(var i=0;i<IDS.length;i++){
+        var el = document.getElementById(IDS[i]);
+        if(!el) continue;
+        if(el.classList.contains('open') || el.classList.contains('show')) return true;
+      }
+      return false;
+    }
+    function aktualizuj(){
+      var ukaz = zaHerom && !prekazka();
+      lista.classList.toggle('show', ukaz);
+      document.body.classList.toggle('ml-on', ukaz);
+    }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(z){
+        zaHerom = !z[0].isIntersecting;
+        aktualizuj();
+      }, {rootMargin:'-70px 0px 0px 0px'}).observe(hero);
+    } else {
+      window.addEventListener('scroll', function(){
+        zaHerom = window.pageYOffset > hero.offsetHeight;
+        aktualizuj();
+      });
+    }
+    if('MutationObserver' in window){
+      var mo = new MutationObserver(aktualizuj);
+      IDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) mo.observe(el, {attributes:true, attributeFilter:['class']});
+      });
+    }
+    aktualizuj();
   })();
 
 </script>
