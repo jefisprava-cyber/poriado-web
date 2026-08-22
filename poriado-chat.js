@@ -98,6 +98,7 @@
       var wrap = el("div", "pch-chips");
       FAQ.forEach(function (f) {
         var c = el("button", "pch-chip", f.q);
+        c.type = "button";   // bez toho je to submit — v <form> by odosielal formulár
         c.onclick = function () { ask(f); };
         wrap.appendChild(c);
       });
@@ -119,7 +120,17 @@
       var text = f.a;
       if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:#2e75b6;font-weight:700">' + f.link.text + "</a>";
       bot(text, 450, function () {
-        bot("Pomôžem ešte s niečím? 🙂", 350, chips);
+        var odpoved = body.lastElementChild;   // práve vložená odpoveď
+        bot("Pomôžem ešte s niečím? 🙂", 350, function () {
+          chips();
+          /* Zoznam otázok je vyšší než okno. Keby sme odrolovali na koniec
+             (ako to robí chips()), odpoveď by hneď vyletela nad okraj a
+             vyzeralo by to, že chat sa sám zavrel. Necháme ju preto hore
+             a k otázkam sa dá doscrollovať. */
+          if (odpoved) {
+            body.scrollTop += odpoved.getBoundingClientRect().top - body.getBoundingClientRect().top;
+          }
+        });
       });
     }
 

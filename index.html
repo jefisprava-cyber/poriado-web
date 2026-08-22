@@ -73,6 +73,9 @@
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
     --ink:#1c2530; --muted:#5b6675; --white:#fff; --accent:#19b07a; --gold:#d4a44c; --gold-tmava:#bd8d33;
+    /* Zlata na plochy sa neda pouzit na text — na bielom ma len 2,3:1.
+       Na pisane sluzi tmavsia --gold-text (4,85:1), rovnako ako na sluzby.html. */
+    --gold-text:#96691a;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -144,6 +147,9 @@
   .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
   .highlight{background:linear-gradient(135deg,#eef3fa,#f7f9fc)}
   .pricing{background:var(--bg)}
+  .zlava{max-width:640px;margin:20px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.92rem;color:var(--ink)}
+  .zlava b{color:var(--gold-text)}
+  .znacka{color:var(--gold-text)}
   /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
      citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
   .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
@@ -346,6 +352,7 @@
         <a href="#rezervacia" class="btn pbtn btn-rez" data-open-rezervacia data-balik="tepovanie">Rezervovať tepovanie</a>
       </div>
     </div>
+    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — platí na cenu každého balíka. Stačí zaškrtnúť pri rezervácii.</p>
     <details class="porovnanie">
       <summary>Podrobné porovnanie balíkov</summary>
     <div class="ftable-wrap">
@@ -376,7 +383,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Ako to funguje</div>
-      <h2>Od rezervácie po upratané za tri kroky</h2>
+      <h2>Od rezervácie po <span class="znacka">Poriado</span>(k) za tri kroky</h2>
     </div>
     <ol class="kroky">
       <li class="krok"><b>Vyberiete balík a termín</b><span>Online, bez obhliadky. Potvrdenie máte okamžite.</span></li>
