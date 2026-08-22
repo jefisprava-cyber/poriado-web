@@ -214,19 +214,19 @@
     function otvor() { overlay.classList.add('pd-open'); }
     function zavri() { overlay.classList.remove('pd-open'); }
 
-    var odkazy = document.querySelectorAll('[data-open-individ]');
-    for (var i = 0; i < odkazy.length; i++) {
-      odkazy[i].addEventListener('click', function (e) { e.preventDefault(); otvor(); });
-    }
-
-    /* Staré odkazy tvaru /#individ aj odkazy z chatu. Na podstránke smerujú
-       na hlavnú stránku, preto ich prepíšem na obyčajné #individ — okno sa
-       potom otvorí na mieste a návštevník nikam neodskočí. */
-    var stare = document.querySelectorAll('a[href$="#individ"]');
-    for (var j = 0; j < stare.length; j++) {
-      stare[j].setAttribute('href', '#individ');
-      stare[j].addEventListener('click', function (e) { e.preventDefault(); otvor(); });
-    }
+    /* Klik chytáme na dokumente, nie na jednotlivých odkazoch. Chat sa totiž
+       vkladá až po tomto skripte a jeho odkaz "Individuálny dopyt" by inak
+       nikto neodchytil — na podstránke by návštevníka odviedol na hlavnú
+       stránku. Odkazy /#individ tak fungujú na mieste; href im nechávam, aby
+       bez JavaScriptu doviedli aspoň na hlavnú stránku ako predtým. */
+    var VYBER = '[data-open-individ], a[href$="#individ"]';
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      if (!t.closest(VYBER)) return;
+      e.preventDefault();
+      otvor();
+    });
 
     document.getElementById('individ-close').addEventListener('click', zavri);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) zavri(); });

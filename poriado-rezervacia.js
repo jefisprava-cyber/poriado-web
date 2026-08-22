@@ -123,23 +123,19 @@
     }
     function zavri() { prekryv.classList.remove('pr-otvorene'); }
 
-    var tlacidla = document.querySelectorAll('[data-open-rezervacia]');
-    for (var i = 0; i < tlacidla.length; i++) {
-      tlacidla[i].addEventListener('click', function (e) {
-        e.preventDefault();
-        otvor(this.getAttribute('data-balik'));
-      });
-    }
-
-    /* Odkazy, ktoré doteraz odchádzali priamo do Reenia. Href nechávam —
-       keby JavaScript zlyhal, odkaz stále funguje ako predtým. */
-    var odchodzie = document.querySelectorAll('a[href*="rezervacie.poriado.sk"]');
-    for (var j = 0; j < odchodzie.length; j++) {
-      odchodzie[j].addEventListener('click', function (e) {
-        e.preventDefault();
-        otvor(this.getAttribute('data-balik'));
-      });
-    }
+    /* Klik chytáme na dokumente, nie na jednotlivých tlačidlách. Chat sa totiž
+       vkladá až po tomto skripte a jeho odkaz "Rezervovať termín" by inak nikto
+       neodchytil — na podstránke by návštevníka odviedol na hlavnú stránku.
+       Href pri odkazoch nechávam, aby bez JavaScriptu fungovali ako predtým. */
+    var VYBER = '[data-open-rezervacia], a[href*="rezervacie.poriado.sk"], a[href$="#rezervacia"]';
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var el = t.closest(VYBER);
+      if (!el) return;
+      e.preventDefault();
+      otvor(el.getAttribute('data-balik'));
+    });
 
     document.getElementById('rezervacia-close').addEventListener('click', zavri);
     prekryv.addEventListener('click', function (e) { if (e.target === prekryv) zavri(); });
