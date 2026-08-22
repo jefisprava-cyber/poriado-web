@@ -202,14 +202,9 @@
       okno.classList.add('pk-otvorene');
     });
 
-    /* Rezervačné tlačidlá, ktoré odchádzajú priamo do Reenia (podstránky) —
-       nech sa konverzia meria rovnako ako na hlavnej stránke. */
-    var odkazy = document.querySelectorAll('a[href*="rezervacie.poriado.sk"]');
-    for (var i = 0; i < odkazy.length; i++) {
-      odkazy[i].addEventListener('click', function () {
-        window.konverzia('begin_checkout', 'InitiateCheckout');
-      });
-    }
+    /* Rezervačnú konverziu (begin_checkout / InitiateCheckout) meria
+       poriado-rezervacia.js pri otvorení okna. Zámerne to nie je aj tu —
+       obidve miesta by ju započítali dvakrát. */
   }
 
   if (document.readyState === 'loading') {

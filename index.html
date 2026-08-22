@@ -19,12 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="facebook-domain-verification" content="l8wso3zh8v20no0ac9i7fykpszv2s6" />
-<script>
-/* Google Consent Mode v2 — predvolene vsetko zamietnute, kym navstevnik nesuhlasi */
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
-</script>
+<script src="poriado-meranie.js"></script>
 <meta name="twitter:title" content="Poriado — Upratovanie Bratislava">
 <meta name="twitter:image" content="https://www.poriado.sk/og-image.png">
 <script type="application/ld+json">
@@ -149,6 +144,14 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
   .highlight{background:linear-gradient(135deg,#eef3fa,#f7f9fc)}
   .pricing{background:var(--bg)}
+  /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
+     citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
+  .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
+  .krok{counter-increment:krok;position:relative;padding-left:52px}
+  .krok::before{content:counter(krok);position:absolute;left:0;top:-4px;width:38px;height:38px;border-radius:10px;background:var(--gold);color:var(--navy);font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+  .krok b{display:block;color:var(--navy);font-size:1.02rem;margin-bottom:4px}
+  .krok span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5}
+  @media(max-width:760px){.kroky{grid-template-columns:1fr;gap:20px;max-width:420px}}
   .note{text-align:center;color:#5f6875;font-size:.86rem;margin-top:16px}
   .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
   .pack{background:#fff;border:1px solid #e3eaf3;border-radius:14px;padding:20px 18px;text-align:center;position:relative;transition:.2s;display:flex;flex-direction:column}
@@ -177,57 +180,12 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400}
   details[open] summary::after{content:"\2212"}
   details p{padding:0 22px 20px;color:#5b6675;font-size:.97rem}
-  form{background:#fff;padding:30px;border-radius:16px;box-shadow:0 10px 30px rgba(31,56,100,.07)}
-  form label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy)}
-  form input,form select,form textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem}
-  form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue)}
-  form .btn{width:100%}
-  .form-ok{display:none;color:var(--accent);font-weight:700;text-align:center;margin-top:14px}
   footer{background:var(--navy);color:#c5d3e6;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
-  .modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}
-  .modal-overlay.open{display:flex}
-  .modal{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35)}
-  .modal h3{color:var(--navy);font-size:1.4rem;margin-bottom:6px}
-  .modal .sub{color:#5b6675;font-size:.95rem;margin-bottom:20px;line-height:1.55}
-  .modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;color:#5f6875;cursor:pointer;line-height:1}
-  .modal-close:hover{color:var(--navy)}
-  .modal form{box-shadow:none;padding:0}
-  .modal-wide{max-width:1000px;padding:30px 22px}
-  #reenio-container{min-height:280px}
-  @media(max-width:640px){.modal-wide{padding:24px 12px}}
   footer a{color:#9fc0e8}
-  .cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #e3eaf3;box-shadow:0 -8px 30px rgba(15,25,45,.12);padding:18px 0;display:none}
-  .cookie-banner.show{display:block}
-  .cookie-inner{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-  .cookie-text{flex:1;min-width:240px;font-size:.9rem;color:#33424f}
-  .cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
-  .cookie-actions .btn{padding:10px 18px;font-size:.88rem}
-  .cookie-modal-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}
-  .cookie-modal-overlay.open{display:flex}
-  .cookie-modal{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto}
-  .cookie-modal h3{color:var(--navy);font-size:1.3rem;margin-bottom:14px}
-  .cookie-cat{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid #eef2f7}
-  .cookie-cat b{color:var(--navy);display:block;font-size:.98rem}
-  .cookie-cat span{color:#5b6675;font-size:.85rem}
-  .switch{position:relative;width:44px;height:24px;flex-shrink:0}
-  .switch input{opacity:0;width:0;height:0}
-  .slider{position:absolute;inset:0;background:#c7cfda;border-radius:24px;cursor:pointer;transition:.2s}
-  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
-  .switch input:checked+.slider{background:var(--accent)}
-  .switch input:checked+.slider:before{transform:translateX(20px)}
-  .switch input:disabled+.slider{background:var(--blue);opacity:.5;cursor:not-allowed}
-  .cookie-modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-  .cookie-modal-actions .btn{flex:1}
   .pack-img{width:100%;height:118px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block}
   header{box-shadow:0 1px 8px rgba(0,0,0,.06),0 10px 30px rgba(228,178,96,.22)}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
-  .foto-input{width:100%;padding:10px;border:1.5px dashed var(--blue);border-radius:9px;background:#f7f9fc;font-size:.9rem;margin-bottom:4px}
-  .foto-note{font-size:.8rem;color:var(--muted);margin-bottom:12px}
-  .gdpr-check{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:2px 0 14px;font-weight:400}
-  .gdpr-check input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--blue)}
-  .gdpr-check a{color:var(--blue);text-decoration:underline}
-  .foto-stav{color:var(--accent);font-weight:700}
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
   .reviews{background:#fff;padding:0}
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #e3eaf3;transition:.18s}
@@ -414,6 +372,19 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <p class="note">Vyberte si balík a voľný termín — rezerváciu vám potvrdíme okamžite. Zaplatíte kartou online alebo prevodom cez faktúru s QR kódom.</p>
   </div>
 </section>
+<section id="ako">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ako to funguje</div>
+      <h2>Od rezervácie po upratané za tri kroky</h2>
+    </div>
+    <ol class="kroky">
+      <li class="krok"><b>Vyberiete balík a termín</b><span>Online, bez obhliadky. Potvrdenie máte okamžite.</span></li>
+      <li class="krok"><b>Poviete nám priority</b><span>Čo je najdôležitejšie upratať — tomu sa venujeme najviac.</span></li>
+      <li class="krok"><b>Prídeme a upraceme</b><span>S vlastnými čistiacimi prostriedkami a vybavením.</span></li>
+    </ol>
+  </div>
+</section>
 <section id="onas" class="highlight">
   <div class="wrap">
     <div class="section-head">
@@ -437,265 +408,18 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#9fc0e8">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
   </div>
 </footer>
-<div class="modal-overlay" id="individ-modal">
-  <div class="modal">
-    <button class="modal-close" id="individ-close" aria-label="Zavrieť">&times;</button>
-    <h3>Individuálny dopyt</h3>
-    <p class="sub">Pre Airbnb, kancelárie a špeciálne priestory. Napíšte nám, čo potrebujete, a ozveme sa do 24 hodín s ponukou na mieru.</p>
-    <form id="individ-form" action="https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec" method="POST">
-      <input type="hidden" name="token" value="poriado2026">
-      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label for="i-meno">Meno alebo firma</label>
-      <input type="text" id="i-meno" name="meno" required autocomplete="name" placeholder="Meno / názov firmy">
-      <label for="i-telefon">Telefón</label>
-      <input type="tel" id="i-telefon" name="telefon" required autocomplete="tel" inputmode="tel" placeholder="+421 900 000 000">
-      <label for="i-email">E-mail</label>
-      <input type="email" id="i-email" name="email" required autocomplete="email" inputmode="email" placeholder="vas@email.sk">
-      <label for="i-text">Správa</label>
-      <textarea id="i-text" name="text" rows="4" placeholder="O aký priestor ide, aká je jeho veľkosť, čo potrebujete a kedy — čím viac napíšete, tým presnejšiu ponuku pripravíme."></textarea>
-      <label>Fotky priestoru (nepovinné, max 5)</label>
-      <input type="file" class="foto-input" accept="image/*" multiple>
-      <p class="foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. <span class="foto-stav"></span></p>
-      <label class="gdpr-check"><input type="checkbox" required> Potvrdzujem, že som sa oboznámil/a so <a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</label>
-      <button type="submit" class="btn">Odoslať dopyt</button>
-      <p id="individ-ok" class="form-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>
-    </form>
-  </div>
-</div>
-<div class="modal-overlay" id="rezervacia-modal">
-  <div class="modal modal-wide">
-    <button class="modal-close" id="rezervacia-close" aria-label="Zavrieť">&times;</button>
-    <h3>Rezervácia termínu</h3>
-    <p class="sub"><b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> Zaplatíte, ako vám vyhovuje: kartou hneď online, alebo prevodom cez faktúru s QR kódom, ktorú pošleme e-mailom. Zrušenie zdarma do 24 hodín pred termínom.</p>
-    <div id="reenio-container">
-    </div>
-  </div>
-</div>
-  <div class="cookie-banner" id="cookie-banner">
-  <div class="cookie-inner">
-    <div class="cookie-text"><b>Používame cookies.</b> Nevyhnutné sú vždy aktívne. Analytické a marketingové používame len s vaším súhlasom. Viac v <a href="ochrana-osobnych-udajov.html" style="color:var(--blue);font-weight:600">zásadách ochrany údajov</a>.</div>
-    <div class="cookie-actions">
-      <button class="btn btn-ghost" id="ck-settings">Nastavenia</button>
-      <button class="btn btn-ghost" id="ck-reject">Odmietnuť</button>
-      <button class="btn" id="ck-accept">Prijať všetko</button>
-    </div>
-  </div>
-</div>
-<div class="cookie-modal-overlay" id="cookie-modal">
-  <div class="cookie-modal">
-    <h3>Nastavenia cookies</h3>
-    <div class="cookie-cat">
-      <div><b>Nevyhnutné</b><span>Potrebné pre chod a bezpečnosť stránky. Vždy zapnuté.</span></div>
-      <label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label>
-    </div>
-    <div class="cookie-cat">
-      <div><b>Analytické</b><span>Anonymné štatistiky návštevnosti.</span></div>
-      <label class="switch"><input type="checkbox" id="ck-analytics"><span class="slider"></span></label>
-    </div>
-    <div class="cookie-cat">
-      <div><b>Marketingové</b><span>Meranie reklamy a remarketing.</span></div>
-      <label class="switch"><input type="checkbox" id="ck-marketing"><span class="slider"></span></label>
-    </div>
-    <div class="cookie-modal-actions">
-      <button class="btn btn-ghost" id="ck-save">Uložiť výber</button>
-      <button class="btn" id="ck-accept-all">Prijať všetko</button>
-    </div>
-  </div>
-</div>
 <div class="mlista" id="mlista">
   <div class="cena">od 79,90 €<small>balík Mini, 3 hodiny</small></div>
   <a href="#rezervacia" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
 </div>
 
 <script>
-
-  // fotky v dopytovych formularoch: kompresia v prehliadaci + pribalenie ako base64
-  function wireFotky(form){
-    var input=form.querySelector('.foto-input'); if(!input)return;
-    var stav=form.querySelector('.foto-stav');
-    form._fotky=[]; form._subory=[];
-    function prepocitaj(){
-      form._fotky=[];
-      if(!form._subory.length){stav.innerHTML='';return;}
-      stav.textContent='Spracovávam fotky…';
-      var hotovo=0, n=form._subory.length;
-      form._subory.forEach(function(f,i){
-        var img=new Image(), url=URL.createObjectURL(f);
-        img.onload=function(){
-          var max=1400, w=img.width, hgt=img.height;
-          if(w>max||hgt>max){var k=max/Math.max(w,hgt);w=Math.round(w*k);hgt=Math.round(hgt*k);}
-          var c=document.createElement('canvas');c.width=w;c.height=hgt;
-          c.getContext('2d').drawImage(img,0,0,w,hgt);
-          form._fotky[i]=c.toDataURL('image/jpeg',0.75).split(',')[1];
-          URL.revokeObjectURL(url);
-          if(++hotovo===n)hotove();
-        };
-        img.onerror=function(){if(++hotovo===n)hotove();};
-        img.src=url;
-      });
-      function hotove(){
-        var p=form._fotky.filter(Boolean).length;
-        stav.innerHTML='✓ '+p+' '+(p===1?'fotka pripravená':(p<5?'fotky pripravené':'fotiek pripravených'))+
-          ' &nbsp;<a href="#" class="foto-zmaz" style="color:#d64545">✕ vymazať</a>';
-        var z=stav.querySelector('.foto-zmaz');
-        if(z)z.onclick=function(ev){ev.preventDefault();form._subory=[];form._fotky=[];input.value='';stav.innerHTML='';};
-      }
-    }
-    input.addEventListener('change',function(){
-      var nove=Array.prototype.slice.call(input.files);
-      for(var i=0;i<nove.length&&form._subory.length<5;i++)form._subory.push(nove[i]);
-      input.value='';           // umozni pridat dalsie po jednej
-      prepocitaj();
-    });
-  }
-  function konverzia(gaNazov, fbNazov){
-    try{ if(window.gtag) gtag('event', gaNazov); }catch(e){}
-    try{ if(window.fbq) fbq('track', fbNazov); }catch(e){}
-  }
-  function pridajFotky(form,fd){
-    var f=(form._fotky||[]).filter(Boolean);
-    fd.append('foto_count',f.length);
-    f.forEach(function(b,i){fd.append('foto_'+(i+1),b);});
-  }
-  function wireForm(formId, okId, beforeSend){
-    var form = document.getElementById(formId);
-    if(!form) return;
-    wireFotky(form);
-    form.addEventListener('submit', function(ev){
-      ev.preventDefault();
-      var btn = form.querySelector('button[type=submit]');
-      var orig = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Odosielam...';
-      var fd = new FormData(form);
-      if(beforeSend) beforeSend(fd);
-      pridajFotky(form, fd);
-      fetch(form.action, { method:'POST', body:fd, mode:'no-cors' })
-        .then(function(){
-          form.reset();
-          form._subory=[]; form._fotky=[];
-          var st=form.querySelector('.foto-stav'); if(st)st.innerHTML='';
-          btn.disabled = false; btn.textContent = orig;
-          var ok = document.getElementById(okId);
-          if(ok) ok.style.display = 'block';
-          konverzia('generate_lead','Lead');
-        })
-        .catch(function(){
-          btn.disabled = false; btn.textContent = orig;
-          alert('Dopyt sa nepodarilo odoslať. Skúste znova alebo nám zavolajte.');
-        });
-    });
-  }
-function combineFields(fd){
-    /* Formular uz nema vyber baliku ani typu priestoru — sprava je cely text. */
-    fd.set('sprava', fd.get('text') || '');
-    fd.delete('text');
-  }
-  wireForm('individ-form', 'individ-ok', combineFields);
-  var modal = document.getElementById('individ-modal');
-  function openModal(){ if(modal) modal.classList.add('open'); }
-  function closeModal(){ if(modal) modal.classList.remove('open'); }
-  document.querySelectorAll('[data-open-individ]').forEach(function(el){
-    el.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
-  });
-  var closeBtn = document.getElementById('individ-close');
-  if(closeBtn) closeBtn.addEventListener('click', closeModal);
-  if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
-  /* otvorenie individualneho dopytu cez odkaz #individ (z podstranok aj z chatu) */
-  function individZHashu(){ if(location.hash === "#individ") openModal(); }
-  individZHashu();
-  window.addEventListener('hashchange', individZHashu);
-  var rezModal = document.getElementById('rezervacia-modal');
-  var reenioLoaded = false;
-
-  /* Cesty do Reenia na konkretny balik. Widget ich berie cez atribut data-url
-     a pripaja k adrese https://poriado.reenio.sk/sk/iframe — zakaznik tak
-     preskoci vyber balika a rovno vidi kalendar. Bez baliku sa zobrazi zoznam. */
-  var REENIO_BALIKY = {
-    mini:      '/view/mini-3-hodiny-r132830',
-    klasik:    '/view/klasik-6-hodin-r132831',
-    maxi:      '/view/maxi-9-hodin-r132832',
-    tepovanie: '/view/tepovanie-r132833'
-  };
-
-  /* Kazdy balik ma vlastny panel s vlastnym widgetom. Panely sa iba prepinaju
-     zobrazenim, nikdy sa neodstranuju — keby sme uz nacitany widget vybrali
-     z DOM, jeho poslucháce by dalej volali postMessage na neexistujuci iframe
-     a sypali chyby do konzoly. */
-  function nastavBalik(balik){
-    var c = document.getElementById('reenio-container');
-    if(!c) return;
-    var kluc = balik && REENIO_BALIKY[balik] ? balik : 'vsetky';
-    var panely = c.querySelectorAll('[data-balik-panel]');
-    for(var i=0;i<panely.length;i++) panely[i].style.display = 'none';
-    var panel = c.querySelector('[data-balik-panel="'+kluc+'"]');
-    if(!panel){
-      panel = document.createElement('div');
-      panel.setAttribute('data-balik-panel', kluc);
-      var d = document.createElement('div');
-      d.className = 'reenio-iframe';
-      d.setAttribute('data-size','auto');
-      if(kluc !== 'vsetky') d.setAttribute('data-url', REENIO_BALIKY[kluc]);
-      panel.appendChild(d);
-      c.insertBefore(panel, c.firstChild);
-    }
-    panel.style.display = '';
-  }
-
-  function openRez(balik){
-    if(!rezModal) return;
-    rezModal.classList.add('open');
-    konverzia('begin_checkout','InitiateCheckout');   /* Meta: InitiateCheckout (zmenene z Lead) - Lead sa posiela len po realnom odoslani dopytu; GA ostava begin_checkout */
-    nastavBalik(balik);
-    if(!reenioLoaded){
-      var s = document.createElement('script');
-      s.src = 'https://reenio.sk/sk/GI3DSMRZ/widget-iframe.js';
-      s.async = true; s.defer = true;
-      var c = document.getElementById('reenio-container');
-      if(c) c.appendChild(s);
-      reenioLoaded = true;
-    }
-  }
-  function closeRez(){ if(rezModal) rezModal.classList.remove('open'); }
-  document.querySelectorAll('[data-open-rezervacia]').forEach(function(el){
-    el.addEventListener('click', function(e){ e.preventDefault(); openRez(el.getAttribute('data-balik')); });
-  });
-  var rezCloseBtn = document.getElementById('rezervacia-close');
-  if(rezCloseBtn) rezCloseBtn.addEventListener('click', closeRez);
-  if(rezModal) rezModal.addEventListener('click', function(e){ if(e.target === rezModal) closeRez(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); closeRez(); } });
   (function(){
     var nb=document.getElementById('nav-burger'), nl=document.getElementById('nav-links');
     if(nb&&nl){
       nb.addEventListener('click',function(){ nl.classList.toggle('open'); });
       nl.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ nl.classList.remove('open'); }); });
     }
-  })();
-  (function(){
-    var KEY='poriado_cookie_consent';
-    var banner=document.getElementById('cookie-banner');
-    var cmodal=document.getElementById('cookie-modal');
-    var aChk=document.getElementById('ck-analytics');
-    var mChk=document.getElementById('ck-marketing');
-    function save(consent){
-      try{ localStorage.setItem(KEY, JSON.stringify(consent)); }catch(e){}
-      if(banner) banner.classList.remove('show');
-      if(cmodal) cmodal.classList.remove('open');
-    }
-    var stored=null;
-    try{ stored=JSON.parse(localStorage.getItem(KEY)); }catch(e){}
-    if(!stored){ if(banner) banner.classList.add('show'); }
-    else { if(aChk) aChk.checked=!!stored.analytics; if(mChk) mChk.checked=!!stored.marketing; }
-    function on(id,fn){ var el=document.getElementById(id); if(el) el.addEventListener('click',fn); }
-    on('ck-accept', function(){ save({necessary:true,analytics:true,marketing:true}); });
-    on('ck-accept-all', function(){ save({necessary:true,analytics:true,marketing:true}); });
-    on('ck-reject', function(){ save({necessary:true,analytics:false,marketing:false}); });
-    on('ck-settings', function(){ if(cmodal) cmodal.classList.add('open'); });
-    on('ck-save', function(){ save({necessary:true, analytics:!!(aChk&&aChk.checked), marketing:!!(mChk&&mChk.checked)}); });
-    if(cmodal) cmodal.addEventListener('click', function(e){ if(e.target===cmodal) cmodal.classList.remove('open'); });
-    on('cookie-reopen', function(e){ e.preventDefault();
-      var s=null; try{ s=JSON.parse(localStorage.getItem(KEY)); }catch(er){}
-      if(s){ if(aChk) aChk.checked=!!s.analytics; if(mChk) mChk.checked=!!s.marketing; }
-      if(cmodal) cmodal.classList.add('open'); });
   })();
   /* Rotujúce recenzie. Bez JS ostane viditeľná prvá (má triedu "on" priamo v HTML).
      Striedanie sa zastaví pri prejdení myšou alebo tabulátorom, aby sa dal text
@@ -758,13 +482,19 @@ function combineFields(fd){
     var hero  = document.querySelector('.hero');
     if(!lista || !hero) return;
     var zaHerom = false;
-    var IDS = ['individ-modal','rezervacia-modal','cookie-modal','cookie-banner'];
+    /* Rezervacia je este v tejto stranke (trieda "open"), dopyt uz pride
+       z poriado-dopyt.js ("pd-open") a cookie lista z poriado-meranie.js
+       ("pk-vidno" / "pk-otvorene"). Preto tu su tri sady nazvov. */
+    var IDS = ['individ-modal','rezervacia-modal','pk-lista','pk-okno-prekryv'];
+    var TRIEDY = ['open','show','pd-open','pk-vidno','pk-otvorene'];
 
     function prekazka(){
       for(var i=0;i<IDS.length;i++){
         var el = document.getElementById(IDS[i]);
         if(!el) continue;
-        if(el.classList.contains('open') || el.classList.contains('show')) return true;
+        for(var t=0;t<TRIEDY.length;t++){
+          if(el.classList.contains(TRIEDY[t])) return true;
+        }
       }
       return false;
     }
@@ -784,74 +514,21 @@ function combineFields(fd){
         aktualizuj();
       });
     }
+    /* Sledujeme cele body, nie jednotlive prvky: dopyt aj cookie lista sa do
+       stranky vkladaju az z odlozenych skriptov, takze v tejto chvili este
+       neexistuju a observer by sa nemal na co nalepit. */
     if('MutationObserver' in window){
-      var mo = new MutationObserver(aktualizuj);
-      IDS.forEach(function(id){
-        var el = document.getElementById(id);
-        if(el) mo.observe(el, {attributes:true, attributeFilter:['class']});
+      new MutationObserver(aktualizuj).observe(document.body, {
+        attributes: true, attributeFilter: ['class'], subtree: true, childList: true
       });
     }
     aktualizuj();
   })();
 
 </script>
-<script>
-(function(){
-  var GA_ID='G-BN8T9S3MTS';   /* ← sem daj svoje Measurement ID */
-  var loaded=false;
-  function loadGA(){
-    if(loaded || GA_ID.indexOf('XXXX')>-1) return; loaded=true;
-    var s=document.createElement('script'); s.async=true;
-    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
-    document.head.appendChild(s);
-    gtag('js', new Date()); gtag('config', GA_ID);
-  }
-  function check(){
-    try{
-      var c=JSON.parse(localStorage.getItem('poriado_cookie_consent'));
-      if(!c) return;
-      gtag('consent','update',{
-        analytics_storage: c.analytics ? 'granted' : 'denied',
-        ad_storage:        c.marketing ? 'granted' : 'denied',
-        ad_user_data:      c.marketing ? 'granted' : 'denied',
-        ad_personalization:c.marketing ? 'granted' : 'denied'
-      });
-      if(c.analytics) loadGA();
-    }catch(e){}
-  }
-  check();
-  ['ck-accept','ck-accept-all','ck-save'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.addEventListener('click', function(){ setTimeout(check,120); });
-  });
-})();
-</script>
-<script>
-/* Meta Pixel — spusti sa LEN po súhlase s marketingovými cookies */
-(function(){
-  var PIXEL_ID='939652179152863';
-  var loaded=false;
-  function loadPixel(){
-    if(loaded) return; loaded=true;
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', PIXEL_ID);
-    fbq('track', 'PageView');
-  }
-  function check(){
-    try{ var c=JSON.parse(localStorage.getItem('poriado_cookie_consent')); if(c && c.marketing) loadPixel(); }catch(e){}
-  }
-  check();
-  ['ck-accept','ck-accept-all','ck-save'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.addEventListener('click', function(){ setTimeout(check,150); });
-  });
-})();
-</script>
 
+<script src="poriado-rezervacia.js" defer></script>
+<script src="poriado-dopyt.js" defer></script>
 <script src="poriado-chat.js" defer></script>
 </body>
 </html>
