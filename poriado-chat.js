@@ -103,7 +103,9 @@
         wrap.appendChild(c);
       });
       body.appendChild(wrap);
-      body.scrollTop = body.scrollHeight;
+      /* Zámerne tu NEROLUJEME. Zoznam otázok je vyšší než celé okno, takže
+         skok na koniec odreže jeho prvý riadok a schová aj to, čo je nad ním.
+         Kam sa má okno pozerať, rozhodne ten, kto chips() zavolal. */
     }
     function bot(text, delay, cb) {
       setTimeout(function () {
@@ -139,7 +141,10 @@
       panel.classList.toggle("open");
       if (panel.classList.contains("open") && !opened) {
         opened = true;
-        bot("Dobrý deň! 👋 Som asistent Poriado. S čím vám pomôžem?", 250, chips);
+        bot("Dobrý deň! 👋 Som asistent Poriado. S čím vám pomôžem?", 250, function () {
+          chips();
+          body.scrollTop = 0;   // pozdrav aj prvé otázky nech sú hneď vidieť
+        });
       }
     };
     panel.querySelector("#pch-close").onclick = function () { panel.classList.remove("open"); };
