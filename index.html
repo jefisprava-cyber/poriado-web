@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Upratovanie Bratislava od 79,90 € | Poriado</title>| Poriado</title>
+<title>Upratovanie Bratislava od 79,90 € | Poriado</title>
 <meta name="description" content="Spoľahlivé upratovanie v Bratislave. Vlastné čistiace prostriedky v cene, rozsah si určíte vy. Domácnosti bez obhliadky. Balíčky Mini, Klasik, Maxi.">
 <link rel="canonical" href="https://www.poriado.sk/">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -134,7 +134,7 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .badge span{display:block;font-size:.78rem;line-height:1.35;color:#5b6675}
   @media(max-width:1120px){.badges{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:900px){.badges{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:460px){.badges{grid-template-columns:1fr}}
+  @media(max-width:460px){.badges{gap:1px}.badge{padding:14px 12px}.badge b{font-size:.84rem}.badge span{font-size:.72rem}}
   section{padding:52px 0}
   .section-head{text-align:center;max-width:720px;margin:0 auto 32px}
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
@@ -265,6 +265,32 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
   .mlista .cena small{display:block;font-weight:600;color:#5b6675;font-size:.72rem}
   .mlista .btn{margin-left:auto;flex:1;max-width:215px;padding:13px 16px;font-size:.96rem;min-height:48px;text-align:center}
   @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}}
+  /* Mobil: baliky do dvoch stlpcov namiesto jedneho dlheho stlpca */
+  @media(max-width:640px){
+    .packs{grid-template-columns:repeat(2,1fr);gap:10px}
+    .pack{padding:14px 10px}
+    .pack-img{height:76px;margin-bottom:8px}
+    .pack .tag{top:-9px;font-size:.6rem;padding:3px 8px;letter-spacing:.2px}
+    .pack .hrs{font-size:.68rem;letter-spacing:.4px}
+    .pack .pname{font-size:1rem;margin:2px 0 6px}
+    .pack .amt{font-size:1.35rem;letter-spacing:-.5px}
+    .pack .ideal{font-size:.76rem;margin-top:8px;line-height:1.35}
+    .pack .pbtn{margin-top:10px;padding:12px 4px;font-size:.78rem;min-height:46px;display:flex;align-items:center;justify-content:center}
+  }
+  /* Mobil: z porovnávacej tabuľky spravíme karty — žiadne vodorovné rolovanie.
+     Každý riadok je karta s názvom služby a troma označenými balíkmi. */
+  @media(max-width:640px){
+    .ftable-wrap{overflow-x:visible;border:none;background:transparent;box-shadow:none}
+    table.ftable{min-width:0;width:100%;display:block}
+    table.ftable thead{display:none}
+    table.ftable tbody{display:block}
+    table.ftable tr{display:block;background:#fff;border:1px solid #e3eaf3;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+    table.ftable tr:nth-child(even) td{background:transparent}
+    table.ftable td{display:inline-flex;align-items:center;gap:5px;border:none;padding:0;font-size:.86rem;text-align:left}
+    table.ftable td:first-child{display:block;font-weight:700;color:var(--navy);margin-bottom:9px;font-size:.92rem;line-height:1.35}
+    table.ftable td[data-p]{margin-right:14px}
+    table.ftable td[data-p]::before{content:attr(data-p);color:#5f6875;font-weight:600;font-size:.78rem}
+  }
 </style>
 </head>
 <body>
@@ -374,16 +400,16 @@ gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personali
           <tr><th>Čo je v cene</th><th>Mini 3 h</th><th>Klasik 6 h</th><th>Maxi 9 h</th></tr>
         </thead>
         <tbody>
-          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Použitie vlastných čistiacich prostriedkov a vybavenia</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Priority si určíte vy (dohoda pred upratovaním)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Umytie okien</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Balkón alebo terasa</td><td class="no">&#8211;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Tepovanie sedačky/kobercov</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
-          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no">&#8211;</td><td class="no">&#8211;</td><td class="yes">&#10003;</td></tr>
+          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Použitie vlastných čistiacich prostriedkov a vybavenia</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Priority si určíte vy (dohoda pred upratovaním)</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Umytie okien</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Balkón alebo terasa</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Tepovanie sedačky/kobercov</td><td class="no" data-p="Mini">&#8211;</td><td class="no" data-p="Klasik">&#8211;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no" data-p="Mini">&#8211;</td><td class="no" data-p="Klasik">&#8211;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
         </tbody>
       </table>
     </div>
