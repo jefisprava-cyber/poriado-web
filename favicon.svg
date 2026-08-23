@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Poriado">
+  <title>Poriado</title>
+  <!-- Pozadie: zaoblený štvorec 512×512, polomer rohu 110. -->
+  <path fill="#1F3864" d="M110 0h292a110 110 0 0 1 110 110v292a110 110 0 0 1-110 110H110A110 110 0 0 1 0 402V110A110 110 0 0 1 110 0Z"/>
+  <!-- Písmeno P: driek + miska s polkruhovým zakončením, vnútro vyrezané. -->
+  <path fill="#FFFFFF" fill-rule="evenodd" d="M162 132h123a81 81 0 0 1 0 162h-59v86h-64Zm64 45h38a36 36 0 0 1 0 72h-38Z"/>
+  <!-- Bodka -->
+  <circle fill="#2E75B6" cx="402.5" cy="402.5" r="40.5"/>
+</svg>
