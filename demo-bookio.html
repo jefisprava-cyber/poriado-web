@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skúšobná rezervácia (Bookio) | Poriado</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- ZÁMERNE tu NIE JE poriado-meranie.js. Skúšobná stránka nemá čo posielať
+     do GA4 ani do Meta Pixelu — inak by skreslila Sonine kampane. -->
+
+<style>
+  :root{
+    --navy:#1f3864; --blue:#2e75b6; --bg:#f7f9fc; --ink:#1c2530;
+    --muted:#5b6675; --gold:#d4a44c; --gold-text:#96691a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+       color:var(--ink);background:#fff;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--blue)}
+  header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:22px 0}
+  header .logo{font-weight:800;font-size:1.35rem;letter-spacing:.5px}
+  header .logo span{color:#9fc0e8}
+
+  .upozornenie{background:#fff7ed;border-bottom:1px solid #eddcb8;padding:14px 0}
+  .upozornenie p{color:#7a5a2e;font-size:.93rem}
+  .upozornenie b{color:var(--gold-text)}
+
+  main{padding:34px 0 60px}
+  h1{color:var(--navy);font-size:1.6rem;margin-bottom:8px}
+  .lead{color:var(--muted);margin-bottom:26px;max-width:70ch}
+
+  .ramec{border:1px solid #d7e0ec;border-radius:14px;overflow:hidden;background:var(--bg);
+         box-shadow:0 10px 30px rgba(31,56,100,.07)}
+  .ramec iframe{display:block;width:100%;height:820px;border:0;background:#fff}
+  @media(max-width:640px){ .ramec iframe{height:680px} }
+
+  .chyba{padding:40px 24px;text-align:center;color:var(--muted)}
+  .chyba code{background:#fff;border:1px solid #d7e0ec;border-radius:6px;padding:2px 7px;
+              font-size:.9rem;color:var(--navy)}
+
+  h2{color:var(--navy);font-size:1.15rem;margin:38px 0 12px}
+  .zoznam{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;max-width:900px}
+  @media(max-width:760px){ .zoznam{grid-template-columns:1fr} }
+  .zoznam label{display:flex;gap:10px;align-items:flex-start;font-size:.94rem;
+                background:var(--bg);border:1px solid #e3eaf3;border-radius:10px;padding:11px 14px}
+  .zoznam input{margin-top:3px;flex:none;width:16px;height:16px;accent-color:var(--blue)}
+
+  footer{background:var(--navy);color:#c5d3e6;text-align:center;padding:26px 0;
+         font-size:.9rem;margin-top:50px}
+  footer a{color:#9fc0e8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><span class="logo">Poriado<span>.</span></span></div>
+</header>
+
+<div class="upozornenie">
+  <div class="wrap">
+    <p><b>Skúšobná stránka.</b> Slúži len na vyskúšanie rezervačného systému Bookio.
+       Nie je verejná, neindexuje sa a nemeria sa na nej nič.
+       Ostrá stránka aj Reenio bežia ďalej bez zmeny.</p>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <h1>Rezervácia cez Bookio — skúška</h1>
+    <p class="lead">Preklikajte si celý postup ako zákazník: výber balíka, termínu,
+       doplnkov aj vyplnenie údajov. Porovnajte to s tým, ako to dnes vyzerá v Reeniu.</p>
+
+    <div class="ramec">
+      <!-- ================================================================
+           SEM PATRÍ NÁZOV PREVÁDZKY Z BOOKIA.
+           Po založení účtu má tvoja rezervačná stránka adresu v tvare
+               https://services.bookio.com/NIECO/widget
+           To NIECO skopíruj do atribútu src namiesto slova PREVADZKA.
+           ================================================================ -->
+      <iframe id="bookio"
+              src="https://services.bookio.com/PREVADZKA/widget"
+              title="Rezervačný formulár Bookio"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="chyba" id="chyba" hidden>
+        Widget sa nenačítal. Skontroluj, či je v adrese správny názov prevádzky —
+        namiesto <code>PREVADZKA</code> musí byť ten z Bookia.
+      </div>
+    </div>
+
+    <h2>Čo si pri skúšaní všímať</h2>
+    <div class="zoznam">
+      <label><input type="checkbox"> Dá sa vybrať balík <b>a</b> doplnky v jednom kroku?</label>
+      <label><input type="checkbox"> Zobrazuje sa priebežne cena vrátane doplatkov?</label>
+      <label><input type="checkbox"> Dá sa nastaviť, odkedy sa smie rezervovať (dnes 3 dni)?</label>
+      <label><input type="checkbox"> Zbiera adresu upratovania, nielen kontakt?</label>
+      <label><input type="checkbox"> Dá sa objednať na firmu — IČO, DIČ, IČ DPH?</label>
+      <label><input type="checkbox"> Je tam voľba zľavy pre dôchodcov a ZŤP (−15 %)?</label>
+      <label><input type="checkbox"> Funguje platba kartou hneď pri rezervácii?</label>
+      <label><input type="checkbox"> Ako vyzerá potvrdzovací e-mail zákazníkovi?</label>
+      <label><input type="checkbox"> Ako to vyzerá a ovláda sa na mobile?</label>
+      <label><input type="checkbox"> Je v administrácii vidieť <b>API kľúč</b>?</label>
+    </div>
+
+    <h2>Prečo je posledná otázka najdôležitejšia</h2>
+    <p class="lead">API kľúč je v tarife Standard za 29,90 € mesačne. Bez neho by sme
+       rezervácie museli opäť vyčítavať z e-mailov — presne to, čo dnes robí toľko
+       problémov. S ním by nám Bookio posielal údaje priamo a celá tá krehká vrstva
+       by zmizla. Ak kľúč v skúšobnej verzii uvidíš, vieme napojenie otestovať ešte
+       pred rozhodnutím.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Skúšobná stránka · nie je súčasťou <a href="/">www.poriado.sk</a>
+  </div>
+</footer>
+
+<script>
+  /* Keď názov prevádzky ešte nie je vyplnený, ukážeme návod namiesto prázdneho rámu. */
+  (function () {
+    var ram = document.getElementById('bookio');
+    var chyba = document.getElementById('chyba');
+    if (ram.src.indexOf('/PREVADZKA/') > -1) {
+      ram.hidden = true;
+      chyba.hidden = false;
+    }
+  })();
+</script>
+
+</body>
+</html>
