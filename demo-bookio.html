@@ -33,14 +33,11 @@
   h1{color:var(--navy);font-size:1.6rem;margin-bottom:8px}
   .lead{color:var(--muted);margin-bottom:26px;max-width:70ch}
 
+  /* Výšku rámu si nastavuje widget.bookio.js sám podľa obsahu — preto tu
+     nie je pevná height. Bez toho by formulár mal vlastný posuvník. */
   .ramec{border:1px solid #d7e0ec;border-radius:14px;overflow:hidden;background:var(--bg);
          box-shadow:0 10px 30px rgba(31,56,100,.07)}
-  .ramec iframe{display:block;width:100%;height:820px;border:0;background:#fff}
-  @media(max-width:640px){ .ramec iframe{height:680px} }
-
-  .chyba{padding:40px 24px;text-align:center;color:var(--muted)}
-  .chyba code{background:#fff;border:1px solid #d7e0ec;border-radius:6px;padding:2px 7px;
-              font-size:.9rem;color:var(--navy)}
+  .ramec iframe{display:block;width:100%;min-height:640px;border:0;background:#fff}
 
   h2{color:var(--navy);font-size:1.15rem;margin:38px 0 12px}
   .zoznam{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;max-width:900px}
@@ -75,18 +72,19 @@
        doplnkov aj vyplnenie údajov. Porovnajte to s tým, ako to dnes vyzerá v Reeniu.</p>
 
     <div class="ramec">
-      <!-- Prevádzka "poriado-sor759f2" v Bookiu (účet na filip@poriado.sk).
-           Názov si Bookio pridelilo samo — jednoduché "poriado" drží starý
-           skúšobný účet založený na súkromnom Gmaile. -->
-      <iframe id="bookio"
+      <!-- Oficiálne vloženie podľa Bookia (administrácia → Vloženie na web).
+           Skript widget.bookio.js dopočítava výšku rámu podľa obsahu, preto
+           je scrolling vypnutý a id musí zostať presne "bookio-iframe".
+           Prevádzka "poriado-sor759f2" — účet na filip@poriado.sk. Jednoduché
+           "poriado" drží starý skúšobný účet zo súkromného Gmailu. -->
+      <script type="text/javascript"
+              src="https://bookio-services-eu.s3.eu-central-1.amazonaws.com/assets/widget.bookio.js"></script>
+      <iframe id="bookio-iframe"
               src="https://services.bookio.com/poriado-sor759f2/widget?lang=sk"
               title="Rezervačný formulár Bookio"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="chyba" id="chyba" hidden>
-        Widget sa nenačítal. Skontroluj, či je v adrese správny názov prevádzky —
-        namiesto <code>PREVADZKA</code> musí byť ten z Bookia.
-      </div>
+              width="100%"
+              onload="initBookioWidget()"
+              scrolling="no"></iframe>
     </div>
 
     <h2>Čo si pri skúšaní všímať</h2>
@@ -117,18 +115,6 @@
     Skúšobná stránka · nie je súčasťou <a href="/">www.poriado.sk</a>
   </div>
 </footer>
-
-<script>
-  /* Keď názov prevádzky ešte nie je vyplnený, ukážeme návod namiesto prázdneho rámu. */
-  (function () {
-    var ram = document.getElementById('bookio');
-    var chyba = document.getElementById('chyba');
-    if (ram.src.indexOf("/PREVADZKA/") > -1) {
-      ram.hidden = true;
-      chyba.hidden = false;
-    }
-  })();
-</script>
 
 </body>
 </html>
