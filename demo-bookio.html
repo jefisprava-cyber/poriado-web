@@ -75,10 +75,11 @@
        doplnkov aj vyplnenie údajov. Porovnajte to s tým, ako to dnes vyzerá v Reeniu.</p>
 
     <div class="ramec">
-      <!-- Prevádzka "poriado" v Bookiu. Administrácia je na adrese
-           services.bookio.com/client-admin/poriado/ -->
+      <!-- Prevádzka "poriado-sor759f2" v Bookiu (účet na filip@poriado.sk).
+           Názov si Bookio pridelilo samo — jednoduché "poriado" drží starý
+           skúšobný účet založený na súkromnom Gmaile. -->
       <iframe id="bookio"
-              src="https://services.bookio.com/poriado/widget"
+              src="https://services.bookio.com/poriado-sor759f2/widget?lang=sk"
               title="Rezervačný formulár Bookio"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -122,7 +123,7 @@
   (function () {
     var ram = document.getElementById('bookio');
     var chyba = document.getElementById('chyba');
-    if (ram.src.indexOf('/PREVADZKA/') > -1) {
+    if (ram.src.indexOf("/PREVADZKA/") > -1) {
       ram.hidden = true;
       chyba.hidden = false;
     }
