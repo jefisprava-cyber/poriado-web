@@ -465,22 +465,69 @@
 
     spusti();
   })();
-  /* Google recenzie: vykresli hviezdicky podla atributu data-rating na .rev-bar */
+  /* Google recenzie: hviezdicky sa vykresluju z data-rating na .rev-bar.
+     Hodnotenie a pocet recenzii denne obnovuje Apps Script z Google Places API.
+     Hodnoty v HTML su zalozne - ked sa stiahnutie nepodari, ostanu tak ako su. */
   (function(){
+    var ZDROJ    = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec?akcia=hodnotenie';
+    var KLUC     = 'poriado-hodnotenie';
+    var PLATNOST = 86400000;   /* 24 h - jeden navstevnik sa pyta najviac raz denne */
+
     var bar = document.querySelector('.rev-bar');
     if(!bar) return;
     var box = bar.querySelector('.rev-stars');
     if(!box) return;
-    var r = parseFloat(bar.getAttribute('data-rating'));
-    if(isNaN(r)) return;
-    var s = '';
-    for(var i=1; i<=5; i++){
-      if(r >= i)            s += '★';        /* plna */
-      else if(r >= i - 0.5) s += '½';        /* polovicna */
-      else                  s += '☆';        /* prazdna */
+    var cislo = bar.querySelector('.rev-num');
+    var pocet = bar.querySelector('.rev-count');
+
+    function vykresli(){
+      var r = parseFloat(bar.getAttribute('data-rating'));
+      if(isNaN(r)) return;
+      var s = '';
+      for(var i=1; i<=5; i++){
+        if(r >= i)            s += '★';        /* plna */
+        else if(r >= i - 0.5) s += '½';        /* polovicna */
+        else                  s += '☆';        /* prazdna */
+      }
+      box.textContent = s;
+      bar.setAttribute('aria-label', 'Hodnotenie ' + bar.getAttribute('data-rating') + ' z 5 na Google — otvoriť recenzie');
     }
-    box.textContent = s;
-    bar.setAttribute('aria-label', 'Hodnotenie ' + bar.getAttribute('data-rating') + ' z 5 na Google — otvoriť recenzie');
+
+    /* 1 recenzia, 2-4 recenzie, 5 a viac recenzii */
+    function sklonuj(n){
+      if(n === 1)          return '1 recenzia na Google';
+      if(n >= 2 && n <= 4) return n + ' recenzie na Google';
+      return n + ' recenzií na Google';
+    }
+
+    function pouzi(d){
+      if(!d || d.ok !== true) return;
+      var h = Number(d.hodnotenie), p = Number(d.pocet);
+      if(!(h >= 1 && h <= 5) || !(p >= 1)) return;
+      bar.setAttribute('data-rating', h.toFixed(1));
+      if(cislo) cislo.textContent = h.toFixed(1).replace('.', ',');
+      if(pocet) pocet.textContent = sklonuj(p);
+      vykresli();
+    }
+
+    vykresli();   /* najprv z HTML, nech je pas spravny aj ked sa nic nestiahne */
+
+    var ulozene = null;
+    try { ulozene = JSON.parse(localStorage.getItem(KLUC) || 'null'); } catch(e){}
+    if(ulozene && ulozene.cas && (Date.now() - ulozene.cas) < PLATNOST){ pouzi(ulozene.data); return; }
+
+    if(!window.fetch) return;
+
+    /* Az po nacitani stranky - dve cisla nie su dolezitejsie ako rychlost. */
+    window.addEventListener('load', function(){
+      fetch(ZDROJ)
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          pouzi(d);
+          try { localStorage.setItem(KLUC, JSON.stringify({cas: Date.now(), data: d})); } catch(e){}
+        })
+        .catch(function(){ /* ticho - v HTML ostanu povodne cisla */ });
+    });
   })();
   /* Mobilna lepiaca lista: ukaze sa po odrolovani hero, skryje sa pri
      otvorenom modali alebo cookie liste. Klik riesi data-open-rezervacia,
