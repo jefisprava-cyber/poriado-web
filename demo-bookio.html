@@ -33,11 +33,13 @@
   h1{color:var(--navy);font-size:1.6rem;margin-bottom:8px}
   .lead{color:var(--muted);margin-bottom:26px;max-width:70ch}
 
-  /* Výšku rámu si nastavuje widget.bookio.js sám podľa obsahu — preto tu
-     nie je pevná height. Bez toho by formulár mal vlastný posuvník. */
+  /* Výšku rámu si widget.bookio.js dopočítava sám a zapisuje ju do atribútu
+     height. NEDÁVAJ sem min-height ani height — prebilo by to jeho výpočet
+     a pod formulárom by ostalo prázdne miesto (mali sme tu takto 182 px).
+     Predbežnú výšku pred načítaním drží atribút height priamo na <iframe>. */
   .ramec{border:1px solid #d7e0ec;border-radius:14px;overflow:hidden;background:var(--bg);
          box-shadow:0 10px 30px rgba(31,56,100,.07)}
-  .ramec iframe{display:block;width:100%;min-height:640px;border:0;background:#fff}
+  .ramec iframe{display:block;width:100%;border:0;background:#fff}
 
   h2{color:var(--navy);font-size:1.15rem;margin:38px 0 12px}
   .zoznam{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;max-width:900px}
@@ -83,30 +85,34 @@
               src="https://services.bookio.com/poriado-sor759f2/widget?lang=sk"
               title="Rezervačný formulár Bookio"
               width="100%"
+              height="500"
               onload="initBookioWidget()"
               scrolling="no"></iframe>
     </div>
 
-    <h2>Čo si pri skúšaní všímať</h2>
+    <h2>Čo ešte treba preklikať</h2>
     <div class="zoznam">
       <label><input type="checkbox"> Dá sa vybrať balík <b>a</b> doplnky v jednom kroku?</label>
       <label><input type="checkbox"> Zobrazuje sa priebežne cena vrátane doplatkov?</label>
       <label><input type="checkbox"> Dá sa nastaviť, odkedy sa smie rezervovať (dnes 3 dni)?</label>
       <label><input type="checkbox"> Zbiera adresu upratovania, nielen kontakt?</label>
       <label><input type="checkbox"> Dá sa objednať na firmu — IČO, DIČ, IČ DPH?</label>
-      <label><input type="checkbox"> Je tam voľba zľavy pre dôchodcov a ZŤP (−15 %)?</label>
-      <label><input type="checkbox"> Funguje platba kartou hneď pri rezervácii?</label>
+      <label><input type="checkbox"> Funguje trvalý zľavový kód (ZŤP a dôchodcovia)?</label>
       <label><input type="checkbox"> Ako vyzerá potvrdzovací e-mail zákazníkovi?</label>
       <label><input type="checkbox"> Ako to vyzerá a ovláda sa na mobile?</label>
-      <label><input type="checkbox"> Je v administrácii vidieť <b>API kľúč</b>?</label>
+      <label><input type="checkbox"> Ceny s desatinnou <b>čiarkou</b> (79,90 €), nie bodkou?</label>
+      <label><input type="checkbox"> Sedí poradie služieb aj po pridaní ďalších?</label>
     </div>
 
-    <h2>Prečo je posledná otázka najdôležitejšia</h2>
-    <p class="lead">API kľúč je v tarife Standard za 29,90 € mesačne. Bez neho by sme
-       rezervácie museli opäť vyčítavať z e-mailov — presne to, čo dnes robí toľko
-       problémov. S ním by nám Bookio posielal údaje priamo a celá tá krehká vrstva
-       by zmizla. Ak kľúč v skúšobnej verzii uvidíš, vieme napojenie otestovať ešte
-       pred rozhodnutím.</p>
+    <h2>Čo už je rozhodnuté</h2>
+    <div class="zoznam">
+      <label><b>Balík Standard</b> — dohodnutý za cenu SMART na rok, takže API máme.</label>
+      <label><b>Rezervácie pôjdu cez API</b>, nie vyčítavaním z e-mailov ako dnes pri Reeniu.</label>
+      <label><b>Platba len cez bránu Bookia</b> — externé brány sa pridať nedajú, Stripe odpadá.</label>
+      <label><b>Zľava ZŤP</b> pôjde ako trvalý kód rozdávaný individuálne, nie ako otázka vo formulári.</label>
+      <label><b>Registrácia nie je potrebná</b> — zákazník rezervuje bez zakladania účtu.</label>
+      <label><b>Jednorazové kódy Bookio nevie</b> — obidva typy kódov sú opakovane použiteľné.</label>
+    </div>
   </div>
 </main>
 
