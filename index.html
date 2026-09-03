@@ -268,6 +268,7 @@
     </nav>
   </div>
 </header>
+<main>
 <section class="hero">
   <div class="wrap">
     <h1>Spoľahlivé upratovanie v Bratislave <span class="cena">od 79,90 €</span> — vy poviete čo, my to vyčistíme</h1>
@@ -406,6 +407,7 @@
     </div>
   </div>
 </section>
+</main>
 <footer id="kontakt">
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
@@ -416,7 +418,7 @@
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#9fc0e8">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
   </div>
 </footer>
-<div class="mlista" id="mlista">
+<div class="mlista" id="mlista" role="region" aria-label="Rýchla rezervácia">
   <div class="cena">od 79,90 €<small>balík Mini, 3 hodiny</small></div>
   <a href="https://rezervacie.poriado.sk/sk/" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
 </div>
@@ -490,7 +492,14 @@
         else                  s += '☆';        /* prazdna */
       }
       box.textContent = s;
-      bar.setAttribute('aria-label', 'Hodnotenie ' + bar.getAttribute('data-rating') + ' z 5 na Google — otvoriť recenzie');
+      /* Ziadny aria-label. WCAG 2.5.3 ziada, aby pristupny nazov obsahoval
+         viditelny text odkazu — inak clovek ovladajuci web hlasom povie
+         "Pozriet" a odkaz sa nespusti. Kazdy rucne pisany nazov sa skor ci
+         neskor rozide s tym, co je na obrazovke: povodny hovoril "5.0"
+         s bodkou, kym vidiet bolo "5,0" s ciarkou, a pocet recenzii sa
+         navyse denne meni. Text odkazu sa so sebou rozist nemoze, a znie
+         zrozumitelne: "5,0 20 recenzii na Google Pozriet". */
+      bar.removeAttribute('aria-label');
     }
 
     /* 1 recenzia, 2-4 recenzie, 5 a viac recenzii */

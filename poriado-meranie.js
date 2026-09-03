@@ -163,7 +163,7 @@
   ].join('\n');
 
   var HTML =
-    '<div class="pk-lista" id="pk-lista">' +
+    '<div class="pk-lista" id="pk-lista" role="region" aria-label="Súhlas s cookies">' +
       '<div class="pk-vnutro">' +
         '<div class="pk-text"><b>Používame cookies.</b> Nevyhnutné sú vždy aktívne. Analytické a marketingové používame len s vaším súhlasom. Viac v <a href="' + ODKAZ_GDPR + '">zásadách ochrany údajov</a>.</div>' +
         '<div class="pk-tlacidla">' +
