@@ -12,11 +12,11 @@
  * dorobí až po načítaní stránky, takže to nič nespomalí.
  *
  * Súbor rieši všetko naraz:
- *   - Consent Mode v2 (default denied → update po súhlase)
+ *   - Consent Mode v2 v POKROČILOM režime (default denied → update po súhlase)
  *   - cookie lištu aj okno s nastaveniami vrátane štýlov (vloží ich sám)
  *   - uloženie voľby do localStorage pod kľúčom poriado_cookie_consent
- *   - načítanie GA4 až po súhlase s analytickými cookies
- *   - načítanie Meta Pixelu až po súhlase s marketingovými cookies
+ *   - načítanie GA4 hneď, meranie s cookies až po súhlase
+ *   - načítanie Meta Pixelu hneď, odosielanie až po súhlase
  *   - funkciu window.konverzia(gaNazov, fbNazov) na meranie konverzií
  *
  * Farby sú zapísané natvrdo, nie cez CSS premenné — podstránky majú vlastné
@@ -40,8 +40,26 @@
     analytics_storage: 'denied', wait_for_update: 500
   });
 
-  /* ── 2. Načítanie meracích skriptov ── */
-  var gaNacitane = false, pixelNacitany = false;
+  /* ── 2. Načítanie meracích skriptov — POKROČILÝ REŽIM ──
+     Predtým sa GA4 aj Pixel načítali až PO kliknutí na súhlas. Kto lištu
+     odmietol alebo si jej nevšimol, ten sa nezmeral vôbec — a keďže väčšina
+     ľudí lištu ignoruje, do Google Ads aj Mety chodil zlomok konverzií.
+     Algoritmy potom nemali z čoho optimalizovať doručovanie reklám.
+
+     Teraz sa obidva načítajú hneď, ale s predvoleným súhlasom "denied"
+     z bodu 1 vyššie. Rozdiel medzi platformami je podstatný:
+
+       GA4  — pri "denied" neukladá cookies ani identifikátory a posiela len
+              bezcookiové signály. Google z nich vie konverzie dopočítať,
+              takže z odmietnutej návštevy ostane aspoň anonymný signál.
+
+       Meta — nič také ako Consent Mode nemá. Voláme preto fbq consent revoke
+              ešte pred inicializáciou, takže Pixel do udelenia súhlasu
+              NEODOŠLE NIČ. Získame len to, že po kliknutí na súhlas je už
+              načítaný a neujde mu prvá udalosť. Konverzie od ľudí, ktorí
+              súhlas nedajú, Meta nezmeria ani takto — to sa dá riešiť jedine
+              serverovým Conversions API, čo je samostatná úloha. */
+  var gaNacitane = false, pixelNacitany = false, pixelPovoleny = false;
 
   function nacitajGA() {
     if (gaNacitane) return;
@@ -65,8 +83,17 @@
       t = b.createElement(e); t.async = !0; t.src = v;
       s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
     }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    /* Poradie je dôležité — revoke musí byť pred init, inak Pixel stihne
+       odoslať prvú udalosť ešte pred zákazom. PageView zámerne nespúšťame
+       tu, ale až v povolPixel(), keď ho je komu poslať. */
+    fbq('consent', 'revoke');
     fbq('init', PIXEL_ID);
-    fbq('track', 'PageView');
+  }
+
+  function povolPixel() {
+    if (!pixelNacitany || pixelPovoleny) return;
+    pixelPovoleny = true;
+    try { fbq('consent', 'grant'); fbq('track', 'PageView'); } catch (e) {}
   }
 
   function dajSuhlas() {
@@ -84,16 +111,23 @@
       ad_user_data:       c.marketing ? 'granted' : 'denied',
       ad_personalization: c.marketing ? 'granted' : 'denied'
     });
-    if (c.analytics) nacitajGA();
-    if (c.marketing) nacitajPixel();
+    /* Skripty sú načítané už od začiatku, tu sa len odomyká meranie.
+       GA4 si súhlas prevezme sám cez consent update vyššie. */
+    if (c.marketing) povolPixel();
   }
 
-  /* Konverzie — volá sa z tlačidiel. Ak návštevník meranie odmietol,
-     window.gtag/fbq jednoducho nič neodošlú. */
+  /* Konverzie — volá sa z tlačidiel. GA4 udalosť odíde vždy: so súhlasom
+     ako plnohodnotná konverzia, bez neho ako bezcookiový signál. Meta
+     udalosť odíde len so súhlasom, dovtedy ju Pixel zahodí sám. */
   window.konverzia = function (gaNazov, fbNazov) {
     try { if (window.gtag) gtag('event', gaNazov); } catch (e) {}
     try { if (window.fbq)  fbq('track', fbNazov); } catch (e) {}
   };
+
+  /* Načítavame hneď, bez ohľadu na súhlas — o tom, čo sa smie merať,
+     rozhoduje Consent Mode, nie prítomnosť skriptu. */
+  nacitajGA();
+  nacitajPixel();
 
   pouziSuhlas();   // ak už súhlas máme z minulej návštevy, použi ho hneď
 
