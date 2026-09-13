@@ -154,6 +154,9 @@
   .cta .btn-ghost:hover{background:rgba(255,255,255,.15)}
   footer{background:var(--navy);color:var(--light);padding:40px 0 34px;text-align:center;font-size:.92rem}
   footer .logo{color:#fff}
+  /* Odkaz v pätičke bol odlisany len farbou. Kto farby nerozoznava,
+     nevidel, ze je to odkaz — podciarknutie to riesi bez zmeny vzhladu. */
+  footer p a{text-decoration:underline}
   footer a{color:#9fc0e8}
   /* Mobil: z porovnávacej tabuľky spravíme karty — žiadne vodorovné rolovanie.
      Každý riadok je karta s názvom služby a troma označenými balíkmi. */
@@ -256,7 +259,7 @@
           <tr><td>Priority si určíte vy</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
           <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
           <tr><td>Kuchyňa – povrchy a drez</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Umytie okien</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
+          <tr><td>Umytie okien</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
           <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
           <tr><td>Balkón alebo terasa</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
           <tr><td>Tepovanie sedačky/kobercov</td><td class="no" data-p="Mini">&#8211;</td><td class="no" data-p="Klasik">&#8211;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
@@ -273,7 +276,6 @@
     <div class="kicker">Navyše</div>
     <h2>Doplnkové služby</h2>
         <div class="addons">
-      <div class="addon"><span>Umytie okien (nad rámec balíka)</span><b>od 15 €</b></div>
       <div class="addon"><span>Tepovanie k balíku Mini alebo Klasik</span><b>od 25 €</b></div>
       <div class="addon"><span>Samostatné tepovanie bez upratovania</span><b>40 € / hod</b></div>
       <div class="addon"><span>Ošetrenie koženej sedačky — v balíku Maxi</span><b>10 €</b></div>
