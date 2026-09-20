@@ -90,6 +90,7 @@
              takze bez obalu sa suhlas rozsypal na tri stlpce vedla seba. */
         '<label class="pd-gdpr"><input type="checkbox" required><span>Potvrdzujem, že som sa oboznámil/a so ' +
           '<a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</span></label>' +
+        '<input type="hidden" name="zdroj">' +
         '<button type="submit" class="pd-odoslat">Odoslať dopyt</button>' +
         '<p id="individ-ok" class="pd-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>' +
       '</form>' +
@@ -179,6 +180,11 @@
       /* Formulár už nemá výber balíka ani typu priestoru — správa je celý text. */
       fd.set('sprava', fd.get('text') || '');
       fd.delete('text');
+      /* Odkiaľ návštevník prišiel — bez toho sa v CRM nedá povedať, ktorý
+         kanál dopyt priniesol. Zapamätal si to poriado-meranie.js pri príchode. */
+      try {
+        if (typeof window.poriadoZdrojText === 'function') fd.set('zdroj', window.poriadoZdrojText());
+      } catch (e) {}
 
       var f = (form._fotky || []).filter(Boolean);
       fd.append('foto_count', f.length);

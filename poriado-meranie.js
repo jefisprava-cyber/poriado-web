@@ -133,6 +133,62 @@
     return { analytics: !!(c && c.analytics), marketing: !!(c && c.marketing), zodpovedane: !!c };
   };
 
+  /* ── Zdroj návštevy ──
+     Rezervácia ani dopyt doteraz nemali kanál, takže sa nedalo povedať, či
+     objednávka prišla z reklamy, z vyhľadávania alebo od známeho. Zapamätáme si
+     PRVÝ zdroj v relácii — neskoršie prekliky po webe ho už neprepíšu. */
+  var ZDROJ_KEY = 'poriado_zdroj';
+
+  function zapamatajZdroj() {
+    try {
+      if (sessionStorage.getItem(ZDROJ_KEY)) return;
+      var u = new URLSearchParams(location.search);
+      var z = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid']
+        .forEach(function (k) { var v = u.get(k); if (v) z[k] = String(v).slice(0, 120); });
+      if (document.referrer && document.referrer.indexOf(location.hostname) === -1) {
+        z.referrer = document.referrer.slice(0, 200);
+      }
+      z.vstup = location.pathname;
+      sessionStorage.setItem(ZDROJ_KEY, JSON.stringify(z));
+    } catch (e) {}
+  }
+
+  window.poriadoZdroj = function () {
+    try { return JSON.parse(sessionStorage.getItem(ZDROJ_KEY)) || {}; } catch (e) { return {}; }
+  };
+
+  /* Jedna veta, ktorá sa dá rovno prečítať v CRM. */
+  window.poriadoZdrojText = function () {
+    var z = window.poriadoZdroj();
+    var d = [];
+    if (z.gclid) d.push('Google Ads');
+    if (z.fbclid) d.push('Meta (Facebook/Instagram)');
+    if (z.utm_source) d.push(z.utm_source + (z.utm_medium ? ' / ' + z.utm_medium : ''));
+    if (z.utm_campaign) d.push('kampaň ' + z.utm_campaign);
+    if (!d.length && z.referrer) {
+      try { d.push('odkaz z ' + new URL(z.referrer).hostname); } catch (e) { d.push('odkaz'); }
+    }
+    if (!d.length) d.push('priamo alebo z vyhľadávania');
+    if (z.vstup && z.vstup !== '/') d.push('vstup ' + z.vstup);
+    return d.join(' · ');
+  };
+
+  zapamatajZdroj();
+
+  /* Telefón, WhatsApp a e-mail sú pri tejto službe bežný spôsob objednania,
+     ale doteraz sa nemerali vôbec — reklamy o nich nevedeli. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var a = t.closest('a[href^="tel:"], a[href*="wa.me"], a[href^="mailto:"]');
+    if (!a) return;
+    var h = a.getAttribute('href') || '';
+    var kanal = h.indexOf('tel:') === 0 ? 'telefon'
+              : (h.indexOf('mailto:') === 0 ? 'email' : 'whatsapp');
+    if (typeof window.konverzia === 'function') window.konverzia('contact', 'Contact', { kanal: kanal });
+  });
+
   /* Načítavame hneď, bez ohľadu na súhlas — o tom, čo sa smie merať,
      rozhoduje Consent Mode, nie prítomnosť skriptu. */
   nacitajGA();
