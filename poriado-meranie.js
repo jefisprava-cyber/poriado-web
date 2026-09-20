@@ -114,14 +114,23 @@
     /* Skripty sú načítané už od začiatku, tu sa len odomyká meranie.
        GA4 si súhlas prevezme sám cez consent update vyššie. */
     if (c.marketing) povolPixel();
+    try { document.dispatchEvent(new CustomEvent('poriado:suhlas')); } catch (e) {}
   }
 
   /* Konverzie — volá sa z tlačidiel. GA4 udalosť odíde vždy: so súhlasom
      ako plnohodnotná konverzia, bez neho ako bezcookiový signál. Meta
      udalosť odíde len so súhlasom, dovtedy ju Pixel zahodí sám. */
-  window.konverzia = function (gaNazov, fbNazov) {
-    try { if (window.gtag) gtag('event', gaNazov); } catch (e) {}
-    try { if (window.fbq)  fbq('track', fbNazov); } catch (e) {}
+  window.konverzia = function (gaNazov, fbNazov, param) {
+    var p = param || {};
+    try { if (window.gtag) gtag('event', gaNazov, p); } catch (e) {}
+    try { if (window.fbq)  fbq('track', fbNazov, p); } catch (e) {}
+  };
+
+  /* Stav suhlasu pre ostatne skripty. Rezervacne okno ho posiela do Reenia,
+     ktore ma vlastne GA4 aj Pixel a inak meria aj tomu, kto cookies odmietol. */
+  window.poriadoSuhlas = function () {
+    var c = dajSuhlas();
+    return { analytics: !!(c && c.analytics), marketing: !!(c && c.marketing), zodpovedane: !!c };
   };
 
   /* Načítavame hneď, bez ohľadu na súhlas — o tom, čo sa smie merať,

@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bez tohto vnuteny tmavy rezim (napr. Samsung Internet) prefarbi text na zlatych
+     tlacidlach a kontrast klesne z 5,1:1 na 1,6:1. Web ma vlastnu svetlu paletu. -->
+<meta name="color-scheme" content="only light">
 <title>Upratovanie Bratislava od 79,90 € | Poriado</title>
 <meta name="description" content="Spoľahlivé upratovanie v Bratislave. Vlastné čistiace prostriedky v cene, rozsah si určíte vy. Domácnosti bez obhliadky. Balíčky Mini, Klasik, Maxi.">
 <link rel="canonical" href="https://www.poriado.sk/">
@@ -288,7 +291,7 @@
     <a class="rev-bar" href="https://www.google.com/maps?cid=11735417404303540434" target="_blank" rel="noopener" data-rating="5.0">
       <span class="rev-num">5,0</span>
       <span class="rev-stars" aria-hidden="true"></span>
-      <span class="rev-count">12 recenzií na Google</span>
+      <span class="rev-count">24 recenzií na Google</span>
       <span class="rev-cta">Pozrieť →</span>
     </a>
     <div class="rev-citaty" id="rev-citaty">
@@ -550,7 +553,9 @@
        z poriado-dopyt.js ("pd-open") a cookie lista z poriado-meranie.js
        ("pk-vidno" / "pk-otvorene"). Preto tu su tri sady nazvov. */
     var IDS = ['individ-modal','rezervacia-modal','pk-lista','pk-okno-prekryv'];
-    var TRIEDY = ['open','show','pd-open','pk-vidno','pk-otvorene'];
+    /* 'pr-otvorene' je trieda rezervacneho okna. Chybala tu, takze lista ostavala
+       nad otvorenym oknom a tuknutie na nu zrusilo rozrobenu rezervaciu. */
+    var TRIEDY = ['open','show','pd-open','pk-vidno','pk-otvorene','pr-otvorene'];
 
     function prekazka(){
       for(var i=0;i<IDS.length;i++){

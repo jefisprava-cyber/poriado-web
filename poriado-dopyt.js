@@ -27,7 +27,8 @@
 
   var STYL = [
     '.pd-overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;',
-      'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}',
+      'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
+    'body.pd-okno-otvorene #pch-bubble{display:none !important}',
     '.pd-overlay.pd-open{display:flex}',
     '.pd-okno{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;',
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
@@ -41,7 +42,8 @@
     '.pd-okno form{background:none;box-shadow:none;padding:0;margin:0}',
     '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:#1f3864}',
     '.pd-okno input,.pd-okno textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;',
-      'border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:.97rem;color:#1c2530;background:#fff}',
+      /* 16 px je dolna hranica, pod nou iOS Safari po tuknuti priblizi celu stranku. */
+      'border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:1rem;color:#1c2530;background:#fff}',
     '.pd-okno input:focus,.pd-okno textarea:focus{outline:none;border-color:#2e75b6}',
     '.pd-foto{border:1.5px dashed #2e75b6;border-radius:9px;background:#f7f9fc;',
       'font-size:.9rem;padding:10px;margin-bottom:4px}',
@@ -84,8 +86,10 @@
         '<input type="file" id="i-foto" class="pd-foto" accept="image/*" multiple>' +
         '<p class="pd-foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. ' +
           '<span class="pd-foto-stav"></span></p>' +
-        '<label class="pd-gdpr"><input type="checkbox" required> Potvrdzujem, že som sa oboznámil/a so ' +
-          '<a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</label>' +
+        /* Text musi byt v jednom <span>: .pd-gdpr je flex a kazde dieta je stlpec,
+             takze bez obalu sa suhlas rozsypal na tri stlpce vedla seba. */
+        '<label class="pd-gdpr"><input type="checkbox" required><span>Potvrdzujem, že som sa oboznámil/a so ' +
+          '<a href="ochrana-osobnych-udajov.html" target="_blank" rel="noopener">zásadami spracovania osobných údajov</a>.</span></label>' +
         '<button type="submit" class="pd-odoslat">Odoslať dopyt</button>' +
         '<p id="individ-ok" class="pd-ok">Ďakujeme! Ozveme sa vám do 24 hodín.</p>' +
       '</form>' +
@@ -211,8 +215,16 @@
     overlay.innerHTML = HTML;
     document.body.appendChild(overlay);
 
-    function otvor() { overlay.classList.add('pd-open'); }
-    function zavri() { overlay.classList.remove('pd-open'); }
+    function otvor() {
+      overlay.classList.add('pd-open');
+      document.body.classList.add('pd-okno-otvorene');
+      var chat = document.getElementById('pch-panel');
+      if (chat) chat.classList.remove('open');
+    }
+    function zavri() {
+      overlay.classList.remove('pd-open');
+      document.body.classList.remove('pd-okno-otvorene');
+    }
 
     /* Klik chytáme na dokumente, nie na jednotlivých odkazoch. Chat sa totiž
        vkladá až po tomto skripte a jeho odkaz "Individuálny dopyt" by inak

@@ -36,8 +36,10 @@
 
   var STYL = [
     '.pr-prekryv{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;',
-      'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:100;overflow-y:auto}',
+      'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
     '.pr-prekryv.pr-otvorene{display:flex}',
+    /* Kym je okno otvorene, bublina chatu nesmie prekryvat formular ani tlacidla. */
+    'body.pr-okno-otvorene #pch-bubble{display:none !important}',
     '.pr-okno{background:#fff;border-radius:16px;max-width:1000px;width:100%;padding:30px 22px;',
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
@@ -64,6 +66,36 @@
 
   var nacitane = false;
 
+  /* Reenio vie po dokonceni rezervacie zavolat funkciu na stranke — meno si berie
+     z atributu data-reservation-created. Bez toho reklamy vidia len otvorenie okna. */
+  var HOTOVA = 'poriadoRezervaciaHotova';
+  var CENY = { mini: 79.90, klasik: 129.90, maxi: 169.90, tepovanie: 40 };
+
+  window[HOTOVA] = function (data) {
+    var hodnota = 0;
+    try {
+      var d = data || {};
+      hodnota = Number(d.price || d.totalPrice || d.amount || d.sum || 0);
+    } catch (e) {}
+    if (!(hodnota > 0)) hodnota = CENY[posledny] || 0;
+    var param = hodnota > 0 ? { value: hodnota, currency: 'EUR' } : {};
+    if (typeof window.konverzia === 'function') window.konverzia('purchase', 'Purchase', param);
+  };
+
+  /* Reenio ma vlastne GA4 a Pixel. Bez tychto atributov meria aj tomu, kto
+     cookies odmietol. Widget zmenu atributu sam prenesie do iframu. */
+  function suhlasNaDiv(d) {
+    var s = (typeof window.poriadoSuhlas === 'function') ? window.poriadoSuhlas() : null;
+    d.setAttribute('data-analytics-consent', s && s.analytics ? 'true' : 'false');
+    d.setAttribute('data-marketing-consent', s && s.marketing ? 'true' : 'false');
+  }
+  document.addEventListener('poriado:suhlas', function () {
+    var divy = document.querySelectorAll('#reenio-container .reenio-iframe');
+    for (var i = 0; i < divy.length; i++) suhlasNaDiv(divy[i]);
+  });
+
+  var posledny = 'vsetky';
+
   function vlozStyl() {
     if (document.getElementById('pr-styl')) return;
     var s = document.createElement('style');
@@ -80,6 +112,7 @@
     var c = document.getElementById('reenio-container');
     if (!c) return;
     var kluc = balik && BALIKY[balik] ? balik : 'vsetky';
+    posledny = kluc;
 
     var panely = c.querySelectorAll('[data-balik-panel]');
     for (var i = 0; i < panely.length; i++) panely[i].style.display = 'none';
@@ -91,6 +124,8 @@
       var d = document.createElement('div');
       d.className = 'reenio-iframe';
       d.setAttribute('data-size', 'auto');
+      d.setAttribute('data-reservation-created', HOTOVA);
+      suhlasNaDiv(d);
       if (kluc !== 'vsetky') d.setAttribute('data-url', BALIKY[kluc]);
       panel.appendChild(d);
       c.insertBefore(panel, c.firstChild);
@@ -110,6 +145,9 @@
 
     function otvor(balik) {
       prekryv.classList.add('pr-otvorene');
+      document.body.classList.add('pr-okno-otvorene');
+      var chat = document.getElementById('pch-panel');
+      if (chat) chat.classList.remove('open');   // inak ostane otvoreny nad oknom
       if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout');
       nastavBalik(balik);
       if (!nacitane) {
@@ -121,7 +159,10 @@
         nacitane = true;
       }
     }
-    function zavri() { prekryv.classList.remove('pr-otvorene'); }
+    function zavri() {
+      prekryv.classList.remove('pr-otvorene');
+      document.body.classList.remove('pr-okno-otvorene');
+    }
 
     /* Klik chytáme na dokumente, nie na jednotlivých tlačidlách. Chat sa totiž
        vkladá až po tomto skripte a jeho odkaz "Rezervovať termín" by inak nikto
