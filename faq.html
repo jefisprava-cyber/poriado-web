@@ -38,6 +38,30 @@
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "Musím byť doma, keď upratujete?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nemusíte byť doma celý čas. Na začiatku nás treba pustiť dnu a povedať nám priority — čomu sa máme venovať najviac. Potom môžete pokojne odísť za svojím a vrátiť sa, keď je hotovo. Na konci je dobré prejsť si prácu spolu s nami, aby sme prípadné výhrady vyriešili hneď na mieste. Ak vám je príjemnejšie zostať doma po celý čas, prekážať nám nebudete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kto k nám príde upratovať?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chodí k vám malý stály tím ľudí, ktorých osobne poznáme — nie cudzie upratovačky z inzerátu, ktoré sa menia od návštevy k návšteve. Ako budeme tím rozširovať, u nových ľudí budeme overovať bezúhonnosť a prax."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Čo ak nebudem spokojný s upratovaním?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ozvite sa nám najneskôr do 3 dní od upratovania na info@poriado.sk, ideálne s fotkou toho, čo nesedí. Ak bude reklamácia oprávnená, prídeme to bezplatne dočistiť. Za prípadnú škodu zodpovedáme a máme na ňu uzavreté poistenie zodpovednosti."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Ako sa určí, čo presne upracete?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -65,7 +89,7 @@
       "name": "Koľko ľudí príde upratovať?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Štandardne príde jedna upratovačka. V prípade dostupných kapacít pošleme dve — čas upratovania sa vtedy skráti na polovicu, rozsah práce aj cena balíka zostávajú rovnaké."
+        "text": "Štandardne príde jedna upratovačka. V prípade dostupných kapacít pošleme dve — čas upratovania sa vtedy skráti na polovicu (napr. balík Klasik 6 h zvládneme za 3 hodiny). Rozsah práce aj cena balíka zostávajú rovnaké."
       }
     },
     {
@@ -81,7 +105,7 @@
       "name": "Čo ak je priestor veľmi znečistený alebo zvolím malý balík?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "V prípade extrémneho znečistenia alebo nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. V takom prípade sa dohodneme priamo na mieste, aby nedošlo k prekvapeniu."
+        "text": "Povedzte nám vopred, o aký priestor ide. Ak by sme mali pochybnosť, ozveme sa ešte pred termínom. Pri extrémnom znečistení alebo pri priestore výrazne väčšom, než balík pokrýva, sa na doplatku dohodneme priamo na mieste ešte pred začiatkom práce, aby vás nič neprekvapilo."
       }
     },
     {
@@ -89,7 +113,7 @@
       "name": "Máte zľavu pre dôchodcov alebo ZŤP?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky, prednostné termíny a ohľaduplný prístup. Zľava sa vzťahuje na cenu balíka (Mini, Klasik, Maxi); doplnkové služby sa účtujú v plnej výške. Stačí sa preukázať pri prvej návšteve."
+        "text": "Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa vzťahuje na cenu balíka (Mini, Klasik, Maxi); doplnkové služby sa účtujú v plnej výške. Zaškrtnite ju pri rezervácii a pri prvej návšteve nám stačí ukázať preukaz."
       }
     },
     {
@@ -140,7 +164,17 @@
      pismom --ink: tmavy text na modrom tlacidle mal len 3,20. */
   .nav-links a.btn{color:#fff}
   .btn-ghost:hover{background:var(--blue);color:#fff}
-  @media(max-width:820px){.nav-links a:not(.btn){display:none}}
+  /* Na mobile sa odkazy skrývali a burger na podstránkach nebol, takže sa
+     z nich nedalo prejsť nikam inam než na rezerváciu. */
+  .nav{position:relative}
+  .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:6px 12px}
+  @media(max-width:820px){
+    .nav-burger{display:block}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(15,25,45,.14);border-top:1px solid #eef2f7;z-index:60}
+    .nav-links.open{display:flex}
+    .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
+    .nav-links .btn{margin:12px 24px 0;text-align:center}
+  }
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:64px 0 54px;text-align:center}
   .hero h1{font-size:2.2rem;line-height:1.25;margin-bottom:16px}
   .hero p{max-width:640px;margin:0 auto;font-size:1.05rem;color:#f4f8fd}
@@ -175,10 +209,12 @@
 <header>
   <div class="nav">
     <a href="/" class="logo">Poriado<span>.</span></a>
-    <nav class="nav-links">
+    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
+    <nav class="nav-links" id="nav-links">
       <a href="/#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
       <a href="/#onas">O nás</a>
+      <a href="tepovanie-bratislava.html">Tepovanie</a>
       <a href="faq.html">Časté otázky</a>
       <a href="https://rezervacie.poriado.sk/sk/" class="btn">Rezervácia</a>
     </nav>
@@ -196,13 +232,16 @@
 <section>
   <div class="wrap">
     <div class="faq-list">
+      <details><summary>Musím byť doma, keď upratujete?</summary><p>Nemusíte byť doma celý čas. Na začiatku nás treba pustiť dnu a povedať nám priority — čomu sa máme venovať najviac. Potom môžete pokojne odísť za svojím a vrátiť sa, keď je hotovo. Na konci je dobré prejsť si prácu spolu s nami, aby sme prípadné výhrady vyriešili hneď na mieste. Ak vám je príjemnejšie zostať doma po celý čas, prekážať nám nebudete.</p></details>
+      <details><summary>Kto k nám príde upratovať?</summary><p>Chodí k vám malý stály tím ľudí, ktorých osobne poznáme — nie cudzie upratovačky z inzerátu, ktoré sa menia od návštevy k návšteve. Ako budeme tím rozširovať, u nových ľudí budeme overovať bezúhonnosť a prax.</p></details>
+      <details><summary>Čo ak nebudem spokojný s upratovaním?</summary><p>Ozvite sa nám najneskôr do 3 dní od upratovania na info@poriado.sk, ideálne s fotkou toho, čo nesedí. Ak bude reklamácia oprávnená, prídeme to bezplatne dočistiť. Za prípadnú škodu zodpovedáme a máme na ňu uzavreté poistenie zodpovednosti.</p></details>
       <details open><summary>Ako sa určí, čo presne upracete?</summary><p>Pred upratovaním sa s vami dohodneme na prioritách — poviete, čomu sa máme v rámci času balíka venovať najviac (kúpeľňa, kuchyňa, okná, podlahy...). Robíme to, čo najviac potrebujete.</p></details>
       <details><summary>Musíte si prísť priestor najprv pozrieť?</summary><p>Domácnosti (byty a domy) upratujeme bez obhliadky. Pri kanceláriách a iných priestoroch si dohodneme obhliadku a pripravíme vám ponuku na mieru.</p></details>
       <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami — sú v cene balíka.</p></details>
       <details><summary>Koľko ľudí príde upratovať?</summary><p>Štandardne príde jedna upratovačka. V prípade dostupných kapacít pošleme dve — čas upratovania sa vtedy skráti na polovicu (napr. balík Klasik 6 h zvládneme za 3 hodiny). Rozsah práce aj cena balíka zostávajú rovnaké.</p></details>
-      <details><summary>Robíte tepovanie?</summary><p>Áno. Tepovanie je zahrnuté v balíku Maxi (čas tepovania sa odčíta z času upratovania). K Mini a Klasik si ho doplatíte za zvýhodnenú cenu, alebo prídeme len tepovať samostatne za 40 €/hod. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania. <a href="tepovanie-bratislava.html" style="color:var(--blue);font-weight:600">Viac o tepovaní →</a></p></details>
-      <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>V prípade extrémneho znečistenia alebo nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. V takom prípade sa dohodneme priamo na mieste, aby nedošlo k prekvapeniu.</p></details>
-      <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky, prednostné termíny a ohľaduplný prístup. Zľava sa vzťahuje na cenu balíka (Mini, Klasik, Maxi); doplnkové služby sa účtujú v plnej výške. Stačí sa preukázať pri prvej návšteve.</p></details>
+      <details><summary>Robíte tepovanie?</summary><p>Áno. Tepovanie je zahrnuté v balíku Maxi (čas tepovania sa odčíta z času upratovania). K Mini a Klasik si ho doplatíte za zvýhodnenú cenu, alebo prídeme len tepovať samostatne za 40 €/hod. Pri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.</p><p><a href="tepovanie-bratislava.html" style="color:var(--blue);font-weight:600">Viac o tepovaní →</a></p></details>
+      <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>Povedzte nám vopred, o aký priestor ide. Ak by sme mali pochybnosť, ozveme sa ešte pred termínom. Pri extrémnom znečistení alebo pri priestore výrazne väčšom, než balík pokrýva, sa na doplatku dohodneme priamo na mieste ešte pred začiatkom práce, aby vás nič neprekvapilo.</p></details>
+      <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa vzťahuje na cenu balíka (Mini, Klasik, Maxi); doplnkové služby sa účtujú v plnej výške. Zaškrtnite ju pri rezervácii a pri prvej návšteve nám stačí ukázať preukaz.</p></details>
       <details><summary>Ako prebieha platba?</summary><p>Vyberte si, čo vám vyhovuje: kartou online priamo pri rezervácii, alebo bankovým prevodom — do 24 hodín vám e-mailom pošleme faktúru s QR kódom, splatnú do 24 hodín od doručenia (stačí naskenovať QR v mobilnej banke). V prípade neuhradenia v lehote splatnosti si vyhradzujeme právo rezerváciu zrušiť. Hotovosť neprijímame. Firmám radi vystavíme faktúru na IČO.</p></details>
       <details><summary>Môžem zmeniť alebo zrušiť termín?</summary><p>Áno. Termín môžete bezplatne zrušiť najneskôr 24 hodín pred začiatkom priamo v rezervácii. Ak potrebujete termín len presunúť, napíšte nám na info@poriado.sk alebo zavolajte na +421 949 061 088 alebo +421 949 076 917 v pracovnom čase Po–Pi 8:00–17:00 (najneskôr 24 hodín vopred) — radi ho zmeníme bez poplatku. Pri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny.</p></details>
       <details><summary>Pôsobíte aj mimo Bratislavy?</summary><p>Zatiaľ upratujeme výhradne v rámci Bratislavy — doprava po celom meste je v cene. Ak ste z blízkeho okolia, ozvite sa nám — po vzájomnej dohode vieme prísť aj k vám.</p></details>
@@ -214,7 +253,7 @@
   <div class="wrap">
     <h2>Dobré vedieť</h2>
     <div class="disclaimer">
-      V prípade extrémneho znečistenia alebo zvolenia nedostatočného balíka vzhľadom na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok. V takom prípade sa dohodneme priamo na mieste pred začatím upratovania.
+      Ak si neviete vybrať balík, ozvite sa nám — poradíme podľa veľkosti priestoru a toho, čo potrebujete najviac. V takom prípade sa dohodneme priamo na mieste pred začatím upratovania.
     </div>
   </div>
 </section>
@@ -233,7 +272,7 @@
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
     <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
-    <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; <a href="/">poriado.sk</a></p>
+    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; <a href="/">poriado.sk</a></p>
     <p style="margin-top:10px"><a href="sluzby.html">Služby</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html">Tepovanie sedačiek a kobercov</a></p>
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
   </div>
@@ -242,5 +281,22 @@
 <script src="poriado-rezervacia.js" defer></script>
 <script src="poriado-dopyt.js" defer></script>
 <script src="poriado-chat.js" defer></script>
+
+<script>
+  /* Burger na podstránkach: rovnaké správanie ako na domovskej. */
+  (function(){
+    var b=document.getElementById('nav-burger'), n=document.getElementById('nav-links');
+    if(!b||!n) return;
+    function zavri(){ n.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var otvorene = n.classList.toggle('open');
+      b.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){ if(!n.contains(e.target)) zavri(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') zavri(); });
+  })();
+</script>
 </body>
 </html>

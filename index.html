@@ -31,6 +31,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Poriado",
+  "legalName": "CARTHEN, s.r.o.",
   "url": "https://www.poriado.sk/",
   "image": "https://www.poriado.sk/og-image.png",
   "telephone": ["+421949061088","+421949076917"],
@@ -134,6 +135,10 @@
   .badge{display:block;background:var(--bg);padding:18px 16px}
   .badge b{display:block;font-size:.9rem;line-height:1.25;font-weight:800;color:var(--navy);margin-bottom:5px}
   .badge span{display:block;font-size:.78rem;line-height:1.35;color:#5b6675}
+  /* Pás dôvery pod recenziami — tri najčastejšie obavy pred objednaním. */
+  .badges.tri{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.badges.tri{grid-template-columns:1fr}}
+  .dovera{background:#fff;padding:6px 0 0}
   @media(max-width:1120px){.badges{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:900px){.badges{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:460px){.badges{gap:1px}.badge{padding:14px 12px}.badge b{font-size:.84rem}.badge span{font-size:.72rem}}
@@ -266,6 +271,7 @@
       <a href="#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
       <a href="#onas">O nás</a>
+      <a href="tepovanie-bratislava.html">Tepovanie</a>
       <a href="faq.html">Časté otázky</a>
       <a href="https://rezervacie.poriado.sk/sk/" class="btn btn-rez" data-open-rezervacia>Rezervácia</a>
     </nav>
@@ -300,6 +306,15 @@
       <blockquote>„S upratovaním som bol veľmi spokojný. Všetko bolo urobené precízne, dôkladne a podľa mojich predstáv. Oceňujem profesionálny prístup, príjemné vystupovanie a dôraz na detaily."<cite>Dan A.</cite></blockquote>
       <blockquote>„Pomer cena a kvalita výborná. Poctivé umývanie a upratovanie, bola som veľmi spokojná."<cite>Natália F.</cite></blockquote>
       <blockquote>„Profesionálny prístup, rýchla komunikácia a kvalitne odvedená práca."<cite>Marek R.</cite></blockquote>
+    </div>
+  </div>
+</section>
+<section class="dovera">
+  <div class="wrap">
+    <div class="badges tri">
+      <div class="badge"><b>Nemusíte byť doma celý čas</b><span>stačí nás pustiť dnu a povedať priority — potom môžete odísť za svojím</span></div>
+      <div class="badge"><b>Chodí k vám stály tím</b><span>ľudia, ktorých osobne poznáme, nie cudzie upratovačky z inzerátu</span></div>
+      <div class="badge"><b>Ak niečo nesedí, dočistíme</b><span>ozvite sa do 3 dní a prídeme to bezplatne dočistiť; škodu kryje poistenie</span></div>
     </div>
   </div>
 </section>
@@ -357,7 +372,7 @@
         <a href="https://rezervacie.poriado.sk/sk/view/tepovanie-r132833" class="btn pbtn btn-rez" data-open-rezervacia data-balik="tepovanie">Rezervovať tepovanie</a>
       </div>
     </div>
-    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — platí na cenu každého balíka. Stačí zaškrtnúť pri rezervácii.</p>
+    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — platí na cenu každého balíka. Zaškrtnite ju pri rezervácii, pri prvej návšteve nám stačí ukázať preukaz.</p>
     <details class="porovnanie">
       <summary>Podrobné porovnanie balíkov</summary>
     <div class="ftable-wrap">
@@ -416,7 +431,7 @@
     <div class="logo">Poriado<span>.</span></div>
     <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
     <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#9fc0e8">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#9fc0e8">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#9fc0e8">info@poriado.sk</a></p>
-    <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
+    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
     <p style="margin-top:10px"><a href="sluzby.html" style="color:#9fc0e8">Služby</a> &nbsp;·&nbsp; <a href="faq.html" style="color:#9fc0e8">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#9fc0e8">Tepovanie sedačiek a kobercov</a></p>
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#9fc0e8">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
   </div>

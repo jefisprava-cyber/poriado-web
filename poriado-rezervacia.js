@@ -60,7 +60,8 @@
       '<h3 id="pr-nadpis">Rezervácia termínu</h3>' +
       '<p class="pr-sub"><b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> ' +
         'Zaplatíte, ako vám vyhovuje: kartou hneď online, alebo prevodom cez faktúru s QR kódom, ' +
-        'ktorú pošleme e-mailom. Zrušenie zdarma do 24 hodín pred termínom.</p>' +
+        'ktorú pošleme e-mailom. Zrušenie zdarma do 24 hodín pred termínom. ' +
+        'Nemusíte byť doma celý čas — stačí nás pustiť dnu a povedať priority.</p>' +
       '<div id="reenio-container"></div>' +
     '</div>';
 

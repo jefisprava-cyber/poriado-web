@@ -89,7 +89,17 @@
      pismom --ink: tmavy text na modrom tlacidle mal len 3,20. */
   .nav-links a.btn{color:#fff}
   .btn-ghost:hover{background:var(--blue);color:#fff}
-  @media(max-width:820px){.nav-links a:not(.btn){display:none}}
+  /* Na mobile sa odkazy skrývali a burger na podstránkach nebol, takže sa
+     z nich nedalo prejsť nikam inam než na rezerváciu. */
+  .nav{position:relative}
+  .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:6px 12px}
+  @media(max-width:820px){
+    .nav-burger{display:block}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(15,25,45,.14);border-top:1px solid #eef2f7;z-index:60}
+    .nav-links.open{display:flex}
+    .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
+    .nav-links .btn{margin:12px 24px 0;text-align:center}
+  }
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:70px 0 60px;text-align:center}
   .hero h1{font-size:2.2rem;line-height:1.25;margin-bottom:16px}
   .hero p{max-width:640px;margin:0 auto 28px;font-size:1.05rem;color:#f4f8fd}
@@ -134,10 +144,12 @@
 <header>
   <div class="nav">
     <a href="/" class="logo">Poriado<span>.</span></a>
-    <nav class="nav-links">
+    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
+    <nav class="nav-links" id="nav-links">
       <a href="/#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
       <a href="/#onas">O nás</a>
+      <a href="tepovanie-bratislava.html">Tepovanie</a>
       <a href="faq.html">Časté otázky</a>
       <a href="https://rezervacie.poriado.sk/sk/view/tepovanie-r132833" class="btn" data-open-rezervacia data-balik="tepovanie">Rezervácia</a>
     </nav>
@@ -228,7 +240,7 @@
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
     <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
-    <p style="margin-top:8px">&copy; 2026 Poriado. &nbsp;|&nbsp; <a href="/">poriado.sk</a></p>
+    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; <a href="/">poriado.sk</a></p>
     <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
   </div>
 </footer>
@@ -236,5 +248,22 @@
 <script src="poriado-rezervacia.js" defer></script>
 <script src="poriado-dopyt.js" defer></script>
 <script src="poriado-chat.js" defer></script>
+
+<script>
+  /* Burger na podstránkach: rovnaké správanie ako na domovskej. */
+  (function(){
+    var b=document.getElementById('nav-burger'), n=document.getElementById('nav-links');
+    if(!b||!n) return;
+    function zavri(){ n.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var otvorene = n.classList.toggle('open');
+      b.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){ if(!n.contains(e.target)) zavri(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') zavri(); });
+  })();
+</script>
 </body>
 </html>
