@@ -233,7 +233,12 @@
   .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
   .mlista .cena small{display:block;font-weight:600;color:#5b6675;font-size:.72rem}
   .mlista .btn{margin-left:auto;flex:1;max-width:215px;padding:13px 16px;font-size:.96rem;min-height:48px;text-align:center}
-  @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}}
+  @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}
+    /* Bublina chatu sa s lištou zdvihne nad ňu — inak zakrýva koniec tlačidla
+       „Rezervovať termín". Panel chatu ide o rovnaký kus vyššie. */
+    body #pch-bubble{transition:transform .2s,bottom .25s ease}
+    body.ml-on #pch-bubble{bottom:88px}
+    body.ml-on #pch-panel{bottom:158px;max-height:calc(100vh - 178px)}}
   /* Mobil: baliky do dvoch stlpcov namiesto jedneho dlheho stlpca */
   @media(max-width:640px){
     .packs{grid-template-columns:repeat(2,1fr);gap:10px}
