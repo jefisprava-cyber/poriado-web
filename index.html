@@ -225,7 +225,7 @@
   .porovnanie .ftable-wrap{margin:0;border-radius:0;box-shadow:none}
   /* veticka pre priestory na mieru (nahradila kartu Individualny) */
   .namieru{text-align:center;color:#5b6675;font-size:.95rem;margin-top:20px}
-  .namieru a{color:var(--navy);font-weight:700;border-bottom:2px solid var(--gold)}
+  .namieru a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
   .namieru a:hover{color:var(--blue)}
   /* mobilna lepiaca lista */
   .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e3eaf3;box-shadow:0 -6px 24px rgba(15,25,45,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
@@ -259,6 +259,16 @@
     table.ftable td:first-child{display:block;font-weight:700;color:var(--navy);margin-bottom:9px;font-size:.92rem;line-height:1.35}
     table.ftable td[data-p]{margin-right:14px}
     table.ftable td[data-p]::before{content:attr(data-p);color:#5f6875;font-weight:600;font-size:.78rem}
+  }
+  /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
+     Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
+     čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
+     celý pás. Rovnaký stav dostane aj fokus z klávesnice. */
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):hover,
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):focus-visible,
+  .rev-bar:hover .rev-cta, .rev-bar:focus-visible .rev-cta{
+    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration-thickness:2px;text-underline-offset:4px
   }
 </style>
 </head>

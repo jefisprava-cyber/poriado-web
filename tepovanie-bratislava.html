@@ -70,7 +70,7 @@
 }
 </script>
 <style>
-  :root{--navy:#1f3864;--blue:#2e75b6;--light:#dce6f1;--bg:#f7f9fc;--ink:#1c2530;--muted:#5b6675;--gold-text:#96691a}
+  :root{--navy:#1f3864;--blue:#2e75b6;--light:#dce6f1;--bg:#f7f9fc;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-text:#96691a}
   *{margin:0;padding:0;box-sizing:border-box}
   a{text-decoration:none;color:inherit}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
@@ -138,6 +138,16 @@
   .hero .btn-ghost,.cta .btn-ghost{background:transparent;color:#fff;border:2px solid #fff}
   .hero .btn-ghost:hover,.cta .btn-ghost:hover{background:rgba(255,255,255,.15);transform:none}
   .hero .btn:not(.btn-ghost),.cta .btn:not(.btn-ghost){font-size:1.12rem;padding:15px 34px}
+  /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
+     Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
+     čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
+     celý pás. Rovnaký stav dostane aj fokus z klávesnice. */
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):hover,
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):focus-visible,
+  .rev-bar:hover .rev-cta, .rev-bar:focus-visible .rev-cta{
+    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration-thickness:2px;text-underline-offset:4px
+  }
 </style>
 </head>
 <body>

@@ -185,6 +185,16 @@
     table.ftable td[data-p]{margin-right:14px}
     table.ftable td[data-p]::before{content:attr(data-p);color:#5f6875;font-weight:600;font-size:.78rem}
   }
+  /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
+     Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
+     čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
+     celý pás. Rovnaký stav dostane aj fokus z klávesnice. */
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):hover,
+  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):focus-visible,
+  .rev-bar:hover .rev-cta, .rev-bar:focus-visible .rev-cta{
+    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration-thickness:2px;text-underline-offset:4px
+  }
 </style>
 </head>
 <body>

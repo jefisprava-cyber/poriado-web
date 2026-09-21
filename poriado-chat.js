@@ -87,8 +87,8 @@
       '<div class="pch-head"><button id="pch-close" aria-label="Zavrieť">×</button>' +
       '<b>Poriado<span>.</span></b><small>Radi odpovieme — vyberte otázku</small></div>' +
       '<div class="pch-gold"></div><div id="pch-body"></div>' +
-      '<div class="pch-cta"><a class="p" href="/#rezervacia">📅 Rezervovať termín</a>' +
-      '<a class="s" href="https://wa.me/421949076917" target="_blank" rel="noopener">WhatsApp</a></div>';
+      '<div class="pch-cta"><a class="p pch-btn" href="/#rezervacia">📅 Rezervovať termín</a>' +
+      '<a class="s pch-btn" href="https://wa.me/421949076917" target="_blank" rel="noopener">WhatsApp</a></div>';
 
     document.body.appendChild(bubble);
     document.body.appendChild(panel);
