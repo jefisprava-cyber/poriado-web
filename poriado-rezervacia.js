@@ -34,6 +34,14 @@
     tepovanie: '/view/tepovanie-r132833'
   };
 
+  /* Bez tohto sa kalendár otvorí na dnešku a keď je dnes plno, zákazník vidí
+     „V tento deň nie je dostupný žiadny termín" a musí klikať ďalej. Parameter
+     ;nearestAvailable=1 (s bodkočiarkou, nie s otáznikom) ho otvorí rovno na
+     najbližšom dni s voľným termínom. Reenio ho nemá v dokumentácii — je vyčítaný
+     z jeho kódu a overený 21. 9. 2026. Ak ho raz prestane poznať, kalendár sa
+     jednoducho otvorí na dnešku ako predtým. */
+  var NAJBLIZSI_TERMIN = ';nearestAvailable=1';
+
   var STYL = [
     '.pr-prekryv{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;',
       'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
@@ -135,7 +143,7 @@
       d.setAttribute('data-size', 'auto');
       d.setAttribute('data-reservation-created', HOTOVA);
       suhlasNaDiv(d);
-      if (kluc !== 'vsetky') d.setAttribute('data-url', BALIKY[kluc]);
+      if (kluc !== 'vsetky') d.setAttribute('data-url', BALIKY[kluc] + NAJBLIZSI_TERMIN);
       panel.appendChild(d);
       c.insertBefore(panel, c.firstChild);
     }
