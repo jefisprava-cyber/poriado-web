@@ -36,8 +36,12 @@
       'color:#1c2530;line-height:1.6;text-align:left}',
     '.pd-okno h3{color:#1f3864;font-size:1.4rem;margin:0 0 6px;font-weight:700}',
     '.pd-sub{color:#5b6675;font-size:.95rem;margin:0 0 20px;line-height:1.55}',
-    '.pd-zavri{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;',
-      'color:#5f6875;cursor:pointer;line-height:1;padding:0}',
+    /* Krížik ostáva pri rolovaní dlhšieho formulára hore na obrazovke (lepiaci obal). */
+    '.pd-zavri-obal{position:sticky;top:30px;height:0;z-index:5}',
+    '.pd-zavri{position:absolute;top:-20px;right:-20px;width:44px;height:44px;border-radius:50%;',
+      'background:#fff;border:1px solid #e3eaf3;box-shadow:0 4px 14px rgba(15,25,45,.14);',
+      'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
+      'display:flex;align-items:center;justify-content:center}',
     '.pd-zavri:hover{color:#1f3864}',
     '.pd-okno form{background:none;box-shadow:none;padding:0;margin:0}',
     '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:#1f3864}',
@@ -62,12 +66,12 @@
     '.pd-odoslat:disabled{opacity:.65;cursor:default}',
     '.pd-ok{display:none;color:#19b07a;font-weight:700;text-align:center;margin-top:14px}',
     '.pd-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
-    '@media(max-width:640px){.pd-okno{padding:28px 18px}}'
+    '@media(max-width:640px){.pd-okno{padding:28px 18px}.pd-zavri-obal{top:28px}.pd-zavri{top:-18px;right:-10px}}'
   ].join('');
 
   var HTML =
     '<div class="pd-okno" role="dialog" aria-modal="true" aria-labelledby="pd-nadpis">' +
-      '<button class="pd-zavri" id="individ-close" type="button" aria-label="Zavrieť">&times;</button>' +
+      '<div class="pd-zavri-obal"><button class="pd-zavri" id="individ-close" type="button" aria-label="Zavrieť">&times;</button></div>' +
       '<h3 id="pd-nadpis">Individuálny dopyt</h3>' +
       '<p class="pd-sub">Pre Airbnb, kancelárie a špeciálne priestory. Napíšte nám, čo potrebujete, ' +
         'a ozveme sa do 24 hodín s ponukou na mieru.</p>' +

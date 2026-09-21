@@ -210,7 +210,7 @@
     '.pk-text{color:#1c2530;font-size:.92rem;line-height:1.5;flex:1;min-width:260px}',
     '.pk-text a{color:#2e75b6;font-weight:600;text-decoration:underline}',
     '.pk-tlacidla{display:flex;gap:10px;flex-wrap:wrap}',
-    '.pk-btn{background:#2e75b6;color:#fff;padding:10px 20px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
+    '.pk-btn{background:#2e75b6;color:#fff;padding:10px 20px;min-height:44px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
     '.pk-btn:hover{background:#1f3864}',
     '.pk-btn-ghost{background:transparent;color:#1f3864;border:2px solid #2e75b6}',
     '.pk-btn-ghost:hover{background:#2e75b6;color:#fff}',
@@ -226,11 +226,19 @@
     '.pk-prep input{opacity:0;width:0;height:0}',
     '.pk-posuvnik{position:absolute;inset:0;background:#c7cfda;border-radius:24px;cursor:pointer;transition:.2s}',
     '.pk-posuvnik:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}',
-    '.pk-prep input:checked+.pk-posuvnik{background:#19b07a}',
+    '.pk-prep input:checked+.pk-posuvnik{background:#2e75b6}',
     '.pk-prep input:checked+.pk-posuvnik:before{transform:translateX(20px)}',
     '.pk-prep input:disabled+.pk-posuvnik{background:#2e75b6;opacity:.5;cursor:not-allowed}',
     '.pk-akcie{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}',
-    '.pk-akcie .pk-btn{flex:1}'
+    '.pk-akcie .pk-btn{flex:1}',
+    /* Mobil: kratšia lišta — tri rovnako veľké tlačidlá v jednom riadku. */
+    '@media(max-width:600px){.pk-lista{padding:12px 0 14px}.pk-vnutro{padding:0 14px;gap:10px}',
+      '.pk-text{font-size:.85rem;line-height:1.45;min-width:0;flex-basis:100%}',
+      '.pk-tlacidla{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:8px;width:100%}',
+      '.pk-btn{padding:8px 6px;font-size:.84rem}}',
+    /* Kým je lišta na obrazovke, bublina chatu (a jej panel) sedí nad ňou, nie cez tlačidlá. */
+    'body.pk-on #pch-bubble{bottom:calc(var(--pk-vyska, 0px) + 14px)}',
+    'body.pk-on #pch-panel{bottom:calc(var(--pk-vyska, 0px) + 86px);max-height:calc(100vh - var(--pk-vyska, 0px) - 106px)}'
   ].join('\n');
 
   var HTML =
@@ -277,9 +285,18 @@
     var aChk   = document.getElementById('pk-analytika');
     var mChk   = document.getElementById('pk-marketing');
 
+    /* Chat a iné plávajúce prvky potrebujú vedieť, či a aká vysoká je lišta. */
+    function hlasListu() {
+      var vidno = lista.classList.contains('pk-vidno');
+      document.body.classList.toggle('pk-on', vidno);
+      if (vidno) document.documentElement.style.setProperty('--pk-vyska', lista.offsetHeight + 'px');
+    }
+    window.addEventListener('resize', function () { if (lista.classList.contains('pk-vidno')) hlasListu(); });
+
     function uloz(c) {
       try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
       lista.classList.remove("pk-vidno");
+      hlasListu();
       okno.classList.remove("pk-otvorene");
       pouziSuhlas(c);
     }
@@ -289,7 +306,7 @@
     }
 
     var ulozeny = dajSuhlas();
-    if (!ulozeny) lista.classList.add('pk-vidno');
+    if (!ulozeny) { lista.classList.add('pk-vidno'); hlasListu(); }
     else { aChk.checked = !!ulozeny.analytics; mChk.checked = !!ulozeny.marketing; }
 
     na('pk-prijat',        function () { uloz({ necessary: true, analytics: true,  marketing: true  }); });

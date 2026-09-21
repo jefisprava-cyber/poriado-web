@@ -32,7 +32,9 @@
   .pch-cta .p:hover{background:#1f3864}
   .pch-cta .s{background:#e2f6ee;color:#0f7a54}
   .pch-cta .s:hover{background:#19b07a;color:#fff}
-  #pch-close{float:right;background:none;border:none;color:#dce6f1;font-size:20px;cursor:pointer;line-height:1;margin-top:-2px}
+  #pch-close{float:right;background:none;border:none;color:#dce6f1;font-size:22px;cursor:pointer;line-height:1;
+    width:44px;height:44px;margin:-12px -12px -12px 4px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  #pch-close:hover{background:rgba(255,255,255,.12)}
   @media(max-width:480px){#pch-panel{right:8px;bottom:84px}}
   `;
 

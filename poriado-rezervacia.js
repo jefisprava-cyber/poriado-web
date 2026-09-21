@@ -55,16 +55,21 @@
     '.pr-okno h3{color:#1f3864;font-size:1.4rem;margin:0 0 6px;font-weight:700}',
     '.pr-sub{color:#5b6675;font-size:.95rem;margin:0 0 20px;line-height:1.55}',
     '.pr-sub b{color:#1f3864}',
-    '.pr-zavri{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.7rem;',
-      'color:#5f6875;cursor:pointer;line-height:1;padding:0}',
+    /* Krížik sedí v nulovo vysokom lepiacom obale — keď sa okno na mobile zroluje
+       (kalendár Reenia je dlhý), ostane hore na obrazovke a netreba sa vracať. */
+    '.pr-zavri-obal{position:sticky;top:26px;height:0;z-index:5}',
+    '.pr-zavri{position:absolute;top:-16px;right:-12px;width:44px;height:44px;border-radius:50%;',
+      'background:#fff;border:1px solid #e3eaf3;box-shadow:0 4px 14px rgba(15,25,45,.14);',
+      'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
+      'display:flex;align-items:center;justify-content:center}',
     '.pr-zavri:hover{color:#1f3864}',
     '#reenio-container{min-height:280px}',
-    '@media(max-width:640px){.pr-okno{padding:24px 12px}}'
+    '@media(max-width:640px){.pr-okno{padding:24px 12px}.pr-zavri-obal{top:24px}.pr-zavri{top:-14px;right:-4px}}'
   ].join('');
 
   var HTML =
     '<div class="pr-okno" role="dialog" aria-modal="true" aria-labelledby="pr-nadpis">' +
-      '<button class="pr-zavri" id="rezervacia-close" type="button" aria-label="Zavrieť">&times;</button>' +
+      '<div class="pr-zavri-obal"><button class="pr-zavri" id="rezervacia-close" type="button" aria-label="Zavrieť">&times;</button></div>' +
       '<h3 id="pr-nadpis">Rezervácia termínu</h3>' +
       '<p class="pr-sub"><b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> ' +
         'Zaplatíte, ako vám vyhovuje: kartou hneď online, alebo prevodom cez faktúru s QR kódom, ' +
