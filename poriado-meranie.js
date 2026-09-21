@@ -120,10 +120,16 @@
   /* Konverzie — volá sa z tlačidiel. GA4 udalosť odíde vždy: so súhlasom
      ako plnohodnotná konverzia, bez neho ako bezcookiový signál. Meta
      udalosť odíde len so súhlasom, dovtedy ju Pixel zahodí sám. */
-  window.konverzia = function (gaNazov, fbNazov, param) {
+  /* metaVolby: napr. { eventID: '...' } — rovnaké ID od dvoch zdrojov Meta zlúči. */
+  window.konverzia = function (gaNazov, fbNazov, param, metaVolby) {
     var p = param || {};
     try { if (window.gtag) gtag('event', gaNazov, p); } catch (e) {}
-    try { if (window.fbq)  fbq('track', fbNazov, p); } catch (e) {}
+    try {
+      if (window.fbq) {
+        if (metaVolby) fbq('track', fbNazov, p, metaVolby);
+        else fbq('track', fbNazov, p);
+      }
+    } catch (e) {}
   };
 
   /* Stav suhlasu pre ostatne skripty. Rezervacne okno ho posiela do Reenia,

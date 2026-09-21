@@ -72,15 +72,23 @@
   var HOTOVA = 'poriadoRezervaciaHotova';
   var CENY = { mini: 79.90, klasik: 129.90, maxi: 169.90, tepovanie: 40 };
 
+  /* Reenio pri dokončení posiela { reservationId, price, currency, transactionId }.
+     Samo zároveň odosiela do Mety Purchase s ID udalosti = transactionId a do GA4
+     purchase s tým istým transaction_id. Keď naše udalosti nesú rovnaké ID, Meta
+     aj GA4 ich s tými od Reenia zlúčia do jedného nákupu — Pixel v Reeniu tak
+     môže ostať zapnutý (kampane na ňom stoja) a nič sa nezapočíta dvakrát. */
   window[HOTOVA] = function (data) {
+    var d = data || {};
     var hodnota = 0;
-    try {
-      var d = data || {};
-      hodnota = Number(d.price || d.totalPrice || d.amount || d.sum || 0);
-    } catch (e) {}
+    try { hodnota = Number(d.price || d.totalPrice || d.amount || d.sum || 0); } catch (e) {}
     if (!(hodnota > 0)) hodnota = CENY[posledny] || 0;
-    var param = hodnota > 0 ? { value: hodnota, currency: 'EUR' } : {};
-    if (typeof window.konverzia === 'function') window.konverzia('purchase', 'Purchase', param);
+    var mena = (typeof d.currency === 'string' && d.currency) ? d.currency : 'EUR';
+    var idTransakcie = d.transactionId || d.reservationId || null;
+
+    var param = hodnota > 0 ? { value: hodnota, currency: mena } : {};
+    if (idTransakcie) param.transaction_id = String(idTransakcie);
+    var meta = idTransakcie ? { eventID: String(idTransakcie) } : undefined;
+    if (typeof window.konverzia === 'function') window.konverzia('purchase', 'Purchase', param, meta);
   };
 
   /* Reenio ma vlastne GA4 a Pixel. Bez tychto atributov meria aj tomu, kto
