@@ -44,26 +44,34 @@
   var PLATBA = (window.DEMO_PLATBA === 'karta') ? 'karta' : 'prevod';
 
   /* Veta pod nadpisom okna. Obe verzie sú tu natvrdo, prepína sa len kľúč
-     vyššie — aby sa pri prepnutí nič nepísalo a nedalo sa pomýliť. */
+     vyššie — aby sa pri prepnutí nič nepísalo a nedalo sa pomýliť.
+     Zámerne je krátka: hneď pod ňou má Bookio vlastný modrý rámček s cenami,
+     doplnkami a podmienkami. Keď bolo dlhé oboje, okno začínalo stenou textu
+     a zákazník sa k výberu balíka prerolovával. */
   var TEXTY = {
     prevod:
-      '<b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> ' +
+      '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
       'Platí sa prevodom: faktúru s QR kódom pošleme e-mailom do 24 hodín. ' +
-      'Kartou sa zatiaľ zaplatiť nedá, ospravedlňujeme sa. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom. ' +
-      'Nemusíte byť doma celý čas — stačí nás pustiť dnu a povedať priority.',
+      'Zrušenie zdarma do 24 hodín pred termínom.',
     karta:
-      '<b>Vyberte si balík a termín, ktorý vám sedí — potvrdenie máte okamžite.</b> ' +
-      'Zaplatíte, ako vám vyhovuje: kartou hneď online, alebo prevodom cez ' +
-      'faktúru s QR kódom, ktorú pošleme e-mailom. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom. ' +
-      'Nemusíte byť doma celý čas — stačí nás pustiť dnu a povedať priority.'
+      '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
+      'Zaplatíte kartou hneď online alebo prevodom cez faktúru s QR kódom. ' +
+      'Zrušenie zdarma do 24 hodín pred termínom.'
   };
 
   /* ── Bookio ──────────────────────────────────────────────────────────── */
 
   var ORIGIN = 'https://services.bookio.com';
-  var ZAKLAD = ORIGIN + '/poriado-sor759f2/widget?lang=sk';
+
+  /* hiddenHeader=true schová hlavičku widgetu — logo Bookia s naším názvom,
+     odkaz na www.poriado.sk a vlajočku na prepnutie jazyka. V našom okne je
+     hlavička zbytočná (zákazník vie, kde je) a tlačila výber balíka o 70 px
+     nadol. Vlajočka navyše vedela prepnúť widget do češtiny, po ktorej by
+     potvrdzovací e-mail prišiel po česky a parser do tabuľky by ho neprečítal.
+     Overené na widgete 26. 9. 2026: vlastný text prevádzky ostáva, mizne len
+     hlavička. Keby parameter raz prestal fungovať, zobrazí sa hlavička ako
+     predtým — nič sa nerozbije. */
+  var ZAKLAD = ORIGIN + '/poriado-sor759f2/widget?lang=sk&hiddenHeader=true';
 
   /* Služby v Bookiu — jedna tabuľka, tri údaje na riadok:
        id    — deep-link &service=<id>, overený naživo 26. 9. 2026: widget
@@ -235,7 +243,12 @@
       var v = parseInt(d.widgetHeight, 10);
       var r = ramec();
       if (r && !isNaN(v) && v > 0) {
-        r.style.height = v + 'px';
+        /* +8 px rezerva. Bookio hlási výšku zaokrúhlenú nadol a chýbajúci
+           pixel stačí na to, aby iframu naskočil zvislý posuvník; ten zožerie
+           ~15 px šírky, obsah sa prestane zmestiť do šírky a naskočí aj
+           vodorovný. Výsledok boli dva posuvníky vnútri okna. 8 px prázdna
+           nevidno, dva posuvníky áno. */
+        r.style.height = (v + 8) + 'px';
         poslednaVyska = v;
         if (cakanieNaVysku) { clearTimeout(cakanieNaVysku); cakanieNaVysku = null; }
       }
@@ -530,7 +543,7 @@
       cakanieNaVysku = setTimeout(function () {
         cakanieNaVysku = null;
         var rr = ramec();
-        if (rr && !rr.style.height && vyska > 0) rr.style.height = vyska + 'px';
+        if (rr && !rr.style.height && vyska > 0) rr.style.height = (vyska + 8) + 'px';
       }, 1200);
     });
 
