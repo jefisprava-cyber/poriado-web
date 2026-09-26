@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>Demo — rezervácia cez Bookio | Poriado</title>
+<style>
+  :root{
+    --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
+    --ink:#1c2530; --muted:#5b6675; --gold:#d4a44c; --gold-tmava:#bd8d33; --gold-text:#96691a;
+    --ciara:#e3e9f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-text-size-adjust:100%}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:22px 0}
+  header .logo{font-weight:800;font-size:1.3rem;letter-spacing:.5px}
+  header .logo span{color:#9fc0e8}
+  header p{color:var(--light);font-size:.92rem;margin-top:4px}
+  main{padding:26px 0 60px}
+  h1{font-size:1.5rem;color:var(--navy);letter-spacing:-.4px;line-height:1.25;margin-bottom:10px}
+  h2{font-size:1.15rem;color:var(--navy);margin:28px 0 10px}
+  p{margin-bottom:12px}
+  .pozn{background:var(--bg);border:1px solid var(--ciara);border-left:4px solid var(--gold);border-radius:12px;padding:14px 16px;margin:16px 0}
+  .pozn b{color:var(--navy)}
+  ul{margin:0 0 12px 20px}
+  li{margin-bottom:6px}
+  .tlacidla{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border-radius:9px;
+    background:var(--gold);color:var(--navy);font-weight:700;font-size:.95rem;border:none;cursor:pointer;text-decoration:none;font-family:inherit}
+  .btn:hover{background:var(--gold-tmava)}
+  .btn.vedlajsi{background:#fff;color:var(--navy);border:2px solid var(--blue)}
+  .btn.vedlajsi:hover{background:var(--blue);color:#fff}
+  .btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+  .prepinac{display:inline-flex;gap:4px;background:var(--bg);border:1px solid var(--ciara);border-radius:12px;padding:4px;margin:6px 0 4px}
+  .prepinac button{font:inherit;font-weight:700;font-size:.9rem;color:var(--navy);background:none;border:0;border-radius:9px;padding:10px 16px;min-height:44px;cursor:pointer}
+  .prepinac button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  .stav{font-size:.92rem;color:var(--muted);margin-top:4px}
+  table{border-collapse:collapse;width:100%;font-size:.93rem;margin:10px 0 16px}
+  th,td{border:1px solid var(--ciara);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--bg);color:var(--navy)}
+  code{background:var(--bg);border:1px solid var(--ciara);border-radius:6px;padding:1px 5px;font-size:.9em}
+  a{color:var(--blue)}
+  a:hover,a:focus-visible{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+  footer{border-top:1px solid var(--ciara);padding:18px 0 30px;color:var(--muted);font-size:.9rem}
+  @media(max-width:600px){h1{font-size:1.3rem}.btn{width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Poriado<span>.</span></div>
+    <p>Skúšobná stránka — nie je súčasťou webu</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Demo: rezervačné okno s Bookiom</h1>
+    <p>Táto stránka beží na tom istom kóde, aký sa v pondelok nasadí na celý web. Slúži na skúšanie, kým je živý web ešte na Reeniu. Nie je nikde odkazovaná a vyhľadávače ju nemajú indexovať.</p>
+
+    <div class="pozn">
+      <p><b>Rezervácia dokončená na tejto stránke je skutočná rezervácia v Bookiu.</b> Kým to skúšate, majte v Bookiu zablokovaný deň, na ktorý rezervujete, a každú skúšobnú rezerváciu hneď zrušte.</p>
+      <p style="margin-bottom:0">Meranie sem zámerne nie je vložené, takže skúšanie nepokazí štatistiky v Google Analytics ani v Mete.</p>
+    </div>
+
+    <h2>Vyskúšajte okno</h2>
+    <p>Tlačidlá sú tie isté ako na cenníku. Každé otvorí Bookio rovno na svojom balíku.</p>
+    <div class="tlacidla">
+      <button type="button" class="btn" data-open-rezervacia data-balik="mini">Rezervovať Mini</button>
+      <button type="button" class="btn" data-open-rezervacia data-balik="klasik">Rezervovať Klasik</button>
+      <button type="button" class="btn" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</button>
+      <button type="button" class="btn" data-open-rezervacia data-balik="tepovanie">Rezervovať tepovanie</button>
+      <button type="button" class="btn vedlajsi" data-open-rezervacia>Rezervovať termín (bez balíka)</button>
+    </div>
+
+    <h2>Text o platbe</h2>
+    <p>Prepína vetu pod nadpisom v okne. Na ostrom webe to nie je tlačidlo — mení sa jeden riadok v kóde a pushne sa.</p>
+    <div class="prepinac" role="group" aria-label="Verzia textu o platbe">
+      <button type="button" id="verzia-a" aria-pressed="true">A — iba prevod</button>
+      <button type="button" id="verzia-b" aria-pressed="false">B — aj kartou</button>
+    </div>
+    <p class="stav" id="stav-verzie">Zapnutá je verzia A. Otvorte okno a prečítajte si vetu pod nadpisom.</p>
+
+    <h2>Čo si na okne všimnúť</h2>
+    <ul>
+      <li>Otvorí sa správny balík aj s jeho doplnkami a kalendárom.</li>
+      <li>Po otvorení je vidieť nadpis <b>Rezervácia termínu</b>, okno neodskočí nižšie.</li>
+      <li>Krížik vpravo hore drží na mieste aj po zrolovaní kalendára.</li>
+      <li>Na mobile sa nič nevysúva do strán a kalendár sa celý zmestí.</li>
+      <li>Ak ste ešte neodklikli cookie lištu, dá sa odkliknúť aj cez otvorené okno.</li>
+    </ul>
+
+    <h2>Čo v Bookiu ešte chýba</h2>
+    <p>Stav k sobote 26. 9. Podrobný postup je v dokumente <b>BOOKIO-pondelok-vsetko</b>.</p>
+    <table>
+      <thead><tr><th>Vec</th><th>Stav</th></tr></thead>
+      <tbody>
+        <tr><td>Štyri služby a ceny</td><td>hotové</td></tr>
+        <tr><td>Doplnky pri Mini a Klasiku</td><td>hotové</td></tr>
+        <tr><td>Doplnok „Rebrík k oknám (+10 €)“ pri Maxi</td><td>chýba</td></tr>
+        <tr><td>Názov služby „Tepovanie “ má medzeru navyše</td><td>opraviť</td></tr>
+        <tr><td>Blokácie termínov z Reenia (28. 9., 1. 10., 2. 10.)</td><td>chýbajú, bez nich sa nesmie prepnúť web</td></tr>
+        <tr><td>Storno podmienky 24 hodín a 50 %</td><td>chýbajú</td></tr>
+        <tr><td>Informácia o 14-dňovej lehote na troch miestach</td><td>chýba</td></tr>
+        <tr><td>Vlastné polia formulára (adresa, mesto, PSČ, firma)</td><td>skontrolovať a doplniť pomocné texty</td></tr>
+        <tr><td>Platba kartou</td><td>nie je zapnutá, čaká na Bookio</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Priame odkazy</h2>
+    <ul>
+      <li><a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" target="_blank" rel="noopener">Widget bez nášho okna</a> — takto ho vidí zákazník, ktorý príde priamo na Bookio.</li>
+      <li><a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173506" target="_blank" rel="noopener">Widget rovno na Mini</a> · <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173507" target="_blank" rel="noopener">Klasik</a> · <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173508" target="_blank" rel="noopener">Maxi</a> · <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173509" target="_blank" rel="noopener">Tepovanie</a></li>
+      <li><a href="https://services.bookio.com/client-admin/poriado-sor759f2" target="_blank" rel="noopener">Administrácia Bookia</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Poriado — CARTHEN, s.r.o. · skúšobná stránka, na živom webe sa neodkazuje ·
+    <a href="/">späť na poriado.sk</a>
+  </div>
+</footer>
+
+<script src="demo-bookio.js" defer></script>
+<script>
+  /* Prepínač verzie textu o platbe. Skript demo-bookio.js pridáva funkciu
+     window.demoPrepniPlatbu — na ostrom webe taká funkcia nie je. */
+  (function () {
+    var a = document.getElementById('verzia-a');
+    var b = document.getElementById('verzia-b');
+    var stav = document.getElementById('stav-verzie');
+    function nastav(verzia) {
+      var v = (typeof window.demoPrepniPlatbu === 'function') ? window.demoPrepniPlatbu(verzia) : verzia;
+      a.setAttribute('aria-pressed', v === 'prevod' ? 'true' : 'false');
+      b.setAttribute('aria-pressed', v === 'karta' ? 'true' : 'false');
+      stav.textContent = v === 'karta'
+        ? 'Zapnutá je verzia B. Takto bude veta znieť, keď Bookio zapne platbu kartou.'
+        : 'Zapnutá je verzia A. Otvorte okno a prečítajte si vetu pod nadpisom.';
+    }
+    a.addEventListener('click', function () { nastav('prevod'); });
+    b.addEventListener('click', function () { nastav('karta'); });
+  })();
+</script>
+</body>
+</html>
