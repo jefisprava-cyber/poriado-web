@@ -49,7 +49,7 @@
     { q: "📅 Ako si rezervujem termín?",
       a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Platí sa prevodom: faktúru s QR kódom pošleme e-mailom do 24 hodín. Kartou sa zatiaľ platiť nedá, ospravedlňujeme sa.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },
     { q: "💖 Máte zľavy?",
-      a: "Áno — dôchodcom a držiteľom preukazu ZŤP ponúkame trvalú zľavu 15 % na všetky balíky. Napíšte to do poznámky pri rezervácii a pri prvej návšteve nám stačí ukázať preukaz. Zľavu odrátame z faktúry." },
+      a: "Áno — dôchodcom a držiteľom preukazu ZŤP ponúkame trvalú zľavu 15 % na všetky balíky. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár.\n\nPri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry." },
     { q: "🏢 Kancelárie / Airbnb?",
       a: "Kancelárie, prevádzky aj Airbnb apartmány riešime individuálne — pošlite nám individuálny dopyt a do 24 hodín dostanete ponuku na mieru. Obhliadka je zdarma.",
       link: { text: "Individuálny dopyt →", href: "/#individ" } },
