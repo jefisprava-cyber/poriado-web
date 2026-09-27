@@ -166,6 +166,17 @@
        bežný odkaz, takže funguje aj bez JavaScriptu. */
     '.pr-nahrada{margin:14px 0 0;font-size:.9rem;color:#5b6675}',
     '.pr-nahrada a{color:#1f3864}',
+    /* Formulár priamo v stránke (rezervacia.html). Widget má vlastné biele
+       pozadie, takže okolo neho stačí rámik a vzduch — nie druhá karta. */
+    '.pr-vstranke{display:block;max-width:1000px;margin:0 auto}',
+    '.pr-vstranke .pr-sub{margin:0 0 16px}',
+    /* Na rezervačnej stránke je pod widgetom ďalší obsah, takže dopočítaná
+       výška ho posunie. Rezervujeme preto rovno toľko miesta, koľko Bookio
+       pri zozname služieb naozaj hlási — odmerané 26. 9. 2026: 550 px na
+       počítači, 718 px na mobile. Bez toho mala stránka CLS 0,53, čo je
+       pomalé poskakovanie obsahu pod prstami. */
+    '.pr-vstranke #bookio-iframe{min-height:740px}',
+    '@media(min-width:800px){.pr-vstranke #bookio-iframe{min-height:560px}}',
     '@media(max-width:640px){.pr-okno{padding:24px 12px}.pr-zavri-obal{top:24px}.pr-zavri{top:-14px;right:-4px}}'
   ].join('');
 
@@ -190,6 +201,7 @@
   var poslednaVyska = 0;        // posledná výška ohlásená Bookiom (nález 7)
   var poslednaSirka = 0;
   var cakanieNaVysku = null;
+  var naInterakciu = null;   // formulár v stránke si sem dá počítanie konverzie
 
   function ramec() { return document.getElementById('bookio-iframe'); }
 
@@ -212,10 +224,21 @@
      ignorujeme. */
 
   /* scrollTo je odstup prvku OD ZAČIATKU dokumentu vo widgete, nie od okna
-     prehliadača. Prepočítame ho teda na pozíciu v našom prekryve. */
+     prehliadača. Prepočítame ho teda na pozíciu v našom prekryve — a keď
+     formulár nie je v okne, ale priamo v stránke (rezervacia.html), rolujeme
+     samotnú stránku. Hlavička je lepiaca, preto necháme nad cieľom 80 px. */
   function roluj(kam, plynulo) {
     var r = ramec();
-    if (!r || !PREKRYV || kam === undefined || isNaN(Number(kam))) return;
+    if (!r || kam === undefined || isNaN(Number(kam))) return;
+
+    if (!PREKRYV) {
+      var ciel2 = window.pageYOffset + r.getBoundingClientRect().top + Number(kam) - 80;
+      if (ciel2 < 0) ciel2 = 0;
+      try { window.scrollTo({ top: ciel2, behavior: plynulo ? 'smooth' : 'auto' }); }
+      catch (e2) { window.scrollTo(0, ciel2); }
+      return;
+    }
+
     var rozdiel = r.getBoundingClientRect().top - PREKRYV.getBoundingClientRect().top;
     var ciel = PREKRYV.scrollTop + rozdiel + Number(kam) - 12;   // 12 px vzduchu
     if (ciel < 0) ciel = 0;
@@ -242,6 +265,11 @@
            vodorovný. Výsledok boli dva posuvníky vnútri okna. 8 px prázdna
            nevidno, dva posuvníky áno. */
         r.style.height = (v + 8) + 'px';
+        /* min-height drží miesto, kým nepríde prvá výška. Od tej chvíle by
+           len prekážala: na rezervačnej stránke hlási Bookio pri zozname
+           služieb ~540 px, čo je menej než 70vh, a pod widgetom by ostal pás
+           prázdna. Po prvej správe teda min-height vypneme. */
+        r.style.minHeight = '0';
         poslednaVyska = v;
         if (cakanieNaVysku) { clearTimeout(cakanieNaVysku); cakanieNaVysku = null; }
       }
@@ -261,6 +289,11 @@
     }
     if (d.type === 'REQUEST_IFRAME_SCROLL') {
       interagoval = true;
+      /* Táto správa chodí až po kroku, ktorý zákazník naozaj urobil (vybral
+         službu, deň, čas). Na rezervačnej stránke je to jediný spoľahlivý
+         signál, že začal rezervovať — klik v cudzom iframe sa k nám inak
+         nedostane. V okne sa konverzia počíta už pri otvorení, tam to netreba. */
+      if (naInterakciu) naInterakciu();
       roluj(d.scrollTo, d.animated);
       return;
     }
@@ -351,7 +384,107 @@
      príjemca údajov, ale netvrdiť, že v okne ukazuje vlastnú lištu alebo že
      v ňom beží Google Analytics — ani jedno nie je pravda. (nález 3) */
 
+  /* ── Formulár priamo v stránke ────────────────────────────────────────────
+     Stránka, ktorá má v tele <div id="pr-inline">, nedostane vyskakovacie
+     okno — widget sa vloží rovno do nej. Používa sa na rezervacia.html, kam
+     smerujú odkazy zvonku (Google profil, e-mailový podpis): návštevník tak
+     pristane na poriado.sk a nie na bookio.com.
+     Okno a stránka sa na jednej stránke nemiešajú — obe by mali rovnaké id
+     obalu aj iframu a widget by sa načítal dvakrát. Preto buď/alebo. */
+  function startInline(obal) {
+    vlozStyl();
+    obal.className = 'pr-vstranke';
+    /* Rezervované miesto zo štýlu stránky už netreba — od tejto chvíle výšku
+       drží samotný widget a prázdny pás pod ním by len zavádzal. */
+    obal.style.minHeight = '0';
+    /* Vetu o platbe tu zámerne nedávame. V okne dáva zmysel — návštevník
+       doň skočil z cenníka a inak by o platbe nevedel. Na rezervačnej
+       stránke je hneď nad formulárom nadpis stránky a hneď pod ním modrý
+       rámček Bookia s cenami aj podmienkami, takže by to bolo to isté
+       povedané tretíkrát pod sebou. */
+    obal.innerHTML =
+      '<div id="bookio-obal"></div>' +
+      '<p class="pr-nahrada">Nenačítal sa kalendár? <a href="' + ZAKLAD +
+        '" target="_blank" rel="noopener">Otvorte rezerváciu v novom okne</a>.</p>';
+
+    var balik = obal.getAttribute('data-balik');
+    posledny = balik && SLUZBY[balik] ? balik : 'vsetky';
+
+    var r = document.createElement('iframe');
+    r.id = 'bookio-iframe';
+    r.name = RAM_NAZOV;
+    r.title = 'Rezervačný kalendár Poriado';
+    r.src = adresa(posledny);
+    document.getElementById('bookio-obal').appendChild(r);
+    poslednaSirka = window.innerWidth;
+
+    window.addEventListener('message', naSpravu, false);
+
+    /* begin_checkout neposielame pri načítaní stránky — na samostatnej
+       rezervačnej stránke by ho dostal každý, kto sa len pozrel a odišiel,
+       a Mete by sa pokazil pomer začatých rezervácií k dokončeným. Čakáme,
+       kým zákazník do widgetu naozaj klikne. Klik v cudzom iframe k nám
+       nepreteká, ale stránka pri ňom stratí fokus a ten prejde na iframe. */
+    function zaciatok() {
+      if (zapocitaneOtvorenie) return;
+      zapocitaneOtvorenie = true;
+      if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout');
+    }
+    naInterakciu = zaciatok;
+    window.addEventListener('blur', function () {
+      setTimeout(function () {
+        if (document.activeElement === ramec()) { interagoval = true; zaciatok(); }
+      }, 0);
+    });
+
+    /* Tlačidlá "Rezervovať" v hlavičke a v pätke tu nemajú čo otvárať —
+       formulár už na stránke je. Odrolujeme k nemu a ak je vybraný balík,
+       prepneme naň widget. */
+    var VYBER_I = '[data-open-rezervacia], a[href*="/widget?lang="],' +
+                  ' a[href*="rezervacie.poriado.sk"], a[href$="#rezervacia"]';
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var el = t.closest(VYBER_I);
+      if (!el || obal.contains(el)) return;
+      e.preventDefault();
+      var b = el.getAttribute('data-balik');
+      var rr = ramec();
+      if (b && SLUZBY[b] && rr && rr.src !== adresa(b)) {
+        posledny = b;
+        rr.src = adresa(b);
+        rr.style.height = '';
+        rr.style.minHeight = '';
+        poslednaVyska = 0;
+      }
+      var y = window.pageYOffset + obal.getBoundingClientRect().top - 70;
+      try { window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' }); }
+      catch (e3) { window.scrollTo(0, y < 0 ? 0 : y); }
+    });
+
+    /* Pri zmene šírky (otočenie telefónu) Bookio výšku samo neprepočíta —
+       rovnaká poistka ako v okne. */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === poslednaSirka) return;
+      poslednaSirka = window.innerWidth;
+      var rr = ramec();
+      if (!rr) return;
+      var vyska = poslednaVyska;
+      rr.style.height = '';
+      rr.style.minHeight = '';
+      if (cakanieNaVysku) clearTimeout(cakanieNaVysku);
+      cakanieNaVysku = setTimeout(function () {
+        cakanieNaVysku = null;
+        var r3 = ramec();
+        if (r3 && !r3.style.height && vyska > 0) { r3.style.height = (vyska + 8) + 'px'; r3.style.minHeight = '0'; }
+      }, 1200);
+    });
+  }
+
   function start() {
+    var vstranke = document.getElementById('pr-inline');
+    if (vstranke) { startInline(vstranke); return; }
+
     if (document.getElementById('rezervacia-modal')) return;   // už tam je
 
     vlozStyl();
@@ -454,6 +587,7 @@
       if (r.src !== url) {
         r.src = url;
         r.style.height = '';
+        r.style.minHeight = '';
         poslednaVyska = 0;
       }
     }
@@ -532,11 +666,12 @@
       if (!r) return;
       var vyska = poslednaVyska;
       r.style.height = '';
+      r.style.minHeight = '';
       if (cakanieNaVysku) clearTimeout(cakanieNaVysku);
       cakanieNaVysku = setTimeout(function () {
         cakanieNaVysku = null;
         var rr = ramec();
-        if (rr && !rr.style.height && vyska > 0) rr.style.height = (vyska + 8) + 'px';
+        if (rr && !rr.style.height && vyska > 0) { rr.style.height = (vyska + 8) + 'px'; rr.style.minHeight = '0'; }
       }, 1200);
     });
 
