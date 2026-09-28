@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bez tohto vnuteny tmavy rezim (napr. Samsung Internet) prefarbi text na zlatych
+     tlacidlach a kontrast klesne z 5,1:1 na 1,6:1. Web ma vlastnu svetlu paletu. -->
+<meta name="color-scheme" content="only light">
+<title>Rezervácia upratovania Bratislava | Poriado</title>
+<meta name="description" content="Rezervujte si termín upratovania v Bratislave online. Balíky od 79,90 €, potvrdenie okamžite, zrušenie zdarma do 24 hodín pred termínom.">
+<link rel="canonical" href="https://www.poriado.sk/rezervacia.html">
+<script src="poriado-meranie.js"></script>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="Poriado">
+<meta property="og:title" content="Rezervácia upratovania Bratislava | Poriado">
+<meta property="og:description" content="Vyberte si balík a termín. Potvrdenie máte okamžite, zrušenie zdarma do 24 hodín pred termínom.">
+<meta property="og:url" content="https://www.poriado.sk/rezervacia.html">
+<meta property="og:image" content="https://www.poriado.sk/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://www.poriado.sk/" },
+    { "@type": "ListItem", "position": 2, "name": "Rezervácia termínu", "item": "https://www.poriado.sk/rezervacia.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Upratovanie bytov a domov v Bratislave",
+  "serviceType": "Upratovacie služby",
+  "url": "https://www.poriado.sk/rezervacia.html",
+  "areaServed": { "@type": "City", "name": "Bratislava" },
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Poriado",
+    "url": "https://www.poriado.sk/",
+    "telephone": ["+421949061088","+421949076917"],
+    "sameAs": ["https://www.google.com/maps?cid=11735417404303540434"],
+    "email": "info@poriado.sk"
+  },
+  "offers": [
+    { "@type": "Offer", "name": "Mini — 3 hodiny", "price": "79.90", "priceCurrency": "EUR", "description": "Byt do 50 m². Kúpeľňa, WC, kuchyňa, podlahy, prach a umytie okien." },
+    { "@type": "Offer", "name": "Klasik — 6 hodín", "price": "129.90", "priceCurrency": "EUR", "description": "Byt 50 až 90 m² vrátane kuchynských spotrebičov zvnútra a umytia okien." },
+    { "@type": "Offer", "name": "Maxi — 9 hodín", "price": "169.90", "priceCurrency": "EUR", "description": "Dom alebo väčší byt, umytie okien aj tepovanie v cene." },
+    { "@type": "Offer", "name": "Tepovanie", "price": "40.00", "priceCurrency": "EUR", "description": "Sedačky, koberce a matrace, cena za každú začatú hodinu." }
+  ]
+}
+</script>
+<style>
+  :root{--navy:#1f3864;--blue:#2e75b6;--light:#dce6f1;--bg:#f7f9fc;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-text:#96691a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  a{text-decoration:none;color:inherit}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.06),0 10px 30px rgba(228,178,96,.22);z-index:50}
+  header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1060px;margin:0 auto;position:relative}
+  .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
+  a.logo{display:inline-flex;align-items:center;min-height:44px}
+  .logo span{color:var(--blue)}
+  .nav-links{display:flex;gap:22px;align-items:center}
+  .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink)}
+  .nav-links a:hover{color:var(--blue)}
+  .btn{display:inline-block;background:var(--blue);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;transition:.2s;border:none;cursor:pointer;font-size:.95rem}
+  .btn:hover{background:var(--navy);transform:translateY(-1px)}
+  .nav-links a.btn{color:#fff}
+  .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:6px 12px;min-width:44px;min-height:44px}
+  @media(max-width:820px){
+    .nav-burger{display:block}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(15,25,45,.14);border-top:1px solid #eef2f7;z-index:60}
+    .nav-links.open{display:flex}
+    .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
+    .nav-links .btn{margin:12px 24px 0;text-align:center}
+  }
+  /* Nadpis stránky je zámerne úzky pás, nie veľké hero — formulár má byť
+     hneď navrchu, nie až pod obrázkom. */
+  .uvod{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:30px 0 26px;text-align:center}
+  .uvod h1{font-size:1.65rem;line-height:1.25;letter-spacing:-.4px}
+  .uvod p{color:#f4f8fd;max-width:640px;margin:8px auto 0;font-size:1rem}
+  section{padding:40px 0}
+  .alt{background:var(--bg)}
+  h2{font-size:1.5rem;color:var(--navy);margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:20px}
+  .card h3{color:var(--navy);margin-bottom:6px;font-size:1.05rem}
+  .card p{color:var(--muted);font-size:.95rem}
+  /* Miesto pre rezervačný formulár držíme už od prvého vykreslenia. Skript
+     poriado-rezervacia.js je defer, takže do jeho spustenia by tu bola nula
+     a celý obsah pod formulárom by po načítaní odskočil o osemsto pixelov.
+     Odmerané výšky widgetu: 718 px na mobile, 550 px na počítači. */
+  #pr-inline{display:block;min-height:790px}
+  @media(min-width:800px){#pr-inline{min-height:610px}}
+  .pr-nacitava{color:var(--muted);font-size:.95rem}
+  .zoznam{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 24px}
+  .zoznam li{padding-left:26px;position:relative;color:var(--muted)}
+  .zoznam li::before{content:'✓';position:absolute;left:0;color:var(--gold-text);font-weight:800}
+  .zoznam b{color:var(--ink)}
+  .telefon{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  .telefon a{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:9px;border:2px solid var(--blue);color:var(--navy);font-weight:700}
+  .telefon a:hover{background:var(--blue);color:#fff}
+  footer{background:var(--navy);color:var(--light);padding:36px 0;text-align:center;font-size:.92rem}
+  footer .logo{color:#fff}
+  footer p a{text-decoration:underline}
+  footer a{color:#9fc0e8}
+  a:not([class*="btn"]):not(.logo):hover,
+  a:not([class*="btn"]):not(.logo):focus-visible{
+    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration-thickness:2px;text-underline-offset:4px
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a href="/" class="logo">Poriado<span>.</span></a>
+    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
+    <nav class="nav-links" id="nav-links">
+      <a href="/#cennik">Cenník</a>
+      <a href="sluzby.html">Služby</a>
+      <a href="/#onas">O nás</a>
+      <a href="tepovanie-bratislava.html">Tepovanie</a>
+      <a href="faq.html">Časté otázky</a>
+      <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn" data-open-rezervacia>Rezervácia</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="uvod">
+  <div class="wrap">
+    <h1>Rezervácia termínu upratovania</h1>
+    <p>Vyberte si balík a termín, ktorý vám sedí. Potvrdenie máte okamžite.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <!-- Widget Bookia sa vloží sem, priamo do stránky. Prítomnosť tohto prvku
+         zároveň vypína vyskakovacie okno — inak by sa formulár načítal dvakrát.
+         Odsek vnútri skript prepíše; bez JavaScriptu ostane a návštevník sa
+         cez odkaz dostane k rezervácii tak či tak. -->
+    <div id="pr-inline">
+      <p class="pr-nacitava">Načítavame rezervačný kalendár…
+        <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" target="_blank" rel="noopener">Otvoriť rezerváciu v novom okne</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Čo je v cene každého balíka</h2>
+    <ul class="zoznam">
+      <li><b>Čistiace prostriedky a vybavenie</b> — prídeme s vlastným</li>
+      <li><b>Doprava po Bratislave</b> — bez príplatku</li>
+      <li><b>Umytie okien</b> — v cene balíka</li>
+      <li><b>Rozsah určíte vy</b> — priority si povieme pred začiatkom</li>
+      <li><b>Bez obhliadky</b> — domácnosti upraceme rovno</li>
+      <li><b>Zrušenie zdarma</b> — do 24 hodín pred termínom</li>
+    </ul>
+    <p style="margin-top:18px;color:var(--muted)"><b style="color:var(--gold-text)">Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte zľavový kód <b>SOLIDARITA15</b>. Pri prvej návšteve nám stačí ukázať preukaz.</p>
+    <p style="margin-top:20px;color:var(--muted)">Neviete, ktorý balík si vybrať? Pozrite si <a href="/#cennik">cenník upratovania s rozsahom balíkov</a> alebo <a href="faq.html">odpovede na časté otázky</a>. Tepujeme aj samostatne — viac o <a href="tepovanie-bratislava.html">tepovaní sedačiek a kobercov v Bratislave</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Radšej sa najprv opýtať?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Zavolajte nám</h3>
+        <p>Poradíme s výberom balíka aj s termínom. Sme na telefóne cez pracovné dni.</p>
+        <div class="telefon">
+          <a href="tel:+421949061088">+421 949 061 088</a>
+          <a href="tel:+421949076917">+421 949 076 917</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Napíšte nám</h3>
+        <p>Väčší priestor, firma alebo pravidelné upratovanie? Ozvite sa a pripravíme cenu na mieru.</p>
+        <div class="telefon"><a href="mailto:info@poriado.sk">info@poriado.sk</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="logo">Poriado<span>.</span></div>
+    <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
+    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; <a href="/">poriado.sk</a></p>
+    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
+  </div>
+</footer>
+
+<script src="poriado-rezervacia.js" defer></script>
+<script src="poriado-chat.js" defer></script>
+
+<script>
+  /* Burger na podstránkach: rovnaké správanie ako na domovskej. */
+  (function(){
+    var b=document.getElementById('nav-burger'), n=document.getElementById('nav-links');
+    if(!b||!n) return;
+    function zavri(){ n.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var otvorene = n.classList.toggle('open');
+      b.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){ if(!n.contains(e.target)) zavri(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') zavri(); });
+  })();
+</script>
+</body>
+</html>
