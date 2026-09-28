@@ -60,7 +60,7 @@
     { q: "💳 Ako prebieha platba?",
       a: "Rezervácia sa dokončí online platbou — kartou, alebo tlačidlom TatraPay či SporoPay. Faktúru pošleme e-mailom do 24 hodín.\n\nAk potrebujete platiť prevodom na faktúru alebo objednávate na firmu, napíšte na info@poriado.sk alebo zavolajte — dohodneme termín a faktúru vystavíme. Hotovosť neprijímame." },
     { q: "🔄 Môžem zmeniť alebo zrušiť termín?",
-      a: "Áno. Termín zrušíte bezplatne najneskôr 24 hodín pred začiatkom — e-mailom na info@poriado.sk alebo telefonicky.\n\nAk ho chcete len presunúť, napíšte na info@poriado.sk alebo zavolajte na +421 949 061 088 alebo +421 949 076 917 (Po–Pi 8:00–17:00) — zmeníme ho bez poplatku.\n\nPri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny." },
+      a: "Áno. Termín zrušíte bezplatne najneskôr 24 hodín pred začiatkom — odkazom „Zrušiť rezerváciu“ v potvrdzovacom e-maile, alebo nám napíšte na info@poriado.sk či zavolajte.\n\nAk ho chcete len presunúť, napíšte na info@poriado.sk alebo zavolajte na +421 949 061 088 alebo +421 949 076 917 (Po–Pi 8:00–17:00) — zmeníme ho bez poplatku.\n\nPri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny." },
     { q: "⚠️ Čo ak je priestor veľmi znečistený?",
       a: "Pri extrémnom znečistení alebo ak zvolený balík nestačí na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok.\n\nVždy sa dohodneme priamo na mieste ešte pred začatím upratovania — žiadne prekvapenia." },
     { q: "📍 Pôsobíte aj mimo Bratislavy?",
