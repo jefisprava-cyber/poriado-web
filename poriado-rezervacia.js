@@ -36,6 +36,14 @@
      ═══════════════════════════════════════════════════════════════════════ */
   var PLATBA = 'karta';
 
+  /* Poučenie podľa zákona o ochrane spotrebiteľa pri predaji na diaľku.
+     Obchodné podmienky sľubujú, že ho uvádzame pred rezervačným formulárom —
+     preto stojí v okne, na stránke rezervacia.html aj v texte nad formulárom
+     v Bookiu. Znenie musí byť na všetkých troch miestach rovnaké. */
+  var POUCENIE = 'Ak je termín skôr ako o 14 dní, odoslaním rezervácie nás žiadate ' +
+    'o poskytnutie služby v tomto termíne; po jej úplnom poskytnutí právo ' +
+    'odstúpiť od zmluvy do 14 dní zaniká.';
+
   /* Veta pod nadpisom okna. Obe verzie sú tu natvrdo, prepína sa len kľúč
      vyššie — aby sa pri prepnutí nič nepísalo a nedalo sa pomýliť.
      Zámerne je krátka: hneď pod ňou má Bookio vlastný modrý rámček s cenami,
@@ -45,12 +53,14 @@
     prevod:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
       'Platí sa prevodom: faktúru s QR kódom pošleme e-mailom do 24 hodín. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom.',
+      'Zrušenie zdarma do 24 hodín pred termínom. ' +
+      '<span class="pr-pozn">' + POUCENIE + '</span>',
     karta:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
       'Rezerváciu dokončíte online platbou: kartou, cez TatraPay alebo SporoPay. ' +
       'Faktúru pošleme e-mailom do 24 hodín. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom.'
+      'Zrušenie zdarma do 24 hodín pred termínom. ' +
+      '<span class="pr-pozn">' + POUCENIE + '</span>'
   };
 
   /* ── Bookio ──────────────────────────────────────────────────────────── */
@@ -83,9 +93,9 @@
      Pozor: služba 173509 sa v Bookiu volá "Tepovanie " s medzerou na konci
      (bod 5.1 runbooku) — preto sa názov pred porovnaním vždy trimuje. */
   var SLUZBY = {
-    mini:      { id: 173506, cena: 79.90, nazov: 'upratovanie mini' },
-    klasik:    { id: 173507, cena: 129.90, nazov: 'upratovanie klasik' },
-    maxi:      { id: 173508, cena: 169.90, nazov: 'upratovanie maxi' },
+    mini:      { id: 173506, cena: 79.90, nazov: 'mini' },
+    klasik:    { id: 173507, cena: 129.90, nazov: 'klasik' },
+    maxi:      { id: 173508, cena: 169.90, nazov: 'maxi' },
     tepovanie: { id: 173509, cena: 40, nazov: 'tepovanie' }
   };
 
@@ -148,6 +158,9 @@
     '.pr-okno h3{color:#1f3864;font-size:1.4rem;margin:0 0 6px;font-weight:700}',
     '.pr-sub{color:#5b6675;font-size:.95rem;margin:0 0 20px;line-height:1.55}',
     '.pr-sub b{color:#1f3864}',
+    /* Zákonné poučenie — patrí sem, ale nesmie prekričať vetu o tom, čo má
+       zákazník urobiť. Preto menšie a svetlejšie, no stále nad 4,5:1. */
+    '.pr-pozn{display:block;margin-top:8px;font-size:.85rem;color:#6b7684}',
     /* Krížik sedí v nulovo vysokom lepiacom obale — keď sa okno na mobile zroluje
        (kalendár Bookia je dlhý), ostane hore na obrazovke a netreba sa vracať. */
     '.pr-zavri-obal{position:sticky;top:26px;height:0;z-index:5}',
