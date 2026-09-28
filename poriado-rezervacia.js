@@ -34,7 +34,7 @@
      platby (paymentType) — bez toho by text sľuboval kartu, ktorú widget
      neponúkne. Poradie: najprv Bookio, potom tento riadok.
      ═══════════════════════════════════════════════════════════════════════ */
-  var PLATBA = 'prevod';
+  var PLATBA = 'karta';
 
   /* Veta pod nadpisom okna. Obe verzie sú tu natvrdo, prepína sa len kľúč
      vyššie — aby sa pri prepnutí nič nepísalo a nedalo sa pomýliť.
@@ -48,7 +48,8 @@
       'Zrušenie zdarma do 24 hodín pred termínom.',
     karta:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
-      'Zaplatíte kartou hneď online alebo prevodom cez faktúru s QR kódom. ' +
+      'Rezerváciu dokončíte online platbou: kartou, cez TatraPay alebo SporoPay. ' +
+      'Faktúru pošleme e-mailom do 24 hodín. ' +
       'Zrušenie zdarma do 24 hodín pred termínom.'
   };
 
