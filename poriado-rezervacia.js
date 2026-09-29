@@ -57,8 +57,7 @@
       'Zrušenie zdarma do 24 hodín pred termínom.',
     karta:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
-      'Rezerváciu dokončíte online platbou: kartou, cez TatraPay alebo SporoPay. ' +
-      'Faktúru pošleme e-mailom do 24 hodín. ' +
+      'Rezerváciu dokončíte online platbou. ' +
       'Zrušenie zdarma do 24 hodín pred termínom.'
   };
 
