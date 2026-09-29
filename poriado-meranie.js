@@ -326,6 +326,11 @@
       pridaj('cas', new Date().toISOString());
       KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
       ['fbp', 'fbc', 'cas_kliku', 'referrer', 'vstup'].forEach(function (k) { pridaj(k, z[k]); });
+      /* User agent prehliadača. Meta ho pri webových udalostiach vyžaduje —
+         bez neho sa konverzia nedá odoslať ako udalosť z webu a nespáruje sa
+         s človekom. Sem patrí user agent ZÁKAZNÍKA; keby sme ho dopĺňali až
+         na serveri, poslali by sme user agent Googlu. */
+      pridaj('ua', navigator.userAgent);
       var telo = p.join('&');
 
       /* sendBeacon prežije aj odchod zo stránky — a práve vtedy ho
