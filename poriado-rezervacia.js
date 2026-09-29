@@ -101,8 +101,26 @@
      window.name), takže podľa neho odlíšime naše správy od cudzích. */
   var RAM_NAZOV = 'poriado-bookio';
 
+  /* Identifikátory kliku z reklamy, ktoré posielame Bookiu v adrese widgetu.
+     Nie je to kozmetika: platba prebieha na doméne Bookia a zákazník sa na
+     náš web už nevráti, takže na našej strane sa zaplatená rezervácia nemá
+     ako spojiť s reklamou. Bookio si však celú adresu widgetu ukladá ako
+     „zdroj rezervácie" (overené 29. 9. 2026 v jeho konfigurácii,
+     reservationSource.url) — takto sa gclid dostane k rezervácii a dá sa
+     podľa neho konverzia dodatočne nahrať do Google Ads.
+     Posielame len vlastné identifikátory kampaní, nič osobné. */
+  var STOPY = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid',
+               'utm_source', 'utm_medium', 'utm_campaign'];
+
   function adresa(balik) {
-    return SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
+    var u = SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
+    try {
+      var z = (typeof window.poriadoZdroj === 'function') ? window.poriadoZdroj() : {};
+      STOPY.forEach(function (k) {
+        if (z[k]) u += '&' + k + '=' + encodeURIComponent(String(z[k]).slice(0, 150));
+      });
+    } catch (e) {}
+    return u;
   }
 
   /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta
