@@ -37,9 +37,10 @@
   var PLATBA = 'karta';
 
   /* Poučenie podľa zákona o ochrane spotrebiteľa pri predaji na diaľku.
-     Obchodné podmienky sľubujú, že ho uvádzame pred rezervačným formulárom —
-     preto stojí v okne, na stránke rezervacia.html aj v texte nad formulárom
-     v Bookiu. Znenie musí byť na všetkých troch miestach rovnaké. */
+     Obchodné podmienky sľubujú, že ho uvádzame pri rezervačnom formulári.
+     Stojí teda POD formulárom, nie nad ním — hore by z neho urobilo prvú vetu,
+     ktorú zákazník pri rezervácii prečíta, a to je právnický text, nie ponúka.
+     Rovnaké znenie má aj stránka rezervacia.html. */
   var POUCENIE = 'Ak je termín skôr ako o 14 dní, odoslaním rezervácie nás žiadate ' +
     'o poskytnutie služby v tomto termíne; po jej úplnom poskytnutí právo ' +
     'odstúpiť od zmluvy do 14 dní zaniká.';
@@ -53,14 +54,12 @@
     prevod:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
       'Platí sa prevodom: faktúru s QR kódom pošleme e-mailom do 24 hodín. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom. ' +
-      '<span class="pr-pozn">' + POUCENIE + '</span>',
+      'Zrušenie zdarma do 24 hodín pred termínom.',
     karta:
       '<b>Vyberte si balík a termín — potvrdenie máte okamžite.</b> ' +
       'Rezerváciu dokončíte online platbou: kartou, cez TatraPay alebo SporoPay. ' +
       'Faktúru pošleme e-mailom do 24 hodín. ' +
-      'Zrušenie zdarma do 24 hodín pred termínom. ' +
-      '<span class="pr-pozn">' + POUCENIE + '</span>'
+      'Zrušenie zdarma do 24 hodín pred termínom.'
   };
 
   /* ── Bookio ──────────────────────────────────────────────────────────── */
@@ -202,6 +201,7 @@
       '<div id="bookio-obal"></div>' +
       '<p class="pr-nahrada">Nenačítal sa kalendár? ' +
         '<a href="' + ZAKLAD + '" target="_blank" rel="noopener">Otvorte rezerváciu v novom okne</a>.</p>' +
+      '<p class="pr-pozn">' + POUCENIE + '</p>' +
     '</div>';
 
   var posledny = 'vsetky';      // naposledy otvorený balík — pre náhradnú cenu
