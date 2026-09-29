@@ -91,10 +91,10 @@
      Pozor: služba 173509 sa v Bookiu volá "Tepovanie " s medzerou na konci
      (bod 5.1 runbooku) — preto sa názov pred porovnaním vždy trimuje. */
   var SLUZBY = {
-    mini:      { id: 173506, cena: 79.90, nazov: 'mini' },
-    klasik:    { id: 173507, cena: 129.90, nazov: 'klasik' },
-    maxi:      { id: 173508, cena: 169.90, nazov: 'maxi' },
-    tepovanie: { id: 173509, cena: 40, nazov: 'tepovanie' }
+    mini:      { id: 173506, cena: 79.90, nazov: 'Mini' },
+    klasik:    { id: 173507, cena: 129.90, nazov: 'Klasik' },
+    maxi:      { id: 173508, cena: 169.90, nazov: 'Maxi' },
+    tepovanie: { id: 173509, cena: 40, nazov: 'Tepovanie' }
   };
 
   /* Meno iframu. Bookio ho vracia v každej správe ako pole iframeId (posiela
@@ -103,6 +103,23 @@
 
   function adresa(balik) {
     return SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
+  }
+
+  /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta
+     dosadia jednotku a potom optimalizujú na „niekto otvoril kalendár za
+     jedno euro". Keď zákazník klikol na konkrétny balík, vieme presnú cenu;
+     pri všeobecnom tlačidle použijeme Klasik ako stredný balík — je to menej,
+     než je priemer skutočných zákaziek, takže hodnotu skôr podceníme. */
+  var CENA_NEZNAMY_BALIK = 129.90;
+
+  function parametreZaciatku(kluc) {
+    var s = SLUZBY[kluc];
+    if (!s) return { value: CENA_NEZNAMY_BALIK, currency: 'EUR' };
+    return {
+      value: s.cena,
+      currency: 'EUR',
+      items: [{ item_id: String(s.id), item_name: s.nazov, price: s.cena, quantity: 1 }]
+    };
   }
 
   /* Cena podľa kľúča balíka ('vsetky' cenu nemá — vtedy 0). */
@@ -114,8 +131,12 @@
   function cenaPodlaNazvu(nazov) {
     if (typeof nazov !== 'string') return 0;
     var n = nazov.trim().toLowerCase();
+    /* Porovnávame podreťazcom, nie na presnú zhodu. Služby sa v Bookiu volajú
+       „3h Mini", „6h Klasik", „9h Maxi" a názov sa už raz menil („01 Mini");
+       pri presnej zhode by táto náhrada prestala fungovať po každom
+       premenovaní a nikto by si to nevšimol. */
     for (var k in SLUZBY) {
-      if (SLUZBY.hasOwnProperty(k) && SLUZBY[k].nazov === n) return SLUZBY[k].cena;
+      if (SLUZBY.hasOwnProperty(k) && n.indexOf(SLUZBY[k].nazov.toLowerCase()) > -1) return SLUZBY[k].cena;
     }
     return 0;
   }
@@ -441,7 +462,7 @@
     function zaciatok() {
       if (zapocitaneOtvorenie) return;
       zapocitaneOtvorenie = true;
-      if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout');
+      if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout', parametreZaciatku(posledny));
     }
     naInterakciu = zaciatok;
     window.addEventListener('blur', function () {
@@ -623,7 +644,7 @@
          Príznak sa vracia späť po odoslanom purchase v nakup(). (nález 5) */
       if (!zapocitaneOtvorenie) {
         zapocitaneOtvorenie = true;
-        if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout');
+        if (typeof window.konverzia === 'function') window.konverzia('begin_checkout', 'InitiateCheckout', parametreZaciatku(kluc));
       }
 
       pripravRamec(kluc);

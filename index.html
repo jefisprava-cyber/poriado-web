@@ -212,8 +212,11 @@
   .rev-bar:hover .rev-cta{color:var(--navy);text-decoration:underline}
   /* rotujúce citáty — všetky ležia v jednej bunke mriežky, takže sa neposúva rozloženie */
   .rev-citaty{display:grid;max-width:720px;margin:0 auto;padding:20px 0 22px}
-  .rev-citaty blockquote{grid-area:1/1;margin:0;text-align:center;color:var(--ink);font-size:1rem;line-height:1.6;opacity:0;transition:opacity .5s ease}
-  .rev-citaty blockquote.on{opacity:1}
+  /* visibility, nielen opacity: priehľadné citáty ostávali v strome pre
+     odčítače obrazovky, takže nevidiaci počul všetkých päť naraz — a
+     kontrolór prístupnosti ich čítal ako text cez text. */
+  .rev-citaty blockquote{grid-area:1/1;margin:0;text-align:center;color:var(--ink);font-size:1rem;line-height:1.6;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease}
+  .rev-citaty blockquote.on{opacity:1;visibility:visible}
   .rev-citaty cite{display:block;margin-top:10px;font-style:normal;font-weight:700;color:var(--navy);font-size:.86rem}
   @media(prefers-reduced-motion:reduce){.rev-citaty blockquote{transition:none}}
   @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}

@@ -126,8 +126,17 @@
     try { if (window.gtag) gtag('event', gaNazov, p); } catch (e) {}
     try {
       if (window.fbq) {
-        if (metaVolby) fbq('track', fbNazov, p, metaVolby);
-        else fbq('track', fbNazov, p);
+        /* value a currency rozumejú obe strany rovnako, items je ale iba
+           formát GA4 — Meta chce content_ids a content_type. Prekladáme to
+           tu, nech to nemusí riešiť každé volanie zvlášť. */
+        var m = {};
+        for (var k in p) if (p.hasOwnProperty(k) && k !== 'items') m[k] = p[k];
+        if (p.items && p.items.length) {
+          m.content_type = 'product';
+          m.content_ids = p.items.map(function (i) { return String(i.item_id); });
+        }
+        if (metaVolby) fbq('track', fbNazov, m, metaVolby);
+        else fbq('track', fbNazov, m);
       }
     } catch (e) {}
   };
@@ -141,34 +150,99 @@
 
   /* ── Zdroj návštevy ──
      Rezervácia ani dopyt doteraz nemali kanál, takže sa nedalo povedať, či
-     objednávka prišla z reklamy, z vyhľadávania alebo od známeho. Zapamätáme si
-     PRVÝ zdroj v relácii — neskoršie prekliky po webe ho už neprepíšu. */
+     objednávka prišla z reklamy, z vyhľadávania alebo od známeho.
+
+     Prečo cookie a nie sessionStorage, ako to bolo predtým: platba prebieha
+     na doméne Bookia a zákazník sa na náš web už nevráti. Zapamätaný zdroj
+     musí prežiť zavretú kartu aj niekoľko dní, inak ho pri dodatočnom
+     priraďovaní konverzie nemáme odkiaľ vziať. 90 dní je zhodou okolností aj
+     lehota, dokedy Google počíta klik (gclid) a Meta klik z reklamy (fbc). */
   var ZDROJ_KEY = 'poriado_zdroj';
+  var ZDROJ_DNI = 90;
+
+  /* Identifikátory kliku. gclid je bežný Google Ads; gbraid a wbraid ním Google
+     nahrádza pri prekliku z iPhonu, kde sa gclid nesmie preniesť; msclkid je
+     Bing, keby sme ho niekedy spustili. Bez týchto troch by nám z reklamy na
+     mobile Apple nezostalo vôbec nič. */
+  var KLIKY = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'];
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  function cookieHodnota(meno) {
+    try {
+      var m = document.cookie.match('(^|;)\\s*' + meno + '\\s*=\\s*([^;]+)');
+      return m ? decodeURIComponent(m[2]) : '';
+    } catch (e) { return ''; }
+  }
+
+  function ulozZdroj(z) {
+    var text = JSON.stringify(z);
+    try {
+      document.cookie = ZDROJ_KEY + '=' + encodeURIComponent(text) +
+        ';path=/;max-age=' + (ZDROJ_DNI * 24 * 60 * 60) + ';SameSite=Lax' +
+        (location.protocol === 'https:' ? ';Secure' : '');
+    } catch (e) {}
+    try { localStorage.setItem(ZDROJ_KEY, text); } catch (e) {}   // záloha, keď cookie neprejde
+  }
+
+  function citajZdroj() {
+    var s = cookieHodnota(ZDROJ_KEY);
+    if (!s) { try { s = localStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }
+    if (!s) { try { s = sessionStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }  // staršie návštevy
+    try { return s ? JSON.parse(s) : {}; } catch (e) { return {}; }
+  }
 
   function zapamatajZdroj() {
     try {
-      if (sessionStorage.getItem(ZDROJ_KEY)) return;
       var u = new URLSearchParams(location.search);
-      var z = {};
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid']
-        .forEach(function (k) { var v = u.get(k); if (v) z[k] = String(v).slice(0, 120); });
-      if (document.referrer && document.referrer.indexOf(location.hostname) === -1) {
-        z.referrer = document.referrer.slice(0, 200);
+      var z = citajZdroj();
+      var novyKlik = false;
+
+      /* Identifikátory kliku prepisujeme — pri priraďovaní konverzie sa počíta
+         POSLEDNÝ klik z reklamy, nie prvý. */
+      KLIKY.concat(UTM).forEach(function (k) {
+        var v = u.get(k);
+        if (!v) return;
+        z[k] = String(v).slice(0, 200);
+        if (KLIKY.indexOf(k) > -1) novyKlik = true;
+      });
+      if (novyKlik) z.cas_kliku = new Date().toISOString();
+
+      /* Prvý dotyk zapisujeme len raz — pre človeka v tabuľke je to
+         užitočnejšie ako posledný preklik po vlastnom webe. */
+      if (!z.prvy_cas) {
+        z.prvy_cas = new Date().toISOString();
+        z.vstup = location.pathname;
+        if (document.referrer && document.referrer.indexOf(location.hostname) === -1) {
+          z.referrer = document.referrer.slice(0, 200);
+        }
       }
-      z.vstup = location.pathname;
-      sessionStorage.setItem(ZDROJ_KEY, JSON.stringify(z));
+      ulozZdroj(z);
     } catch (e) {}
   }
 
   window.poriadoZdroj = function () {
-    try { return JSON.parse(sessionStorage.getItem(ZDROJ_KEY)) || {}; } catch (e) { return {}; }
+    var z = citajZdroj();
+    /* _fbp a _fbc zakladá Meta Pixel sám; pri dodatočnom posielaní konverzie
+       zo servera sú to najsilnejšie údaje na spárovanie s človekom. */
+    var fbp = cookieHodnota('_fbp'), fbc = cookieHodnota('_fbc');
+    if (fbp) z.fbp = fbp;
+    if (fbc) z.fbc = fbc;
+    /* Google si gclid odkladá do vlastnej cookie; keď nám chýba z adresy
+       (návštevník prišiel cez záložku), vezmeme ho odtiaľ. */
+    if (!z.gclid) {
+      var aw = cookieHodnota('_gcl_aw');          // tvar GCL.1234567890.<gclid>
+      var c = aw.split('.');
+      if (c.length > 2) z.gclid = c.slice(2).join('.');
+    }
+    return z;
   };
 
   /* Jedna veta, ktorá sa dá rovno prečítať v CRM. */
   window.poriadoZdrojText = function () {
     var z = window.poriadoZdroj();
     var d = [];
-    if (z.gclid) d.push('Google Ads');
+    if (z.gclid || z.gbraid || z.wbraid) d.push('Google Ads');
+    if (z.msclkid) d.push('Bing Ads');
     if (z.fbclid) d.push('Meta (Facebook/Instagram)');
     if (z.utm_source) d.push(z.utm_source + (z.utm_medium ? ' / ' + z.utm_medium : ''));
     if (z.utm_campaign) d.push('kampaň ' + z.utm_campaign);
@@ -192,6 +266,14 @@
     var h = a.getAttribute('href') || '';
     var kanal = h.indexOf('tel:') === 0 ? 'telefon'
               : (h.indexOf('mailto:') === 0 ? 'email' : 'whatsapp');
+    /* Jeden človek klikne na telefón aj trikrát, kým sa dovolá. Bez tejto
+       poistky z toho boli tri kontakty a reklamné systémy si mysleli, že
+       kanál funguje trikrát lepšie, než v skutočnosti. */
+    try {
+      var kluc = 'poriado_kontakt_' + kanal;
+      if (sessionStorage.getItem(kluc)) return;
+      sessionStorage.setItem(kluc, '1');
+    } catch (e) {}
     if (typeof window.konverzia === 'function') window.konverzia('contact', 'Contact', { kanal: kanal });
   });
 

@@ -186,8 +186,22 @@
       fd.delete('text');
       /* Odkiaľ návštevník prišiel — bez toho sa v CRM nedá povedať, ktorý
          kanál dopyt priniesol. Zapamätal si to poriado-meranie.js pri príchode. */
+      var eventId = 'dopyt-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
       try {
         if (typeof window.poriadoZdrojText === 'function') fd.set('zdroj', window.poriadoZdrojText());
+        /* Okrem vety pre človeka posielame aj surové identifikátory kliku.
+           Veta „prišiel z Google Ads" sa pekne číta, ale dodatočne nahrať
+           konverziu do Google Ads alebo Mety sa dá len s týmito hodnotami. */
+        if (typeof window.poriadoZdroj === 'function') {
+          var z = window.poriadoZdroj();
+          ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'fbp', 'fbc',
+           'utm_source', 'utm_medium', 'utm_campaign', 'cas_kliku']
+            .forEach(function (k) { if (z[k]) fd.set(k, z[k]); });
+        }
+        /* Rovnaké id pošleme do Mety aj do tabuľky. Keď sa ten istý dopyt
+           neskôr pošle ešte raz zo servera, Meta ho podľa neho spozná a
+           nezapočíta dvakrát. */
+        fd.set('event_id', eventId);
       } catch (e) {}
 
       var f = (form._fotky || []).filter(Boolean);
@@ -204,7 +218,15 @@
           btn.textContent = text;
           var ok = document.getElementById('individ-ok');
           if (ok) ok.style.display = 'block';
-          if (typeof window.konverzia === 'function') window.konverzia('generate_lead', 'Lead');
+          /* Hodnota dopytu je odhad, nie tržba: priemerná zákazka vychádza
+             okolo 140 € a z dopytov sa uzavrie zhruba tretina. 40 € je teda
+             opatrný odhad — dôležité je, aby Google a Meta videli, že dopyt
+             má menšiu cenu než zaplatená rezervácia, a nehnali rozpočet
+             na to lacnejšie. Keď budeme mať dosť dát, číslo upresníme. */
+          if (typeof window.konverzia === 'function') {
+            window.konverzia('generate_lead', 'Lead',
+              { value: 40, currency: 'EUR' }, { eventID: eventId });
+          }
         })
         .catch(function () {
           btn.disabled = false;
