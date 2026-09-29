@@ -101,26 +101,22 @@
      window.name), takže podľa neho odlíšime naše správy od cudzích. */
   var RAM_NAZOV = 'poriado-bookio';
 
-  /* Identifikátory kliku z reklamy, ktoré posielame Bookiu v adrese widgetu.
-     Nie je to kozmetika: platba prebieha na doméne Bookia a zákazník sa na
-     náš web už nevráti, takže na našej strane sa zaplatená rezervácia nemá
-     ako spojiť s reklamou. Bookio si však celú adresu widgetu ukladá ako
-     „zdroj rezervácie" (overené 29. 9. 2026 v jeho konfigurácii,
-     reservationSource.url) — takto sa gclid dostane k rezervácii a dá sa
-     podľa neho konverzia dodatočne nahrať do Google Ads.
-     Posielame len vlastné identifikátory kampaní, nič osobné. */
-  var STOPY = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid',
-               'utm_source', 'utm_medium', 'utm_campaign'];
-
+  /* Identifikátory kliku z reklamy sa do adresy widgetu ZÁMERNE nepridávajú.
+     Chvíľu tu boli — v konfigurácii widgetu je pole reservationSource.url a
+     vyzeralo to, že si doň Bookio uloží celú adresu aj s gclid. Preverením
+     28. 9. 2026 sa ukázalo, že to tak nie je:
+       - reservationSource.url je len prepis hlavičky Referer, teda adresa
+         NAŠEJ stránky, z ktorej sa widget načítal — a tú prehliadače pri
+         odkaze na cudziu doménu skracujú na holú doménu,
+       - parametre adresy widgetu si Bookio síce naparsuje do options.urlParams,
+         ale do rezervácie ich neposiela; slúžia mu len na čakaciu listinu a
+         na odkaz „nová rezervácia" na ďakovnej stránke.
+     Posielať Bookiu gclid teda nemá žiadny účinok, a keďže gclid je v EÚ
+     osobný údaj, posielať ho tretej strane bez účelu je horšie než ho
+     neposlať. Zdroj si preto držíme u seba — pozri poriado-meranie.js,
+     funkciu poriadoZaznamZdroja, a párovanie v ZDROJE-reklama.js. */
   function adresa(balik) {
-    var u = SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
-    try {
-      var z = (typeof window.poriadoZdroj === 'function') ? window.poriadoZdroj() : {};
-      STOPY.forEach(function (k) {
-        if (z[k]) u += '&' + k + '=' + encodeURIComponent(String(z[k]).slice(0, 150));
-      });
-    } catch (e) {}
-    return u;
+    return SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
   }
 
   /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta
@@ -346,12 +342,29 @@
          signál, že začal rezervovať — klik v cudzom iframe sa k nám inak
          nedostane. V okne sa konverzia počíta už pri otvorení, tam to netreba. */
       if (naInterakciu) naInterakciu();
+      /* Zároveň je to prvý okamih, keď má zmysel poznačiť si do CRM, že tento
+         návštevník prišiel z reklamy. Ďalej už rezervuje v cudzom systéme,
+         odkiaľ sa k nám nič nevráti. */
+      if (typeof window.poriadoZaznamZdroja === 'function') window.poriadoZaznamZdroja('zacal', posledny);
       roluj(d.scrollTo, d.animated);
       return;
     }
 
     if (d.type === 'BOOKIO_RESERVATION_SUCCESS') { nakup(d.payload); return; }
   }
+
+  /* Keď zákazník rezerváciu odošle, widget prehodí celé okno prehliadača na
+     bookio.com — žiadnu správu nám o tom nepošle. Jediné, čo z toho vidíme,
+     je že stránka práve odchádza a fokus je vnútri jeho rámca. Keby odchádzal
+     sám (klikol na odkaz, zavrel kartu), fokus je na dokumente, nie na rámci.
+     Nie je to dôkaz, ale je to najpresnejší okamih, aký máme — a práve v ňom
+     sa v tabuľke zakladá riadok, ku ktorému sa potom rezervácia priradí. */
+  window.addEventListener('pagehide', function () {
+    if (!interagoval) return;
+    var r = ramec();
+    if (!r || document.activeElement !== r) return;
+    if (typeof window.poriadoZaznamZdroja === 'function') window.poriadoZaznamZdroja('odchod', posledny);
+  });
 
   /* Bookio v payloade posiela:
        { event:'created_reservation', eventCategory, eventAction,

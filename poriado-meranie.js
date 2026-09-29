@@ -114,6 +114,9 @@
     /* Skripty sú načítané už od začiatku, tu sa len odomyká meranie.
        GA4 si súhlas prevezme sám cez consent update vyššie. */
     if (c.marketing) povolPixel();
+    /* Súhlas mohol prísť až teraz — zdroj návštevy sme dovtedy držali len
+       v pamäti a od tejto chvíle sa smie uložiť. */
+    if (c.marketing && zdrojPamat) ulozZdroj(zdrojPamat);
     try { document.dispatchEvent(new CustomEvent('poriado:suhlas')); } catch (e) {}
   }
 
@@ -174,7 +177,24 @@
     } catch (e) { return ''; }
   }
 
+  /* Zdroj držíme vždy aj v pamäti stránky. Do cookie a do localStorage ho
+     zapíšeme až vtedy, keď návštevník dá marketingový súhlas — pravidlo webu
+     znie, že pred súhlasom sa neuloží žiadna cookie, a zdroj návštevy je
+     marketingový údaj, nie nevyhnutný. Bez súhlasu teda zdroj žije len do
+     zavretia karty a nikam sa neodosiela.
+     Keď súhlas príde neskôr (lišta sa odklikne až po chvíli čítania), zdroj
+     sa doloží z pamäte — pozri pouziSuhlas(). Inak by sa gclid z prvého
+     prekliku stratil hneď, ako návštevník prejde na druhú stránku. */
+  var zdrojPamat = null;
+
+  function smieUkladatZdroj() {
+    var c = dajSuhlas();
+    return !!(c && c.marketing);
+  }
+
   function ulozZdroj(z) {
+    zdrojPamat = z;
+    if (!smieUkladatZdroj()) return;
     var text = JSON.stringify(z);
     try {
       document.cookie = ZDROJ_KEY + '=' + encodeURIComponent(text) +
@@ -188,7 +208,14 @@
     var s = cookieHodnota(ZDROJ_KEY);
     if (!s) { try { s = localStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }
     if (!s) { try { s = sessionStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }  // staršie návštevy
-    try { return s ? JSON.parse(s) : {}; } catch (e) { return {}; }
+    var ulozene = {};
+    try { ulozene = s ? JSON.parse(s) : {}; } catch (e) { ulozene = {}; }
+    if (!zdrojPamat) return ulozene;
+    /* Pamäť má prednosť — je z tejto návštevy, uložené môže byť spred týždňa. */
+    var von = {};
+    for (var a in ulozene) if (ulozene.hasOwnProperty(a)) von[a] = ulozene[a];
+    for (var b in zdrojPamat) if (zdrojPamat.hasOwnProperty(b)) von[b] = zdrojPamat[b];
+    return von;
   }
 
   function zapamatajZdroj() {
@@ -252,6 +279,75 @@
     if (!d.length) d.push('priamo alebo z vyhľadávania');
     if (z.vstup && z.vstup !== '/') d.push('vstup ' + z.vstup);
     return d.join(' · ');
+  };
+
+  /* ── Zdroj rezervácie do CRM ──────────────────────────────────────────────
+     Rezervácia sa dokončuje v Bookiu, teda na cudzej doméne. Vo chvíli, keď
+     je hotová, o nej na našom webe nevieme nič — a Google Ads nemá ako
+     priradiť ju ku kliku na reklamu, lebo cookie s gclid je naša, prvej
+     strany, a na bookio.com neexistuje.
+
+     Preto v momente, keď návštevník, ktorý prišiel z reklamy, naozaj začne
+     rezervovať (a znova, keď ho widget odvedie preč — to je okamih odoslania),
+     pošleme do tabuľky jeden riadok: kedy to bolo, aký balík a s akým gclid.
+     Skript pri tabuľke potom rezerváciu z Bookia s týmto riadkom spáruje
+     podľa času a balíka a vďaka tomu vieme konverziu dodatočne nahrať.
+
+     Odosiela sa LEN pri marketingovom súhlase. Nie je to opatrnosť navyše:
+     bez súhlasu sa konverzia s gclid do Google Ads nahrať ani nesmie, takže
+     by nám taký riadok bol na nič.
+     Bez reklamného identifikátora sa neposiela nič — priame návštevy do
+     tabuľky pridávať netreba, tie sa nikam nenahrávajú. */
+  var ZDROJ_AKCIA = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec';
+  var ZDROJ_TOKEN = 'poriado2026';
+  var odoslaneFazy = {};
+
+  window.poriadoZaznamZdroja = function (faza, balik) {
+    try {
+      if (!smieUkladatZdroj()) return;
+      if (odoslaneFazy[faza]) return;               // jedna fáza = jeden riadok
+
+      var z = window.poriadoZdroj();
+      var maKlik = false;
+      KLIKY.forEach(function (k) { if (z[k]) maKlik = true; });
+      if (!maKlik) return;
+
+      odoslaneFazy[faza] = true;
+
+      var p = [];
+      function pridaj(k, v) {
+        if (v === undefined || v === null || v === '') return;
+        p.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(v).slice(0, 300)));
+      }
+      pridaj('token', ZDROJ_TOKEN);
+      pridaj('akcia', 'zdroj');
+      pridaj('faza', faza);
+      pridaj('balik', balik || '');
+      pridaj('cas', new Date().toISOString());
+      KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
+      ['fbp', 'fbc', 'cas_kliku', 'referrer', 'vstup'].forEach(function (k) { pridaj(k, z[k]); });
+      var telo = p.join('&');
+
+      /* sendBeacon prežije aj odchod zo stránky — a práve vtedy ho
+         potrebujeme najviac, lebo widget Bookia prehodí celé okno na svoju
+         doménu. Keď ho prehliadač nemá (staršie Safari), skúsime fetch
+         s keepalive; ten robí to isté, len nie všade. */
+      var poslane = false;
+      try {
+        if (navigator.sendBeacon) {
+          var blob = new Blob([telo], { type: 'application/x-www-form-urlencoded' });
+          poslane = navigator.sendBeacon(ZDROJ_AKCIA, blob);
+        }
+      } catch (e) {}
+      if (poslane) return;
+      try {
+        fetch(ZDROJ_AKCIA, {
+          method: 'POST', mode: 'no-cors', keepalive: true,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: telo
+        })['catch'](function () {});
+      } catch (e) {}
+    } catch (e) {}
   };
 
   zapamatajZdroj();
