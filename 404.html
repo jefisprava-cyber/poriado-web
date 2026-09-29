@@ -8,6 +8,11 @@
 <meta name="color-scheme" content="only light">
 <title>Stránka nenájdená | Poriado</title>
 <meta name="robots" content="noindex">
+<!-- Meranie patrí aj sem. Na túto stránku vie doletieť platená návštevnosť
+     (zle nastavená cieľová adresa v reklame, starý odkaz z Googlu) a bez
+     merania o nej nevieme nič — v štatistikách chýba aj tá návšteva, aj to,
+     že sa z nej nikto neodrazil ďalej. -->
+<script src="poriado-meranie.js"></script>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -25,15 +30,18 @@
   .btn:hover{background:var(--light)}
   .ghost{background:transparent;color:#fff;border:2px solid #fff}
   .ghost:hover{background:rgba(255,255,255,.15)}
+  .box .male{color:var(--light);font-size:.92rem;margin:18px 0 0}
 </style>
 </head>
 <body>
   <main class="box">
     <div class="logo">Poriado<span>.</span></div>
     <h1>404</h1>
-    <p>Túto stránku sme nenašli — asi ju už niekto upratal. 🧹<br>Všetko dôležité ale nájdete na hlavnej stránke.</p>
-    <a href="/" class="btn">Späť na poriado.sk</a>
+    <p>Túto stránku sme nenašli — asi ju už niekto upratal. 🧹<br>Upratovanie v Bratislave si môžete rezervovať aj odtiaľto.</p>
+    <a href="rezervacia.html" class="btn">Rezervovať termín</a>
+    <a href="/" class="btn ghost">Späť na poriado.sk</a>
     <a href="tel:+421949061088" class="btn ghost">Zavolať: +421 949 061 088</a>
+    <p class="male">Byty a domy od 79,90 €. Čistiace prostriedky aj doprava po Bratislave v cene.</p>
   </main>
 </body>
 </html>
