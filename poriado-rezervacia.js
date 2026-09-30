@@ -126,13 +126,18 @@
      než je priemer skutočných zákaziek, takže hodnotu skôr podceníme. */
   var CENA_NEZNAMY_BALIK = 129.90;
 
+  /* item_id je kľúč balíka ('mini', 'klasik', …), nie číslo služby v Bookiu.
+     Ten istý kľúč posiela do Mety aj dokončený nákup zo servera
+     (META-capi.js, content_ids). Keby sa tu použilo číslo z Bookia, Meta by
+     začatú a dokončenú rezerváciu považovala za dva rôzne produkty a nevedela
+     by povedať, ktorý balík sa naozaj predáva. */
   function parametreZaciatku(kluc) {
     var s = SLUZBY[kluc];
     if (!s) return { value: CENA_NEZNAMY_BALIK, currency: 'EUR' };
     return {
       value: s.cena,
       currency: 'EUR',
-      items: [{ item_id: String(s.id), item_name: s.nazov, price: s.cena, quantity: 1 }]
+      items: [{ item_id: kluc, item_name: s.nazov, price: s.cena, quantity: 1 }]
     };
   }
 
