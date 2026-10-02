@@ -39,12 +39,32 @@
   "url": "https://www.poriado.sk/sluzby.html",
   "provider": {
     "@type": "LocalBusiness",
+    "@id": "https://www.poriado.sk/#poriado",
     "name": "Poriado",
     "url": "https://www.poriado.sk/",
     "telephone": ["+421949061088","+421949076917"],
     "email": "info@poriado.sk",
     "priceRange": "€€",
-    "areaServed": { "@type": "City", "name": "Bratislava" },
+    "areaServed": [
+      { "@type": "City", "@id": "https://www.poriado.sk/#bratislava", "name": "Bratislava", "sameAs": "https://www.wikidata.org/wiki/Q1780" },
+      { "@type": "AdministrativeArea", "name": "Petržalka", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Ružinov", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Staré Mesto", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Nové Mesto", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Dúbravka", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Karlova Ves", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Rača", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Podunajské Biskupice", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Vrakuňa", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Devínska Nová Ves", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Záhorská Bystrica", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Lamač", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Vajnory", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Rusovce", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Jarovce", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Devín", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } },
+      { "@type": "AdministrativeArea", "name": "Čunovo", "containedInPlace": { "@id": "https://www.poriado.sk/#bratislava" } }
+    ],
     "address": { "@type": "PostalAddress", "addressLocality": "Bratislava", "addressCountry": "SK" },
     "sameAs": ["https://www.google.com/maps?cid=11735417404303540434"]
   },
@@ -55,7 +75,6 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Upratovanie bytov a domov",
-        "areaServed": "Bratislava",
         "description": "Jednorazové aj pravidelné upratovanie domácností bez obhliadky. Balíky na 3, 6 alebo 9 hodín, čistiace prostriedky a doprava po Bratislave v cene."
       }
     },
@@ -64,7 +83,6 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Upratovanie kancelárií a prevádzok",
-        "areaServed": "Bratislava",
         "description": "Pravidelné upratovanie firemných priestorov aj mimo pracovnej doby. Cena po bezplatnej obhliadke, faktúra na IČO."
       }
     },
@@ -74,7 +92,6 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Tepovanie sedačiek, kobercov a matracov",
-        "areaServed": "Bratislava",
         "description": "Hĺbkové čistenie extrakčnou metódou — odstráni škvrny, prach, roztoče aj zápach. Samostatne 40 €/hod, v balíku Maxi zahrnuté."
       }
     },
@@ -83,7 +100,6 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Upratovanie Airbnb a krátkodobých prenájmov",
-        "areaServed": "Bratislava",
         "description": "Príprava apartmánu medzi hosťami vrátane výmeny posteľnej bielizne a uterákov. Cena na mieru."
       }
     }
