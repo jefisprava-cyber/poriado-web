@@ -39,31 +39,31 @@
   `;
 
   var FAQ = [
-    { q: "💰 Koľko stojí upratovanie?",
+    { q: "Koľko stojí upratovanie?",
       a: "Máme tri balíky podľa hodín — všetko s vlastnými prostriedkami a dopravou po Bratislave v cene:\n\n• Mini (3 h) — 79,90 €\n• Klasik (6 h) — 129,90 €\n• Maxi (9 h) — 169,90 € vrátane tepovania\n\nŽiadne skryté poplatky — čo si dohodneme, to zaplatíte." },
-    { q: "🧽 Ako to funguje?",
+    { q: "Ako to funguje?",
       a: "Jednoducho: pred upratovaním sa dohodneme, čomu sa máme v rámci času balíka venovať najviac — priority určujete vy.\n\nPrídeme s vlastnými prostriedkami aj vybavením a domácnosti upratujeme bez obhliadky." },
-    { q: "🛋 Robíte tepovanie?",
-      a: "Áno! Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte od 25 €, alebo prídeme len tepovať samostatne za 40 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
+    { q: "Robíte tepovanie?",
+      a: "Áno. Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte od 25 €, alebo prídeme len tepovať samostatne za 40 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
-    { q: "📅 Ako si rezervujem termín?",
+    { q: "Ako si rezervujem termín?",
       a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Rezerváciu dokončíte platbou kartou, cez TatraPay alebo SporoPay; faktúru pošleme e-mailom do 24 hodín.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },
-    { q: "💖 Máte zľavy?",
+    { q: "Máte zľavy?",
       a: "Áno — dôchodcom a držiteľom preukazu ZŤP ponúkame trvalú zľavu 15 % na všetky balíky. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár.\n\nPri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry." },
-    { q: "🏢 Kancelárie / Airbnb?",
+    { q: "Kancelárie / Airbnb?",
       a: "Kancelárie, prevádzky aj Airbnb apartmány riešime individuálne — pošlite nám individuálny dopyt a do 24 hodín dostanete ponuku na mieru. Obhliadka je zdarma.",
       link: { text: "Individuálny dopyt →", href: "/#individ" } },
-    { q: "👀 Musíte si priestor najprv pozrieť?",
+    { q: "Musíte si priestor najprv pozrieť?",
       a: "Domácnosti (byty a domy) upratujeme bez obhliadky — stačí si vybrať balík a termín.\n\nPri kanceláriách a iných priestoroch si dohodneme obhliadku a pripravíme vám ponuku na mieru." },
-    { q: "👥 Koľko ľudí príde upratovať?",
+    { q: "Koľko ľudí príde upratovať?",
       a: "Štandardne príde jedna upratovačka. Ak máme voľné kapacity, pošleme dve — čas upratovania sa vtedy skráti na polovicu.\n\nRozsah práce aj cena balíka zostávajú rovnaké." },
-    { q: "💳 Ako prebieha platba?",
+    { q: "Ako prebieha platba?",
       a: "Rezervácia sa dokončí online platbou — kartou, alebo tlačidlom TatraPay či SporoPay. Faktúru pošleme e-mailom do 24 hodín.\n\nAk potrebujete platiť prevodom na faktúru alebo objednávate na firmu, napíšte na info@poriado.sk alebo zavolajte — dohodneme termín a faktúru vystavíme. Hotovosť neprijímame." },
-    { q: "🔄 Môžem zmeniť alebo zrušiť termín?",
+    { q: "Môžem zmeniť alebo zrušiť termín?",
       a: "Áno. Termín zrušíte bezplatne najneskôr 24 hodín pred začiatkom — odkazom „Zrušiť rezerváciu“ v potvrdzovacom e-maile, alebo nám napíšte na info@poriado.sk či zavolajte.\n\nAk ho chcete len presunúť, napíšte na info@poriado.sk alebo zavolajte na +421 949 061 088 alebo +421 949 076 917 (Po–Pi 8:00–17:00) — zmeníme ho bez poplatku.\n\nPri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny." },
-    { q: "⚠️ Čo ak je priestor veľmi znečistený?",
+    { q: "Čo ak je priestor veľmi znečistený?",
       a: "Pri extrémnom znečistení alebo ak zvolený balík nestačí na rozsah priestoru si vyhradzujeme právo zákazku odmietnuť alebo si vyžiadať primeraný doplatok.\n\nVždy sa dohodneme priamo na mieste ešte pred začatím upratovania — žiadne prekvapenia." },
-    { q: "📍 Pôsobíte aj mimo Bratislavy?",
+    { q: "Pôsobíte aj mimo Bratislavy?",
       a: "Zatiaľ upratujeme výhradne v Bratislave — doprava po celom meste je v cene.\n\nAk ste z blízkeho okolia, ozvite sa nám — po dohode vieme prísť aj k vám.",
       link: { text: "Kontaktovať nás →", href: "/#kontakt" } }
   ];
@@ -89,7 +89,7 @@
       '<div class="pch-head"><button id="pch-close" aria-label="Zavrieť">×</button>' +
       '<b>Poriado<span>.</span></b><small>Radi odpovieme — vyberte otázku</small></div>' +
       '<div class="pch-gold"></div><div id="pch-body"></div>' +
-      '<div class="pch-cta"><a class="p pch-btn" href="/#rezervacia">📅 Rezervovať termín</a>' +
+      '<div class="pch-cta"><a class="p pch-btn" href="/#rezervacia">Rezervovať termín</a>' +
       '<a class="s pch-btn" href="https://wa.me/421949076917" target="_blank" rel="noopener">WhatsApp</a></div>';
 
     document.body.appendChild(bubble);
@@ -125,7 +125,7 @@
       if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:#2e75b6;font-weight:700">' + f.link.text + "</a>";
       bot(text, 450, function () {
         var odpoved = body.lastElementChild;   // práve vložená odpoveď
-        bot("Pomôžem ešte s niečím? 🙂", 350, function () {
+        bot("Pomôžem ešte s niečím?", 350, function () {
           chips();
           /* Zoznam otázok je vyšší než okno. Keby sme odrolovali na koniec
              (ako to robí chips()), odpoveď by hneď vyletela nad okraj a
@@ -143,7 +143,7 @@
       panel.classList.toggle("open");
       if (panel.classList.contains("open") && !opened) {
         opened = true;
-        bot("Dobrý deň! 👋 Som asistent Poriado. S čím vám pomôžem?", 250, function () {
+        bot("Dobrý deň. Vyberte si otázku nižšie, alebo nám zavolajte na +421 949 061 088.", 250, function () {
           chips();
           body.scrollTop = 0;   // pozdrav aj prvé otázky nech sú hneď vidieť
         });

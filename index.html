@@ -16,7 +16,7 @@
 <meta property="og:locale" content="sk_SK">
 <meta property="og:site_name" content="Poriado">
 <meta property="og:title" content="Poriado — Upratovanie Bratislava">
-<meta property="og:description" content="Spoľahlivé upratovanie bytov, domov a kancelárií v Bratislave. Vlastné prostriedky v cene a balíčky podľa hodín.">
+<meta property="og:description" content="Spoľahlivé upratovanie bytov, domov a kancelárií v Bratislave. Vlastné prostriedky v cene a balíky podľa hodín.">
 <meta property="og:url" content="https://www.poriado.sk/">
 <meta property="og:image" content="https://www.poriado.sk/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -97,7 +97,7 @@
 <style>
   :root{
     --navy:#1f3864; --blue:#2e75b6; --light:#dce6f1; --bg:#f7f9fc;
-    --ink:#1c2530; --muted:#5b6675; --white:#fff; --accent:#19b07a; --gold:#d4a44c; --gold-tmava:#bd8d33;
+    --ink:#1c2530; --muted:#5b6675; --white:#fff; --gold:#d4a44c; --gold-tmava:#bd8d33;
     /* Zlata na plochy sa neda pouzit na text — na bielom ma len 2,3:1.
        Na pisane sluzi tmavsia --gold-text (4,85:1), rovnako ako na sluzby.html. */
     --gold-text:#96691a;
@@ -220,7 +220,7 @@
   footer .logo{color:#fff;margin-bottom:10px}
   footer a{color:#9fc0e8}
   .pack-img{width:100%;height:118px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block}
-  header{box-shadow:0 1px 8px rgba(0,0,0,.06),0 10px 30px rgba(228,178,96,.22)}
+  header{box-shadow:0 1px 0 rgba(21,42,77,.08)}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
   .reviews{background:#fff;padding:0}
@@ -338,7 +338,7 @@
     <a class="rev-bar" href="https://www.google.com/maps?cid=11735417404303540434" target="_blank" rel="noopener" data-rating="5.0">
       <span class="rev-num">5,0</span>
       <span class="rev-stars" aria-hidden="true"></span>
-      <span class="rev-count">24 recenzií na Google</span>
+      <span class="rev-count">30 recenzií na Google</span>
       <span class="rev-cta">Pozrieť →</span>
     </a>
     <div class="rev-citaty" id="rev-citaty">
@@ -354,8 +354,8 @@
   <div class="wrap">
     <div class="badges tri">
       <div class="badge"><b>Nemusíte byť doma celý čas</b><span>stačí nás pustiť dnu a povedať priority — potom môžete odísť za svojím</span></div>
-      <div class="badge"><b>Chodí k vám stály tím</b><span>ľudia, ktorých osobne poznáme, nie cudzie upratovačky z inzerátu</span></div>
-      <div class="badge"><b>Umytie okien v cene</b><span>v každom balíku, aj v najmenšom Mini — bez príplatku za okná</span></div>
+      <div class="badge"><b>Chodí k vám ten istý človek</b><span>nie upratovačky z inzerátu, ktoré sa menia od návštevy k návšteve</span></div>
+      <div class="badge"><b>Umytie okien v cene</b><span>v každom balíku, aj v najmenšom Mini. Na okná vo výške si donesieme rebrík za 10 €</span></div>
     </div>
   </div>
 </section>
@@ -367,7 +367,7 @@
       <div class="badge"><b>Bez obhliadky</b><span>domácnosti upraceme rovno</span></div>
       <div class="badge"><b>Bez skrytých poplatkov</b><span>čo si dohodneme, to zaplatíte</span></div>
       <div class="badge"><b>Doprava zdarma</b><span>v rámci celej Bratislavy</span></div>
-      <div class="badge"><b>Zrušenie zdarma</b><span>do 24 hodín pred termínom</span></div>
+      <div class="badge"><b>Zrušenie zdarma</b><span>do 24 hodín pred termínom; neskôr 50 % z ceny</span></div>
     </div>
   </div>
 </section>
@@ -376,7 +376,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Transparentné ceny</div>
-      <h2>Cenník – balíčky podľa hodín</h2>
+      <h2>Tri balíky, platíte za hodiny</h2>
     </div>
     <div class="packs">
       <div class="pack">
@@ -457,7 +457,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">O nás</div>
-      <h2>Roky skúseností, teraz pod vlastnou značkou</h2>
+      <h2>Upratujeme v Bratislave, nie cez agentúru</h2>
     </div>
     <div style="max-width:760px;margin:0 auto;text-align:center">
       <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
@@ -526,77 +526,6 @@
 
     spusti();
   })();
-  /* Google recenzie: hviezdicky sa vykresluju z data-rating na .rev-bar.
-     Hodnotenie a pocet recenzii denne obnovuje Apps Script z Google Places API.
-     Hodnoty v HTML su zalozne - ked sa stiahnutie nepodari, ostanu tak ako su. */
-  (function(){
-    var ZDROJ    = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec?akcia=hodnotenie';
-    var KLUC     = 'poriado-hodnotenie';
-    var PLATNOST = 86400000;   /* 24 h - jeden navstevnik sa pyta najviac raz denne */
-
-    var bar = document.querySelector('.rev-bar');
-    if(!bar) return;
-    var box = bar.querySelector('.rev-stars');
-    if(!box) return;
-    var cislo = bar.querySelector('.rev-num');
-    var pocet = bar.querySelector('.rev-count');
-
-    function vykresli(){
-      var r = parseFloat(bar.getAttribute('data-rating'));
-      if(isNaN(r)) return;
-      var s = '';
-      for(var i=1; i<=5; i++){
-        if(r >= i)            s += '★';        /* plna */
-        else if(r >= i - 0.5) s += '½';        /* polovicna */
-        else                  s += '☆';        /* prazdna */
-      }
-      box.textContent = s;
-      /* Ziadny aria-label. WCAG 2.5.3 ziada, aby pristupny nazov obsahoval
-         viditelny text odkazu — inak clovek ovladajuci web hlasom povie
-         "Pozriet" a odkaz sa nespusti. Kazdy rucne pisany nazov sa skor ci
-         neskor rozide s tym, co je na obrazovke: povodny hovoril "5.0"
-         s bodkou, kym vidiet bolo "5,0" s ciarkou, a pocet recenzii sa
-         navyse denne meni. Text odkazu sa so sebou rozist nemoze, a znie
-         zrozumitelne: "5,0 20 recenzii na Google Pozriet". */
-      bar.removeAttribute('aria-label');
-    }
-
-    /* 1 recenzia, 2-4 recenzie, 5 a viac recenzii */
-    function sklonuj(n){
-      if(n === 1)          return '1 recenzia na Google';
-      if(n >= 2 && n <= 4) return n + ' recenzie na Google';
-      return n + ' recenzií na Google';
-    }
-
-    function pouzi(d){
-      if(!d || d.ok !== true) return;
-      var h = Number(d.hodnotenie), p = Number(d.pocet);
-      if(!(h >= 1 && h <= 5) || !(p >= 1)) return;
-      bar.setAttribute('data-rating', h.toFixed(1));
-      if(cislo) cislo.textContent = h.toFixed(1).replace('.', ',');
-      if(pocet) pocet.textContent = sklonuj(p);
-      vykresli();
-    }
-
-    vykresli();   /* najprv z HTML, nech je pas spravny aj ked sa nic nestiahne */
-
-    var ulozene = null;
-    try { ulozene = JSON.parse(localStorage.getItem(KLUC) || 'null'); } catch(e){}
-    if(ulozene && ulozene.cas && (Date.now() - ulozene.cas) < PLATNOST){ pouzi(ulozene.data); return; }
-
-    if(!window.fetch) return;
-
-    /* Az po nacitani stranky - dve cisla nie su dolezitejsie ako rychlost. */
-    window.addEventListener('load', function(){
-      fetch(ZDROJ)
-        .then(function(r){ return r.json(); })
-        .then(function(d){
-          pouzi(d);
-          try { localStorage.setItem(KLUC, JSON.stringify({cas: Date.now(), data: d})); } catch(e){}
-        })
-        .catch(function(){ /* ticho - v HTML ostanu povodne cisla */ });
-    });
-  })();
   /* Mobilna lepiaca lista: ukaze sa po odrolovani hero, skryje sa pri
      otvorenom modali alebo cookie liste. Klik riesi data-open-rezervacia,
      takze plati rovnaka logika aj konverzia ako pri ostatnych CTA. */
@@ -654,6 +583,7 @@
 
 <script src="poriado-rezervacia.js" defer></script>
 <script src="poriado-dopyt.js" defer></script>
+<script src="poriado-hodnotenie.js" defer></script>
 <script src="poriado-chat.js" defer></script>
 </body>
 </html>
