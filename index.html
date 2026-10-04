@@ -131,20 +131,20 @@
     .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0f4f9;font-size:1rem}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
-  .hero{background:#fff;color:var(--ink);padding:clamp(40px,5.5vw,68px) 0 clamp(44px,5.5vw,60px);position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-190px;right:-150px;width:430px;height:430px;border:46px solid var(--gold);border-radius:50%;opacity:.13;pointer-events:none}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:clamp(40px,5.5vw,68px) 0 clamp(44px,5.5vw,60px);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-190px;right:-150px;width:430px;height:430px;border:46px solid var(--gold);border-radius:50%;opacity:.22;pointer-events:none}
   .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(26px,3.6vw,54px);align-items:center}
   .hero-text{min-width:0}
-  .hero h1{color:var(--navy)}
-  .hero h1 .cena{color:var(--gold-text)}
-  .hero h1 .druhy{display:block;font-size:clamp(1.02rem,.88rem + .5vw,1.22rem);font-weight:400;letter-spacing:0;line-height:1.45;color:var(--muted);margin-top:14px;max-width:44ch}
+  .hero h1{color:#fff}
+  .hero h1 .cena{color:#f5e3bd}
+  .hero h1 .druhy{display:block;font-size:clamp(1.02rem,.88rem + .5vw,1.22rem);font-weight:400;letter-spacing:0;line-height:1.45;color:#fff;margin-top:14px;max-width:44ch}
   .hero h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;font-weight:700;max-width:900px;margin-bottom:16px;letter-spacing:-.03em;text-wrap:balance}
   .hero h1 .cena{white-space:nowrap}
   @media(max-width:360px){.hero h1{font-size:1.5rem}}
-  .hero p{font-size:1.04rem;max-width:46ch;color:var(--muted);opacity:1;margin-bottom:26px;line-height:1.65}
+  .hero p{font-size:1.04rem;max-width:46ch;color:#fff;opacity:1;margin-bottom:26px;line-height:1.65}
   .hero-cta{display:flex;gap:14px 28px;flex-wrap:wrap;align-items:center}
   .hero-kontakt{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:.98rem}
-  .hero-kontakt a{color:var(--navy);font-weight:600;display:flex;align-items:center;gap:8px;min-height:44px;opacity:1;transition:.2s}
+  .hero-kontakt a{color:#fff;font-weight:600;display:flex;align-items:center;gap:8px;min-height:44px;opacity:1;transition:.2s}
   .hero-kontakt a:hover{opacity:1;text-decoration:underline}
   .hero-kontakt .ic{width:18px;height:18px;flex:none;fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   @media(max-width:600px){.hero-kontakt{gap:0 18px;font-size:.92rem}}
@@ -254,7 +254,7 @@
   /* Podpis stránky: hodiny. Poriado nepredáva metre štvorcové, predáva
      hodiny — a zákazník si určuje, čomu sa budú venovať. Panel je zároveň
      ozdoba, cenník aj vstup do rezervácie. */
-  .hodiny{background:var(--bg);border:1px solid #e3eaf3;border-radius:18px;padding:24px 24px 20px}
+  .hodiny{background:#fff;border:1px solid rgba(255,255,255,.3);border-radius:18px;padding:24px 24px 20px;box-shadow:0 14px 32px rgba(15,25,45,.18)}
   .hodiny h2{font-size:1.02rem;font-weight:700;letter-spacing:0;color:var(--navy);margin-bottom:4px}
   .hodiny .pod{font-size:.88rem;color:var(--muted);margin-bottom:18px}
   .hodiny a.riadok{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #e3eaf3;color:inherit;position:relative}
@@ -267,9 +267,9 @@
   .hodiny .nazov span{display:block;font-weight:400;font-size:.86rem;color:var(--muted);margin-top:2px}
   .hodiny .suma{font-weight:700;color:var(--navy);font-size:1.1rem;white-space:nowrap;font-variant-numeric:tabular-nums}
   /* Hodnotenie v heroi — dôkaz patrí nad rozhodnutie, nie pod neho. */
-  .hero .rev-bar{justify-content:flex-start;border-bottom:0;border-top:1px solid #e3eaf3;margin-top:26px;padding:20px 0 0}
-  .hero .rev-bar .rev-num{color:var(--navy);font-weight:700}
-  .hero .rev-bar .rev-count,.hero .rev-bar .rev-cta{color:var(--muted)}
+  .hero .rev-bar{justify-content:flex-start;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);margin-top:26px;padding:20px 0 0}
+  .hero .rev-bar .rev-num{color:#fff;font-weight:700}
+  .hero .rev-bar .rev-count,.hero .rev-bar .rev-cta{color:#fff}
   @media(max-width:880px){
     .hero .wrap{grid-template-columns:1fr}
     .hero::before{width:250px;height:250px;top:-120px;right:-100px;border-width:30px}
@@ -374,7 +374,7 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-text">
-    <h1>Upratovanie v Bratislave <span class="cena">od 79,90 €</span><span class="druhy">Kúpite si hodiny — a čomu sa budú venovať, poviete vy.</span></h1>
+    <h1>Upratovanie v Bratislave <span class="cena">od 79,90 €</span><span class="druhy">Kúpite si hodiny — a čomu sa budeme venovať, poviete vy.</span></h1>
     <p>Prídeme s vlastnými prostriedkami, poviete nám priority a my ich odrobíme. Bez obhliadky, cena je známa vopred.</p>
     <div class="hero-cta">
       <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn btn-primary btn-rez" data-open-rezervacia>Rezervovať termín</a>
@@ -400,17 +400,17 @@
       <p class="pod">Cena je konečná. Doprava po Bratislave aj prostriedky sú v nej.</p>
       <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="mini">
         <span class="pocet">3<small>hodiny</small></span>
-        <span class="nazov"><b>Mini</b><span>Menší byt alebo udržiavacie upratovanie</span></span>
+        <span class="nazov"><b>Mini</b><span>Kúpeľňa, kuchyňa, podlahy a umytie okien</span></span>
         <span class="suma">79,90 €</span>
       </a>
       <a class="riadok popularny" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="klasik">
         <span class="pocet">6<small>hodín</small></span>
-        <span class="nazov"><b>Klasik</b><span>Väčší byt do hĺbky, vrátane kuchyne a balkóna</span></span>
+        <span class="nazov"><b>Klasik</b><span>To isté do hĺbky — spotrebiče zvnútra aj balkón</span></span>
         <span class="suma">129,90 €</span>
       </a>
       <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="maxi">
         <span class="pocet">9<small>hodín</small></span>
-        <span class="nazov"><b>Maxi</b><span>Dom alebo generálka — tepovanie v cene</span></span>
+        <span class="nazov"><b>Maxi</b><span>Najviac času na jednu návštevu, tepovanie v cene</span></span>
         <span class="suma">169,90 €</span>
       </a>
     </div>
@@ -458,28 +458,28 @@
     </div>
     <div class="packs">
       <div class="pack">
-        <img src="maly-byt-balik-mini.webp" srcset="maly-byt-balik-mini-320.webp 320w, maly-byt-balik-mini-480.webp 480w, maly-byt-balik-mini.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Menší byt — upratovací balík Mini na 3 hodiny" class="pack-img" loading="lazy" width="900" height="675">
+        <img src="maly-byt-balik-mini.webp" srcset="maly-byt-balik-mini-320.webp 320w, maly-byt-balik-mini-480.webp 480w, maly-byt-balik-mini.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná spálňa — balík Mini na 3 hodiny" class="pack-img" loading="lazy" width="900" height="675">
         <div class="hrs">3 hodiny</div>
         <div class="pname">Mini</div>
         <div class="amt">79,90 €</div>
-        <div class="ideal">Menší byt alebo udržiavacie upratovanie. Základ, kúpeľňa, kuchyňa aj okná.</div>
+        <div class="ideal">Kúpeľňa, WC, kuchyňa, podlahy, prach a umytie okien.</div>
         <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173506" class="btn pbtn btn-rez" data-open-rezervacia data-balik="mini">Rezervovať Mini</a>
       </div>
       <div class="pack popular">
         <div class="tag">Obľúbené</div>
-        <img src="vacsi-byt-balik-klasik.webp" srcset="vacsi-byt-balik-klasik-320.webp 320w, vacsi-byt-balik-klasik-480.webp 480w, vacsi-byt-balik-klasik.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Väčší byt s kuchyňou — upratovací balík Klasik na 6 hodín" class="pack-img" loading="lazy" width="900" height="675">
+        <img src="vacsi-byt-balik-klasik.webp" srcset="vacsi-byt-balik-klasik-320.webp 320w, vacsi-byt-balik-klasik-480.webp 480w, vacsi-byt-balik-klasik.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná kuchyňa s jedálňou — balík Klasik na 6 hodín" class="pack-img" loading="lazy" width="900" height="675">
         <div class="hrs">6 hodín</div>
         <div class="pname">Klasik</div>
         <div class="amt">129,90 €</div>
-        <div class="ideal">Väčší byt alebo dôkladnejšie upratovanie vrátane kuchyne do hĺbky a balkóna.</div>
+        <div class="ideal">To isté do hĺbky — vrátane spotrebičov zvnútra a balkóna.</div>
         <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173507" class="btn pbtn btn-rez" data-open-rezervacia data-balik="klasik">Rezervovať Klasik</a>
       </div>
       <div class="pack">
-        <img src="rodinny-dom-balik-maxi.webp" srcset="rodinny-dom-balik-maxi-320.webp 320w, rodinny-dom-balik-maxi-480.webp 480w, rodinny-dom-balik-maxi.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Rodinný dom — upratovací balík Maxi na 9 hodín vrátane tepovania" class="pack-img" loading="lazy" width="900" height="675">
+        <img src="rodinny-dom-balik-maxi.webp" srcset="rodinny-dom-balik-maxi-320.webp 320w, rodinny-dom-balik-maxi-480.webp 480w, rodinny-dom-balik-maxi.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná obývačka — balík Maxi na 9 hodín vrátane tepovania" class="pack-img" loading="lazy" width="900" height="675">
         <div class="hrs">9 hodín</div>
         <div class="pname">Maxi</div>
         <div class="amt">169,90 €</div>
-        <div class="ideal">Dom alebo generálka. Vrátane tepovania (čas sa odčíta z času upratovania).</div>
+        <div class="ideal">Najviac času na jednu návštevu. Tepovanie v cene — čas sa odčíta z času upratovania.</div>
         <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173508" class="btn pbtn btn-rez" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</a>
       </div>
       <div class="pack">
@@ -515,6 +515,7 @@
     </div>
     </details>
     <p class="namieru">Kancelárie, Airbnb a špeciálne priestory riešime na mieru — <a href="#" data-open-individ>pošlite nezáväzný dopyt</a></p>
+    <p class="note"><b>Balík si vyberajte podľa toho, koľko času treba — nie podľa veľkosti bytu.</b> Jednoizbový byt po maľovaní alebo po nájomníkoch môže pokojne potrebovať deväť hodín, kým udržiavané trojizbové bývanie zvládneme za tri. Keď si nie ste istí, napíšte nám a poradíme.</p>
     <p class="note">Vyberte si balík a voľný termín — rezerváciu dokončíte online platbou kartou, cez TatraPay alebo SporoPay. Faktúru pošleme e-mailom do 24 hodín.</p>
   </div>
 </section>
