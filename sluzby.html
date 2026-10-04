@@ -10,6 +10,7 @@
 <meta name="description" content="Upratovanie bytov a domov, kancelárie a prevádzky, tepovanie sedačiek a kobercov aj Airbnb. Balíky od 79,90 €, doplnkové služby a cenník.">
 <link rel="canonical" href="https://www.poriado.sk/sluzby.html">
 <script src="poriado-meranie.js"></script>
+<link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -107,12 +108,14 @@
 }
 </script>
 <style>
+  @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
+
   :root{--navy:#1f3864;--blue:#2e75b6;--light:#dce6f1;--bg:#f7f9fc;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#96691a}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   a{text-decoration:none;color:inherit}
   img{max-width:100%;display:block}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-synthesis:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   header{position:sticky;top:0;background:#fff;box-shadow:0 1px 0 rgba(21,42,77,.08);z-index:50}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
@@ -141,11 +144,11 @@
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
   .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:60px 0 54px;text-align:center}
-  .hero h1{font-size:clamp(1.6rem,4.4vw,2.3rem);line-height:1.22;margin-bottom:14px;text-wrap:balance}
+  .hero h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;margin-bottom:16px;letter-spacing:-.03em;text-wrap:balance}
   .hero p{max-width:660px;margin:0 auto;font-size:1.05rem;color:#f4f8fd}
-  section{padding:56px 0}
+  section{padding:clamp(56px,7vw,88px) 0}
   .alt{background:var(--bg)}
-  h2{font-size:1.75rem;color:var(--navy);margin-bottom:12px}
+  h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
   h3{color:var(--navy);font-size:1.1rem;margin-bottom:8px}
   .lead{color:var(--muted);max-width:720px;margin-bottom:26px}
   .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.8rem;margin-bottom:8px}

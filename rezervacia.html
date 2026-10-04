@@ -10,6 +10,7 @@
 <meta name="description" content="Rezervujte si termín upratovania v Bratislave online. Balíky od 79,90 €, potvrdenie okamžite, zrušenie zdarma do 24 hodín pred termínom.">
 <link rel="canonical" href="https://www.poriado.sk/rezervacia.html">
 <script src="poriado-meranie.js"></script>
+<link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -76,11 +77,13 @@
 }
 </script>
 <style>
+  @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
+
   :root{--navy:#1f3864;--blue:#2e75b6;--light:#dce6f1;--bg:#f7f9fc;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#96691a}
   *{margin:0;padding:0;box-sizing:border-box}
   a{text-decoration:none;color:inherit}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+  body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-synthesis:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   header{position:sticky;top:0;background:#fff;box-shadow:0 1px 0 rgba(21,42,77,.08);z-index:50}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1060px;margin:0 auto;position:relative}
@@ -104,11 +107,11 @@
   /* Nadpis stránky je zámerne úzky pás, nie veľké hero — formulár má byť
      hneď navrchu, nie až pod obrázkom. */
   .uvod{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:30px 0 26px;text-align:center}
-  .uvod h1{font-size:1.65rem;line-height:1.25;letter-spacing:-.4px}
+  .uvod h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
   .uvod p{color:#f4f8fd;max-width:640px;margin:8px auto 0;font-size:1rem}
-  section{padding:40px 0}
+  section{padding:clamp(56px,7vw,88px) 0}
   .alt{background:var(--bg)}
-  h2{font-size:1.5rem;color:var(--navy);margin-bottom:14px}
+  h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
   .card{background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:20px}
   .card h3{color:var(--navy);margin-bottom:6px;font-size:1.05rem}

@@ -8,14 +8,17 @@
 <meta name="color-scheme" content="only light">
 <title>Ochrana osobných údajov a cookies | Poriado</title>
 <meta name="robots" content="noindex">
+<link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="poriado-meranie.js"></script>
 <style>
+  @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
+
   :root{--navy:#1f3864;--blue:#2e75b6;--ink:#1c2530;--muted:#5b6675;--bg:#f7f9fc}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7}
+  body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7;font-synthesis:none}
   a{color:var(--blue)}
   header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:18px 0}
   header a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
