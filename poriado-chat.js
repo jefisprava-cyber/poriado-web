@@ -2,7 +2,7 @@
    Použitie: <script src="poriado-chat.js" defer></script> pred </body> */
 (function () {
   var CSS = `
-  #pch-bubble{position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;
+  #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
     background:linear-gradient(135deg,#1f3864,#2e75b6);color:#fff;border:none;cursor:pointer;z-index:9990;
     box-shadow:0 8px 24px rgba(31,56,100,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
     transition:transform .2s}
