@@ -44,7 +44,7 @@
     { q: "Ako to funguje?",
       a: "Jednoducho: pred upratovaním sa dohodneme, čomu sa máme v rámci času balíka venovať najviac — priority určujete vy.\n\nPrídeme s vlastnými prostriedkami aj vybavením a domácnosti upratujeme bez obhliadky." },
     { q: "Robíte tepovanie?",
-      a: "Áno. Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte od 25 €, alebo prídeme len tepovať samostatne za 40 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
+      a: "Áno. Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte za 40 €/hod, alebo prídeme len tepovať samostatne za 55 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
     { q: "Ako si rezervujem termín?",
       a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Rezerváciu dokončíte platbou kartou, cez TatraPay alebo SporoPay; faktúru pošleme e-mailom do 24 hodín.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },

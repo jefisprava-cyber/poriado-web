@@ -94,7 +94,7 @@
     mini:      { id: 173506, cena: 79.90, nazov: 'Mini' },
     klasik:    { id: 173507, cena: 129.90, nazov: 'Klasik' },
     maxi:      { id: 173508, cena: 169.90, nazov: 'Maxi' },
-    tepovanie: { id: 173509, cena: 40, nazov: 'Tepovanie' }
+    tepovanie: { id: 173509, cena: 55, nazov: 'Tepovanie' }
   };
 
   /* Meno iframu. Bookio ho vracia v každej správe ako pole iframeId (posiela
