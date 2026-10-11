@@ -345,8 +345,6 @@
   /* Pripravovaná služba: vidno ju, ale rezervovať sa nedá. */
   .pack.chystame{border-style:dashed;background:#fcfdff}
   .pack.chystame .tag{background:var(--navy)}
-  .pack-ikona{height:118px;border-radius:12px;margin-bottom:12px;background:var(--light);display:flex;align-items:center;justify-content:center}
-  .pack-ikona svg{width:46px;height:46px;fill:none;stroke:var(--navy);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
   .pack .cakaj{margin-top:14px;padding:12px 10px;border-radius:10px;background:var(--light);color:var(--navy);font-weight:700;font-size:.85rem;line-height:1.3}
 
   /* rozbalovacie porovnanie balikov */
@@ -377,8 +375,6 @@
     .packs{grid-template-columns:repeat(2,1fr);gap:10px}
     .packs.dvoje{max-width:none}
     .mimo-balikov{margin-top:24px}
-    .pack-ikona{height:76px;margin-bottom:8px}
-    .pack-ikona svg{width:34px;height:34px}
     .pack .cakaj{margin-top:10px;padding:10px 6px;font-size:.76rem}
     .pack{padding:14px 10px}
     .pack-img{height:76px;margin-bottom:8px}
@@ -575,7 +571,7 @@
         </div>
         <div class="pack chystame">
           <div class="tag">Pripravujeme</div>
-          <div class="pack-ikona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16.4h18l-1.1-3.6a6.4 6.4 0 0 0-6.1-4.5H7.6"/><path d="M7.6 8.3V6.9a2.5 2.5 0 0 1 2.5-2.5h6.4"/><path d="M3 19.3h18"/></svg></div>
+          <img src="zehlenie-bielizne-bratislava.webp" srcset="zehlenie-bielizne-bratislava-320.webp 320w, zehlenie-bielizne-bratislava-480.webp 480w, zehlenie-bielizne-bratislava.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 330px" alt="Žehlenie bielizne u zákazníka doma — naparovacia žehlička a košeľa na žehliacej doske" class="pack-img" loading="lazy" width="900" height="675">
           <div class="hrs">2 hodiny</div>
           <div class="pname">Žehlenie</div>
           <div class="amt">50 €</div>
