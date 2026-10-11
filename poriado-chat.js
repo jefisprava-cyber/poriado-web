@@ -40,9 +40,11 @@
 
   var FAQ = [
     { q: "Koľko stojí upratovanie?",
-      a: "Máme tri balíky podľa hodín — všetko s vlastnými prostriedkami a dopravou po Bratislave v cene:\n\n• Mini (3 h) — 79,90 €\n• Klasik (6 h) — 129,90 €\n• Maxi (9 h) — 169,90 € vrátane tepovania\n\nŽiadne skryté poplatky — čo si dohodneme, to zaplatíte." },
+      a: "Máme tri balíky podľa hodín — všetko s vlastnými prostriedkami a dopravou po Bratislave v cene:\n\n• Mini (3 h) — 79,90 €\n• Klasik (6 h) — 129,90 €\n• Maxi (9 h) — 169,90 € vrátane tepovania\n\nOd 5. novembra pribudne aj žehlenie — dve hodiny za 50 €.\n\nŽiadne skryté poplatky — čo si dohodneme, to zaplatíte." },
     { q: "Ako to funguje?",
       a: "Jednoducho: pred upratovaním sa dohodneme, čomu sa máme v rámci času balíka venovať najviac — priority určujete vy.\n\nPrídeme s vlastnými prostriedkami aj vybavením a domácnosti upratujeme bez obhliadky." },
+    { q: "Žehlíte bielizeň?",
+      a: "Žehlenie spúšťame 5. novembra ako samostatnú službu — dve hodiny za 50 €.\n\nŽehlíme u vás doma, bielizeň od vás neodvážame. Prichádzame s vlastnou žehličkou, doskou aj vešiakmi.\n\nPotrebujeme od vás vypranú a suchú bielizeň, voľnú plochu asi 1,5 × 1 m a zásuvku v dosahu." },
     { q: "Robíte tepovanie?",
       a: "Áno. Tepovanie je zahrnuté v balíku Maxi. K balíkom Mini a Klasik si ho doplatíte za 40 €/hod, alebo prídeme len tepovať samostatne za 55 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie namiesto tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
