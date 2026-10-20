@@ -16,7 +16,7 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#1f3864;--blue:#2e75b6;--ink:#1c2530;--muted:#5b6675;--bg:#f7f9fc}
+  :root{--navy:#153f4f;--blue:#13697c;--ink:#1c2530;--muted:#5b6675;--bg:#f7f6fb}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7;font-synthesis:none}
   a{color:var(--blue)}
@@ -31,15 +31,43 @@
   h3{color:var(--navy);font-size:1.05rem;margin:20px 0 6px}
   p,li{color:#33424f;margin-bottom:10px}
   ul{margin:0 0 10px 22px}
-  .box{background:var(--bg);border:1px solid #e3eaf3;border-radius:12px;padding:18px 20px;margin:16px 0}
+  .box{background:var(--bg);border:1px solid #e2e4ee;border-radius:12px;padding:18px 20px;margin:16px 0}
   .note{background:#fff7ed;border:1px solid #fce2c2;border-radius:10px;padding:14px 18px;color:#7a5a2e;font-size:.92rem;margin:20px 0}
   table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}
-  th,td{border:1px solid #e3eaf3;padding:9px 12px;text-align:left;vertical-align:top}
+  th,td{border:1px solid #e2e4ee;padding:9px 12px;text-align:left;vertical-align:top}
   th{background:var(--navy);color:#fff}
   .back{display:inline-block;margin-top:21px;padding:9px 0;font-weight:600}
-  footer p{color:#dce6f1}
-  footer{background:var(--navy);color:#dce6f1;text-align:center;padding:26px 0;font-size:.9rem}
-</style>
+  footer p{color:#e4e0f7}
+  footer{background:var(--navy);color:#e4e0f7;text-align:center;padding:26px 0;font-size:.9rem}
+
+
+
+  /* ═══════ PETROLEJOVÁ S FIALOVÝM PRECHODOM — len farby ═══════
+     Stránka zostáva presne taká, aká je dnes. Mení sa len to, čo bolo modré.
+     Jediný nový prvok palety je fialový koniec úvodného gradientu. */
+
+  /* Úvodný pás: petrolejová → modrá → fialová. Rovnaký gradient ako dnes,
+     len s tretím bodom, aby bol prechod plynulý a nie skok. */
+  .hero{background:linear-gradient(135deg,#153f4f 0%,#1e5168 42%,#3d2a7a 100%)}
+  /* Na mobile prejde uhlopriečny prechod úzkym stĺpcom príliš rýchlo a fialová
+     sa do záberu skoro nedostane. Takmer zvislý uhol jej dá dolnú tretinu pásu,
+     presne tam, kde leží karta s balíkmi. */
+  @media(max-width:820px){
+    .hero{background:linear-gradient(168deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%)}
+  }
+
+  /* Dekoračný kruh v úvode ležal na modrej; na fialovom konci by zmizol. */
+  .hero::before{border-color:#d4a44c;opacity:.20}
+
+  /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
+     tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
+  .hero .rev-stars{color:#efd7a6}
+
+  /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
+  footer .logo span{color:#b9d4da}
+  .pch-head b span{color:#d9eaed}
+
+  </style>
 </head>
 <body>
 <header>
@@ -126,7 +154,7 @@
 <footer>
   <div class="wrap">
     CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk
-    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#9fc0e8">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#9fc0e8">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#9fc0e8">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#b9d4da">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#b9d4da">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#b9d4da">Nastavenia cookies</a></p>
   </div>
 </footer>
 </body>

@@ -3,36 +3,36 @@
 (function () {
   var CSS = `
   #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
-    background:linear-gradient(135deg,#1f3864,#2e75b6);color:#fff;border:none;cursor:pointer;z-index:9990;
-    box-shadow:0 8px 24px rgba(31,56,100,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#153f4f,#13697c);color:#fff;border:none;cursor:pointer;z-index:9990;
+    box-shadow:0 8px 24px rgba(21,63,79,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
     transition:transform .2s}
   #pch-bubble:hover{transform:scale(1.08)}
   #pch-panel{position:fixed;right:20px;bottom:92px;width:360px;max-width:calc(100vw - 32px);height:520px;
     max-height:calc(100vh - 120px);background:#fff;border-radius:16px;z-index:9991;display:none;flex-direction:column;
     box-shadow:0 20px 60px rgba(20,30,50,.30);overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
   #pch-panel.open{display:flex}
-  .pch-head{background:linear-gradient(135deg,#1f3864,#2e75b6);color:#fff;padding:14px 16px}
+  .pch-head{background:linear-gradient(135deg,#153f4f,#13697c);color:#fff;padding:14px 16px}
   .pch-head b{font-size:1.05rem}
-  .pch-head b span{color:#9fc0e8}
-  .pch-head small{display:block;color:#dce6f1;font-size:.75rem;margin-top:2px}
+  .pch-head b span{color:#d9eaed}
+  .pch-head small{display:block;color:#e4e0f7;font-size:.75rem;margin-top:2px}
   .pch-gold{height:3px;background:linear-gradient(90deg,rgba(228,178,96,0),#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0))}
-  #pch-body{flex:1;overflow-y:auto;padding:14px;background:#f7f9fc}
+  #pch-body{flex:1;overflow-y:auto;padding:14px;background:#f7f6fb}
   .pch-msg{max-width:85%;padding:10px 13px;border-radius:14px;margin-bottom:10px;font-size:.88rem;line-height:1.5;
     white-space:pre-line;animation:pchIn .25s ease}
-  .pch-bot{background:#fff;border:1px solid #e7edf5;color:#1c2530;border-bottom-left-radius:4px}
-  .pch-user{background:#2e75b6;color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+  .pch-bot{background:#fff;border:1px solid #e6e5f1;color:#1c2530;border-bottom-left-radius:4px}
+  .pch-user{background:#13697c;color:#fff;margin-left:auto;border-bottom-right-radius:4px}
   @keyframes pchIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .pch-chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
-  .pch-chip{background:#fff;border:1.5px solid #2e75b6;color:#1f3864;border-radius:20px;padding:7px 12px;
+  .pch-chip{background:#fff;border:1.5px solid #13697c;color:#153f4f;border-radius:20px;padding:7px 12px;
     font-size:.8rem;font-weight:600;cursor:pointer;transition:.15s}
-  .pch-chip:hover{background:#2e75b6;color:#fff}
-  .pch-cta{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #e7edf5}
+  .pch-chip:hover{background:#13697c;color:#fff}
+  .pch-cta{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #e6e5f1}
   .pch-cta a{flex:1;text-align:center;padding:10px 6px;border-radius:9px;font-size:.82rem;font-weight:700;text-decoration:none}
-  .pch-cta .p{background:#2e75b6;color:#fff}
-  .pch-cta .p:hover{background:#1f3864}
+  .pch-cta .p{background:#13697c;color:#fff}
+  .pch-cta .p:hover{background:#153f4f}
   .pch-cta .s{background:#e2f6ee;color:#0f7a54}
   .pch-cta .s:hover{background:#19b07a;color:#fff}
-  #pch-close{float:right;background:none;border:none;color:#dce6f1;font-size:22px;cursor:pointer;line-height:1;
+  #pch-close{float:right;background:none;border:none;color:#e4e0f7;font-size:22px;cursor:pointer;line-height:1;
     width:44px;height:44px;margin:-12px -12px -12px 4px;border-radius:50%;display:flex;align-items:center;justify-content:center}
   #pch-close:hover{background:rgba(255,255,255,.12)}
   @media(max-width:480px){#pch-panel{right:8px;bottom:84px}}
@@ -124,7 +124,7 @@
       body.appendChild(el("div", "pch-msg pch-user", f.q));
       body.scrollTop = body.scrollHeight;
       var text = f.a;
-      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:#2e75b6;font-weight:700">' + f.link.text + "</a>";
+      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:#13697c;font-weight:700">' + f.link.text + "</a>";
       bot(text, 450, function () {
         var odpoved = body.lastElementChild;   // práve vložená odpoveď
         bot("Pomôžem ešte s niečím?", 350, function () {
