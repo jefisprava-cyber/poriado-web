@@ -528,7 +528,37 @@
   .kat.caka:hover{transform:none;box-shadow:none}
   .kat.caka img{filter:grayscale(.55);opacity:.8}
   .kat.caka b,.kat.caka .cena{color:var(--muted)}
-  .kat.caka .cena small{display:block;margin-top:5px;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-text)}
+  .kat.caka .cena small{display:block;margin-top:5px;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-text)}
+  /* Tri kroky — vratene v povodnom zneni aj vzhlade. */
+  .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
+  .krok{counter-increment:krok;position:relative;padding-left:52px}
+  .krok::before{content:counter(krok);position:absolute;left:0;top:-4px;width:38px;height:38px;border-radius:10px;background:var(--gold);color:var(--navy);font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+  .krok b{display:block;color:var(--navy);font-size:1.02rem;margin-bottom:4px}
+  .krok span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5}
+  @media(max-width:760px){.kroky{grid-template-columns:1fr;gap:20px;max-width:420px}}
+
+  /* Veta „v cene" je siroka ako mriezka kariet — patri k nim. */
+  .vcene{max-width:940px;margin:20px auto 0;text-align:center;font-size:.95rem;color:var(--muted);line-height:1.65}
+  .vcene b{color:var(--ink)}
+
+  /* Doplnkove sluzby ako dva stitky. Farba ich odlisi od behoveho textu
+     a cena sa v nich neda prehliadnut, ako sa to dialo v odstavci. */
+  .doplnky{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:940px;margin:16px auto 0;padding:0}
+  .doplnky li{display:inline-flex;align-items:center;gap:10px;text-align:left;background:#fff;border:1px solid #e2e4ee;border-radius:999px;padding:7px 18px 7px 7px;font-size:.89rem;font-weight:600;color:var(--navy);line-height:1.3}
+  .doplnky b{font-weight:700}
+  .doplnky .ik{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+  .doplnky .ik svg{width:18px;height:18px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .doplnky .koza .ik{background:#fbeed6}
+  .doplnky .koza .ik svg{stroke:var(--gold-text)}
+  .doplnky .tep .ik{background:#d9e9ef}
+  .doplnky .tep .ik svg{stroke:var(--blue)}
+  @media(max-width:560px){
+    .doplnky{gap:9px}
+    .doplnky li{font-size:.82rem;padding:6px 14px 6px 6px;gap:8px}
+    .doplnky .ik{width:28px;height:28px}
+    .doplnky .ik svg{width:16px;height:16px}
+  }
+
 
 
 
@@ -654,20 +684,44 @@
         <span class="cena">49,90 €<small>Čoskoro</small></span>
       </div>
     </div>
-    <p class="inde">V cene každého balíka je <b>umytie okien</b>, dezinfekcia kúpeľne a WC, prach, podlahy aj balkón, čistiace prostriedky a doprava — chodíme do všetkých bratislavských mestských častí. Rebrík na okná vo výške 10 €, ošetrenie koženej sedačky 25 €. <b>Tepovanie</b> pridáme ku ktorémukoľvek balíku za 40 € na hodinu, pri Maxi za 30 €.</p>
+    <!-- Siroka na celu mriezku kariet, nie uzka ako ostatne odstavce —
+         patri k nim, nie pod ne. Rebrik sa tu uz nespomina: je to volba
+         az v rezervacii, na stranke by to bola tretia cena navyse. -->
+    <p class="vcene">V cene každého balíka je <b>presne to, čo si poviete</b>, ako aj umytie okien, dezinfekcia kúpeľne a WC, prach, podlahy aj balkón, čistiace prostriedky a doprava — chodíme do všetkých bratislavských mestských častí.</p>
+    <!-- Dve doplnkove sluzby odclenene od textu. V odstavci sa cena stratila,
+         ako stitok si ju clovek vsimne jednym pohladom. -->
+    <ul class="doplnky" role="list">
+      <li class="koza"><span class="ik" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.2 11V8.6a1.6 1.6 0 0 1 1.6-1.6h10.4a1.6 1.6 0 0 1 1.6 1.6V11"/><path d="M3.4 12.6a1.6 1.6 0 0 1 3.2 0V16h10.8v-3.4a1.6 1.6 0 0 1 3.2 0V17a1 1 0 0 1-1 1H4.4a1 1 0 0 1-1-1z"/></svg></span><span>Ošetrenie koženej sedačky <b>25 €</b></span></li>
+      <li class="tep"><span class="ik" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.6c3 3.6 5 6.2 5 8.6a5 5 0 0 1-10 0c0-2.4 2-5 5-8.6z"/><path d="M9.6 12.6a2.6 2.6 0 0 0 2.6 2.6"/></svg></span><span>Tepovanie ku ktorémukoľvek balíku <b>za zvýhodnenú cenu</b></span></li>
+    </ul>
     <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte kód <b>SOLIDARITA15</b>, pri prvej návšteve nám stačí ukázať preukaz. Platí na cenu služby, nie na príplatky.</p>
     <p class="inde">Čo presne je v ktorom balíku a celý rozpis cien nájdete v <a href="sluzby.html#cennik">prehľade služieb a cien</a>.</p>
   </div>
 </section>
 
+<section id="ako">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ako to funguje</div>
+      <h2>Od rezervácie po <span class="znacka">Poriado</span>(k) za tri kroky</h2>
+    </div>
+    <ol class="kroky">
+      <li class="krok"><b>Vyberiete balík a termín</b><span>Online, bez obhliadky. Potvrdenie máte okamžite.</span></li>
+      <li class="krok"><b>Poviete nám priority</b><span>Čo je najdôležitejšie upratať — tomu sa venujeme najviac.</span></li>
+      <li class="krok"><b>Prídeme a upraceme</b><span>S vlastnými čistiacimi prostriedkami a vybavením.</span></li>
+    </ol>
+  </div>
+</section>
 <section id="onas" class="highlight">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">O nás</div>
       <h2>Upratujeme v Bratislave, nie cez agentúru</h2>
     </div>
-    <div style="max-width:700px;margin:0 auto;text-align:center">
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:0">Upratovaniu sa venujeme roky. Nie sme agentúra — chodí k vám ten istý človek, ktorý váš byt pozná. Na prípadnú škodu máme poistenie zodpovednosti.</p>
+    <div style="max-width:760px;margin:0 auto;text-align:center">
+      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
+      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Preto sme sa rozhodli robiť to po svojom. Založili sme <b>Poriado</b> a všetky nazbierané skúsenosti sme vložili do služby, ktorá dáva zmysel vám — nie tabuľke. Prídeme s vlastným vybavením, dohodneme sa na prioritách a odvedieme prácu tak, akoby sme upratovali u seba doma.</p>
+      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:26px">Sme malý osobný tím, ktorý si zakladá na férovosti — bez skrytých poplatkov a bez výhovoriek. Čo si dohodneme, dodržíme, a k vášmu domovu pristupujeme spoľahlivo a diskrétne.</p>
     </div>
   </div>
 </section>
