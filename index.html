@@ -249,7 +249,7 @@
   .badges.tri{grid-template-columns:repeat(3,1fr);margin-bottom:14px}
   .badges.tri .badge{border-top:3px solid var(--gold)}
   @media(max-width:760px){.badges.tri{grid-template-columns:1fr}}
-  .dovera{background:#fff;padding:6px 0 0}
+  .dovera{background:transparent;padding:6px 0 0}
   @media(max-width:1120px){.badges{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:900px){.badges,.badges.tri{grid-template-columns:1fr}}
   @media(max-width:460px){.badges{gap:1px}.badge{padding:14px 12px}.badge b{font-size:.84rem}.badge span{font-size:.75rem}}
@@ -265,7 +265,6 @@
   .card h3{color:var(--navy);font-size:1.18rem;margin-bottom:10px}
   .card p{color:#5b6675;font-size:.96rem;margin-bottom:14px}
   .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
-  .highlight{background:linear-gradient(135deg,#e9e5f8,#f7f6fb)}
   .znacka{color:var(--gold-text)}
   /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
      citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
@@ -303,7 +302,7 @@
   summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400}
   details[open] summary::after{content:"\2212"}
   details p{padding:0 22px 20px;color:#5b6675;font-size:.97rem}
-  footer{background:var(--navy);color:#c6d8dd;padding:40px 0;text-align:center;font-size:.92rem}
+  footer{background:linear-gradient(168deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%);color:#c6d8dd;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
   footer a{color:#b9d4da}
   
@@ -372,7 +371,7 @@
   }
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
-  .reviews{background:#fff;padding:0}
+  .reviews{background:transparent;padding:0}
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #e2e4ee;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
   .rev-stars{color:#96691a;letter-spacing:2px;font-size:.98rem;white-space:nowrap}
@@ -492,12 +491,12 @@
   [id]{scroll-margin-top:86px}
   /* Pravidla sekcie cennika. Zmazali sa, ked sekcia z domovskej odisla —
      teraz je spat ako karty kategorii, takze ich treba tiez. */
-  .pricing{background:var(--bg)}
+  .pricing{background:transparent}
   .inde{max-width:620px;margin:18px auto 0;text-align:center;font-size:.9rem;color:var(--muted);line-height:1.6}
   .inde a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
   .inde a:hover{color:var(--blue)}
   .inde b{color:var(--ink)}
-  .zlava{max-width:620px;margin:18px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
+  .zlava{max-width:940px;margin:18px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
   .zlava b{color:var(--gold-text)}
 
   /* ═══════ KATEGORIE SLUZIEB ═══════
@@ -558,23 +557,27 @@
     .doplnky .ik{width:28px;height:28px}
     .doplnky .ik svg{width:16px;height:16px}
   }
-  /* ═══════ SPODOK STRÁNKY: JEDEN PRECHOD ═══════
-     „O nás" a pätička sú dva prvky, takže jeden gradient cez oba sa bez
-     prestavby HTML spraviť nedá. Každý dostane polovicu a v mieste spoju
-     majú obe presne tú istú farbu (#27506e) — prechod tak pôsobí ako
-     jeden pás bez ohľadu na to, aké sú vysoké.
-     Fialová hore nadväzuje na koniec úvodného pásu, tyrkysová dole
-     zatvára stránku. */
-  #onas.highlight{background:linear-gradient(180deg,#3d2a7a 0%,#27506e 100%)}
-  footer{background:linear-gradient(180deg,#27506e 0%,#12707f 100%)}
+  /* ═══════ JEDEN FAREBNY BEH CEZ CELU STRANKU ═══════
+     Hore hero, dole paticka — obe maju ten isty syty gradient z petrolejovej
+     do fialovej (zadany pri footer{background:...} vyssie). Medzi nimi bezi
+     ten isty prechod, len vybledly.
 
-  /* Sekcia bola svetlá a text v nej tmavý — na tmavom pozadí by zmizol.
-     Farby nižšie sú zvolené tak, aby každá mala voči svojmu podkladu
-     aspoň 4,5:1; prepočet je v skripte, ktorý to sem zapísal. */
-  #onas .kicker{color:#b9a7f0}
-  #onas .section-head h2{color:#fff}
-  #onas p{color:#dfe4f2 !important}
-  #onas p b{color:#fff}
+     Oba konce pasu maju ZAMERNE rovnaku svetlost (HSL L = 94 %): nie je to
+     stmavovanie zhora nadol, ale cisty posun odtienu z petrolejovej do
+     fialovej. Preto je pas po celej dlzke rovnako citatelny — najslabsi
+     text na nom (--muted) ma 4,84:1, teda nad hranicou WCAG AA.
+
+     Gradient je na obale .pas, nie na jednotlivych sekciach: inak by kazda
+     sekcia zacala prechod odznova a boli by vidiet svy. Sekcie v nom preto
+     maju background:transparent.
+
+     Biele karty na tomto pase NEZMIZNU — naopak. Dnes su biele na bielom
+     (1,00:1) a drzi ich len ramik; na pase maju 1,13:1, takze su citelnejsie
+     nez predtym. Ramiky ani tiene preto netreba menit. */
+  .pas{background:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%)}
+
+  /* Text paticky — zostava svetly, paticka je stale tmava. Na novom gradiente
+     ma bezny text 7,04:1 a odkazy 7,34:1 (predtym 4,66 a 4,86). */
   footer{color:#dbeaee}
   footer a{color:#deeff2}
 
@@ -627,6 +630,10 @@
 
   </div>
 </section>
+<!-- Svetly pas: vsetky sekcie medzi hero a patickou zdielaju jeden
+     gradient, aby farba prebehla celou strankou bez svov. Jednotlive
+     sekcie v nom preto nemaju vlastne pozadie — pozri .pas v <style>. -->
+<div class="pas">
 <section id="recenzie" class="reviews">
   <div class="wrap">
 
@@ -732,7 +739,7 @@
     </ol>
   </div>
 </section>
-<section id="onas" class="highlight">
+<section id="onas">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">O nás</div>
@@ -747,14 +754,13 @@
 </section>
 
 
+</div><!-- /.pas -->
 </main>
 <footer id="kontakt">
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
-    <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
     <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#deeff2">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#deeff2">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#deeff2">info@poriado.sk</a></p>
-    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
-    <p style="margin-top:10px"><a href="sluzby.html" style="color:#deeff2">Služby</a> &nbsp;·&nbsp; <a href="faq.html" style="color:#deeff2">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#deeff2">Tepovanie sedačiek a kobercov</a></p>
+    <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424</p>
     <p style="margin-top:10px"><a href="rezervacia.html" style="color:#deeff2">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html" style="color:#deeff2">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#deeff2">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#deeff2">Nastavenia cookies</a></p>
   </div>
 </footer>
