@@ -7,7 +7,8 @@
  *
  * Okno sa otvorí:
  *   - klikom na čokoľvek s atribútom  data-open-rezervacia
- *     (voliteľne  data-balik="mini|klasik|maxi|tepovanie"  ide rovno na balík)
+ *     (voliteľne  data-balik="mini|komfort|klasik|maxi|maxiTepovanie|
+ *      tepovanie|zehlenie"  ide rovno na balík)
  *   - klikom na akýkoľvek odkaz smerujúci na services.bookio.com — ten sa
  *     prepíše na otvorenie okna, aby návštevník neodišiel z poriado.sk preč.
  *     Z Bookia sa totiž nemá ako vrátiť späť.
@@ -30,7 +31,7 @@
      'prevod' = verzia A: v Bookiu nie je zapnutá platba, platí sa prevodom.
      'karta'  = verzia B: v Bookiu je pri službách nastavená platba kartou.
      Prepnutie na verziu B: zmeniť riadok nižšie na 'karta' a pushnúť.
-     V Bookiu treba zároveň pri všetkých štyroch službách nastaviť spôsob
+     V Bookiu treba zároveň pri všetkých siedmich službách nastaviť spôsob
      platby (paymentType) — bez toho by text sľuboval kartu, ktorú widget
      neponúkne. Poradie: najprv Bookio, potom tento riadok.
      ═══════════════════════════════════════════════════════════════════════ */
@@ -91,14 +92,31 @@
      Pozor: služba 173509 sa v Bookiu volá "Tepovanie " s medzerou na konci
      (bod 5.1 runbooku) — preto sa názov pred porovnaním vždy trimuje. */
   var SLUZBY = {
-    mini:      { id: 173506, cena: 79.90, nazov: 'Mini' },
-    klasik:    { id: 173507, cena: 129.90, nazov: 'Klasik' },
-    maxi:      { id: 173508, cena: 169.90, nazov: 'Maxi' },
-    tepovanie: { id: 173509, cena: 55, nazov: 'Tepovanie' }
+    mini:          { id: 173506, cena: 79.90, nazov: 'Mini' },
+    /* Komfort (4 h) je nový balík medzi Mini a Klasikom. ID 180203 overené
+       na verejnom API Bookia 25. 10. 2026. */
+    komfort:       { id: 180203, cena: 99.90, nazov: 'Komfort' },
+    klasik:        { id: 173507, cena: 139.90, nazov: 'Klasik' },
+    /* Maxi má 8 hodín a tepovanie už NEOBSAHUJE — tepovanie je v cene len
+       pri samostatnom balíku Maxi + tepovanie (8 h upratovania + 1 h
+       tepovania). ID 180204 overené na verejnom API Bookia 25. 10. 2026. */
+    maxi:          { id: 173508, cena: 169.90, nazov: 'Maxi' },
+    maxiTepovanie: { id: 180204, cena: 199.90, nazov: 'Maxi + tepovanie' },
+    tepovanie:     { id: 173509, cena: 55, nazov: 'Tepovanie' },
+    /* Žehlenie bolo v Bookiu založené, ale tu chýbalo. Dôsledok: odkaz
+       na žehlenie otvoril všeobecný zoznam služieb namiesto predvolenej
+       služby (o jedno tuknutie viac) a dokončená rezervácia sa do Googlu
+       aj Mety hlásila s cenou 0 €. ID 178847 overené na verejnom API
+       Bookia 23. 10. 2026. */
+    zehlenie:      { id: 178847, cena: 49.90, nazov: 'Žehlenie' }
   };
 
   /* Meno iframu. Bookio ho vracia v každej správe ako pole iframeId (posiela
      window.name), takže podľa neho odlíšime naše správy od cudzích. */
+  /* Naposledy zvolena kategoria — drzi sa vedla `posledny` (balik), aby sa
+     okno po zatvoreni a znovuotvoreni vratilo tam, kde clovek bol. */
+  var poslednaKategoria = '';
+
   var RAM_NAZOV = 'poriado-bookio';
 
   /* Identifikátory kliku z reklamy sa do adresy widgetu ZÁMERNE nepridávajú.
@@ -115,16 +133,26 @@
      osobný údaj, posielať ho tretej strane bez účelu je horšie než ho
      neposlať. Zdroj si preto držíme u seba — pozri poriado-meranie.js,
      funkciu poriadoZaznamZdroja, a párovanie v ZDROJE-reklama.js. */
-  function adresa(balik) {
-    return SLUZBY[balik] ? (ZAKLAD + '&service=' + SLUZBY[balik].id) : ZAKLAD;
+  /* Okrem konkrétnej služby vieme predvoliť aj celú kategóriu. Používa to
+     karta „Upratovanie" na domovskej: bez kategórie by sa otvoril zoznam
+     všetkých siedmich služieb a človek by si v ňom musel nájsť tých päť
+     upratovacích medzi tepovaním a žehlením.
+     Kategórie v Bookiu (overené na jeho verejnom rozhraní 25. 10. 2026):
+       42936 Jednorázové upratovanie · 42935 Tepovanie · 42937 Žehlenie
+     Pri tepovaní a žehlení kategóriu nepoužívame — `&service=` predvolí
+     rovno tú jednu službu, čo je o krok menej. */
+  function adresa(balik, kategoria) {
+    if (SLUZBY[balik]) return ZAKLAD + '&service=' + SLUZBY[balik].id;
+    return kategoria ? (ZAKLAD + '&category=' + kategoria) : ZAKLAD;
   }
 
   /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta
      dosadia jednotku a potom optimalizujú na „niekto otvoril kalendár za
      jedno euro". Keď zákazník klikol na konkrétny balík, vieme presnú cenu;
-     pri všeobecnom tlačidle použijeme Klasik ako stredný balík — je to menej,
-     než je priemer skutočných zákaziek, takže hodnotu skôr podceníme. */
-  var CENA_NEZNAMY_BALIK = 129.90;
+     pri všeobecnom tlačidle použijeme Klasik ako prostredný z piatich balíkov
+     (Mini, Komfort, Klasik, Maxi, Maxi + tepovanie) — je to menej, než je
+     priemer skutočných zákaziek s príplatkami, takže hodnotu skôr podceníme. */
+  var CENA_NEZNAMY_BALIK = 139.90;
 
   /* item_id je kľúč balíka ('mini', 'klasik', …), nie číslo služby v Bookiu.
      Ten istý kľúč posiela do Mety aj dokončený nákup zo servera
@@ -149,15 +177,25 @@
   /* Cena podľa názvu služby z Bookia. */
   function cenaPodlaNazvu(nazov) {
     if (typeof nazov !== 'string') return 0;
-    var n = nazov.trim().toLowerCase();
+    var n = nazov.trim().toLowerCase().split(' ').join('').split('+').join('');
     /* Porovnávame podreťazcom, nie na presnú zhodu. Služby sa v Bookiu volajú
-       „3h Mini", „6h Klasik", „9h Maxi" a názov sa už raz menil („01 Mini");
+       „3h Mini", „6h Klasik", „8h Maxi" a názov sa už raz menil („01 Mini");
        pri presnej zhode by táto náhrada prestala fungovať po každom
-       premenovaní a nikto by si to nevšimol. */
+       premenovaní a nikto by si to nevšimol.
+       Berieme NAJDLHŠÍ názov, ktorý sa v reťazci našiel. „8h Maxi + tepovanie"
+       obsahuje aj „Maxi", aj „Tepovanie" — pri prvej zhode by rezervácia za
+       199,90 € odišla do Googlu aj Mety ako Maxi za 169,90 € alebo ako hodina
+       tepovania za 55 €. Medzery a plus z názvov odstraňujeme, aby sedelo aj
+       „Maxi+tepovanie" bez medzier. */
+    var najdlhsi = '';
+    var cena = 0;
     for (var k in SLUZBY) {
-      if (SLUZBY.hasOwnProperty(k) && n.indexOf(SLUZBY[k].nazov.toLowerCase()) > -1) return SLUZBY[k].cena;
+      if (!SLUZBY.hasOwnProperty(k)) continue;
+      var nz = SLUZBY[k].nazov.toLowerCase().split(' ').join('').split('+').join('');
+      if (n.indexOf(nz) === -1) continue;
+      if (nz.length > najdlhsi.length) { najdlhsi = nz; cena = SLUZBY[k].cena; }
     }
-    return 0;
+    return cena;
   }
 
   /* Oficiálny skript widget.bookio.js ZÁMERNE NENAČÍTAME. Je to len polyfill
@@ -478,13 +516,14 @@
         '" target="_blank" rel="noopener">Otvorte rezerváciu v novom okne</a>.</p>';
 
     var balik = obal.getAttribute('data-balik');
+    poslednaKategoria = obal.getAttribute('data-kategoria') || '';
     posledny = balik && SLUZBY[balik] ? balik : 'vsetky';
 
     var r = document.createElement('iframe');
     r.id = 'bookio-iframe';
     r.name = RAM_NAZOV;
     r.title = 'Rezervačný kalendár Poriado';
-    r.src = adresa(posledny);
+    r.src = adresa(posledny, poslednaKategoria);
     document.getElementById('bookio-obal').appendChild(r);
     poslednaSirka = window.innerWidth;
 
@@ -519,10 +558,11 @@
       if (!el || obal.contains(el)) return;
       e.preventDefault();
       var b = el.getAttribute('data-balik');
+      var k = el.getAttribute('data-kategoria') || '';
       var rr = ramec();
-      if (b && SLUZBY[b] && rr && rr.src !== adresa(b)) {
+      if (rr && ((b && SLUZBY[b]) || k) && rr.src !== adresa(b, k)) {
         posledny = b;
-        rr.src = adresa(b);
+        rr.src = adresa(b, k);
         rr.style.height = '';
         rr.style.minHeight = '';
         poslednaVyska = 0;
@@ -625,7 +665,7 @@
     function pripravRamec(balik) {
       var obal = document.getElementById('bookio-obal');
       if (!obal) return;
-      var url = adresa(balik);
+      var url = adresa(balik, poslednaKategoria);
       nastavNahradu(url);
       var r = ramec();
 
@@ -662,8 +702,9 @@
       }
     }
 
-    function otvor(balik, zdroj) {
+    function otvor(balik, zdroj, kategoria) {
       var kluc = balik && SLUZBY[balik] ? balik : 'vsetky';
+      poslednaKategoria = kategoria || '';
       posledny = kluc;
       otvaral = zdroj || null;
       interagoval = false;
@@ -714,7 +755,7 @@
       if (!el) return;
       if (el.closest('.pr-nahrada')) return;   // záchranný odkaz v okne nechytáme
       e.preventDefault();
-      otvor(el.getAttribute('data-balik'), el);
+      otvor(el.getAttribute('data-balik'), el, el.getAttribute('data-kategoria') || '');
     });
 
     window.addEventListener('message', naSpravu, false);

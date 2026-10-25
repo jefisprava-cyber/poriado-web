@@ -76,7 +76,7 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Upratovanie bytov a domov",
-        "description": "Jednorazové aj pravidelné upratovanie domácností bez obhliadky. Balíky na 3, 6 alebo 9 hodín, čistiace prostriedky a doprava po Bratislave v cene."
+        "description": "Jednorazové aj pravidelné upratovanie domácností bez obhliadky. Balíky na 3, 4, 6 alebo 8 hodín, čistiace prostriedky a doprava po Bratislave v cene."
       }
     },
     {
@@ -93,7 +93,7 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Tepovanie sedačiek, kobercov a matracov",
-        "description": "Hĺbkové čistenie extrakčnou metódou — odstráni škvrny, prach, roztoče aj zápach. Samostatne 55 €/hod, k balíkom Mini a Klasik 40 €/hod, v balíku Maxi zahrnuté."
+        "description": "Hĺbkové čistenie extrakčnou metódou — odstráni škvrny, prach, roztoče aj zápach. Samostatne 55 €/hod, k balíkom Mini, Komfort a Klasik 40 €/hod, k balíkom Maxi 30 €/hod. V balíku Maxi s tepovaním je hodina tepovania v cene."
       }
     },
     {
@@ -170,16 +170,7 @@
   .alt .addon{border:none;box-shadow:0 4px 14px rgba(21,63,79,.06)}
   .addon span{color:var(--ink);font-size:.94rem}
   .addon b{color:var(--gold-text);font-weight:800;white-space:nowrap}
-  .ftable-wrap{overflow-x:auto;background:#fff;border-radius:14px;border:1px solid #e2e4ee;margin-top:22px}
-  table.ftable{border-collapse:collapse;width:100%;min-width:540px}
-  table.ftable th,table.ftable td{padding:11px 14px;border-bottom:1px solid #e6e5f1;text-align:center;font-size:.92rem}
-  table.ftable th{background:var(--navy);color:#fff;font-weight:700}
-  table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
-  table.ftable th:first-child{color:#fff}
-  table.ftable tr:nth-child(even) td{background:#fafcff}
-  table.ftable .yes{color:var(--gold-text);font-weight:800}
-  table.ftable .no{color:#5f6875}
-  .note{font-size:.88rem;color:#5f6875;margin-top:16px}
+.note{font-size:.88rem;color:#5f6875;margin-top:16px}
   .cta{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;text-align:center}
   .cta h2{color:#fff}
   .cta p{color:#f4f8fd;max-width:620px;margin:0 auto 26px}
@@ -194,17 +185,7 @@
   /* Mobil: z porovnávacej tabuľky spravíme karty — žiadne vodorovné rolovanie.
      Každý riadok je karta s názvom služby a troma označenými balíkmi. */
   @media(max-width:640px){
-    .ftable-wrap{overflow-x:visible;border:none;background:transparent;box-shadow:none}
-    table.ftable{min-width:0;width:100%;display:block}
-    table.ftable thead{display:none}
-    table.ftable tbody{display:block}
-    table.ftable tr{display:block;background:#fff;border:1px solid #e2e4ee;border-radius:12px;padding:12px 14px;margin-bottom:10px}
-    table.ftable tr:nth-child(even) td{background:transparent}
-    table.ftable td{display:inline-flex;align-items:center;gap:5px;border:none;padding:0;font-size:.86rem;text-align:left}
-    table.ftable td:first-child{display:block;font-weight:700;color:var(--navy);margin-bottom:9px;font-size:.92rem;line-height:1.35}
-    table.ftable td[data-p]{margin-right:14px}
-    table.ftable td[data-p]::before{content:attr(data-p);color:#5f6875;font-weight:600;font-size:.78rem}
-  }
+}
   /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
      Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
      čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
@@ -241,7 +222,28 @@
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:#b9d4da}
-  .pch-head b span{color:#d9eaed}
+  .pch-head b span{color:#d9eaed}
+  /* Cenník namiesto porovnávacej tabuľky. Jediný rozdiel medzi balíkmi je
+     čas, takže stĺpec s hodinovou sadzbou je celá informácia — tabuľka
+     s desiatimi riadkami fajok hovorila menej a zaberala desaťnásobok. */
+  .rovnako{max-width:620px;margin:0 auto 18px;text-align:center;color:var(--muted);font-size:.97rem;line-height:1.6}
+  .rovnako b{color:var(--ink)}
+  .cenik{list-style:none;margin:0 auto;padding:0;max-width:480px;background:#fff;border:1px solid #e2e4ee;border-radius:14px;overflow:hidden}
+  .cenik li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;gap:12px;padding:13px 16px}
+  .cenik li+li{border-top:1px solid #eef0f6}
+  .cenik .cas{font-weight:700;color:var(--navy);font-size:.97rem}
+  .cenik .suma{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:74px}
+  .cenik .hod{font-size:.78rem;font-weight:700;color:var(--gold-text);white-space:nowrap;text-align:right;min-width:92px}
+  @media(max-width:420px){
+    .cenik li{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px}
+    .cenik .hod{grid-column:1 / -1;text-align:left;min-width:0}
+  }
+  /* Lepiaca hlavicka ma 75 px, takze skok na kotvu (#cennik, #onas, #ako...)
+     skoncil s nadpisom schovanym za nou. scroll-margin-top povie prehliadacu,
+     aby zastavil o kus vyssie. */
+  [id]{scroll-margin-top:86px}
+
+
 
   </style>
 </head>
@@ -251,7 +253,7 @@
     <a href="/" class="logo">Poriado<span>.</span></a>
     <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
     <nav class="nav-links" id="nav-links">
-      <a href="/#cennik">Cenník</a>
+      <a href="#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
       <a href="/#onas">O nás</a>
       <a href="tepovanie-bratislava.html">Tepovanie</a>
@@ -277,7 +279,7 @@
         <div class="kicker">Domácnosti</div>
         <h2>Upratovanie bytov a domov</h2>
         <p class="lead">Jednorazovo aj pravidelne, <b>bez obhliadky</b>. Vyberiete si balík a pred upratovaním nám poviete priority.</p>
-        <div class="cena-pas">Balíky od 79,90 € · 3, 6 alebo 9 hodín</div>
+        <div class="cena-pas">Balíky od 79,90 € · 3, 4, 6 alebo 8 hodín</div>
       </div>
       <img src="upratovanie-obyvacka-bratislava.webp" srcset="upratovanie-obyvacka-bratislava-480.webp 480w, upratovanie-obyvacka-bratislava-800.webp 800w, upratovanie-obyvacka-bratislava-1200.webp 1200w, upratovanie-obyvacka-bratislava.webp 1600w" sizes="(max-width: 900px) calc(100vw - 44px), 450px" alt="Upratovanie obývačky v byte v Bratislave" fetchpriority="high" width="1600" height="900">
     </div>
@@ -318,9 +320,9 @@
 <!-- ZEHLENIE -->
 <section>
   <div class="wrap">
-    <div class="kicker">Pripravujeme — termíny od 5. novembra</div>
+    <div class="kicker">Novinka — termíny od 3. novembra</div>
     <h2>Žehlenie bielizne u vás doma</h2>
-    <p class="lead"><b>Žehlenie bielizne v Bratislave bude stáť 50 € za dve hodiny.</b> Prídeme k vám s vlastnou naparovacou žehličkou, doskou aj vešiakmi a vyžehlíme to, čo máte vyprané a suché. Bielizeň od vás neodvážame — žehlí sa u vás a máte prácu na očiach.</p>
+    <p class="lead"><b>Žehlenie bielizne v Bratislave stojí 49,90 € za dve hodiny.</b> Prídeme k vám s vlastnou naparovacou žehličkou, doskou aj vešiakmi a vyžehlíme to, čo máte vyprané a suché. Bielizeň od vás neodvážame — žehlí sa u vás a máte prácu na očiach.</p>
     <div class="grid">
       <div class="card"><h3>Košele a blúzky</h3><p>Aj spoločenské nohavice s pukmi.</p></div>
       <div class="card"><h3>Tričká a detské veci</h3><p>Tričká, mikiny aj detské oblečenie.</p></div>
@@ -334,30 +336,19 @@
 </section>
 
 <!-- CENNIK BALIKOV -->
-<section class="alt">
+<section class="alt" id="cennik">
   <div class="wrap">
     <div class="kicker">Prehľad</div>
-    <h2>Čo obsahujú balíky</h2>
-    <p class="lead"><b>Upratovanie v Bratislave stojí od 79,90 € za balík Mini (3 hodiny), 129,90 € za Klasik (6 hodín) a 169,90 € za Maxi (9 hodín vrátane tepovania). Platíte za čas — balík si vyberajte podľa toho, koľko práce treba, nie podľa veľkosti bývania.</b> Cena je konečná — čistiace prostriedky, vybavenie, umytie okien aj doprava po Bratislave sú v nej. Nie sme platiteľmi DPH.</p>
-    <div class="ftable-wrap">
-      <table class="ftable">
-        <thead>
-          <tr><th>Čo je v cene</th><th>Mini 3 h · 79,90 €</th><th>Klasik 6 h · 129,90 €</th><th>Maxi 9 h · 169,90 €</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Vlastné čistiace prostriedky a vybavenie</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Priority si určíte vy</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Umytie okien</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Balkón alebo terasa</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Tepovanie sedačky/kobercov</td><td class="no" data-p="Mini">40 €/h</td><td class="no" data-p="Klasik">40 €/h</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no" data-p="Mini">&#8211;</td><td class="no" data-p="Klasik">&#8211;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h2>Koľko to stojí</h2>
+    <p class="lead"><b>Upratovanie v Bratislave stojí od 79,90 € za balík Mini (3 hodiny), 99,90 € za Komfort (4 hodiny), 139,90 € za Klasik (6 hodín), 169,90 € za Maxi (8 hodín) a 199,90 € za Maxi s tepovaním (8 hodín upratovania a 1 hodina tepovania). Platíte za čas — balík si vyberajte podľa toho, koľko práce treba, nie podľa veľkosti bývania.</b> Cena je konečná — čistiace prostriedky, vybavenie, umytie okien aj doprava po Bratislave sú v nej. Nie sme platiteľmi DPH.</p>
+    <p class="rovnako"><b>Vo všetkých balíkoch robíme to isté.</b> Líši sa len čas — a podľa neho to, koľko sa stihne. Kratší balík je na udržiavané bývanie, dlhší na generálne upratovanie.</p>
+    <ul class="cenik" role="list">
+      <li><span class="cas">3 hodiny</span><span class="suma">79,90 €</span><span class="hod">26,63 €/hod</span></li>
+      <li><span class="cas">4 hodiny</span><span class="suma">99,90 €</span><span class="hod">24,98 €/hod</span></li>
+      <li><span class="cas">6 hodín</span><span class="suma">139,90 €</span><span class="hod">23,32 €/hod</span></li>
+      <li><span class="cas">8 hodín</span><span class="suma">169,90 €</span><span class="hod">21,24 €/hod</span></li>
+      <li><span class="cas">8 h + tepovanie</span><span class="suma">199,90 €</span><span class="hod">hodina tepovania 30 €</span></li>
+    </ul>
   </div>
 </section>
 
@@ -367,13 +358,13 @@
     <div class="kicker">Navyše</div>
     <h2>Doplnkové služby</h2>
         <div class="addons">
-      <div class="addon"><span>Tepovanie k balíku Mini alebo Klasik</span><b>40 € / hod</b></div>
+      <div class="addon"><span>Tepovanie k balíkom Mini, Komfort a Klasik</span><b>40 € / hod</b></div>
       <div class="addon"><span>Samostatné tepovanie bez upratovania</span><b>55 € / hod</b></div>
-      <div class="addon"><span>Ošetrenie koženej sedačky — v balíku Maxi</span><b>10 €</b></div>
-      <div class="addon"><span>Ošetrenie koženej sedačky — k Mini a Klasik</span><b>25 €</b></div>
+      <div class="addon"><span>Ošetrenie koženej sedačky — pri každom balíku</span><b>25 €</b></div>
+      <div class="addon"><span>Rebrík na okná vo výške — pri každom balíku</span><b>10 €</b></div>
     </div>
-    <p class="note">Tepovanie sa účtuje za každú začatú hodinu. Pri rezervácii zaplatíte prvú hodinu, ďalšie doúčtujeme faktúrou po skončení.</p>
-    <p class="note">Na okná vo výške treba rebrík — ak ho nemáte, donesieme vlastný za 10 €; pri balíku Maxi je v cene. <b>Zľava −15 %</b> pre dôchodcov a ZŤP — zadajte kód <b>SOLIDARITA15</b> pri rezervácii.</p>
+    <p class="note">K balíkom Maxi a Maxi s tepovaním stojí tepovanie 30 € za hodinu. Tepovanie sa účtuje za každú začatú hodinu. Pri rezervácii zaplatíte prvú hodinu, ďalšie doúčtujeme faktúrou po skončení.</p>
+    <p class="note">Na okná vo výške treba rebrík — ak ho nemáte, donesieme vlastný za 10 € pri každom balíku. <b>Zľava −15 %</b> pre dôchodcov a ZŤP — zadajte kód <b>SOLIDARITA15</b> pri rezervácii. Zľava platí len na cenu služby, nie na príplatky.</p>
   </div>
 </section>
 

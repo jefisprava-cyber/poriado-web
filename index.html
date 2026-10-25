@@ -6,9 +6,27 @@
 <!-- Bez tohto vnuteny tmavy rezim (napr. Samsung Internet) prefarbi text na zlatych
      tlacidlach a kontrast klesne z 5,1:1 na 1,6:1. Web ma vlastnu svetlu paletu. -->
 <meta name="color-scheme" content="only light">
-<title>Upratovanie Bratislava od 79,90 € | Poriado</title>
-<meta name="description" content="Spoľahlivé upratovanie v Bratislave. Vlastné čistiace prostriedky v cene, rozsah si určíte vy. Domácnosti bez obhliadky. Balíčky Mini, Klasik, Maxi.">
+<title>Upratovanie Bratislava — cena od 79,90 € | Poriado</title>
+<meta name="description" content="Upratovanie bytov a domov v Bratislave od 79,90 € za 3 hodiny, tepovanie 55 €/hod, žehlenie 49,90 €. Prostriedky aj doprava v cene, bez obhliadky.">
 <link rel="canonical" href="https://www.poriado.sk/">
+<!-- Cenník platný od novembra 2026. Ceny musia sedieť s Bookiom —
+     overené na jeho verejnom rozhraní 25. 10. 2026:
+       3h Mini 79,90 (173506) · 4h Komfort 99,90 (180203)
+       6h Klasik 139,90 (173507) · 8h Maxi 169,90 (173508)
+       8h Maxi + tepovanie 199,90 (180204)
+       Tepovanie 55/hod (173509) · Žehlenie 49,90 (178847)
+     Príplatky: tepovanie k balíku 40 €/hod, pri oboch Maxi 30 €/hod;
+     koža 25 € a rebrík 10 € pri každom balíku.
+
+     Pri ďalšej zmene cenníka drž toto poradie, inak web klame:
+       1. Apps Script (BOOKIO_CENY, BOOKIO_DOPLNKY, CENY_BALIKOV,
+          HODINY_BALIKA) — musí vedieť o novej cene skôr, než ju
+          Bookio začne predávať, inak rezervácie ostanú bez faktúry
+       2. služby v Bookiu
+       3. ID a ceny v poriado-rezervacia.js
+       4. ceny NARAZ na index.html, sluzby.html, faq.html,
+          tepovanie-bratislava.html, rezervacia.html a v OG tagoch
+       5. lastmod v sitemap.xml -->
 <link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -16,7 +34,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sk_SK">
 <meta property="og:site_name" content="Poriado">
-<meta property="og:title" content="Poriado — Upratovanie Bratislava">
+<meta property="og:title" content="Poriado — Upratovanie v Bratislave, 3 hodiny za 79,90 €">
 <meta property="og:description" content="Spoľahlivé upratovanie bytov, domov a kancelárií v Bratislave. Vlastné prostriedky v cene a balíky podľa hodín.">
 <meta property="og:url" content="https://www.poriado.sk/">
 <meta property="og:image" content="https://www.poriado.sk/og-image.png">
@@ -67,39 +85,91 @@
     "opens": "08:00", "closes": "17:00"
   }],
   "makesOffer": [
-    {
-      "@type": "Offer",
-      "name": "Bal\u00edk Mini \u2014 3 hodiny upratovania",
-      "price": "79.90", "priceCurrency": "EUR",
-      "itemOffered": { "@type": "Service", "name": "Upratovanie dom\u00e1cnosti \u2014 Mini (3 h)" }
-    },
-    {
-      "@type": "Offer",
-      "name": "Bal\u00edk Klasik \u2014 6 hod\u00edn upratovania",
-      "price": "129.90", "priceCurrency": "EUR",
-      "itemOffered": { "@type": "Service", "name": "Upratovanie dom\u00e1cnosti \u2014 Klasik (6 h)" }
-    },
-    {
-      "@type": "Offer",
-      "name": "Bal\u00edk Maxi \u2014 9 hod\u00edn upratovania vr\u00e1tane tepovania",
-      "price": "169.90", "priceCurrency": "EUR",
-      "itemOffered": { "@type": "Service", "name": "Upratovanie dom\u00e1cnosti \u2014 Maxi (9 h)" }
-    },
-    {
-      "@type": "Offer",
-      "name": "Samostatn\u00e9 tepovanie",
-      "price": "55.00", "priceCurrency": "EUR",
-      "itemOffered": { "@type": "Service", "name": "Tepovanie seda\u010diek a kobercov" }
-    },
-    {
-      "@type": "Offer",
-      "name": "\u017dehlenie bielizne \u2014 2 hodiny",
-      "price": "50.00", "priceCurrency": "EUR",
-      "availability": "https://schema.org/PreOrder",
-      "availabilityStarts": "2026-11-05",
-      "itemOffered": { "@type": "Service", "name": "\u017dehlenie bielizne u z\u00e1kazn\u00edka doma" }
-    }
-  ]
+      {
+        "@type": "Offer",
+        "name": "Upratovanie Mini — 3 hodiny",
+        "price": "79.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Upratovanie bytu a domu",
+          "serviceType": "Upratovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Upratovanie Komfort — 4 hodiny",
+        "price": "99.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Upratovanie bytu a domu",
+          "serviceType": "Upratovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Upratovanie Klasik — 6 hodín",
+        "price": "139.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Upratovanie bytu a domu",
+          "serviceType": "Upratovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Generálne upratovanie Maxi — 8 hodín",
+        "price": "169.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Generálne upratovanie",
+          "serviceType": "Upratovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Maxi s tepovaním — 8 hodín a hodina tepovania",
+        "price": "199.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Generálne upratovanie s tepovaním",
+          "serviceType": "Upratovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Tepovanie — 1 hodina",
+        "price": "55.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Tepovanie sedačiek, kobercov a matracov",
+          "serviceType": "Tepovanie"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Žehlenie bielizne — 2 hodiny",
+        "price": "49.90",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Žehlenie bielizne",
+          "serviceType": "Žehlenie"
+        }
+      }
+    ]
 }
 </script>
 
@@ -195,51 +265,35 @@
   .card p{color:#5b6675;font-size:.96rem;margin-bottom:14px}
   .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
   .highlight{background:linear-gradient(135deg,#e9e5f8,#f7f6fb)}
-  .pricing{background:var(--bg)}
-  .zlava{max-width:640px;margin:20px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.92rem;color:var(--ink)}
-  .zlava b{color:var(--gold-text)}
   .znacka{color:var(--gold-text)}
   /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
      citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
-  .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
-  .krok{counter-increment:krok;position:relative;padding-left:52px}
-  .krok::before{content:counter(krok);position:absolute;left:0;top:-4px;width:38px;height:38px;border-radius:10px;background:var(--gold);color:var(--navy);font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
-  .krok b{display:block;color:var(--navy);font-size:1.02rem;margin-bottom:4px}
-  .krok span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5}
-  @media(max-width:760px){.kroky{grid-template-columns:1fr;gap:20px;max-width:420px}}
-  .note{text-align:center;color:#5f6875;font-size:.86rem;margin-top:16px}
+  
+  
+  
+  
+  
+  
+  
   /* Čo je v cene, patrí k cenám — nie medzi dlaždice o dôvere.
      Ako pás štítkov sa to prečíta jedným pohľadom, ako tri odstavce nie. */
-  .vcene-pas{margin:26px auto 0;text-align:center}
-  .vcene-nad{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
-  .vcene{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
-  .vcene li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e2e4ee;border-radius:999px;padding:9px 16px 9px 13px;font-size:.89rem;font-weight:600;color:var(--navy);line-height:1.3}
-  .vcene li::before{content:"✓";color:var(--blue);font-weight:700;font-size:.95rem;line-height:1}
-  .vcene-pod{margin-top:12px;font-size:.84rem;color:var(--muted)}
-  @media(max-width:560px){
-    .vcene-pas{margin-top:22px}
-    .vcene{gap:7px}
-    .vcene li{padding:8px 13px 8px 11px;font-size:.84rem;gap:7px}
-  }
-  .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
-  .pack{background:#fff;border:1px solid #e2e4ee;border-radius:14px;padding:20px 18px;text-align:center;position:relative;transition:.2s;display:flex;flex-direction:column}
-  .pack:hover{box-shadow:0 14px 32px rgba(21,63,79,.13);transform:translateY(-3px)}
-  .pack.popular{border:2px solid var(--blue);box-shadow:0 14px 32px rgba(46,117,182,.16)}
-  .pack .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
-  .pack .hrs{color:var(--blue);font-weight:700;font-size:.92rem;text-transform:uppercase;letter-spacing:1px}
-  .pack .pname{color:var(--navy);font-weight:800;font-size:1.1rem;margin:3px 0 8px}
-  .pack .amt{font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1}
-  .pack .ideal{color:#5b6675;font-size:.86rem;margin-top:10px;flex-grow:1}
-  .pack .pbtn{margin-top:14px}
-  .ftable-wrap{overflow-x:auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(21,63,79,.07);margin-top:20px}
-  table.ftable{border-collapse:collapse;width:100%;min-width:520px}
-  table.ftable th,table.ftable td{padding:10px 13px;border-bottom:1px solid #e6e5f1;text-align:center;font-size:.92rem}
-  table.ftable th{background:var(--navy);color:#fff;font-weight:700}
-  table.ftable th:first-child,table.ftable td:first-child{text-align:left;font-weight:600;color:var(--ink)}
-  table.ftable th:first-child{color:#fff}
-  table.ftable tr:nth-child(even) td{background:#fafcff}
-  table.ftable .yes{color:#96691a;font-weight:800}
-  table.ftable .no{color:#5f6875}
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   .disclaimer{background:#fff7ed;border:1px solid #fce2c2;border-radius:12px;padding:16px 20px;margin-top:22px;color:#7a5a2e;font-size:.9rem}
   .faq-list{max-width:760px;margin:0 auto}
   details{background:#fff;border:1px solid #e6e5f1;border-radius:11px;margin-bottom:12px;overflow:hidden}
@@ -251,7 +305,7 @@
   footer{background:var(--navy);color:#c6d8dd;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
   footer a{color:#b9d4da}
-  .pack-img{width:100%;height:118px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block}
+  
   header{box-shadow:0 1px 0 rgba(21,42,77,.08)}
   header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
   /* Štyri sľuby namiesto deviatich. Pri deviatich rovnako ťažkých kartách
@@ -293,21 +347,19 @@
   .btn-ghost-biele{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55);min-height:44px;display:inline-flex;align-items:center}
   .btn-ghost-biele:hover{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
 
-  /* Podpis stránky: hodiny. Poriado nepredáva metre štvorcové, predáva
-     hodiny — a zákazník si určuje, čomu sa budú venovať. Panel je zároveň
-     ozdoba, cenník aj vstup do rezervácie. */
-  .hodiny{background:#fff;border:1px solid rgba(255,255,255,.3);border-radius:18px;padding:24px 24px 20px;box-shadow:0 14px 32px rgba(21,63,79,.18)}
-  .hodiny h2{font-size:1.02rem;font-weight:700;letter-spacing:0;color:var(--navy);margin-bottom:4px}
-  .hodiny .pod{font-size:.88rem;color:var(--muted);margin-bottom:18px}
-  .hodiny a.riadok{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #e2e4ee;color:inherit;position:relative}
-  .hodiny a.riadok:first-of-type{border-top:0}
-  .hodiny a.riadok:hover .nazov b{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
-  .hodiny .popularny::before{content:"";position:absolute;left:-24px;top:9px;bottom:9px;width:4px;background:var(--gold);border-radius:0 3px 3px 0}
-  .hodiny .pocet{font-size:2.2rem;font-weight:700;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.04em;min-width:54px}
-  .hodiny .pocet small{display:block;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
-  .hodiny .nazov b{font-weight:700;color:var(--ink);font-size:1rem;display:block}
-  .hodiny .nazov span{display:block;font-weight:400;font-size:.86rem;color:var(--muted);margin-top:2px}
-  .hodiny .suma{font-weight:700;color:var(--navy);font-size:1.1rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   /* Hodnotenie v heroi — dôkaz patrí nad rozhodnutie, nie pod neho. */
   .hero .rev-bar{justify-content:flex-start;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);margin-top:26px;padding:20px 0 0}
   .hero .rev-bar .rev-num{color:#fff;font-weight:700}
@@ -315,7 +367,7 @@
   @media(max-width:880px){
     .hero .wrap{grid-template-columns:1fr}
     .hero::before{width:250px;height:250px;top:-120px;right:-100px;border-width:30px}
-    .hodiny .popularny::before{left:-18px}
+    
   }
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
@@ -336,28 +388,19 @@
   .rev-citaty cite{display:block;margin-top:10px;font-style:normal;font-weight:700;color:var(--navy);font-size:.86rem}
   @media(prefers-reduced-motion:reduce){.rev-citaty blockquote{transition:none}}
   @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
-  /* Druhý rad cenníka. Tepovanie ani žehlenie nie sú hodinové balíky,
-     takže do tej istej mriežky nepatria — a piata karta by ju aj tak
-     rozlomila na štyri plus jednu. */
-  .mimo-balikov{margin-top:30px}
-  .mimo-balikov h3{text-align:center;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-  .packs.dvoje{grid-template-columns:repeat(2,1fr);max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:0}
-  /* Pripravovaná služba: vidno ju, ale rezervovať sa nedá. */
-  .pack.chystame{border-style:dashed;background:#fcfdff}
-  .pack.chystame .tag{background:var(--navy)}
-  .pack .cakaj{margin-top:14px;padding:12px 10px;border-radius:10px;background:var(--light);color:var(--navy);font-weight:700;font-size:.85rem;line-height:1.3}
 
-  /* rozbalovacie porovnanie balikov */
-  .porovnanie{max-width:820px;margin:22px auto 0;background:#fff;border:1px solid #e2e4ee;border-radius:14px;overflow:hidden}
-  .porovnanie>summary{padding:16px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.97rem}
-  .porovnanie>summary::-webkit-details-marker{display:none}
-  .porovnanie>summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400;line-height:1}
-  .porovnanie[open]>summary::after{content:"\2212"}
-  .porovnanie .ftable-wrap{margin:0;border-radius:0;box-shadow:none}
-  /* veticka pre priestory na mieru (nahradila kartu Individualny) */
-  .namieru{text-align:center;color:#5b6675;font-size:.95rem;margin-top:20px}
-  .namieru a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
-  .namieru a:hover{color:var(--blue)}
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
   /* mobilna lepiaca lista */
   .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e2e4ee;box-shadow:0 -6px 24px rgba(21,63,79,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
   .mlista.show{transform:translateY(0)}
@@ -370,35 +413,10 @@
     body #pch-bubble{transition:transform .2s,bottom .25s ease}
     body.ml-on #pch-bubble{bottom:88px}
     body.ml-on #pch-panel{bottom:158px;max-height:calc(100vh - 178px)}}
-  /* Mobil: baliky do dvoch stlpcov namiesto jedneho dlheho stlpca */
-  @media(max-width:640px){
-    .packs{grid-template-columns:repeat(2,1fr);gap:10px}
-    .packs.dvoje{max-width:none}
-    .mimo-balikov{margin-top:24px}
-    .pack .cakaj{margin-top:10px;padding:10px 6px;font-size:.76rem}
-    .pack{padding:14px 10px}
-    .pack-img{height:76px;margin-bottom:8px}
-    .pack .tag{top:-10px;font-size:.75rem;padding:3px 9px;letter-spacing:.2px}
-    .pack .hrs{font-size:.75rem;letter-spacing:.3px}
-    .pack .pname{font-size:1rem;margin:2px 0 6px}
-    .pack .amt{font-size:1.35rem;letter-spacing:-.5px}
-    .pack .ideal{font-size:.76rem;margin-top:8px;line-height:1.35}
-    .pack .pbtn{margin-top:10px;padding:12px 4px;font-size:.78rem;min-height:46px;display:flex;align-items:center;justify-content:center}
-  }
-  /* Mobil: z porovnávacej tabuľky spravíme karty — žiadne vodorovné rolovanie.
-     Každý riadok je karta s názvom služby a troma označenými balíkmi. */
-  @media(max-width:640px){
-    .ftable-wrap{overflow-x:visible;border:none;background:transparent;box-shadow:none}
-    table.ftable{min-width:0;width:100%;display:block}
-    table.ftable thead{display:none}
-    table.ftable tbody{display:block}
-    table.ftable tr{display:block;background:#fff;border:1px solid #e2e4ee;border-radius:12px;padding:12px 14px;margin-bottom:10px}
-    table.ftable tr:nth-child(even) td{background:transparent}
-    table.ftable td{display:inline-flex;align-items:center;gap:5px;border:none;padding:0;font-size:.86rem;text-align:left}
-    table.ftable td:first-child{display:block;font-weight:700;color:var(--navy);margin-bottom:9px;font-size:.92rem;line-height:1.35}
-    table.ftable td[data-p]{margin-right:14px}
-    table.ftable td[data-p]::before{content:attr(data-p);color:#5f6875;font-weight:600;font-size:.78rem}
-  }
+  
+  
+  
+  
   /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
      Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
      čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
@@ -410,11 +428,7 @@
     text-decoration-thickness:2px;text-underline-offset:4px
   }
 
-
-
-  /* ═══════ PETROLEJOVÁ S FIALOVÝM PRECHODOM — len farby ═══════
-     Stránka zostáva presne taká, aká je dnes. Mení sa len to, čo bolo modré.
-     Jediný nový prvok palety je fialový koniec úvodného gradientu. */
+  
 
   /* Úvodný pás: petrolejová → modrá → fialová. Rovnaký gradient ako dnes,
      len s tretím bodom, aby bol prechod plynulý a nie skok. */
@@ -437,6 +451,79 @@
   footer .logo span{color:#b9d4da}
   .pch-head b span{color:#d9eaed}
 
+  
+  
+  
+  
+  
+  
+  
+
+  /* Na mobile mal riadok panelu 120 px, lebo popis dostal stĺpec široký
+     136 px a zalomil sa do troch riadkov. Pri piatich službách to je 600 px
+     len na zoznam. Riešenie: popis ide pod názov cez celú šírku, cena si
+     sadne k názvu. display:contents vyberie <b> a <span> z obalu .nazov
+     a urobí z nich priame položky mriežky riadka, takže sa dajú rozmiestniť
+     bez zásahu do HTML — a keďže .nazov je obyčajný <span> bez role,
+     prístupnosti to neuberie. */
+  
+  /* Mobil je hlavná cieľová skupina — desať pixelov na sekciu je pri piatich
+     sekciách a dvoch stranách sto pixelov rolovania. */
+  @media(max-width:560px){
+    section{padding:46px 0}
+  }
+  @media(max-width:360px){
+    .cen a{gap:8px;padding:11px 12px}
+  }
+  @media(max-width:880px){
+    /* Panel vystúpil o 66 px vyššie, a tým sa prvá cena dostala presne pod
+       bublinu chatu — pri 390 x 844 px (iPhone 12-15, Pixel 6-8) ju bublina
+       prekrývala a ťuknutie na cenu otvorilo chat namiesto rezervácie.
+       Deje sa to len pri prvej návšteve, kým je dole cookie lišta a bublina
+       je nad ňou; `pk-on` nastavuje poriado-meranie.js a po rozhodnutí
+       o cookies ju zase odoberie, takže sa chat hneď vráti.
+       Dve plávajúce vrstvy naraz sú na mobile aj tak priveľa. */
+    body.pk-on #pch-bubble{display:none}
+  }
+  /* Lepiaca hlavicka ma 75 px, takze skok na kotvu (#cennik, #onas, #ako...)
+     skoncil s nadpisom schovanym za nou. scroll-margin-top povie prehliadacu,
+     aby zastavil o kus vyssie. */
+  [id]{scroll-margin-top:86px}
+  /* Pravidla sekcie cennika. Zmazali sa, ked sekcia z domovskej odisla —
+     teraz je spat ako karty kategorii, takze ich treba tiez. */
+  .pricing{background:var(--bg)}
+  .inde{max-width:620px;margin:18px auto 0;text-align:center;font-size:.9rem;color:var(--muted);line-height:1.6}
+  .inde a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+  .inde a:hover{color:var(--blue)}
+  .inde b{color:var(--ink)}
+  .zlava{max-width:620px;margin:18px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
+  .zlava b{color:var(--gold-text)}
+
+  /* ═══════ KATEGORIE SLUZIEB ═══════
+     Nahradili rebrik balikov aj zoznam v uvode. Clovek si tu vyberie, CO
+     potrebuje; KOLKO HODIN si zvoli v rezervacnom okne. Styri sa do riadka
+     zmestia rovnako ako tri — stvrta pribudne pri pravidelnom upratovani. */
+  .kategorie{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;max-width:940px;margin:0 auto}
+  .kat{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e4ee;border-radius:16px;padding:14px 14px 18px;color:inherit;box-shadow:0 10px 30px rgba(21,63,79,.05);transition:.2s}
+  .kat:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(21,63,79,.13)}
+  .kat img{width:100%;height:116px;object-fit:cover;border-radius:11px;margin-bottom:13px;display:block}
+  .kat b{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.25}
+  .kat .co{display:block;font-size:.88rem;color:var(--muted);line-height:1.45;margin:5px 0 12px;flex-grow:1}
+  .kat .cena{display:block;font-size:1.12rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+  .kat:hover b{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+  /* Na mobile dve vedla seba — pod sebou by tri karty zabrali celu obrazovku
+     a clovek by videl prvu a pol. */
+  @media(max-width:640px){
+    .kategorie{grid-template-columns:1fr 1fr;gap:11px}
+    .kat{padding:10px 10px 14px;border-radius:14px}
+    .kat img{height:78px;margin-bottom:9px}
+    .kat b{font-size:.98rem}
+    .kat .co{font-size:.79rem;margin:4px 0 9px}
+    .kat .cena{font-size:1rem}
+  }
+
+
+
   </style>
 </head>
 <body>
@@ -458,7 +545,7 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-text">
-    <h1>Upratovanie v Bratislave <span class="cena">od 79,90 €</span><span class="druhy">Kúpite si hodiny — a čomu sa budeme venovať, poviete vy.</span></h1>
+    <h1>Upratovanie v Bratislave <span class="cena">3 hodiny za 79,90 €</span><span class="druhy">Kúpite si hodiny — a čomu sa budeme venovať, poviete vy.</span></h1>
     <p>Prídeme s vlastnými prostriedkami, poviete nám priority a my ich odrobíme. Bez obhliadky, cena je známa vopred.</p>
     <div class="hero-cta">
       <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn btn-primary btn-rez" data-open-rezervacia>Rezervovať termín</a>
@@ -479,25 +566,6 @@
         </a>
     </div>
 
-    <div class="hodiny">
-      <h2>Koľko hodín potrebujete?</h2>
-      <p class="pod">Cena je konečná. Doprava po Bratislave aj prostriedky sú v nej.</p>
-      <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="mini">
-        <span class="pocet">3<small>hodiny</small></span>
-        <span class="nazov"><b>Mini</b><span>Kúpeľňa, kuchyňa, podlahy a umytie okien</span></span>
-        <span class="suma">79,90 €</span>
-      </a>
-      <a class="riadok popularny" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="klasik">
-        <span class="pocet">6<small>hodín</small></span>
-        <span class="nazov"><b>Klasik</b><span>To isté do hĺbky — spotrebiče zvnútra aj balkón</span></span>
-        <span class="suma">129,90 €</span>
-      </a>
-      <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" data-open-rezervacia data-balik="maxi">
-        <span class="pocet">9<small>hodín</small></span>
-        <span class="nazov"><b>Maxi</b><span>Najviac času na jednu návštevu, tepovanie v cene</span></span>
-        <span class="suma">169,90 €</span>
-      </a>
-    </div>
   </div>
 </section>
 <section id="recenzie" class="reviews">
@@ -537,7 +605,7 @@
       <div class="slub">
         <div class="ikona"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.2v5l3.4 2"/></svg></div>
         <b>Zrušenie zdarma do 24 h</b>
-        <span>Odkaz na zrušenie máte priamo v potvrdzovacom e-maile. Neskôr účtujeme 50 % z ceny.</span>
+        <span>Odkaz na zrušenie máte priamo v potvrdzovacom e-maile a peniaze vrátime v plnej výške. Pri neskoršom zrušení vraciame polovicu.</span>
       </div>
     </div>
   </div>
@@ -547,118 +615,46 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Transparentné ceny</div>
-      <h2>Tri balíky, platíte za hodiny</h2>
+      <h2>Platíte za hodiny, nie za metre</h2>
     </div>
-    <div class="packs">
-      <div class="pack">
-        <img src="maly-byt-balik-mini.webp" srcset="maly-byt-balik-mini-320.webp 320w, maly-byt-balik-mini-480.webp 480w, maly-byt-balik-mini.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná spálňa — balík Mini na 3 hodiny" class="pack-img" loading="lazy" width="900" height="675">
-        <div class="hrs">3 hodiny</div>
-        <div class="pname">Mini</div>
-        <div class="amt">79,90 €</div>
-        <div class="ideal">Kúpeľňa, WC, kuchyňa, podlahy, prach a umytie okien.</div>
-        <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173506" class="btn pbtn btn-rez" data-open-rezervacia data-balik="mini">Rezervovať Mini</a>
-      </div>
-      <div class="pack popular">
-        <div class="tag">Obľúbené</div>
-        <img src="vacsi-byt-balik-klasik.webp" srcset="vacsi-byt-balik-klasik-320.webp 320w, vacsi-byt-balik-klasik-480.webp 480w, vacsi-byt-balik-klasik.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná kuchyňa s jedálňou — balík Klasik na 6 hodín" class="pack-img" loading="lazy" width="900" height="675">
-        <div class="hrs">6 hodín</div>
-        <div class="pname">Klasik</div>
-        <div class="amt">129,90 €</div>
-        <div class="ideal">To isté do hĺbky — vrátane spotrebičov zvnútra a balkóna.</div>
-        <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173507" class="btn pbtn btn-rez" data-open-rezervacia data-balik="klasik">Rezervovať Klasik</a>
-      </div>
-      <div class="pack">
-        <img src="rodinny-dom-balik-maxi.webp" srcset="rodinny-dom-balik-maxi-320.webp 320w, rodinny-dom-balik-maxi-480.webp 480w, rodinny-dom-balik-maxi.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 211px" alt="Upratovaná obývačka — balík Maxi na 9 hodín vrátane tepovania" class="pack-img" loading="lazy" width="900" height="675">
-        <div class="hrs">9 hodín</div>
-        <div class="pname">Maxi</div>
-        <div class="amt">169,90 €</div>
-        <div class="ideal">Najviac času na jednu návštevu. Tepovanie v cene — čas sa odčíta z času upratovania.</div>
-        <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173508" class="btn pbtn btn-rez" data-open-rezervacia data-balik="maxi">Rezervovať Maxi</a>
-      </div>
+    <!-- Kategorie, nie rebrik balikov. Konkretny balik si clovek vyberie
+         v rezervacnom okne, kde aj tak musi prejst — na stranke staci,
+         aby vedel, co ponukame a od akej ceny. Pribudne sem stvrta karta,
+         ked bude nastavene pravidelne upratovanie. -->
+    <div class="kategorie">
+      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42936" data-open-rezervacia data-kategoria="42936">
+        <img src="maly-byt-balik-mini.webp" srcset="maly-byt-balik-mini-320.webp 320w, maly-byt-balik-mini-480.webp 480w, maly-byt-balik-mini.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Upratovaná spálňa v bratislavskom byte" width="900" height="675" loading="lazy">
+        <b>Upratovanie</b>
+        <span class="co">Byt alebo dom, 3 až 8 hodín</span>
+        <span class="cena">od 79,90 €</span>
+      </a>
+      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173509" data-open-rezervacia data-balik="tepovanie">
+        <img src="tepovanie-sedacky.webp" srcset="tepovanie-sedacky-320.webp 320w, tepovanie-sedacky-480.webp 480w, tepovanie-sedacky.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Tepovanie látkovej sedačky extraktorom" width="900" height="675" loading="lazy">
+        <b>Tepovanie</b>
+        <span class="co">Sedačky, koberce a matrace</span>
+        <span class="cena">55 € / hod</span>
+      </a>
+      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=178847" data-open-rezervacia data-balik="zehlenie">
+        <img src="zehlenie-bielizne-bratislava.webp" srcset="zehlenie-bielizne-bratislava-320.webp 320w, zehlenie-bielizne-bratislava-480.webp 480w, zehlenie-bielizne-bratislava.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Žehlenie košele u zákazníka doma" width="900" height="675" loading="lazy">
+        <b>Žehlenie</b>
+        <span class="co">Košele, bielizeň aj uteráky</span>
+        <span class="cena">49,90 €</span>
+      </a>
     </div>
-    <div class="vcene-pas">
-      <p class="vcene-nad">V cene každého balíka</p>
-      <ul class="vcene">
-        <li>Čistiace prostriedky a vybavenie</li>
-        <li>Doprava po Bratislave</li>
-        <li>Umytie okien</li>
-        <li>Bez obhliadky pred návštevou</li>
-      </ul>
-      <p class="vcene-pod">Na okná vo výške si donesieme rebrík za 10 €.</p>
-    </div>
-    <div class="mimo-balikov">
-      <h3>Služby mimo balíkov</h3>
-      <div class="packs dvoje">
-        <div class="pack">
-          <img src="tepovanie-sedacky.webp" srcset="tepovanie-sedacky-320.webp 320w, tepovanie-sedacky-480.webp 480w, tepovanie-sedacky.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 330px" alt="Tepovanie látkovej sedačky extraktorom v Bratislave" class="pack-img" loading="lazy" width="900" height="675">
-          <div class="hrs">Samostatne</div>
-          <div class="pname">Tepovanie</div>
-          <div class="amt">55 € / hod</div>
-          <div class="ideal">Sedačky, koberce a matrace. K Mini a Klasik 40 €/hod, v balíku Maxi zahrnuté.</div>
-          <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173509" class="btn pbtn btn-rez" data-open-rezervacia data-balik="tepovanie">Rezervovať tepovanie</a>
-        </div>
-        <div class="pack chystame">
-          <div class="tag">Pripravujeme</div>
-          <img src="zehlenie-bielizne-bratislava.webp" srcset="zehlenie-bielizne-bratislava-320.webp 320w, zehlenie-bielizne-bratislava-480.webp 480w, zehlenie-bielizne-bratislava.webp 900w" sizes="(max-width: 640px) calc(50vw - 49px), 330px" alt="Žehlenie bielizne u zákazníka doma — naparovacia žehlička a košeľa na žehliacej doske" class="pack-img" loading="lazy" width="900" height="675">
-          <div class="hrs">2 hodiny</div>
-          <div class="pname">Žehlenie</div>
-          <div class="amt">50 €</div>
-          <div class="ideal">Košele, tričká, posteľná bielizeň aj uteráky — u vás doma. Bielizeň od vás neodvážame.</div>
-          <p class="cakaj">Termíny otvárame od 5. novembra</p>
-        </div>
-      </div>
-    </div>
-    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte zľavový kód <b>SOLIDARITA15</b>. Pri prvej návšteve nám stačí ukázať preukaz.</p>
-    <details class="porovnanie">
-      <summary>Podrobné porovnanie balíkov</summary>
-    <div class="ftable-wrap">
-      <table class="ftable">
-        <thead>
-          <tr><th>Čo je v cene</th><th>Mini 3 h</th><th>Klasik 6 h</th><th>Maxi 9 h</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Bežné upratanie (prach, povrchy, podlahy)</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Použitie vlastných čistiacich prostriedkov a vybavenia</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Priority si určíte vy (dohoda pred upratovaním)</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Dezinfekcia kúpeľne a WC</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Kuchyňa – povrchy a drez</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Umytie okien</td><td class="yes" data-p="Mini">&#10003;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Kuchyňa do hĺbky (linka, obklady)</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Balkón alebo terasa</td><td class="no" data-p="Mini">&#8211;</td><td class="yes" data-p="Klasik">&#10003;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Tepovanie sedačky/kobercov</td><td class="no" data-p="Mini">40 €/h</td><td class="no" data-p="Klasik">40 €/h</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-          <tr><td>Generálne upratovanie celej nehnuteľnosti</td><td class="no" data-p="Mini">&#8211;</td><td class="no" data-p="Klasik">&#8211;</td><td class="yes" data-p="Maxi">&#10003;</td></tr>
-        </tbody>
-      </table>
-    </div>
-    </details>
-    <p class="namieru">Kancelárie, Airbnb a špeciálne priestory riešime na mieru — <a href="#" data-open-individ>pošlite nezáväzný dopyt</a></p>
-    <p class="note"><b>Balík si vyberajte podľa toho, koľko času treba — nie podľa veľkosti bytu.</b> Jednoizbový byt po maľovaní alebo po nájomníkoch môže pokojne potrebovať deväť hodín, kým udržiavané trojizbové bývanie zvládneme za tri. Keď si nie ste istí, napíšte nám a poradíme.</p>
-    <p class="note">Vyberte si balík a voľný termín — rezerváciu dokončíte online platbou kartou, cez TatraPay alebo SporoPay. Faktúru pošleme e-mailom do 24 hodín.</p>
+    <p class="inde">V cene každého balíka je <b>umytie okien</b>, dezinfekcia kúpeľne a WC, prach, podlahy aj balkón, čistiace prostriedky a doprava — chodíme do všetkých bratislavských mestských častí. Rebrík na okná vo výške 10 €, ošetrenie koženej sedačky 25 €. <b>Tepovanie</b> pridáme ku ktorémukoľvek balíku za 40 € na hodinu, pri Maxi za 30 €.</p>
+    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte kód <b>SOLIDARITA15</b>, pri prvej návšteve nám stačí ukázať preukaz. Platí na cenu služby, nie na príplatky.</p>
+    <p class="inde">Čo presne je v ktorom balíku a celý rozpis cien nájdete v <a href="sluzby.html#cennik">prehľade služieb a cien</a>.</p>
   </div>
 </section>
-<section id="ako">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Ako to funguje</div>
-      <h2>Od rezervácie po <span class="znacka">Poriado</span>(k) za tri kroky</h2>
-    </div>
-    <ol class="kroky">
-      <li class="krok"><b>Vyberiete balík a termín</b><span>Online, bez obhliadky. Potvrdenie máte okamžite.</span></li>
-      <li class="krok"><b>Poviete nám priority</b><span>Čo je najdôležitejšie upratať — tomu sa venujeme najviac.</span></li>
-      <li class="krok"><b>Prídeme a upraceme</b><span>S vlastnými čistiacimi prostriedkami a vybavením.</span></li>
-    </ol>
-  </div>
-</section>
+
 <section id="onas" class="highlight">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">O nás</div>
       <h2>Upratujeme v Bratislave, nie cez agentúru</h2>
     </div>
-    <div style="max-width:760px;margin:0 auto;text-align:center">
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Preto sme sa rozhodli robiť to po svojom. Založili sme <b>Poriado</b> a všetky nazbierané skúsenosti sme vložili do služby, ktorá dáva zmysel vám — nie tabuľke. Prídeme s vlastným vybavením, dohodneme sa na prioritách a odvedieme prácu tak, akoby sme upratovali u seba doma.</p>
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:26px">Sme malý osobný tím, ktorý si zakladá na férovosti — bez skrytých poplatkov a bez výhovoriek. Čo si dohodneme, dodržíme, a k vášmu domovu pristupujeme spoľahlivo a diskrétne.</p>
+    <div style="max-width:700px;margin:0 auto;text-align:center">
+      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:0">Upratovaniu sa venujeme roky. Nie sme agentúra — chodí k vám ten istý človek, ktorý váš byt pozná. Na prípadnú škodu máme poistenie zodpovednosti.</p>
     </div>
   </div>
 </section>
@@ -667,7 +663,7 @@
 <section class="zaver">
   <div class="wrap">
     <h2>Dohodneme sa na prioritách a prídeme.</h2>
-    <p>Vyberiete si balík a voľný termín, potvrdenie máte okamžite. Zrušenie zdarma do 24 hodín pred termínom.</p>
+    <p>Zrušenie zdarma do 24 hodín pred termínom.</p>
     <div class="zaver-cta">
       <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
       <a href="tel:+421949061088" class="btn btn-ghost-biele">Radšej zavolať: 0949 061 088</a>
@@ -686,7 +682,7 @@
   </div>
 </footer>
 <div class="mlista" id="mlista" role="region" aria-label="Rýchla rezervácia">
-  <div class="cena">od 79,90 €<small>balík Mini, 3 hodiny</small></div>
+  <div class="cena">79,90 €<small>Mini, 3 hodiny</small></div>
   <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
 </div>
 
