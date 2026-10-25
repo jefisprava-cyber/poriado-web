@@ -162,7 +162,8 @@
         "name": "Žehlenie bielizne — 2 hodiny",
         "price": "49.90",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
+        "availability": "https://schema.org/PreOrder",
+        "availabilityStarts": "2026-11-03",
         "itemOffered": {
           "@type": "Service",
           "name": "Žehlenie bielizne",
@@ -520,7 +521,15 @@
     .kat b{font-size:.98rem}
     .kat .co{font-size:.79rem;margin:4px 0 9px}
     .kat .cena{font-size:1rem}
-  }
+  }
+  /* Pripravovana sluzba: vidno ju, ale rezervovat sa neda. Bez odkazu,
+     takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
+  .kat.caka{box-shadow:none;border-style:dashed;background:#fcfdff;cursor:default}
+  .kat.caka:hover{transform:none;box-shadow:none}
+  .kat.caka img{filter:grayscale(.55);opacity:.8}
+  .kat.caka b,.kat.caka .cena{color:var(--muted)}
+  .kat.caka .cena small{display:block;margin-top:5px;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-text)}
+
 
 
 
@@ -634,12 +643,16 @@
         <span class="co">Sedačky, koberce a matrace</span>
         <span class="cena">55 € / hod</span>
       </a>
-      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=178847" data-open-rezervacia data-balik="zehlenie">
+      <!-- Zehlenie sa zatial neda rezervovat — v Bookiu nie je vo formulari,
+           lebo sa nedalo nastavit, aby sa dalo objednat az od 3. novembra.
+           Preto to NIE JE odkaz: nic neklikatelne, nic vo fokuse. Ked sa
+           sluzba spusti, vrat sem <a> s &service=178847 a zmaz .caka. -->
+      <div class="kat caka">
         <img src="zehlenie-bielizne-bratislava.webp" srcset="zehlenie-bielizne-bratislava-320.webp 320w, zehlenie-bielizne-bratislava-480.webp 480w, zehlenie-bielizne-bratislava.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Žehlenie košele u zákazníka doma" width="900" height="675" loading="lazy">
         <b>Žehlenie</b>
         <span class="co">Košele, bielizeň aj uteráky</span>
-        <span class="cena">49,90 €</span>
-      </a>
+        <span class="cena">49,90 €<small>Čoskoro</small></span>
+      </div>
     </div>
     <p class="inde">V cene každého balíka je <b>umytie okien</b>, dezinfekcia kúpeľne a WC, prach, podlahy aj balkón, čistiace prostriedky a doprava — chodíme do všetkých bratislavských mestských častí. Rebrík na okná vo výške 10 €, ošetrenie koženej sedačky 25 €. <b>Tepovanie</b> pridáme ku ktorémukoľvek balíku za 40 € na hodinu, pri Maxi za 30 €.</p>
     <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte kód <b>SOLIDARITA15</b>, pri prvej návšteve nám stačí ukázať preukaz. Platí na cenu služby, nie na príplatky.</p>

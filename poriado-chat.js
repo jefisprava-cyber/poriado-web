@@ -44,7 +44,7 @@
     { q: "Ako to funguje?",
       a: "Jednoducho: pred upratovaním sa dohodneme, čomu sa máme v rámci času balíka venovať najviac — priority určujete vy.\n\nPrídeme s vlastnými prostriedkami aj vybavením a domácnosti upratujeme bez obhliadky." },
     { q: "Žehlíte bielizeň?",
-      a: "Žehlenie si môžete rezervovať od 3. novembra ako samostatnú službu — dve hodiny za 49,90 €.\n\nŽehlíme u vás doma, bielizeň od vás neodvážame. Prichádzame s vlastnou žehličkou, doskou aj vešiakmi.\n\nPotrebujeme od vás vypranú a suchú bielizeň, voľnú plochu asi 1,5 × 1 m a zásuvku v dosahu." },
+      a: "Žehlenie spúšťame 3. novembra ako samostatnú službu — dve hodiny za 49,90 €.\n\nŽehlíme u vás doma, bielizeň od vás neodvážame. Prichádzame s vlastnou žehličkou, doskou aj vešiakmi.\n\nPotrebujeme od vás vypranú a suchú bielizeň, voľnú plochu asi 1,5 × 1 m a zásuvku v dosahu." },
     { q: "Robíte tepovanie?",
       a: "Áno. V cene máte tepovanie pri balíku Maxi + tepovanie — osem hodín upratovania a hodina tepovania za 199,90 €. Samotný balík Maxi tepovanie neobsahuje.\n\nK ostatným balíkom si tepovanie doplatíte za 40 €/hod, pri oboch balíkoch Maxi za 30 €/hod. Alebo prídeme len tepovať samostatne za 55 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie za 25 € namiesto tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
