@@ -341,12 +341,12 @@
 
   /* Záverečná výzva. Kto doscrolluje až sem, je najzaujatejší — a doteraz
      tu nedostal nič, na čo by klikol. */
-  .zaver{background:var(--navy);color:#fff;text-align:center;padding:clamp(48px,6vw,76px) 0}
-  .zaver h2{color:#fff;margin-bottom:12px}
-  .zaver p{color:#cfdde1;max-width:56ch;margin:0 auto 26px;font-size:1.02rem}
-  .zaver-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-  .btn-ghost-biele{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55);min-height:44px;display:inline-flex;align-items:center}
-  .btn-ghost-biele:hover{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
+  
+  
+  
+  
+  
+  
 
   
   
@@ -557,7 +557,27 @@
     .doplnky li{font-size:.82rem;padding:6px 14px 6px 6px;gap:8px}
     .doplnky .ik{width:28px;height:28px}
     .doplnky .ik svg{width:16px;height:16px}
-  }
+  }
+  /* ═══════ SPODOK STRÁNKY: JEDEN PRECHOD ═══════
+     „O nás" a pätička sú dva prvky, takže jeden gradient cez oba sa bez
+     prestavby HTML spraviť nedá. Každý dostane polovicu a v mieste spoju
+     majú obe presne tú istú farbu (#27506e) — prechod tak pôsobí ako
+     jeden pás bez ohľadu na to, aké sú vysoké.
+     Fialová hore nadväzuje na koniec úvodného pásu, tyrkysová dole
+     zatvára stránku. */
+  #onas.highlight{background:linear-gradient(180deg,#3d2a7a 0%,#27506e 100%)}
+  footer{background:linear-gradient(180deg,#27506e 0%,#12707f 100%)}
+
+  /* Sekcia bola svetlá a text v nej tmavý — na tmavom pozadí by zmizol.
+     Farby nižšie sú zvolené tak, aby každá mala voči svojmu podkladu
+     aspoň 4,5:1; prepočet je v skripte, ktorý to sem zapísal. */
+  #onas .kicker{color:#b9a7f0}
+  #onas .section-head h2{color:#fff}
+  #onas p{color:#dfe4f2 !important}
+  #onas p b{color:#fff}
+  footer{color:#dbeaee}
+  footer a{color:#deeff2}
+
 
 
 
@@ -727,25 +747,15 @@
 </section>
 
 
-<section class="zaver">
-  <div class="wrap">
-    <h2>Dohodneme sa na prioritách a prídeme.</h2>
-    <p>Zrušenie zdarma do 24 hodín pred termínom.</p>
-    <div class="zaver-cta">
-      <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn btn-rez" data-open-rezervacia>Rezervovať termín</a>
-      <a href="tel:+421949061088" class="btn btn-ghost-biele">Radšej zavolať: 0949 061 088</a>
-    </div>
-  </div>
-</section>
 </main>
 <footer id="kontakt">
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
     <p>Upratovanie Bratislava — byty, domy, kancelárie, tepovanie</p>
-    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#b9d4da">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#b9d4da">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#b9d4da">info@poriado.sk</a></p>
+    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#deeff2">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#deeff2">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#deeff2">info@poriado.sk</a></p>
     <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424<br>&copy; 2026 Poriado. &nbsp;|&nbsp; poriado.sk</p>
-    <p style="margin-top:10px"><a href="sluzby.html" style="color:#b9d4da">Služby</a> &nbsp;·&nbsp; <a href="faq.html" style="color:#b9d4da">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#b9d4da">Tepovanie sedačiek a kobercov</a></p>
-    <p style="margin-top:10px"><a href="rezervacia.html" style="color:#b9d4da">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html" style="color:#b9d4da">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#b9d4da">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#b9d4da">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="sluzby.html" style="color:#deeff2">Služby</a> &nbsp;·&nbsp; <a href="faq.html" style="color:#deeff2">Časté otázky</a> &nbsp;·&nbsp; <a href="tepovanie-bratislava.html" style="color:#deeff2">Tepovanie sedačiek a kobercov</a></p>
+    <p style="margin-top:10px"><a href="rezervacia.html" style="color:#deeff2">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html" style="color:#deeff2">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#deeff2">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#deeff2">Nastavenia cookies</a></p>
   </div>
 </footer>
 <div class="mlista" id="mlista" role="region" aria-label="Rýchla rezervácia">
