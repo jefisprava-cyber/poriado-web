@@ -200,6 +200,14 @@
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:#b9d4da}
   .pch-head b span{color:#d9eaed}
+  /* Bublina chatu je fixne vpravo dole a na konci stranky sadala priamo na
+     riadok odkazov — tuknutie na „Nastavenia cookies" otvorilo chat namiesto
+     nastaveni. Paticka preto dostava na mobile spodnu rezervu.
+     Zaroven mali odkazy v paticke vysku 18 px, kym pravidlo projektu zada 44:
+     13 px vypln hore aj dole ich dvihne presne na 44. */
+  footer p a{display:inline-block;padding:13px 6px}
+  @media(max-width:820px){footer{padding-bottom:96px}}
+
 
   </style>
 </head>
@@ -207,7 +215,7 @@
 <header>
   <div class="nav">
     <a href="/" class="logo">Poriado<span>.</span></a>
-    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu">☰</button>
+    <button class="nav-burger" id="nav-burger" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="nav-links">☰</button>
     <nav class="nav-links" id="nav-links">
       <a href="sluzby.html#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
@@ -302,6 +310,7 @@
 <footer>
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
+    <p style="margin-top:10px"><a href="tel:+421949061088">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk">info@poriado.sk</a></p>
     <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424</p>
     <p style="margin-top:10px"><a href="rezervacia.html">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
   </div>
