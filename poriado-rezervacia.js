@@ -436,11 +436,23 @@
          dvakrát, keby ju widget poslal opakovane. Nie je to číslo rezervácie
          z Bookia — spárovať konverziu s konkrétnou rezerváciou sa cez widget
          nedá (treba overiť, či sa to dá dotiahnuť cez API alebo webhook).
-     Pozor do budúcna: widget Bookia má aj vlastné odoslanie purchase do GTM
-     (sendPurchaseEvent). Spustí sa len vtedy, keď je v Bookiu vyplnené GTM id
-     — to je podľa cenníka až od balíka Standard a my máme Smart, takže teraz
-     dvojité meranie nehrozí. Ak sa GTM v Bookiu niekedy zapne, treba to tu
-     doriešiť (zladiť id udalosti), inak budú nákupy v GA4 dvakrát. */
+     DÔLEŽITÉ (overené v zdroji widgetu 27. 10. 2026): táto funkcia sa pri
+     platbe kartou NESPUSTÍ. Bookio po odoslaní volá
+       t.redirectUrl ? window.top.location.replace(t.redirectUrl) : …
+     čiže prepíše celé okno prehliadača, nie iframe. Naša stránka v tej chvíli
+     zanikne a BOOKIO_RESERVATION_SUCCESS nemá komu prísť. Potvrdzovacia
+     obrazovka sa po návrate z banky vykreslí na bookio.com ako samostatná
+     stránka. Odkedy je PLATBA = 'karta', je to bežná cesta — teda Purchase
+     odtiaľto prakticky nechodí a nákupy treba posielať serverovo cez
+     Conversions API z webhooku Bookia.
+
+     Pozor na GTM: widget má aj vlastné odoslanie purchase do dataLayer
+     (sendPurchaseEvent). Je na tom istom riadku ako postMessage nižšie,
+     takže pri rezervácii BEZ platby by sa nákup počítal dvakrát. Spustí sa
+     len vtedy, keď je v Bookiu vyplnené GTM id — od 27. 10. sme na balíku
+     Standard, takže to pole už existuje. Nechať prázdne, kým sa neoverí, že
+     transactionId z Bookia sedí s číslom rezervácie z webhooku; bez toho sa
+     udalosti nezlúčia. */
   function nakup(p) {
     var d = p || {};
 
