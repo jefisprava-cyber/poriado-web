@@ -151,9 +151,15 @@
     tepovanie: '42935', zehlenie: '42937'
   };
 
+  /* Bookio predvoli sluzbu LEN ked dostane oba parametre naraz. Samotne
+     &service= skonci na vybere kategorie, samotne &category= otvori zoznam
+     bez predvolby. Overene 27. 10. 2026 priamo vo widgete. */
   function adresa(balik, kategoria) {
     var k = kategoria || KATEGORIE[balik];
-    return k ? (ZAKLAD + '&category=' + k) : ZAKLAD;
+    var s = SLUZBY[balik] ? SLUZBY[balik].id : null;
+    if (k && s) return ZAKLAD + '&category=' + k + '&service=' + s;
+    if (k) return ZAKLAD + '&category=' + k;
+    return ZAKLAD;
   }
 
   /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta
