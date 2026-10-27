@@ -70,6 +70,29 @@
     document.head.appendChild(s);
     gtag('js', new Date());
     gtag('config', GA_ID);
+    zistiGaIdent();
+  }
+
+  /* GA4 identifikátory pre serverové meranie.
+     Nákup sa dokončuje v Bookiu, teda mimo nášho webu, a posiela ho až
+     server. Measurement Protocol ale nemá pole na gclid — konverziu priradí
+     k reklame jedine vtedy, keď dostane TEN ISTÝ client_id, aký má tento
+     prehliadač. S vymysleným by GA4 založila nového používateľa a novú
+     reláciu bez zdroja, takže by nákup vyzeral ako priama návšteva.
+     session_id k tomu priradí správnu reláciu.
+
+     Čítame ich cez gtag('get'), nie z cookies: tvar _ga aj _ga_<kontajner>
+     je nezdokumentovaný a raz sa už zmenil (GS1 → GS2), takže vlastný
+     rozoberač by sa raz ticho rozsypal. Odpoveď chodí cez callback, preto
+     si ju odkladáme bokom. */
+  var gaIdent = {};
+
+  function zistiGaIdent() {
+    if (typeof window.gtag !== 'function') return;
+    try {
+      gtag('get', GA_ID, 'client_id', function (v) { if (v) gaIdent.cid = String(v); });
+      gtag('get', GA_ID, 'session_id', function (v) { if (v) gaIdent.sid = String(v); });
+    } catch (e) {}
   }
 
   function nacitajPixel() {
@@ -261,6 +284,10 @@
       var c = aw.split('.');
       if (c.length > 2) z.gclid = c.slice(2).join('.');
     }
+    /* Keby gtag odpovedal neskôr než prvé volanie, skúsime to ešte raz. */
+    if (!gaIdent.cid) zistiGaIdent();
+    if (gaIdent.cid) z.ga_cid = gaIdent.cid;
+    if (gaIdent.sid) z.ga_sid = gaIdent.sid;
     return z;
   };
 
@@ -296,8 +323,16 @@
      Odosiela sa LEN pri marketingovom súhlase. Nie je to opatrnosť navyše:
      bez súhlasu sa konverzia s gclid do Google Ads nahrať ani nesmie, takže
      by nám taký riadok bol na nič.
-     Bez reklamného identifikátora sa neposiela nič — priame návštevy do
-     tabuľky pridávať netreba, tie sa nikam nenahrávajú. */
+     Riadok sa zakladá KAŽDÉMU, kto dal súhlas — nielen tomu, kto prišiel
+     z reklamy. Predtým to tak nebolo a dávalo to zmysel, kým sme konverzie
+     nahrávali len do Google Ads, kde je bez gclid riadok naozaj na nič.
+     Odkedy nákup posiela server aj do Mety, platí opak: Meta sa učí a stavia
+     publiká z VŠETKÝCH nákupov, aj tých, ktoré prišli z vyhľadávania alebo
+     priamo. Keby sme posielali len tie z reklamy, ukazovali by sme jej
+     zlomok skutočnosti.
+
+     Riadok zároveň slúži ako záznam o súhlase: keď preň riadok nie je,
+     server o tomto nákupe Mete ani Googlu nepovie nič. */
   var ZDROJ_AKCIA = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec';
   var ZDROJ_TOKEN = 'poriado2026';
   var odoslaneFazy = {};
@@ -308,10 +343,6 @@
       if (odoslaneFazy[faza]) return;               // jedna fáza = jeden riadok
 
       var z = window.poriadoZdroj();
-      var maKlik = false;
-      KLIKY.forEach(function (k) { if (z[k]) maKlik = true; });
-      if (!maKlik) return;
-
       odoslaneFazy[faza] = true;
 
       var p = [];
@@ -325,7 +356,8 @@
       pridaj('balik', balik || '');
       pridaj('cas', new Date().toISOString());
       KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
-      ['fbp', 'fbc', 'cas_kliku', 'referrer', 'vstup'].forEach(function (k) { pridaj(k, z[k]); });
+      ['fbp', 'fbc', 'ga_cid', 'ga_sid', 'cas_kliku', 'referrer', 'vstup']
+        .forEach(function (k) { pridaj(k, z[k]); });
       /* User agent prehliadača. Meta ho pri webových udalostiach vyžaduje —
          bez neho sa konverzia nedá odoslať ako udalosť z webu a nespáruje sa
          s človekom. Sem patrí user agent ZÁKAZNÍKA; keby sme ho dopĺňali až
