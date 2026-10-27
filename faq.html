@@ -98,7 +98,7 @@
       "name": "Žehlíte aj bielizeň?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Žehlenie bielizne spúšťame 3. novembra 2026 ako samostatnú službu: dve hodiny za 49,90 €. Rezervovať sa bude dať od toho dňa, zatiaľ nám napíšte na info@poriado.sk a ozveme sa vám hneď, ako termíny otvoríme."
+        "text": "Žehlenie bielizne ponúkame ako samostatnú službu: dve hodiny za 49,90 €. Termín si vyberiete priamo v rezervácii."
       }
     },
     {
@@ -114,7 +114,7 @@
       "name": "Máte zľavu pre dôchodcov alebo ZŤP?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa počíta z ceny balíka, na príplatky sa nevzťahuje. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár. Pri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry."
+        "text": "Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa počíta z ceny balíka; na príplatky a na postavebné upratovanie sa nevzťahuje. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár. Pri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry."
       }
     },
     {
@@ -155,7 +155,7 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#96691a;}
+  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#855b16;}
   *{margin:0;padding:0;box-sizing:border-box}
   a{text-decoration:none;color:inherit}
   body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-synthesis:none}
@@ -259,6 +259,15 @@
      13 px vypln hore aj dole ich dvihne presne na 44. */
   footer p a{display:inline-block;padding:13px 6px}
   @media(max-width:820px){footer{padding-bottom:96px}}
+  /* ═══════ SVETLY PAS — ROVNAKY AKO NA DOMOVSKEJ ═══════
+     Sekcie medzi uvodom a zaverecnou vyzvou zdielaju jeden gradient, aby
+     farebny beh nekoncil pri prekliku z domovskej. Oba konce maju zamerne
+     rovnaku svetlost (HSL L = 94 %): nie je to stmavovanie zhora nadol,
+     ale cisty posun odtienu z petrolejovej do fialovej.
+     Striedanie .alt sa tym rusi — pas nahradza pruhovanie. */
+  .pas{background:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%)}
+  .pas .alt,.alt{background:transparent}
+
 
 
   </style>
@@ -286,6 +295,11 @@
     <p>Všetko podstatné na jednom mieste — priebeh upratovania, platba, termíny aj doplnkové služby.</p>
   </div>
 </section>
+<!-- Svetly pas: sekcie medzi uvodom a zaverom zdielaju jeden
+     gradient, rovnako ako na domovskej. Preto maju background
+     transparent — pozri .pas v <style>. -->
+<div class="pas">
+
 
 <section>
   <div class="wrap">
@@ -297,9 +311,9 @@
       <details><summary>Nosíte vlastné čistiace prostriedky?</summary><p>Áno, prichádzame s vlastným vybavením aj prostriedkami — sú v cene balíka.</p></details>
       <details><summary>Koľko ľudí príde upratovať?</summary><p>Štandardne príde jedna upratovačka. V prípade dostupných kapacít pošleme dve — čas upratovania sa vtedy skráti na polovicu (napr. balík Klasik 6 h zvládneme za 3 hodiny). Rozsah práce aj cena balíka zostávajú rovnaké.</p></details>
       <details><summary>Robíte tepovanie?</summary><p>Áno. Tepovanie je v cene balíka Maxi + tepovanie — 8 hodín upratovania a hodina tepovania za 199,90 €. Ku každému balíku si tepovanie viete doplatiť za 40 €/hod, pri balíkoch Maxi a Maxi + tepovanie za 30 €/hod. Prídeme aj len tepovať samostatne za 55 €/hod. Pri koženej sedačke ponúkame jej ošetrenie za 25 €.</p><p><a href="tepovanie-bratislava.html" style="color:var(--blue);font-weight:600">Viac o tepovaní →</a></p></details>
-      <details><summary>Žehlíte aj bielizeň?</summary><p>Žehlenie bielizne spúšťame 3. novembra 2026 ako samostatnú službu: dve hodiny za 49,90 €. Rezervovať sa bude dať od toho dňa, zatiaľ nám napíšte na info@poriado.sk a ozveme sa vám hneď, ako termíny otvoríme.</p></details>
+      <details><summary>Žehlíte aj bielizeň?</summary><p>Žehlenie bielizne ponúkame ako samostatnú službu: dve hodiny za 49,90 €. Termín si vyberiete priamo v rezervácii.</p></details>
       <details><summary>Čo ak je priestor veľmi znečistený alebo zvolím malý balík?</summary><p>Povedzte nám vopred, o aký priestor ide. Ak by sme mali pochybnosť, ozveme sa ešte pred termínom. Pri extrémnom znečistení alebo pri priestore výrazne väčšom, než balík pokrýva, sa na doplatku dohodneme priamo na mieste ešte pred začiatkom práce, aby vás nič neprekvapilo.</p></details>
-      <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa počíta z ceny balíka, na príplatky sa nevzťahuje. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár. Pri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry.</p></details>
+      <details><summary>Máte zľavu pre dôchodcov alebo ZŤP?</summary><p>Áno. Dôchodcom a držiteľom preukazu ZŤP ponúkame 15 % zľavu na všetky balíky. Zľava sa počíta z ceny balíka; na príplatky a na postavebné upratovanie sa nevzťahuje. Pri rezervácii zadajte zľavový kód SOLIDARITA15 — cenu prepočíta rovno formulár. Pri prvej návšteve nám stačí ukázať preukaz. Ak ste kód zabudli zadať, napíšte nám a zľavu odrátame z faktúry.</p></details>
       <details><summary>Ako prebieha platba?</summary><p>Rezervácia sa dokončí online platbou — kartou, alebo tlačidlom TatraPay či SporoPay. Faktúru vám pošleme e-mailom do 24 hodín. Ak potrebujete platiť prevodom na faktúru alebo objednávate na firmu, napíšte nám na info@poriado.sk alebo zavolajte — termín dohodneme a faktúru vystavíme. Hotovosť neprijímame.</p></details>
       <details><summary>Môžem zmeniť alebo zrušiť termín?</summary><p>Áno. Termín zrušíte bezplatne najneskôr 24 hodín pred začiatkom — odkazom „Zrušiť rezerváciu“ v potvrdzovacom e-maile, alebo nám napíšte na info@poriado.sk či zavolajte. Ak potrebujete termín len presunúť, napíšte nám na info@poriado.sk alebo zavolajte na +421 949 061 088 alebo +421 949 076 917 v pracovnom čase Po–Pi 8:00–17:00 (najneskôr 24 hodín vopred) — radi ho zmeníme bez poplatku. Pri zrušení menej ako 24 hodín pred termínom účtujeme 50 % z ceny.</p></details>
       <details><summary>Do ktorých častí Bratislavy chodíte?</summary><p>Chodíme do všetkých sedemnástich mestských častí: Petržalka, Ružinov, Staré Mesto, Nové Mesto, Dúbravka, Karlova Ves, Rača, Podunajské Biskupice, Vrakuňa, Devínska Nová Ves, Záhorská Bystrica, Lamač, Vajnory, Rusovce, Jarovce, Devín a Čunovo. Doprava je v cene bez ohľadu na to, kde v Bratislave bývate — za okrajové časti sa nepripláca.</p></details>
@@ -317,6 +331,7 @@
   </div>
 </section>
 
+</div><!-- /.pas -->
 <section class="cta">
   <div class="wrap">
     <h2>Nenašli ste odpoveď?</h2>

@@ -110,7 +110,7 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#96691a}
+  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#855b16}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   a{text-decoration:none;color:inherit}
@@ -248,7 +248,16 @@
      Zaroven mali odkazy v paticke vysku 18 px, kym pravidlo projektu zada 44:
      13 px vypln hore aj dole ich dvihne presne na 44. */
   footer p a{display:inline-block;padding:13px 6px}
-  @media(max-width:820px){footer{padding-bottom:96px}}
+  @media(max-width:820px){footer{padding-bottom:96px}}
+  /* ═══════ SVETLY PAS — ROVNAKY AKO NA DOMOVSKEJ ═══════
+     Sekcie medzi uvodom a zaverecnou vyzvou zdielaju jeden gradient, aby
+     farebny beh nekoncil pri prekliku z domovskej. Oba konce maju zamerne
+     rovnaku svetlost (HSL L = 94 %): nie je to stmavovanie zhora nadol,
+     ale cisty posun odtienu z petrolejovej do fialovej.
+     Striedanie .alt sa tym rusi — pas nahradza pruhovanie. */
+  .pas{background:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%)}
+  .pas .alt,.alt{background:transparent}
+
 
 
 
@@ -278,6 +287,11 @@
     <p>Byty, kancelárie, tepovanie, žehlenie aj Airbnb. Prostriedky a doprava v cene.</p>
   </div>
 </section>
+<!-- Svetly pas: sekcie medzi uvodom a zaverom zdielaju jeden
+     gradient, rovnako ako na domovskej. Preto maju background
+     transparent — pozri .pas v <style>. -->
+<div class="pas">
+
 
 <!-- BYTY A DOMY -->
 <section>
@@ -328,9 +342,9 @@
 <!-- ZEHLENIE -->
 <section>
   <div class="wrap">
-    <div class="kicker">Čoskoro — termíny otvárame 3. novembra</div>
+    <div class="kicker">Novinka v ponuke</div>
     <h2>Žehlenie bielizne u vás doma</h2>
-    <p class="lead"><b>Žehlenie bielizne v Bratislave bude stáť 49,90 € za dve hodiny.</b> Rezervácie otvárame 3. novembra. Prídeme k vám s vlastnou naparovacou žehličkou, doskou aj vešiakmi a vyžehlíme to, čo máte vyprané a suché. Bielizeň od vás neodvážame — žehlí sa u vás a máte prácu na očiach.</p>
+    <p class="lead"><b>Žehlenie bielizne v Bratislave stojí 49,90 € za dve hodiny.</b> Prídeme k vám s vlastnou naparovacou žehličkou, doskou aj vešiakmi a vyžehlíme to, čo máte vyprané a suché. Bielizeň od vás neodvážame — žehlí sa u vás a máte prácu na očiach.</p>
     <div class="grid">
       <div class="card"><h3>Košele a blúzky</h3><p>Aj spoločenské nohavice s pukmi.</p></div>
       <div class="card"><h3>Tričká a detské veci</h3><p>Tričká, mikiny aj detské oblečenie.</p></div>
@@ -376,6 +390,7 @@
   </div>
 </section>
 
+</div><!-- /.pas -->
 <section class="cta">
   <div class="wrap">
     <h2>Vyberte si termín, zvyšok je na nás</h2>

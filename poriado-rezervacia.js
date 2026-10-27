@@ -141,9 +141,19 @@
        42936 Jednorázové upratovanie · 42935 Tepovanie · 42937 Žehlenie
      Pri tepovaní a žehlení kategóriu nepoužívame — `&service=` predvolí
      rovno tú jednu službu, čo je o krok menej. */
+  /* Kategoria kazdej sluzby. Bookio od 27. 10. 2026 cez &service= sluzbu
+     UZ NEPREDVOLI — overene na 173509 aj 178847, oba skoncia na vybere
+     kategorie. &category= funguje, takze ideme vzdy cez nu.
+     42936 Jednorazove upratovanie · 42935 Tepovanie · 42937 Zehlenie */
+  var KATEGORIE = {
+    mini: '42936', komfort: '42936', klasik: '42936',
+    maxi: '42936', maxiTepovanie: '42936',
+    tepovanie: '42935', zehlenie: '42937'
+  };
+
   function adresa(balik, kategoria) {
-    if (SLUZBY[balik]) return ZAKLAD + '&service=' + SLUZBY[balik].id;
-    return kategoria ? (ZAKLAD + '&category=' + kategoria) : ZAKLAD;
+    var k = kategoria || KATEGORIE[balik];
+    return k ? (ZAKLAD + '&category=' + k) : ZAKLAD;
   }
 
   /* Parametre pre begin_checkout. Bez hodnoty a meny si Google aj Meta

@@ -162,8 +162,7 @@
         "name": "Žehlenie bielizne — 2 hodiny",
         "price": "49.90",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/PreOrder",
-        "availabilityStarts": "2026-11-03",
+        "availability": "https://schema.org/InStock",
         "itemOffered": {
           "@type": "Service",
           "name": "Žehlenie bielizne",
@@ -182,7 +181,7 @@
     --ink:#1c2530; --muted:#5b6675; --white:#fff; --gold:#d4a44c; --gold-tmava:#bd8d33;
     /* Zlata na plochy sa neda pouzit na text — na bielom ma len 2,3:1.
        Na pisane sluzi tmavsia --gold-text (4,85:1), rovnako ako na sluzby.html. */
-    --gold-text:#96691a;
+    --gold-text:#855b16;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -521,12 +520,7 @@
     .kat .cena{font-size:1rem}
   }
   /* Pripravovana sluzba: vidno ju, ale rezervovat sa neda. Bez odkazu,
-     takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
-  .kat.caka{box-shadow:none;border-style:dashed;background:#fcfdff;cursor:default}
-  .kat.caka:hover{transform:none;box-shadow:none}
-  .kat.caka img{filter:grayscale(.55);opacity:.8}
-  .kat.caka b,.kat.caka .cena{color:var(--muted)}
-  .kat.caka .cena small{display:block;margin-top:5px;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-text)}
+     takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
   /* Tri kroky — vratene v povodnom zneni aj vzhlade. */
   .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
   .krok{counter-increment:krok;position:relative;padding-left:52px}
@@ -701,22 +695,18 @@
         <span class="co">Byt alebo dom, 3 až 8 hodín</span>
         <span class="cena">od 79,90 €</span>
       </a>
-      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;service=173509" data-open-rezervacia data-balik="tepovanie">
+      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42935" data-open-rezervacia data-kategoria="42935">
         <img src="tepovanie-sedacky.webp" srcset="tepovanie-sedacky-320.webp 320w, tepovanie-sedacky-480.webp 480w, tepovanie-sedacky.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Tepovanie látkovej sedačky extraktorom" width="900" height="675" loading="lazy">
         <b>Tepovanie</b>
         <span class="co">Sedačky, koberce a matrace</span>
         <span class="cena">55 € / hod</span>
       </a>
-      <!-- Zehlenie sa zatial neda rezervovat — v Bookiu nie je vo formulari,
-           lebo sa nedalo nastavit, aby sa dalo objednat az od 3. novembra.
-           Preto to NIE JE odkaz: nic neklikatelne, nic vo fokuse. Ked sa
-           sluzba spusti, vrat sem <a> s &service=178847 a zmaz .caka. -->
-      <div class="kat caka">
+      <a class="kat" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42937" data-open-rezervacia data-kategoria="42937">
         <img src="zehlenie-bielizne-bratislava.webp" srcset="zehlenie-bielizne-bratislava-320.webp 320w, zehlenie-bielizne-bratislava-480.webp 480w, zehlenie-bielizne-bratislava.webp 900w" sizes="(max-width:640px) calc(50vw - 30px), 300px" alt="Žehlenie košele u zákazníka doma" width="900" height="675" loading="lazy">
         <b>Žehlenie</b>
         <span class="co">Košele, bielizeň aj uteráky</span>
-        <span class="cena">49,90 €<small>Čoskoro</small></span>
-      </div>
+        <span class="cena">49,90 €</span>
+      </a>
     </div>
     <!-- Siroka na celu mriezku kariet, nie uzka ako ostatne odstavce —
          patri k nim, nie pod ne. Rebrik sa tu uz nespomina: je to volba
@@ -728,7 +718,7 @@
       <li class="koza"><span class="ik" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.2 11V8.6a1.6 1.6 0 0 1 1.6-1.6h10.4a1.6 1.6 0 0 1 1.6 1.6V11"/><path d="M3.4 12.6a1.6 1.6 0 0 1 3.2 0V16h10.8v-3.4a1.6 1.6 0 0 1 3.2 0V17a1 1 0 0 1-1 1H4.4a1 1 0 0 1-1-1z"/></svg></span><span>Ošetrenie koženej sedačky <b>25 €</b></span></li>
       <li class="tep"><span class="ik" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.6c3 3.6 5 6.2 5 8.6a5 5 0 0 1-10 0c0-2.4 2-5 5-8.6z"/><path d="M9.6 12.6a2.6 2.6 0 0 0 2.6 2.6"/></svg></span><span>Tepovanie ku ktorémukoľvek balíku <b>za zvýhodnenú cenu</b></span></li>
     </ul>
-    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte kód <b>SOLIDARITA15</b>, pri prvej návšteve nám stačí ukázať preukaz. Platí na cenu služby, nie na príplatky.</p>
+    <p class="zlava"><b>Zľava −15 %</b> pre dôchodcov a držiteľov preukazu ZŤP — pri rezervácii zadajte kód <b>SOLIDARITA15</b>, pri prvej návšteve nám stačí ukázať preukaz. Platí na cenu služby, nie na príplatky, a nevzťahuje sa na postavebné upratovanie.</p>
     <p class="inde">Čo presne je v ktorom balíku a celý rozpis cien nájdete v <a href="sluzby.html#cennik">prehľade služieb a cien</a>.</p>
   </div>
 </section>
