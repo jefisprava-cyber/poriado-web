@@ -243,6 +243,11 @@
        neprekryjú. (nález 2) */
     'body.pr-okno-otvorene .pk-lista{z-index:9996}',
     'body.pr-okno-otvorene .pk-prekryv{z-index:9997}',
+    /* Lišta leží nad oknom zámerne (vyššie), ale na mobile tým zakryla spodok
+       widgetu — práve časy a potvrdzovacie tlačidlo. Okno sa preto o jej výšku
+       odsadí; premennú --pk-vyska nastavuje poriado-meranie.js a rovnako ju
+       používa bublina chatu. Lišta zostáva klikateľná, len už nič neprekrýva. */
+    'body.pk-on .pr-prekryv{padding-bottom:var(--pk-vyska, 0px)}',
     '.pr-okno{background:#fff;border-radius:16px;max-width:1000px;width:100%;padding:30px 22px;',
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
