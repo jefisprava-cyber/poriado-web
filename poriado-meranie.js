@@ -410,6 +410,25 @@
     if (typeof window.konverzia === 'function') window.konverzia('contact', 'Contact', { kanal: kanal });
   });
 
+  /* Poukážky sa kupujú na doméne Bookia, takže o samotnom nákupe sa z webu
+     nedozvieme nič. Zmerať vieme aspoň úmysel — klik na kartu. Posielame
+     ViewContent, nie InitiateCheckout: pokladnicu tu nikto neotvára a
+     zmiešalo by sa to s otvorením rezervačného kalendára, podľa ktorého sa
+     dnes riadia kampane. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    if (!t.closest('a[href*="/gift-cards"]')) return;
+    try {
+      if (sessionStorage.getItem('poriado_poukazka')) return;
+      sessionStorage.setItem('poriado_poukazka', '1');
+    } catch (e) {}
+    if (typeof window.konverzia === 'function') {
+      window.konverzia('poukazka_klik', 'ViewContent',
+        { content_name: 'Poukážky', content_category: 'poukazky' });
+    }
+  });
+
   /* Načítavame hneď, bez ohľadu na súhlas — o tom, čo sa smie merať,
      rozhoduje Consent Mode, nie prítomnosť skriptu. */
   nacitajGA();
