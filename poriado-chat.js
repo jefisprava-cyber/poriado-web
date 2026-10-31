@@ -40,13 +40,13 @@
 
   var FAQ = [
     { q: "Koľko stojí upratovanie?",
-      a: "Máme päť balíkov podľa hodín — všetko s vlastnými prostriedkami a dopravou po Bratislave v cene:\n\n• Mini (3 h) — 79,90 €\n• Komfort (4 h) — 99,90 €\n• Klasik (6 h) — 139,90 €\n• Maxi (8 h) — 169,90 €\n• Maxi + tepovanie (8 h upratovania a hodina tepovania) — 199,90 €\n\nŽehlenie si objednáte ako samostatnú službu — dve hodiny za 49,90 €.\n\nŽiadne skryté poplatky — čo si dohodneme, to zaplatíte." },
+      a: "Máme päť balíkov podľa hodín — všetko s vlastnými prostriedkami a dopravou po Bratislave v cene:\n\n• Mini (3 h) — 79,90 €\n• Komfort (4 h) — 99,90 €\n• Klasik (6 h) — 139,90 €\n• Maxi (8 h) — 169,90 €\n• Maxi + tepovanie (8 h upratovania a hodina tepovania) — 199,90 €\n\nŽehlenie si objednáte ako samostatnú službu — dve hodiny za 49,90 €, každá ďalšia začatá polhodina 12,50 €.\n\nŽiadne skryté poplatky — čo si dohodneme, to zaplatíte." },
     { q: "Ako to funguje?",
       a: "Jednoducho: pred upratovaním sa dohodneme, čomu sa máme v rámci času balíka venovať najviac — priority určujete vy.\n\nPrídeme s vlastnými prostriedkami aj vybavením a domácnosti upratujeme bez obhliadky." },
     { q: "Žehlíte bielizeň?",
-      a: "Žehlenie ponúkame ako samostatnú službu — dve hodiny za 49,90 €.\n\nŽehlíme u vás doma, bielizeň od vás neodvážame. Prichádzame s vlastnou žehličkou, doskou aj vešiakmi.\n\nPotrebujeme od vás vypranú a suchú bielizeň, voľnú plochu asi 1,5 × 1 m a zásuvku v dosahu." },
+      a: "Žehlenie ponúkame ako samostatnú službu — dve hodiny za 49,90 €. Ak toho máte viac, ďalší čas si pridáte priamo pri rezervácii: polhodina 12,50 €, hodina 25 €, dve hodiny 50 €.\n\nŽehlíme u vás doma, bielizeň od vás neodvážame. Prichádzame s vlastnou žehličkou, doskou aj vešiakmi.\n\nPotrebujeme od vás vypranú a suchú bielizeň, voľnú plochu asi 1,5 × 1 m a zásuvku v dosahu." },
     { q: "Robíte tepovanie?",
-      a: "Áno. V cene máte tepovanie pri balíku Maxi + tepovanie — osem hodín upratovania a hodina tepovania za 199,90 €. Samotný balík Maxi tepovanie neobsahuje.\n\nK ostatným balíkom si tepovanie doplatíte za 40 €/hod, pri oboch balíkoch Maxi za 30 €/hod. Alebo prídeme len tepovať samostatne za 55 €/hod.\n\nPri koženej sedačke ponúkame jej ošetrenie za 25 € namiesto tepovania.",
+      a: "Áno. V cene máte tepovanie pri balíku Maxi + tepovanie — osem hodín upratovania a hodina tepovania za 199,90 €. Samotný balík Maxi tepovanie neobsahuje.\n\nK ostatným balíkom si tepovanie doplatíte za 40 €/hod, pri oboch balíkoch Maxi za 30 €/hod. Alebo prídeme len tepovať samostatne — prvá hodina 55 €, každá ďalšia začatá polhodina 25 €.\n\nPri koženej sedačke ponúkame namiesto tepovania jej ošetrenie za 25 € — ako doplnok k upratovaciemu balíku. Samostatne ju vyčistíme v rámci hodín tepovania.",
       link: { text: "Viac o tepovaní →", href: "/tepovanie-bratislava.html" } },
     { q: "Ako si rezervujem termín?",
       a: "Online v rezervačnom kalendári — termín potvrdíme okamžite. Rezerváciu dokončíte platbou kartou, cez TatraPay alebo SporoPay; faktúru pošleme e-mailom do 24 hodín.\n\nTermín môžete bezplatne zrušiť do 24 hodín pred začiatkom." },
