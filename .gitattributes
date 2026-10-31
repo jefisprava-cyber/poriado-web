@@ -1,0 +1,17 @@
+# Konce riadkov urcuje toto repo, nie nastavenie konkretneho pocitaca.
+#
+# Preco to tu je: index.html a sluzby.html obsahovali osamotene CR
+# (\r\r\n namiesto \r\n\r\n medzi CSS pravidlami). Git ich preto
+# vyhodnotil ako binarne subory, prestal ich normalizovat a kazda
+# mensia zmena potom v diffe vyzerala ako prepis celeho suboru.
+* text=auto eol=lf
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.ico   binary
+*.svg   text eol=lf
+*.woff  binary
+*.woff2 binary
+*.pdf   binary

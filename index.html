@@ -236,7 +236,8 @@
   .btn-rez,.hero .btn-rez{background:var(--gold);color:var(--navy)}
   .btn-rez:hover,.hero .btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
   .nav-links a.btn-rez{background:var(--navy);color:#fff}
-  .nav-links a.btn-rez:hover{background:#0f2e3a;color:#fff}
+  .nav-links a.btn-rez:hover{background:#0f2e3a;color:#fff}
+
   /* pas vyhod - suvisla mriezka s vlasovymi linkami namiesto plavajucich bubliniek */
   .vyhody{background:#fff;padding:26px 0 6px}
   .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -482,11 +483,13 @@
        o cookies ju zase odoberie, takže sa chat hneď vráti.
        Dve plávajúce vrstvy naraz sú na mobile aj tak priveľa. */
     body.pk-on #pch-bubble{display:none}
-  }
+  }
+
   /* Lepiaca hlavicka ma 75 px, takze skok na kotvu (#cennik, #onas, #ako...)
      skoncil s nadpisom schovanym za nou. scroll-margin-top povie prehliadacu,
      aby zastavil o kus vyssie. */
-  [id]{scroll-margin-top:86px}
+  [id]{scroll-margin-top:86px}
+
   /* Pravidla sekcie cennika. Zmazali sa, ked sekcia z domovskej odisla —
      teraz je spat ako karty kategorii, takze ich treba tiez. */
   .pricing{background:transparent}
@@ -528,9 +531,12 @@
     /* Na poukazkovej karte nie je cena, ale veta. Pri 375 px je o jeden
        pixel sirsia nez karta a zalomila by sa na dva riadky. */
     .kat .cena.usetrite{font-size:.92rem}
-  }
+  }
+
   /* Pripravovana sluzba: vidno ju, ale rezervovat sa neda. Bez odkazu,
-     takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
+     takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
+
+
   /* Tri kroky — vratene v povodnom zneni aj vzhlade. */
   .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
   .krok{counter-increment:krok;position:relative;padding-left:52px}
@@ -559,7 +565,8 @@
     .doplnky li{font-size:.82rem;padding:6px 14px 6px 6px;gap:8px}
     .doplnky .ik{width:28px;height:28px}
     .doplnky .ik svg{width:16px;height:16px}
-  }
+  }
+
   /* ═══════ JEDEN FAREBNY BEH CEZ CELU STRANKU ═══════
      Hore hero, dole paticka — obe maju ten isty syty gradient z petrolejovej
      do fialovej (zadany pri footer{background:...} vyssie). Medzi nimi bezi
@@ -582,14 +589,16 @@
   /* Text paticky — zostava svetly, paticka je stale tmava. Na novom gradiente
      ma bezny text 7,04:1 a odkazy 7,34:1 (predtym 4,66 a 4,86). */
   footer{color:#dbeaee}
-  footer a{color:#deeff2}
+  footer a{color:#deeff2}
+
   /* Bublina chatu je fixne vpravo dole a na konci stranky sadala priamo na
      riadok odkazov — tuknutie na „Nastavenia cookies" otvorilo chat namiesto
      nastaveni. Paticka preto dostava na mobile spodnu rezervu.
      Zaroven mali odkazy v paticke vysku 18 px, kym pravidlo projektu zada 44:
      13 px vypln hore aj dole ich dvihne presne na 44. */
   footer p a{display:inline-block;padding:13px 6px}
-  @media(max-width:820px){footer{padding-bottom:96px}}
+  @media(max-width:820px){footer{padding-bottom:96px}}
+
   /* ═══════ BALIKY V UVODNOM PASE ═══════
      Pravy stlpec mriezky. Kazdy riadok vedie rovno na rezervaciu s uz
      predvolenym balikom.
@@ -864,7 +873,8 @@
     nl.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', zavri); });
     document.addEventListener('click',function(e){ if(!nl.contains(e.target)) zavri(); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') zavri(); });
-  })();
+  })();
+
   /* Rotujúce recenzie. Bez JS ostane viditeľná prvá (má triedu "on" priamo v HTML).
      Striedanie sa zastaví pri prejdení myšou alebo tabulátorom, aby sa dal text
      dočítať, a nespustí sa vôbec, ak má návštevník obmedzené animácie. */
