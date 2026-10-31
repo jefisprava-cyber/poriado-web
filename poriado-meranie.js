@@ -110,12 +110,43 @@
        odoslať prvú udalosť ešte pred zákazom. PageView zámerne nespúšťame
        tu, ale až v povolPixel(), keď ho je komu poslať. */
     fbq('consent', 'revoke');
-    fbq('init', PIXEL_ID);
+    /* Vlastný identifikátor návštevníka. Meta ho používa na spárovanie
+       udalostí s človekom — kvalita párovania (Event Match Quality) bola
+       31. 10. 2026 pri PageView 6,1/10 a Meta k nej písala „Update
+       recommended". Pri PageView totiž o návštevníkovi nevieme nič iné:
+       e-mail ani telefón v tej chvíli nemáme a rezervácia beží v cudzom
+       iframe, do ktorého Pixel nevidí.
+       Tretí parameter musí byť priamo pri init — Meta inak hodnoty neberie
+       ako advanced matching a opakovaná inicializácia s údajmi nie je
+       v dokumentácii nikde popísaná, takže sa na ňu nespoliehame. */
+    var xid = dajExternalId();
+    if (xid) fbq('init', PIXEL_ID, { external_id: xid });
+    else fbq('init', PIXEL_ID);
+  }
+
+  /* Identifikátor je náhodný a neobsahuje nič osobné, ale aj tak je to
+     trvalá značka v prehliadači — zakladá sa preto až po marketingovom
+     súhlase. Pri úplne prvej návšteve sa teda nepošle a Pixel beží ako
+     doteraz; od druhej návštevy už Meta vie, že ide o toho istého človeka. */
+  var XID_KEY = 'poriado_xid';
+  function dajExternalId() {
+    try { return localStorage.getItem(XID_KEY) || ''; } catch (e) { return ''; }
+  }
+  function zalozExternalId() {
+    try {
+      if (localStorage.getItem(XID_KEY)) return;
+      var n = new Uint8Array(16);
+      (window.crypto || window.msCrypto).getRandomValues(n);
+      var h = '';
+      for (var i = 0; i < n.length; i++) h += ('0' + n[i].toString(16)).slice(-2);
+      localStorage.setItem(XID_KEY, h);
+    } catch (e) {}
   }
 
   function povolPixel() {
     if (!pixelNacitany || pixelPovoleny) return;
     pixelPovoleny = true;
+    zalozExternalId();
     try { fbq('consent', 'grant'); fbq('track', 'PageView'); } catch (e) {}
   }
 
