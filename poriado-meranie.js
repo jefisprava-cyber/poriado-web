@@ -95,6 +95,13 @@
     } catch (e) {}
   }
 
+  /* Súhlas sa číta priamo z úložiska, nie z premennej — nacitajPixel()
+     beží skôr, než pouziSuhlas() stihne čokoľvek nastaviť. */
+  function maMarketingovySuhlas() {
+    var c = dajSuhlas();
+    return !!(c && c.marketing);
+  }
+
   function nacitajPixel() {
     if (pixelNacitany) return;
     pixelNacitany = true;
@@ -108,8 +115,23 @@
     }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
     /* Poradie je dôležité — revoke musí byť pred init, inak Pixel stihne
        odoslať prvú udalosť ešte pred zákazom. PageView zámerne nespúšťame
-       tu, ale až v povolPixel(), keď ho je komu poslať. */
-    fbq('consent', 'revoke');
+       tu, ale až v povolPixel(), keď ho je komu poslať.
+
+       ALE: keď marketingový súhlas už z minulej návštevy máme, revoke sa
+       zavolať NESMIE. Pixel po ňom prejde do režimu, v ktorom drží všetky
+       volania vo fronte — a vracajúcemu sa návštevníkovi príde init, grant
+       aj PageView v jednom okamihu ešte predtým, než sa knižnica načíta.
+       Vo fronte potom uviazne aj ten grant, ktorý ju mal odomknúť, a Pixel
+       sa neinicializuje vôbec. Overené 2. 11. 2026 naživo na poriado.sk:
+       fronta držala init | consent grant | track PageView, callMethod už
+       existoval, pixels bolo prázdne a pixelInitializationTime -1.
+       Pri prvej návšteve sa chyba neprejaví, lebo kým človek klikne na
+       lištu, knižnica je dávno načítaná a grant sa vykoná priamo — preto
+       to vyzeralo, že meranie funguje.
+       Bez revoke sa fronta spracuje normálne, presne ako v Metinej
+       šablóne. Sľub „pred súhlasom žiadna cookie" tým neporušujeme: kto
+       súhlas nedal, ide ďalej cez revoke. */
+    if (!maMarketingovySuhlas()) fbq('consent', 'revoke');
     /* Vlastný identifikátor návštevníka. Meta ho používa na spárovanie
        udalostí s človekom — kvalita párovania (Event Match Quality) bola
        31. 10. 2026 pri PageView 6,1/10 a Meta k nej písala „Update
