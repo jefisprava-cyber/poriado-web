@@ -3,8 +3,8 @@
 (function () {
   var CSS = `
   #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
-    background:linear-gradient(135deg,var(--navy,#153f4f),var(--blue,#13697c));color:#fff;border:none;cursor:pointer;z-index:9990;
-    box-shadow:0 8px 24px rgba(21,63,79,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;border:none;cursor:pointer;z-index:9990;
+    box-shadow:0 8px 24px rgba(58,14,155,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
     transition:transform .2s}
   #pch-bubble:hover{transform:scale(1.08)}
   #pch-panel{position:fixed;right:20px;bottom:92px;width:360px;max-width:calc(100vw - 32px);height:520px;
@@ -15,28 +15,28 @@
      sa pri klikani mysou nezobrazi, takze to vzhlad nemeni. */
   #pch-bubble:focus-visible,#pch-close:focus-visible,.pch-chip:focus-visible,.pch-cta a:focus-visible{
     outline:3px solid #ffd632;outline-offset:2px}
-  .pch-head{background:linear-gradient(135deg,var(--navy,#153f4f),var(--blue,#13697c));color:#fff;padding:14px 16px}
+  .pch-head{background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;padding:14px 16px}
   .pch-head b{font-size:1.05rem}
-  .pch-head b span{color:#d9eaed}
-  .pch-head small{display:block;color:var(--light,#e4e0f7);font-size:.75rem;margin-top:2px}
-  .pch-gold{height:3px;background:linear-gradient(90deg,rgba(228,178,96,0),#e6c584 18%,var(--gold,#d4a44c) 50%,#e6c584 82%,rgba(228,178,96,0))}
-  #pch-body{flex:1;overflow-y:auto;padding:14px;background:var(--bg,#f7f6fb)}
+  .pch-head b span{color:var(--gold,#FFD632)}
+  .pch-head small{display:block;color:var(--light,#F8F4FF);font-size:.75rem;margin-top:2px}
+  .pch-gold{height:3px;background:linear-gradient(90deg,rgba(255,214,50,0),#FFE88A 18%,var(--gold,#FFD632) 50%,#FFE88A 82%,rgba(255,214,50,0))}
+  #pch-body{flex:1;overflow-y:auto;padding:14px;background:var(--bg,#FAF7FF)}
   .pch-msg{max-width:85%;padding:10px 13px;border-radius:14px;margin-bottom:10px;font-size:.88rem;line-height:1.5;
     white-space:pre-line;animation:pchIn .25s ease}
-  .pch-bot{background:#fff;border:1px solid #e6e5f1;color:var(--ink,#1c2530);border-bottom-left-radius:4px}
-  .pch-user{background:var(--blue,#13697c);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+  .pch-bot{background:#fff;border:1px solid #E9E2F7;color:var(--ink,#1c2530);border-bottom-left-radius:4px}
+  .pch-user{background:var(--blue,#631FF3);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
   @keyframes pchIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .pch-chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
-  .pch-chip{background:#fff;border:1.5px solid var(--blue,#13697c);color:var(--navy,#153f4f);border-radius:20px;padding:7px 12px;
+  .pch-chip{background:#fff;border:1.5px solid var(--blue,#631FF3);color:var(--navy,#3A0E9B);border-radius:20px;padding:7px 12px;
     font-size:.8rem;font-weight:600;cursor:pointer;transition:.15s}
-  .pch-chip:hover{background:var(--blue,#13697c);color:#fff}
-  .pch-cta{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #e6e5f1}
+  .pch-chip:hover{background:var(--blue,#631FF3);color:#fff}
+  .pch-cta{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #E9E2F7}
   .pch-cta a{flex:1;text-align:center;padding:10px 6px;border-radius:9px;font-size:.82rem;font-weight:700;text-decoration:none}
-  .pch-cta .p{background:var(--blue,#13697c);color:#fff}
-  .pch-cta .p:hover{background:var(--navy,#153f4f)}
+  .pch-cta .p{background:var(--blue,#631FF3);color:#fff}
+  .pch-cta .p:hover{background:var(--navy,#3A0E9B)}
   .pch-cta .s{background:#e2f6ee;color:#0f7a54}
   .pch-cta .s:hover{background:#0b7d53;color:#fff}
-  #pch-close{float:right;background:none;border:none;color:var(--light,#e4e0f7);font-size:22px;cursor:pointer;line-height:1;
+  #pch-close{float:right;background:none;border:none;color:var(--light,#F8F4FF);font-size:22px;cursor:pointer;line-height:1;
     width:44px;height:44px;margin:-12px -12px -12px 4px;border-radius:50%;display:flex;align-items:center;justify-content:center}
   #pch-close:hover{background:rgba(255,255,255,.12)}
   @media(max-width:480px){#pch-panel{right:8px;bottom:84px}}
@@ -140,7 +140,7 @@
       body.appendChild(el("div", "pch-msg pch-user", f.q));
       body.scrollTop = body.scrollHeight;
       var text = f.a;
-      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:var(--blue,#13697c);font-weight:700">' + f.link.text + "</a>";
+      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:var(--blue,#631FF3);font-weight:700">' + f.link.text + "</a>";
       bot(text, 450, function () {
         var odpoved = body.lastElementChild;   // práve vložená odpoveď
         bot("Pomôžem ešte s niečím?", 350, function () {

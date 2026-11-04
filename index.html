@@ -185,31 +185,33 @@
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
   :root{
-    --navy:#153f4f; --blue:#13697c; --light:#e4e0f7; --bg:#f7f6fb;
-    --ink:#1c2530; --muted:#5b6675; --white:#fff; --gold:#d4a44c; --gold-tmava:#bd8d33;
-    /* Zlata na plochy sa neda pouzit na text — na bielom ma len 2,3:1.
-       Na pisane sluzi tmavsia --gold-text (5,99:1), rovnako ako na sluzby.html. */
-    --gold-text:#855b16;
+    --navy:#3A0E9B; --blue:#631FF3; --light:#F8F4FF; --bg:#FAF7FF;
+    --ink:#1c2530; --muted:#5b6675; --white:#fff; --gold:#FFD632; --gold-tmava:#E8C01C;
+    /* Zlta na plochy sa neda pouzit na text — na bielom ma len 1,41:1.
+       Na pisane sluzi tmavsia --gold-text (7,74:1), rovnako ako na sluzby.html. */
+    --gold-text:#6B4E00;
     /* ── Farebny beh stranky ──────────────────────────────────────────────
-       Tri pasy jednym smerom (petrolejova -> fialova). Su tu ako premenne
+       Tri pasy jednym smerom, od tmavej fialovej po tu z reklam. Su tu ako premenne
        prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
        pas zapisany natvrdo na piatich az siedmich miestach a .hero mal dokonca
        dve pravidla, z ktorych to s premennymi prehravalo s tym nizsie. Prepis
        :root tak na vzhlad nemal vplyv.
-       Oba konce svetleho pasu maju zamerne rovnaku svetlost (HSL L = 94 %):
-       nie je to stmavovanie zhora nadol, ale cisty posun odtienu. */
-    --beh-hore:#153f4f;             /* zhodne s --navy */
-    --beh-stred:#1e5168;
-    --beh-dole:#3d2a7a;
+       Koniec behu #9633FD je svetlejsi nez bola petrolejova, takze texty na nom
+       maju nizsi kontrast. Drzia preto, ze nelezia na najsvetlejsom konci -
+       overene dopoctom farby pod kazdym textom, nie odhadom. Kto bude pas
+       menit, musi to premerat znova. */
+    --beh-hore:#3A0E9B;             /* zhodne s --navy */
+    --beh-stred:#631FF3;
+    --beh-dole:#9633FD;   /* fialova z reklam na Mete */
     --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
     /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
        a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
        dolnu tretinu pasu, presne tam, kde lezi karta s balikmi. */
     --pas-uvod-mobil:linear-gradient(168deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
     --pas-paticka:linear-gradient(180deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
-    --pas-svetly:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%);
+    --pas-svetly:linear-gradient(180deg,#F5F0FF 0%,#EFE7FF 100%);
     /* Vlasova linka pod hlavickou. Zlata sa tu pouziva ako plocha, nie text. */
-    --linka-zlata:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%);
+    --linka-zlata:linear-gradient(90deg,rgba(255,214,50,0) 0%,#FFE88A 18%,#FFD632 50%,#FFE88A 82%,rgba(255,214,50,0) 100%);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -230,7 +232,7 @@
   .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:4px 10px;min-width:44px;min-height:44px}
   @media(max-width:820px){
     .nav-burger{display:block}
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(21,63,79,.14);border-top:1px solid #e6e5f1}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(58,14,155,.14);border-top:1px solid #e6e5f1}
     .nav-links.open{display:flex}
     .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0eef8;font-size:1rem}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
@@ -240,7 +242,7 @@
   .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(26px,3.6vw,54px);align-items:center}
   .hero-text{min-width:0}
   .hero h1{color:#fff}
-  .hero h1 .cena{color:#f5e3bd}
+  .hero h1 .cena{color:var(--gold)}
   .hero h1 .druhy{display:block;font-size:clamp(1.02rem,.88rem + .5vw,1.22rem);font-weight:400;letter-spacing:0;line-height:1.45;color:#fff;margin-top:14px;max-width:44ch}
   .hero h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;font-weight:700;max-width:900px;margin-bottom:16px;letter-spacing:-.03em;text-wrap:balance}
   .hero h1 .cena{white-space:nowrap}
@@ -260,7 +262,7 @@
   .btn-rez,.hero .btn-rez{background:var(--gold);color:var(--navy)}
   .btn-rez:hover,.hero .btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
   .nav-links a.btn-rez{background:var(--navy);color:#fff}
-  .nav-links a.btn-rez:hover{background:#0f2e3a;color:#fff}
+  .nav-links a.btn-rez:hover{background:#2D0A7A;color:#fff}
 
   .dovera{background:transparent}
   section{padding:clamp(38px,4.8vw,62px) 0}
@@ -275,9 +277,9 @@
      Ako pás štítkov sa to prečíta jedným pohľadom, ako tri odstavce nie. */
 
   /* Svetly text na tmavej paticke: bezny text 7,04:1, odkazy 7,34:1. */
-  footer{background:var(--pas-paticka);color:#dbeaee;padding:40px 0;text-align:center;font-size:.92rem}
+  footer{background:var(--pas-paticka);color:var(--light);padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
-  footer a{color:#deeff2}
+  footer a{color:var(--light)}
 
   header{box-shadow:0 1px 0 rgba(21,42,77,.08)}
   header::after{content:'';display:block;height:3px;background:var(--linka-zlata)}
@@ -285,7 +287,7 @@
      oko nemá kde zastaviť a neprečíta ani jednu. Zvyšných päť sa presunulo
      tam, kde tá otázka vzniká — k cenám a k rezervačnému tlačidlu. */
   .sluby{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .slub{background:#fff;border:1px solid var(--linka,#e2e4ee);border-radius:16px;padding:26px 22px 24px;box-shadow:0 10px 30px rgba(21,63,79,.05);opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  .slub{background:#fff;border:1px solid var(--linka,#e2e4ee);border-radius:16px;padding:26px 22px 24px;box-shadow:0 10px 30px rgba(58,14,155,.05);opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
   .slub.vidno{opacity:1;transform:none}
   .slub:nth-child(2){transition-delay:.08s}
   .slub:nth-child(3){transition-delay:.16s}
@@ -328,7 +330,7 @@
   .reviews{background:transparent;padding-top:0}
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #e2e4ee;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
-  .rev-stars{color:#96691a;letter-spacing:2px;font-size:.98rem;white-space:nowrap}
+  .rev-stars{color:var(--gold-text);letter-spacing:2px;font-size:.98rem;white-space:nowrap}
   .rev-count{color:var(--muted);font-size:.92rem}
   .rev-cta{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
   .rev-bar:hover .rev-cta{color:var(--navy);text-decoration:underline}
@@ -344,7 +346,7 @@
   @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
 
   /* mobilna lepiaca lista */
-  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e2e4ee;box-shadow:0 -6px 24px rgba(21,63,79,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
+  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e2e4ee;box-shadow:0 -6px 24px rgba(58,14,155,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
   .mlista.show{transform:translateY(0)}
   .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
   .mlista .cena small{display:block;font-weight:600;color:var(--muted);font-size:.75rem}
@@ -377,10 +379,10 @@
 
   /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
      tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
-  .hero .rev-stars{color:#efd7a6}
+  .hero .rev-stars{color:var(--gold)}
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
-  footer .logo span{color:#b9d4da}
+  footer .logo span{color:var(--gold)}
 
   /* Na mobile mal riadok panelu 120 px, lebo popis dostal stĺpec široký
      136 px a zalomil sa do troch riadkov. Pri piatich službách to je 600 px
@@ -417,7 +419,7 @@
   .namieru{text-align:center;color:var(--muted);font-size:.95rem;margin-top:20px}
   .namieru a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
   .namieru a:hover{color:var(--blue)}
-  .zlava{max-width:940px;margin:18px auto 0;text-align:center;background:#fdf7ec;border:1px solid #eddcb8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
+  .zlava{max-width:940px;margin:18px auto 0;text-align:center;background:#FFFBEB;border:1px solid #FFE9A8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
   .zlava b{color:var(--gold-text)}
 
   /* ═══════ KATEGORIE SLUZIEB ═══════
@@ -426,8 +428,8 @@
      zmestia rovnako ako tri a na mobile su dve vedla seba, takze stvrta
      karta spravi mriezku 2 x 2. Stvrta pribudla 30. 10. 2026 — poukazky. */
   .kategorie{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;max-width:940px;margin:0 auto}
-  .kat{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e4ee;border-radius:16px;padding:14px 14px 18px;color:inherit;box-shadow:0 10px 30px rgba(21,63,79,.05);transition:.2s}
-  .kat:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(21,63,79,.13)}
+  .kat{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e4ee;border-radius:16px;padding:14px 14px 18px;color:inherit;box-shadow:0 10px 30px rgba(58,14,155,.05);transition:.2s}
+  .kat:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(58,14,155,.13)}
   .kat img{width:100%;height:116px;object-fit:cover;border-radius:11px;margin-bottom:13px;display:block}
   /* Poukazky nie su sluzba, ale darcek — namiesto fotky maju znacku:
      zlaty motiv na tmavomodrej. Rozmery su rovnake ako u fotiek, aby
@@ -476,9 +478,9 @@
   .doplnky b{font-weight:700}
   .doplnky .ik{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
   .doplnky .ik svg{width:18px;height:18px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .doplnky .koza .ik{background:#fbeed6}
+  .doplnky .koza .ik{background:#FFF3C4}
   .doplnky .koza .ik svg{stroke:var(--gold-text)}
-  .doplnky .tep .ik{background:#d9e9ef}
+  .doplnky .tep .ik{background:#EDE4FF}
   .doplnky .tep .ik svg{stroke:var(--blue)}
   @media(max-width:560px){
     .doplnky{gap:9px}
@@ -528,7 +530,7 @@
   .hodiny h2{font-size:1.02rem;font-weight:700;letter-spacing:0;color:var(--navy);margin-bottom:4px}
   .hodiny p.pod{font-size:.86rem;color:var(--muted);margin-bottom:14px}
   .hodiny a.riadok{display:grid;grid-template-columns:auto 1fr auto;align-items:center;
-    gap:14px;padding:11px 0;border-top:1px solid #e3eaf3;color:var(--ink);position:relative}
+    gap:14px;padding:11px 0;border-top:1px solid #E9E2F7;color:var(--ink);position:relative}
   .hodiny a.riadok:first-of-type{border-top:0}
   .hodiny a.riadok:hover .nazov b{text-decoration:underline;
     text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
@@ -741,9 +743,9 @@
       <h2>Upratujeme v Bratislave, nie cez agentúru</h2>
     </div>
     <div style="max-width:760px;margin:0 auto;text-align:center">
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:18px">Preto sme sa rozhodli robiť to po svojom. Založili sme <b>Poriado</b> a všetky nazbierané skúsenosti sme vložili do služby, ktorá dáva zmysel vám — nie tabuľke. Prídeme s vlastným vybavením, dohodneme sa na prioritách a odvedieme prácu tak, akoby sme upratovali u seba doma.</p>
-      <p style="color:#3c4a58;font-size:1.08rem;margin-bottom:26px">Sme malý osobný tím, ktorý si zakladá na férovosti — bez skrytých poplatkov a bez výhovoriek. Čo si dohodneme, dodržíme, a k vášmu domovu pristupujeme spoľahlivo a diskrétne.</p>
+      <p style="color:var(--ink);font-size:1.08rem;margin-bottom:18px">Upratovaniu sa venujeme profesionálne už roky — u náročných klientov, v domácnostiach aj vo veľkých priestoroch. Za ten čas sme pochopili, čo robí upratovanie naozaj dobrým: nie odškrtaný zoznam, ale priestor, v ktorom sa cítite ako doma.</p>
+      <p style="color:var(--ink);font-size:1.08rem;margin-bottom:18px">Preto sme sa rozhodli robiť to po svojom. Založili sme <b>Poriado</b> a všetky nazbierané skúsenosti sme vložili do služby, ktorá dáva zmysel vám — nie tabuľke. Prídeme s vlastným vybavením, dohodneme sa na prioritách a odvedieme prácu tak, akoby sme upratovali u seba doma.</p>
+      <p style="color:var(--ink);font-size:1.08rem;margin-bottom:26px">Sme malý osobný tím, ktorý si zakladá na férovosti — bez skrytých poplatkov a bez výhovoriek. Čo si dohodneme, dodržíme, a k vášmu domovu pristupujeme spoľahlivo a diskrétne.</p>
     </div>
   </div>
 </section>
@@ -754,9 +756,9 @@
 <footer id="kontakt">
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
-    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#deeff2">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#deeff2">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#deeff2">info@poriado.sk</a></p>
+    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:var(--light)">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:var(--light)">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:var(--light)">info@poriado.sk</a></p>
     <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424</p>
-    <p style="margin-top:10px"><a href="rezervacia.html" style="color:#deeff2">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html" style="color:#deeff2">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#deeff2">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#deeff2">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="rezervacia.html" style="color:var(--light)">Rezervácia termínu</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html" style="color:var(--light)">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:var(--light)">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:var(--light)">Nastavenia cookies</a></p>
   </div>
 </footer>
 <div class="mlista" id="mlista" role="region" aria-label="Rýchla rezervácia">

@@ -36,7 +36,7 @@
   var KVALITA    = 0.75;
 
   var STYL = [
-    '.pd-overlay{position:fixed;inset:0;background:rgba(21,63,79,.55);display:none;',
+    '.pd-overlay{position:fixed;inset:0;background:rgba(58,14,155,.55);display:none;',
       'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
     'body.pd-okno-otvorene #pch-bubble{display:none !important}',
     /* Lišta musí ostať nad prekryvom, inak sa na ňu nedá kliknúť. */
@@ -47,22 +47,22 @@
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
       'color:var(--ink,#1c2530);line-height:1.6;text-align:left}',
-    '.pd-okno h3{color:var(--navy,#153f4f);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
+    '.pd-okno h3{color:var(--navy,#3A0E9B);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
     '.pd-sub{color:var(--muted,#5b6675);font-size:.95rem;margin:0 0 20px;line-height:1.55}',
     /* Krížik ostáva pri rolovaní dlhšieho formulára hore na obrazovke (lepiaci obal). */
     '.pd-zavri-obal{position:sticky;top:30px;height:0;z-index:5}',
     '.pd-zavri{position:absolute;top:-20px;right:-20px;width:44px;height:44px;border-radius:50%;',
-      'background:#fff;border:1px solid #e2e4ee;box-shadow:0 4px 14px rgba(21,63,79,.14);',
+      'background:#fff;border:1px solid #E9E2F7;box-shadow:0 4px 14px rgba(58,14,155,.14);',
       'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
       'display:flex;align-items:center;justify-content:center}',
-    '.pd-zavri:hover{color:var(--navy,#153f4f)}',
+    '.pd-zavri:hover{color:var(--navy,#3A0E9B)}',
     '.pd-okno form{background:none;box-shadow:none;padding:0;margin:0}',
-    '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy,#153f4f)}',
-    '.pd-okno input,.pd-okno textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;',
+    '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy,#3A0E9B)}',
+    '.pd-okno input,.pd-okno textarea{width:100%;padding:11px 14px;border:1px solid #DCD2F0;',
       /* 16 px je dolna hranica, pod nou iOS Safari po tuknuti priblizi celu stranku. */
       'border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:1rem;color:var(--ink,#1c2530);background:#fff}',
-    '.pd-okno input:focus,.pd-okno textarea:focus{outline:none;border-color:var(--blue,#13697c)}',
-    '.pd-foto{border:1.5px dashed var(--blue,#13697c);border-radius:9px;background:var(--bg,#f7f6fb);',
+    '.pd-okno input:focus,.pd-okno textarea:focus{outline:none;border-color:var(--blue,#631FF3)}',
+    '.pd-foto{border:1.5px dashed var(--blue,#631FF3);border-radius:9px;background:var(--bg,#FAF7FF);',
       'font-size:.9rem;padding:10px;margin-bottom:4px}',
     '.pd-foto-note{font-size:.8rem;color:var(--muted,#5b6675);margin:0 0 12px}',
     '.pd-foto-stav{color:#0b7d53;font-weight:700}',
@@ -70,17 +70,17 @@
        s podmienkami vezme štýl bežného popisku poľa. */
     '.pd-okno label.pd-gdpr{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;',
       'color:var(--muted,#5b6675);margin:2px 0 14px;font-weight:400}',
-    '.pd-okno label.pd-gdpr input{margin:3px 0 0;flex:none;width:16px;height:16px;accent-color:var(--blue,#13697c)}',
-    '.pd-okno label.pd-gdpr a{color:var(--blue,#13697c);text-decoration:underline}',
-    '.pd-odoslat{display:block;width:100%;background:var(--blue,#13697c);color:#fff;padding:12px 22px;',
+    '.pd-okno label.pd-gdpr input{margin:3px 0 0;flex:none;width:16px;height:16px;accent-color:var(--blue,#631FF3)}',
+    '.pd-okno label.pd-gdpr a{color:var(--blue,#631FF3);text-decoration:underline}',
+    '.pd-odoslat{display:block;width:100%;background:var(--blue,#631FF3);color:#fff;padding:12px 22px;',
       'border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.95rem;',
       'font-family:inherit;transition:.2s}',
-    '.pd-odoslat:hover{background:var(--navy,#153f4f)}',
+    '.pd-odoslat:hover{background:var(--navy,#3A0E9B)}',
     '.pd-odoslat:disabled{opacity:.65;cursor:default}',
     '.pd-ok{display:none;color:#0b7d53;font-weight:700;text-align:center;margin-top:14px}',
     '.pd-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
     '.pd-zavri:focus-visible,.pd-odoslat:focus-visible{outline:3px solid #ffd632;outline-offset:2px}',
-    '.pd-okno input:focus-visible,.pd-okno textarea:focus-visible{outline:2px solid var(--blue,#13697c);outline-offset:1px}',
+    '.pd-okno input:focus-visible,.pd-okno textarea:focus-visible{outline:2px solid var(--blue,#631FF3);outline-offset:1px}',
     '@media(max-width:640px){.pd-okno{padding:28px 18px}.pd-zavri-obal{top:28px}.pd-zavri{top:-18px;right:-10px}}'
   ].join('');
 

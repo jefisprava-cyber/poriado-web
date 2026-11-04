@@ -18,18 +18,20 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--ink:#1c2530;--muted:#5b6675;--bg:#f7f6fb;--text-pravne:#33424f;
+  :root{--navy:#3A0E9B;--blue:#631FF3;--light:#F8F4FF;--ink:#1c2530;--muted:#5b6675;--bg:#FAF7FF;--text-pravne:#2E2A3D;
     /* ── Farebny beh stranky ──────────────────────────────────────────────
-       Tri pasy jednym smerom (petrolejova -> fialova). Su tu ako premenne
+       Tri pasy jednym smerom, od tmavej fialovej po tu z reklam. Su tu ako premenne
        prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
        pas zapisany natvrdo na piatich az siedmich miestach a .hero mal dokonca
        dve pravidla, z ktorych to s premennymi prehravalo s tym nizsie. Prepis
        :root tak na vzhlad nemal vplyv.
-       Oba konce svetleho pasu maju zamerne rovnaku svetlost (HSL L = 94 %):
-       nie je to stmavovanie zhora nadol, ale cisty posun odtienu. */
-    --beh-hore:#153f4f;             /* zhodne s --navy */
-    --beh-stred:#1e5168;
-    --beh-dole:#3d2a7a;
+       Koniec behu #9633FD je svetlejsi nez bola petrolejova, takze texty na nom
+       maju nizsi kontrast. Drzia preto, ze nelezia na najsvetlejsom konci -
+       overene dopoctom farby pod kazdym textom, nie odhadom. Kto bude pas
+       menit, musi to premerat znova. */
+    --beh-hore:#3A0E9B;             /* zhodne s --navy */
+    --beh-stred:#631FF3;
+    --beh-dole:#9633FD;   /* fialova z reklam na Mete */
     --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
     /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
        a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
@@ -80,7 +82,7 @@
 </head>
 <body>
 <header>
-  <div class="wrap"><a href="/" style="color:#fff"><span class="logo">Poriado.</span></a></div>
+  <div class="wrap"><a href="/" style="color:var(--white,#fff)"><span class="logo">Poriado.</span></a></div>
 </header>
 <main>
   <div class="wrap">
@@ -161,9 +163,9 @@
 </main>
 <footer>
   <div class="wrap">
-    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:#b9d4da">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:#b9d4da">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:#b9d4da">info@poriado.sk</a></p>
+    <p style="margin-top:10px"><a href="tel:+421949061088" style="color:var(--light)">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917" style="color:var(--light)">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk" style="color:var(--light)">info@poriado.sk</a></p>
     CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424
-    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:#b9d4da">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:#b9d4da">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:#b9d4da">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html" style="color:var(--light)">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html" style="color:var(--light)">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen" style="color:var(--light)">Nastavenia cookies</a></p>
   </div>
 </footer>
 </body>

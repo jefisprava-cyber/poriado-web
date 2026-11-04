@@ -112,27 +112,29 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#855b16;
+  :root{--navy:#3A0E9B;--blue:#631FF3;--light:#F8F4FF;--bg:#FAF7FF;--ink:#1c2530;--muted:#5b6675;--gold:#FFD632;--gold-tmava:#E8C01C;--gold-text:#6B4E00;
     /* ── Farebny beh stranky ──────────────────────────────────────────────
-       Tri pasy jednym smerom (petrolejova -> fialova). Su tu ako premenne
+       Tri pasy jednym smerom, od tmavej fialovej po tu z reklam. Su tu ako premenne
        prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
        pas zapisany natvrdo na piatich az siedmich miestach a .hero mal dokonca
        dve pravidla, z ktorych to s premennymi prehravalo s tym nizsie. Prepis
        :root tak na vzhlad nemal vplyv.
-       Oba konce svetleho pasu maju zamerne rovnaku svetlost (HSL L = 94 %):
-       nie je to stmavovanie zhora nadol, ale cisty posun odtienu. */
-    --beh-hore:#153f4f;             /* zhodne s --navy */
-    --beh-stred:#1e5168;
-    --beh-dole:#3d2a7a;
+       Koniec behu #9633FD je svetlejsi nez bola petrolejova, takze texty na nom
+       maju nizsi kontrast. Drzia preto, ze nelezia na najsvetlejsom konci -
+       overene dopoctom farby pod kazdym textom, nie odhadom. Kto bude pas
+       menit, musi to premerat znova. */
+    --beh-hore:#3A0E9B;             /* zhodne s --navy */
+    --beh-stred:#631FF3;
+    --beh-dole:#9633FD;   /* fialova z reklam na Mete */
     --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
     /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
        a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
        dolnu tretinu pasu, presne tam, kde lezi karta s balikmi. */
     --pas-uvod-mobil:linear-gradient(168deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
     --pas-paticka:linear-gradient(180deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
-    --pas-svetly:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%);
+    --pas-svetly:linear-gradient(180deg,#F5F0FF 0%,#EFE7FF 100%);
     /* Vlasova linka pod hlavickou. Zlata sa tu pouziva ako plocha, nie text. */
-    --linka-zlata:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%);}
+    --linka-zlata:linear-gradient(90deg,rgba(255,214,50,0) 0%,#FFE88A 18%,#FFD632 50%,#FFE88A 82%,rgba(255,214,50,0) 100%);}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   a{text-decoration:none;color:inherit}
@@ -158,14 +160,14 @@
   .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:6px 12px;min-width:44px;min-height:44px}
   @media(max-width:820px){
     .nav-burger{display:block}
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(21,63,79,.14);border-top:1px solid #e6e5f1;z-index:60}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 14px;box-shadow:0 16px 32px rgba(58,14,155,.14);border-top:1px solid #e6e5f1;z-index:60}
     .nav-links.open{display:flex}
     .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0eef8;font-size:1rem}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
   .hero{background:var(--pas-uvod);color:#fff;padding:60px 0 54px;text-align:center}
   .hero h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;margin-bottom:16px;letter-spacing:-.03em;text-wrap:balance}
-  .hero p{max-width:660px;margin:0 auto;font-size:1.05rem;color:#f4f8fd}
+  .hero p{max-width:660px;margin:0 auto;font-size:1.05rem;color:var(--light)}
   section{padding:clamp(56px,7vw,88px) 0}
   h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
   h3{color:var(--navy);font-size:1.1rem;margin-bottom:8px}
@@ -173,12 +175,12 @@
   .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.8rem;margin-bottom:8px}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
   .card{background:#fff;border:1px solid #e6e5f1;border-radius:14px;padding:24px 22px}
-  .alt .card{border:none;box-shadow:0 4px 14px rgba(21,63,79,.06)}
+  .alt .card{border:none;box-shadow:0 4px 14px rgba(58,14,155,.06)}
   .card p{color:var(--muted);font-size:.95rem}
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
   .split>*{min-width:0}
   @media(max-width:840px){.split{grid-template-columns:1fr;gap:24px}}
-  .split img{width:100%;height:auto;border-radius:16px;box-shadow:0 10px 30px rgba(21,63,79,.12)}
+  .split img{width:100%;height:auto;border-radius:16px;box-shadow:0 10px 30px rgba(58,14,155,.12)}
   .cena-pas{display:inline-block;background:var(--light);color:var(--navy);font-weight:800;padding:8px 16px;border-radius:9px;margin-top:18px}
   .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
   .addon{background:#fff;border:1px solid #e2e4ee;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -187,7 +189,7 @@
 .note{font-size:.88rem;color:#5f6875;margin-top:16px}
   .cta{background:var(--navy);color:#fff;text-align:center}
   .cta h2{color:#fff}
-  .cta p{color:#f4f8fd;max-width:620px;margin:0 auto 26px}
+  .cta p{color:var(--light);max-width:620px;margin:0 auto 26px}
   .cta .btn-ghost{background:transparent;color:#fff;border:2px solid #fff}
   .cta .btn-ghost:hover{background:rgba(255,255,255,.15)}
   footer{background:var(--pas-paticka);color:var(--light);padding:40px 0 34px;text-align:center;font-size:.92rem}
@@ -195,7 +197,7 @@
   /* Odkaz v pätičke bol odlisany len farbou. Kto farby nerozoznava,
      nevidel, ze je to odkaz — podciarknutie to riesi bez zmeny vzhladu. */
   footer p a{text-decoration:underline}
-  footer a{color:#b9d4da}
+  footer a{color:var(--light)}
   /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
      Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
      čiaru majú natrvalo. Rovnaký stav dostane aj fokus z klávesnice.
@@ -224,7 +226,7 @@
   .hero::before{border-color:var(--gold);opacity:.20}
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
-  footer .logo span{color:#b9d4da}
+  footer .logo span{color:var(--gold)}
 
   /* Cenník namiesto porovnávacej tabuľky. Jediný rozdiel medzi balíkmi je
      čas, takže stĺpec s hodinovou sadzbou je celá informácia — tabuľka
