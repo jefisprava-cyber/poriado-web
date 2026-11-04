@@ -310,6 +310,27 @@
   /* Lepiaca hlavicka ma 75 px, takze skok na kotvu (#cennik) skoncil
      s nadpisom schovanym za nou. Rovnake pravidlo ma domovska aj sluzby. */
   [id]{scroll-margin-top:86px}
+
+  /* ── Tlač ─────────────────────────────────────────────────────────────────
+     Na papieri platí iné než na obrazovke: nedá sa scrollovať, prvky, ktoré sa
+     držia na mieste, sa vypaľujú na každú stranu, a tlačiareň štandardne
+     nevytlačí farebné pozadia — svetlý text na tmavom páse by zmizol.
+     Papier A4 má navyše asi 794 px, takže platia mobilné pravidlá. */
+  @media print{
+    #nav-burger{display:none!important}
+    header{position:static!important;box-shadow:none!important}
+    .hero,footer{background:#fff!important;color:var(--ink)!important}
+    .hero *,footer *{color:inherit!important}
+    .hero::before{display:none!important}
+    /* Rozbaľovacie otázky nechať otvorené — na papieri sa klikať nedá.
+       Zatvorený <details> prehliadač skrýva cez content-visibility na
+       pseudoprvku ::details-content, nie cez display na deťoch. Značku
+       na rozbalenie netlačíme, na papieri nie je čo rozbaliť. */
+    details{break-inside:avoid}
+    details::details-content{content-visibility:visible!important}
+    summary{list-style:none!important}
+    h1,h2,h3{break-after:avoid}
+  }
   </style>
 </head>
 <body>

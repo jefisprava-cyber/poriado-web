@@ -36,6 +36,7 @@
   var KVALITA    = 0.75;
 
   var STYL = [
+    '@media print{.pd-overlay{display:none!important}}',
     '.pd-overlay{position:fixed;inset:0;background:rgba(58,14,155,.55);display:none;',
       'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
     'body.pd-okno-otvorene #pch-bubble{display:none !important}',

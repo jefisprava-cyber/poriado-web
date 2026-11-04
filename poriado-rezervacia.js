@@ -219,6 +219,7 @@
      niekto v budúcnosti predsa pridal, nájde si správny prvok. */
 
   var STYL = [
+    '@media print{.pr-prekryv{display:none!important}}',
     /* overscroll-behavior:contain — keď je prekryv dorolovaný na koniec (na
        mobile po ~1500 px kalendára veľmi ľahko), ďalšie ťahanie prstom by sa
        prelialo na stránku pod oknom. overflow:hidden na <body> zámerne

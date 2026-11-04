@@ -2,6 +2,8 @@
    Použitie: <script src="poriado-chat.js" defer></script> pred </body> */
 (function () {
   var CSS = `
+  /* Na papieri by bublina aj panel ležali cez text na každej strane. */
+  @media print{#pch-bubble,#pch-panel{display:none!important}}
   #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
     background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;border:none;cursor:pointer;z-index:9990;
     box-shadow:0 8px 24px rgba(58,14,155,.35);font-size:26px;display:flex;align-items:center;justify-content:center;

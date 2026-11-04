@@ -37,6 +37,16 @@
   .ghost{background:transparent;color:#fff;border:2px solid #fff}
   .ghost:hover{background:rgba(255,255,255,.15)}
   .box .male{color:var(--light);font-size:.92rem;margin:18px 0 0}
+
+  /* ── Tlač ─────────────────────────────────────────────────────────────────
+     Na papieri platí iné než na obrazovke: nedá sa scrollovať, prvky, ktoré sa
+     držia na mieste, sa vypaľujú na každú stranu, a tlačiareň štandardne
+     nevytlačí farebné pozadia — svetlý text na tmavom páse by zmizol.
+     Papier A4 má navyše asi 794 px, takže platia mobilné pravidlá. */
+  @media print{
+    body{background:#fff!important;color:var(--ink,#1c2530)!important}
+    body *{color:inherit!important}
+  }
   </style>
 </head>
 <body>

@@ -493,6 +493,8 @@
 
   /* ── 3. Lišta a okno s nastaveniami ── */
   var CSS = [
+    /* Na papieri sa lišta vypáli na každú stranu a prelepí text pod sebou. */
+    '@media print{.pk-lista,.pk-prekryv{display:none!important}}',
     '.pk-lista{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #E9E2F7;box-shadow:0 -8px 30px rgba(58,14,155,.12);padding:18px 0;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
     '.pk-lista.pk-vidno{display:block}',
     '.pk-vnutro{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}',

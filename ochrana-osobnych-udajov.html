@@ -82,6 +82,18 @@
   footer p a{display:inline-block;padding:13px 6px}
   @media(max-width:820px){footer{padding-bottom:96px}}
 
+
+  /* ── Tlač ─────────────────────────────────────────────────────────────────
+     Na papieri platí iné než na obrazovke: nedá sa scrollovať, prvky, ktoré sa
+     držia na mieste, sa vypaľujú na každú stranu, a tlačiareň štandardne
+     nevytlačí farebné pozadia — svetlý text na tmavom páse by zmizol.
+     Papier A4 má navyše asi 794 px, takže platia mobilné pravidlá. */
+  @media print{
+    header,footer{background:#fff!important;color:var(--ink)!important}
+    header *,footer *{color:inherit!important}
+    .box{break-inside:avoid}
+    h1,h2{break-after:avoid}
+  }
   </style>
 </head>
 <body>
