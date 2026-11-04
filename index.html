@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bez tohto vnuteny tmavy rezim (napr. Samsung Internet) prefarbi text na zlatych
-     tlacidlach a kontrast klesne z 5,1:1 na 1,6:1. Web ma vlastnu svetlu paletu. -->
+     tlacidlach a kontrast by klesol. Web ma vlastnu svetlu paletu. -->
 <meta name="color-scheme" content="only light">
 <title>Upratovanie Bratislava — cena od 79,90 € | Poriado</title>
 <meta name="description" content="Upratovanie bytov a domov v Bratislave od 79,90 € za 3 hodiny, tepovanie 55 €/hod, žehlenie 49,90 €. Prostriedky aj doprava v cene, bez obhliadky.">
@@ -258,11 +258,14 @@
   .hero .btn:hover{background:var(--light)}
   .hero .btn-primary{font-size:1.04rem;padding:13px 30px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
   .hero .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32)}
-  /* rezervacne tlacidla - znackova zlata s navy pismom (kontrast 5,1:1) */
+  /* rezervacne tlacidla - znackova zlta s tmavym pismom (kontrast 8,69:1) */
   .btn-rez,.hero .btn-rez{background:var(--gold);color:var(--navy)}
   .btn-rez:hover,.hero .btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
-  .nav-links a.btn-rez{background:var(--navy);color:#fff}
-  .nav-links a.btn-rez:hover{background:#2D0A7A;color:#fff}
+  /* Tlacidlo v hlavicke je sekundarne CTA a ma byt na vsetkych strankach
+     rovnake. Zlta je vyhradena hlavnemu tlacidlu v uvode; keby bola aj tu,
+     na jednej obrazovke by si konkurovali. */
+  .nav-links .btn{background:var(--navy);color:#fff}
+  .nav-links .btn:hover{background:#2D0A7A;color:#fff}
 
   .dovera{background:transparent}
   section{padding:clamp(38px,4.8vw,62px) 0}
@@ -281,13 +284,13 @@
   footer .logo{color:#fff;margin-bottom:10px}
   footer a{color:var(--light)}
 
-  header{box-shadow:0 1px 0 rgba(21,42,77,.08)}
+  header{box-shadow:0 1px 0 rgba(58,14,155,.08)}
   header::after{content:'';display:block;height:3px;background:var(--linka-zlata)}
   /* Štyri sľuby namiesto deviatich. Pri deviatich rovnako ťažkých kartách
      oko nemá kde zastaviť a neprečíta ani jednu. Zvyšných päť sa presunulo
      tam, kde tá otázka vzniká — k cenám a k rezervačnému tlačidlu. */
   .sluby{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .slub{background:#fff;border:1px solid var(--linka,#e2e4ee);border-radius:16px;padding:26px 22px 24px;box-shadow:0 10px 30px rgba(58,14,155,.05);opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  .slub{background:#fff;border:1px solid #E9E2F7;border-radius:16px;padding:26px 22px 24px;box-shadow:0 10px 30px rgba(58,14,155,.05);opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
   .slub.vidno{opacity:1;transform:none}
   .slub:nth-child(2){transition-delay:.08s}
   .slub:nth-child(3){transition-delay:.16s}
@@ -328,12 +331,15 @@
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
   .reviews{background:transparent;padding-top:0}
-  .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #e2e4ee;transition:.18s}
+  .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #E9E2F7;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
   .rev-stars{color:var(--gold-text);letter-spacing:2px;font-size:.98rem;white-space:nowrap}
   .rev-count{color:var(--muted);font-size:.92rem}
   .rev-cta{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
-  .rev-bar:hover .rev-cta{color:var(--navy);text-decoration:underline}
+  /* Farbu tu ZAMERNE nenastavujeme. Pas je v uvode na fialovom prelive,
+     kde ma text byt biely; tmava fialova by tu mala 1,85:1 a odkaz by pri
+     nabehnuti mysou zmizol. Zvyraznenie robi podciarknutie nizsie. */
+  .rev-bar:hover .rev-cta{text-decoration:underline}
   /* rotujúce citáty — všetky ležia v jednej bunke mriežky, takže sa neposúva rozloženie */
   .rev-citaty{display:grid;max-width:720px;margin:0 auto;padding:20px 0 22px}
   /* visibility, nielen opacity: priehľadné citáty ostávali v strome pre
@@ -346,7 +352,7 @@
   @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
 
   /* mobilna lepiaca lista */
-  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e2e4ee;box-shadow:0 -6px 24px rgba(58,14,155,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
+  .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #E9E2F7;box-shadow:0 -6px 24px rgba(58,14,155,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
   .mlista.show{transform:translateY(0)}
   .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
   .mlista .cena small{display:block;font-weight:600;color:var(--muted);font-size:.75rem}
@@ -365,7 +371,7 @@
   a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):hover,
   a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):focus-visible,
   .rev-bar:hover .rev-cta, .rev-bar:focus-visible .rev-cta{
-    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration:underline;text-decoration-color:var(--gold-text);
     text-decoration-thickness:2px;text-underline-offset:4px
   }
 
@@ -379,7 +385,10 @@
 
   /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
      tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
-  .hero .rev-stars{color:var(--gold)}
+  /* Svetlejsia zlta nez --gold: pas s recenziami lezi na spodku uvodu,
+     teda v 60-63 %% prelivu, a plna zlta tam ma pri 375 px len 4,29:1.
+     Tento odtien ma 4,94:1 aj v najhorsom bode. */
+  .hero .rev-stars{color:#FFE88A}
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:var(--gold)}
@@ -417,7 +426,7 @@
      teraz je spat ako karty kategorii, takze ich treba tiez. */
   .pricing{background:transparent}
   .namieru{text-align:center;color:var(--muted);font-size:.95rem;margin-top:20px}
-  .namieru a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+  .namieru a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold-text);text-decoration-thickness:2px;text-underline-offset:4px}
   .namieru a:hover{color:var(--blue)}
   .zlava{max-width:940px;margin:18px auto 0;text-align:center;background:#FFFBEB;border:1px solid #FFE9A8;border-radius:12px;padding:12px 18px;font-size:.9rem;color:var(--ink);line-height:1.55}
   .zlava b{color:var(--gold-text)}
@@ -428,7 +437,7 @@
      zmestia rovnako ako tri a na mobile su dve vedla seba, takze stvrta
      karta spravi mriezku 2 x 2. Stvrta pribudla 30. 10. 2026 — poukazky. */
   .kategorie{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;max-width:940px;margin:0 auto}
-  .kat{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e4ee;border-radius:16px;padding:14px 14px 18px;color:inherit;box-shadow:0 10px 30px rgba(58,14,155,.05);transition:.2s}
+  .kat{display:flex;flex-direction:column;background:#fff;border:1px solid #E9E2F7;border-radius:16px;padding:14px 14px 18px;color:inherit;box-shadow:0 10px 30px rgba(58,14,155,.05);transition:.2s}
   .kat:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(58,14,155,.13)}
   .kat img{width:100%;height:116px;object-fit:cover;border-radius:11px;margin-bottom:13px;display:block}
   /* Poukazky nie su sluzba, ale darcek — namiesto fotky maju znacku:
@@ -439,7 +448,7 @@
   .kat b{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.25}
   .kat .co{display:block;font-size:.88rem;color:var(--muted);line-height:1.45;margin:5px 0 12px;flex-grow:1}
   .kat .cena{display:block;font-size:1.12rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
-  .kat:hover b{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+  .kat:hover b{text-decoration:underline;text-decoration-color:var(--gold-text);text-decoration-thickness:2px;text-underline-offset:3px}
   /* Na mobile dve vedla seba — pod sebou by tri karty zabrali celu obrazovku
      a clovek by videl prvu a pol. */
   @media(max-width:640px){
@@ -474,7 +483,7 @@
   /* Doplnkove sluzby ako dva stitky. Farba ich odlisi od behoveho textu
      a cena sa v nich neda prehliadnut, ako sa to dialo v odstavci. */
   .doplnky{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:940px;margin:16px auto 0;padding:0}
-  .doplnky li{display:inline-flex;align-items:center;gap:10px;text-align:left;background:#fff;border:1px solid #e2e4ee;border-radius:999px;padding:7px 18px 7px 7px;font-size:.89rem;font-weight:600;color:var(--navy);line-height:1.3}
+  .doplnky li{display:inline-flex;align-items:center;gap:10px;text-align:left;background:#fff;border:1px solid #E9E2F7;border-radius:999px;padding:7px 18px 7px 7px;font-size:.89rem;font-weight:600;color:var(--navy);line-height:1.3}
   .doplnky b{font-weight:700}
   .doplnky .ik{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
   .doplnky .ik svg{width:18px;height:18px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -494,10 +503,10 @@
      do fialovej (zadany pri footer{background:...} vyssie). Medzi nimi bezi
      ten isty prechod, len vybledly.
 
-     Oba konce pasu maju ZAMERNE rovnaku svetlost (HSL L = 94 %): nie je to
-     stmavovanie zhora nadol, ale cisty posun odtienu z petrolejovej do
-     fialovej. Preto je pas po celej dlzke rovnako citatelny — najslabsi
-     text na nom (--muted) ma 4,84:1, teda nad hranicou WCAG AA.
+     Pas zhora nadol mierne stmavuje (L 97,1 % -> 95,3 %); odtien oboch
+     koncov je rovnaky, 260 deg. Najslabsi text na nom je --muted: hore
+     5,22:1, dole 4,87:1. Rezerva nad hranicou WCAG AA je teda 0,37, nie
+     nulova — kto pas zosvetli alebo posunie text nizsie, musi premerat znova.
 
      Gradient je na obale .pas, nie na jednotlivych sekciach: inak by kazda
      sekcia zacala prechod odznova a boli by vidiet svy. Sekcie v nom preto
@@ -533,7 +542,7 @@
     gap:14px;padding:11px 0;border-top:1px solid #E9E2F7;color:var(--ink);position:relative}
   .hodiny a.riadok:first-of-type{border-top:0}
   .hodiny a.riadok:hover .nazov b{text-decoration:underline;
-    text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+    text-decoration-color:var(--gold-text);text-decoration-thickness:2px;text-underline-offset:3px}
   .hodiny .popularny::before{content:"";position:absolute;left:-22px;top:7px;bottom:7px;
     width:4px;background:var(--gold);border-radius:0 3px 3px 0}
   .hodiny .pocet{font-size:1.9rem;font-weight:700;color:var(--navy);line-height:1;

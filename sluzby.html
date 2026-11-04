@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bez tohto vnuteny tmavy rezim (napr. Samsung Internet) prefarbi text na zlatych
-     tlacidlach a kontrast klesne z 5,1:1 na 1,6:1. Web ma vlastnu svetlu paletu. -->
+     tlacidlach a kontrast by klesol. Web ma vlastnu svetlu paletu. -->
 <meta name="color-scheme" content="only light">
 <title>Upratovacie služby Bratislava | Poriado</title>
 <meta name="description" content="Upratovanie bytov a domov, kancelárie a prevádzky, tepovanie sedačiek a kobercov, žehlenie bielizne aj Airbnb. Balíky od 79,90 €, doplnkové služby a cenník.">
@@ -141,7 +141,7 @@
   img{max-width:100%;display:block}
   body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-synthesis:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-  header{position:sticky;top:0;background:#fff;box-shadow:0 1px 0 rgba(21,42,77,.08);z-index:50}
+  header{position:sticky;top:0;background:#fff;box-shadow:0 1px 0 rgba(58,14,155,.08);z-index:50}
   header::after{content:'';display:block;height:3px;background:var(--linka-zlata)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;max-width:1080px;margin:0 auto}
   .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
@@ -151,9 +151,14 @@
   .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink)}
   .nav-links a:hover{color:var(--blue)}
   .btn{display:inline-block;background:var(--blue);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;transition:.2s;border:none;cursor:pointer;font-size:.95rem}
+  /* Tlacidlo v hlavicke je sekundarne CTA a ma byt na vsetkych strankach
+     rovnake. Zlta je vyhradena hlavnemu tlacidlu v uvode; keby bola aj tu,
+     na jednej obrazovke by si konkurovali. */
+  .nav-links .btn{background:var(--navy);color:#fff}
+  .nav-links .btn:hover{background:#2D0A7A;color:#fff}
   .btn:hover{background:var(--navy);transform:translateY(-1px)}
-  .btn-rez,.nav-links a.btn-rez{background:var(--gold);color:var(--navy)}
-  .btn-rez:hover,.nav-links a.btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
+  .btn-rez{background:var(--gold);color:var(--ink)}
+  .btn-rez:hover{background:var(--gold-tmava);color:var(--ink)}
   /* Na mobile sa odkazy skrývali a burger na podstránkach nebol, takže sa
      z nich nedalo prejsť nikam inam než na rezerváciu. */
   .nav{position:relative}
@@ -181,9 +186,12 @@
   .split>*{min-width:0}
   @media(max-width:840px){.split{grid-template-columns:1fr;gap:24px}}
   .split img{width:100%;height:auto;border-radius:16px;box-shadow:0 10px 30px rgba(58,14,155,.12)}
-  .cena-pas{display:inline-block;background:var(--light);color:var(--navy);font-weight:800;padding:8px 16px;border-radius:9px;margin-top:18px}
+  /* Zlta plocha, nie svetlofialova: --light je dnes svetlejsie nez svetly pas,
+     na ktorom plaketa lezi (1,04:1), takze by splynula. Zlta je zaroven
+     farba, ktorou web oznacuje ceny. */
+  .cena-pas{display:inline-block;background:var(--gold);color:var(--ink);font-weight:800;padding:8px 16px;border-radius:9px;margin-top:18px}
   .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-  .addon{background:#fff;border:1px solid #e2e4ee;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .addon{background:#fff;border:1px solid #E9E2F7;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
   .addon span{color:var(--ink);font-size:.94rem}
   .addon b{color:var(--gold-text);font-weight:800;white-space:nowrap}
 .note{font-size:.88rem;color:#5f6875;margin-top:16px}
@@ -207,7 +215,7 @@
      doplniť spolu s ním. */
   a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):hover,
   a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):focus-visible{
-    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration:underline;text-decoration-color:var(--gold-text);
     text-decoration-thickness:2px;text-underline-offset:4px
   }
 
@@ -233,7 +241,7 @@
      s desiatimi riadkami fajok hovorila menej a zaberala desaťnásobok. */
   .rovnako{max-width:620px;margin:0 auto 18px;text-align:center;color:var(--muted);font-size:.97rem;line-height:1.6}
   .rovnako b{color:var(--ink)}
-  .cenik{list-style:none;margin:0 auto;padding:0;max-width:480px;background:#fff;border:1px solid #e2e4ee;border-radius:14px;overflow:hidden}
+  .cenik{list-style:none;margin:0 auto;padding:0;max-width:480px;background:#fff;border:1px solid #E9E2F7;border-radius:14px;overflow:hidden}
   .cenik li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;gap:12px;padding:13px 16px}
   .cenik li+li{border-top:1px solid #eef0f6}
   .cenik .cas{font-weight:700;color:var(--navy);font-size:.97rem}
@@ -259,9 +267,11 @@
 
   /* ═══════ SVETLY PAS — ROVNAKY AKO NA DOMOVSKEJ ═══════
      Sekcie medzi uvodom a zaverecnou vyzvou zdielaju jeden gradient, aby
-     farebny beh nekoncil pri prekliku z domovskej. Oba konce maju zamerne
-     rovnaku svetlost (HSL L = 94 %): nie je to stmavovanie zhora nadol,
-     ale cisty posun odtienu z petrolejovej do fialovej.
+     farebny beh nekoncil pri prekliku z domovskej. Pas zhora nadol mierne
+     stmavuje (L 97,1 % -> 95,3 %, odtien oboch koncov je rovnaky 260 deg).
+     Najslabsi text na nom je --muted: hore 5,22:1, dole 4,87:1 — rezerva
+     nad hranicou WCAG AA je teda 0,37, nie nulova. Kto pas zosvetli alebo
+     posunie text nizsie, musi to premerat znova.
      Striedanie .alt sa tym rusi — pas nahradza pruhovanie. */
   .pas{background:var(--pas-svetly)}
   .pas .alt,.alt{background:transparent}

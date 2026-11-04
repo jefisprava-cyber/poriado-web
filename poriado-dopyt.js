@@ -79,7 +79,7 @@
     '.pd-odoslat:disabled{opacity:.65;cursor:default}',
     '.pd-ok{display:none;color:#0b7d53;font-weight:700;text-align:center;margin-top:14px}',
     '.pd-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
-    '.pd-zavri:focus-visible,.pd-odoslat:focus-visible{outline:3px solid #ffd632;outline-offset:2px}',
+    '.pd-zavri:focus-visible,.pd-odoslat:focus-visible{outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
     '.pd-okno input:focus-visible,.pd-okno textarea:focus-visible{outline:2px solid var(--blue,#631FF3);outline-offset:1px}',
     '@media(max-width:640px){.pd-okno{padding:28px 18px}.pd-zavri-obal{top:28px}.pd-zavri{top:-18px;right:-10px}}'
   ].join('');

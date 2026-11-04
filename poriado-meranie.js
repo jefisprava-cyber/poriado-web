@@ -513,7 +513,7 @@
     '.pk-riadok span{color:var(--muted,#5b6675);font-size:.86rem;display:block;margin-top:2px}',
     '.pk-prep{position:relative;width:44px;height:24px;flex-shrink:0;margin-left:auto}',
     '.pk-prep input{opacity:0;width:0;height:0}',
-    '.pk-posuvnik{position:absolute;inset:0;background:#C9BEE3;border-radius:24px;cursor:pointer;transition:.2s}',
+    '.pk-posuvnik{position:absolute;inset:0;background:#8A7AB0;border-radius:24px;cursor:pointer;transition:.2s}',
     '.pk-posuvnik:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}',
     '.pk-prep input:checked+.pk-posuvnik{background:var(--blue,#631FF3)}',
     '.pk-prep input:checked+.pk-posuvnik:before{transform:translateX(20px)}',
@@ -523,8 +523,8 @@
        analytiku a marketing naslepo každý, kto ovláda web klávesnicou, a je
        to jediná obrazovka, kde sa dá súhlas odvolať. :focus-visible sa pri
        klikaní myšou nezobrazí, takže to vzhľad nemení. */
-    '.pk-prep input:focus-visible+.pk-posuvnik{outline:3px solid #ffd632;outline-offset:2px}',
-    '.pk-btn:focus-visible,.pk-text a:focus-visible{outline:3px solid #ffd632;outline-offset:2px}',
+    '.pk-prep input:focus-visible+.pk-posuvnik{outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
+    '.pk-btn:focus-visible,.pk-text a:focus-visible{outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
     '.pk-akcie{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}',
     '.pk-akcie .pk-btn{flex:1}',
     /* Mobil: kratšia lišta — tri rovnako veľké tlačidlá v jednom riadku. */

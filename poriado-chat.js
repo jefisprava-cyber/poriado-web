@@ -9,12 +9,15 @@
   #pch-bubble:hover{transform:scale(1.08)}
   #pch-panel{position:fixed;right:20px;bottom:92px;width:360px;max-width:calc(100vw - 32px);height:520px;
     max-height:calc(100vh - 120px);background:#fff;border-radius:16px;z-index:9991;display:none;flex-direction:column;
-    box-shadow:0 20px 60px rgba(20,30,50,.30);overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+    box-shadow:0 20px 60px rgba(58,14,155,.30);overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
   #pch-panel.open{display:flex}
   /* Viditelny fokus pre toho, kto chat ovlada klavesnicou. :focus-visible
-     sa pri klikani mysou nezobrazi, takze to vzhlad nemeni. */
+     sa pri klikani mysou nezobrazi, takze to vzhlad nemeni.
+     Dvojfarebny prstenec: tmavy obrys a biela medzera. Zlta mala na bielej
+     1,41:1 pri potrebnych 3,0; samotna tmava by splynula na fialovej
+     hlavicke chatu (1,76:1). */
   #pch-bubble:focus-visible,#pch-close:focus-visible,.pch-chip:focus-visible,.pch-cta a:focus-visible{
-    outline:3px solid #ffd632;outline-offset:2px}
+    outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}
   .pch-head{background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;padding:14px 16px}
   .pch-head b{font-size:1.05rem}
   .pch-head b span{color:var(--gold,#FFD632)}
