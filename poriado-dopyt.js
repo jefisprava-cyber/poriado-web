@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------------------
  * Vloženie na stránku:
  *
- *     <script src="poriado-dopyt.js" defer><\/script>
+ *     <script src="poriado-dopyt.js" defer></script>
  *
  * Súbor si sám vloží štýly aj HTML okna, takže na podstránkach netreba nič
  * kopírovať. Okno sa otvorí:
@@ -14,13 +14,23 @@
  * z poriado-meranie.js. Ak meranie na stránke nie je (alebo ide o demo),
  * formulár funguje ďalej, len sa nič nezmeria.
  *
- * Vlastné triedy majú predponu pd- a farby sú zapísané priamo, nie cez CSS
- * premenné — podstránky majú vlastné palety a okno musí vyzerať všade rovnako.
+ * Vlastné triedy majú predponu pd-. Farby sa čítajú z palety stránky
+ * cez var(--premenná, #záložná): tak sa okno prefarbí spolu s webom, keď sa
+ * mení paleta, a záložná hodnota za čiarkou ho udrží rovnaké aj tam, kde
+ * premenná v :root nie je (404.html ich má len tri).
  */
 (function () {
   'use strict';
 
-  var AKCIA = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec';
+  /* Adresu aj token drží poriado-meranie.js — ten je na každej stránke
+     v <head> BEZ defer, takže dobehol skôr než tento súbor. Záložná kópia tu
+     zámerne NIE JE: držala by práve ten problém, pre ktorý sa adresa
+     zjednocovala — tri miesta na opravu pri každom novom nasadení skriptu.
+     Keď adresa chýba, okno sa vôbec nepostaví (pozri start() na konci súboru)
+     a odkazy na dopyt fungujú ako predtým — odvedú na hlavnú stránku. Tiché
+     odoslanie do prázdna je horšie než tlačidlo, ktoré nič nespraví. */
+  var AKCIA = window.PORIADO_SKRIPT;
+  var TOKEN = window.PORIADO_TOKEN;
   var MAX_FOTIEK = 5;
   var MAX_HRANA  = 1400;   // px — dlhšia strana fotky po zmenšení
   var KVALITA    = 0.75;
@@ -29,43 +39,48 @@
     '.pd-overlay{position:fixed;inset:0;background:rgba(21,63,79,.55);display:none;',
       'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;overflow-y:auto}',
     'body.pd-okno-otvorene #pch-bubble{display:none !important}',
+    /* Lišta musí ostať nad prekryvom, inak sa na ňu nedá kliknúť. */
+    'body.pd-okno-otvorene .pk-lista{z-index:9996}',
+    'body.pd-okno-otvorene .pk-prekryv{z-index:9997}',
     '.pd-overlay.pd-open{display:flex}',
     '.pd-okno{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:34px 30px;',
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
-      'color:#1c2530;line-height:1.6;text-align:left}',
-    '.pd-okno h3{color:#153f4f;font-size:1.4rem;margin:0 0 6px;font-weight:700}',
-    '.pd-sub{color:#5b6675;font-size:.95rem;margin:0 0 20px;line-height:1.55}',
+      'color:var(--ink,#1c2530);line-height:1.6;text-align:left}',
+    '.pd-okno h3{color:var(--navy,#153f4f);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
+    '.pd-sub{color:var(--muted,#5b6675);font-size:.95rem;margin:0 0 20px;line-height:1.55}',
     /* Krížik ostáva pri rolovaní dlhšieho formulára hore na obrazovke (lepiaci obal). */
     '.pd-zavri-obal{position:sticky;top:30px;height:0;z-index:5}',
     '.pd-zavri{position:absolute;top:-20px;right:-20px;width:44px;height:44px;border-radius:50%;',
       'background:#fff;border:1px solid #e2e4ee;box-shadow:0 4px 14px rgba(21,63,79,.14);',
       'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
       'display:flex;align-items:center;justify-content:center}',
-    '.pd-zavri:hover{color:#153f4f}',
+    '.pd-zavri:hover{color:var(--navy,#153f4f)}',
     '.pd-okno form{background:none;box-shadow:none;padding:0;margin:0}',
-    '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:#153f4f}',
+    '.pd-okno label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--navy,#153f4f)}',
     '.pd-okno input,.pd-okno textarea{width:100%;padding:11px 14px;border:1px solid #d7e0ec;',
       /* 16 px je dolna hranica, pod nou iOS Safari po tuknuti priblizi celu stranku. */
-      'border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:1rem;color:#1c2530;background:#fff}',
-    '.pd-okno input:focus,.pd-okno textarea:focus{outline:none;border-color:#13697c}',
-    '.pd-foto{border:1.5px dashed #13697c;border-radius:9px;background:#f7f6fb;',
+      'border-radius:9px;margin-bottom:16px;font-family:inherit;font-size:1rem;color:var(--ink,#1c2530);background:#fff}',
+    '.pd-okno input:focus,.pd-okno textarea:focus{outline:none;border-color:var(--blue,#13697c)}',
+    '.pd-foto{border:1.5px dashed var(--blue,#13697c);border-radius:9px;background:var(--bg,#f7f6fb);',
       'font-size:.9rem;padding:10px;margin-bottom:4px}',
-    '.pd-foto-note{font-size:.8rem;color:#5b6675;margin:0 0 12px}',
-    '.pd-foto-stav{color:#19b07a;font-weight:700}',
+    '.pd-foto-note{font-size:.8rem;color:var(--muted,#5b6675);margin:0 0 12px}',
+    '.pd-foto-stav{color:#0b7d53;font-weight:700}',
     /* Musí byť špecifickejšie než .pd-okno label vyššie, inak si súhlas
        s podmienkami vezme štýl bežného popisku poľa. */
     '.pd-okno label.pd-gdpr{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;',
-      'color:#5b6675;margin:2px 0 14px;font-weight:400}',
-    '.pd-okno label.pd-gdpr input{margin:3px 0 0;flex:none;width:16px;height:16px;accent-color:#13697c}',
-    '.pd-okno label.pd-gdpr a{color:#13697c;text-decoration:underline}',
-    '.pd-odoslat{display:block;width:100%;background:#13697c;color:#fff;padding:12px 22px;',
+      'color:var(--muted,#5b6675);margin:2px 0 14px;font-weight:400}',
+    '.pd-okno label.pd-gdpr input{margin:3px 0 0;flex:none;width:16px;height:16px;accent-color:var(--blue,#13697c)}',
+    '.pd-okno label.pd-gdpr a{color:var(--blue,#13697c);text-decoration:underline}',
+    '.pd-odoslat{display:block;width:100%;background:var(--blue,#13697c);color:#fff;padding:12px 22px;',
       'border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.95rem;',
       'font-family:inherit;transition:.2s}',
-    '.pd-odoslat:hover{background:#255f95}',
+    '.pd-odoslat:hover{background:var(--navy,#153f4f)}',
     '.pd-odoslat:disabled{opacity:.65;cursor:default}',
-    '.pd-ok{display:none;color:#19b07a;font-weight:700;text-align:center;margin-top:14px}',
+    '.pd-ok{display:none;color:#0b7d53;font-weight:700;text-align:center;margin-top:14px}',
     '.pd-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
+    '.pd-zavri:focus-visible,.pd-odoslat:focus-visible{outline:3px solid #ffd632;outline-offset:2px}',
+    '.pd-okno input:focus-visible,.pd-okno textarea:focus-visible{outline:2px solid var(--blue,#13697c);outline-offset:1px}',
     '@media(max-width:640px){.pd-okno{padding:28px 18px}.pd-zavri-obal{top:28px}.pd-zavri{top:-18px;right:-10px}}'
   ].join('');
 
@@ -76,7 +91,7 @@
       '<p class="pd-sub">Pre Airbnb, kancelárie a špeciálne priestory. Napíšte nám, čo potrebujete, ' +
         'a ozveme sa do 24 hodín s ponukou na mieru.</p>' +
       '<form id="individ-form" action="' + AKCIA + '" method="POST">' +
-        '<input type="hidden" name="token" value="poriado2026">' +
+        '<input type="hidden" name="token" value="' + TOKEN + '">' +
         '<input type="text" name="hp" class="pd-hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
         '<label for="i-meno">Meno alebo firma</label>' +
         '<input type="text" id="i-meno" name="meno" required autocomplete="name" placeholder="Meno / názov firmy">' +
@@ -208,6 +223,14 @@
       fd.append('foto_count', f.length);
       f.forEach(function (b, i) { fd.append('foto_' + (i + 1), b); });
 
+      /* POZOR na mode:'no-cors'. Apps Script neposiela hlavičky CORS, takže
+         inak sa odpoveď prečítať nedá — lenže pri no-cors je odpoveď nepriehľadná
+         a fetch sa vyrieši AJ pri stave 404 alebo 500. Zo samotného odoslania
+         teda nevieme, či dopyt naozaj dorazil; odmietnutie príde len pri páde
+         siete. Preto je adresa overená vopred (pozri start()) — to pokrýva
+         prípad, keď chýba. Odpoveď servera pokrytá nie je a pokryť sa bez
+         zmeny Apps Scriptu nedá: musel by posielať Access-Control-Allow-Origin,
+         až potom by sa dal no-cors zrušiť a stav prečítať. */
       fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
         .then(function () {
           form.reset();
@@ -240,6 +263,18 @@
     /* Keby okno na stránke už bolo napevno, druhé nevkladám. */
     if (document.getElementById('individ-modal')) return;
 
+    /* Bez adresy by sa dopyt odoslal do prázdna a zákazník by aj tak dostal
+       poďakovanie — fetch s no-cors sa pri zlej adrese nesťažuje. Radšej okno
+       nepostavím vôbec: odkazy na #individ potom fungujú ako pred jeho
+       zavedením a odvedú na hlavnú stránku, kde sú telefón aj e-mail. */
+    if (!AKCIA) {
+      if (window.console && console.warn) {
+        console.warn('Poriado: individuálny dopyt sa nespustil — chýba window.PORIADO_SKRIPT ' +
+                     '(poriado-meranie.js sa nenačítal).');
+      }
+      return;
+    }
+
     vlozStyl();
     var overlay = document.createElement('div');
     overlay.className = 'pd-overlay';
@@ -247,15 +282,70 @@
     overlay.innerHTML = HTML;
     document.body.appendChild(overlay);
 
-    function otvor() {
+    /* Okno sa hlási ako aria-modal="true". Aby to nebola lož, musí sa pri
+       otvorení schovať obsah za ním, fokus musí ísť dovnútra a pri zatvorení
+       sa vrátiť tam, odkiaľ prišiel. Inak čítačka povie, že okolo dialógu nič
+       nie je, a tabulátor používateľa odvedie presne do tej „neexistujúcej"
+       časti. Rovnaký postup — aj s dôvodmi — má poriado-rezervacia.js.
+       aria-hidden dávame len prvkom, ktoré ho ešte nemajú, aby sme pri
+       zatvorení nezmazali cudzie. */
+    var otvaral = null;
+
+    /* Cookie lišta a jej okno nastavení musia ostať použiteľné aj nad otvoreným
+       dopytom — rovnako ako pri rezervačnom okne. Kto príde na stránku a hneď
+       klikne na dopyt, inak nemá ako dať súhlas, a bez neho Pixel nič neodošle. */
+    function mimoOkna(el) {
+      if (!el || el === document || el === window) return true;
+      if (overlay.contains(el)) return false;
+      var lista = document.getElementById('pk-lista');
+      var okno = document.getElementById('pk-okno-prekryv');
+      if (lista && lista.contains(el)) return false;
+      if (okno && okno.contains(el)) return false;
+      return true;
+    }
+
+    function schovajPozadie() {
+      var deti = document.body.children;
+      for (var i = 0; i < deti.length; i++) {
+        var el = deti[i];
+        if (el === overlay || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
+        if (!mimoOkna(el)) continue;
+        if (el.getAttribute('aria-hidden') !== null) continue;
+        el.setAttribute('data-pd-skryte', '1');
+        el.setAttribute('aria-hidden', 'true');
+      }
+    }
+    function odkryPozadie() {
+      var skryte = document.querySelectorAll('[data-pd-skryte]');
+      for (var i = 0; i < skryte.length; i++) {
+        skryte[i].removeAttribute('aria-hidden');
+        skryte[i].removeAttribute('data-pd-skryte');
+      }
+    }
+    /* Pasca fokusu: keď fokus vybehne z okna, vrátime ho na krížik. */
+    document.addEventListener('focusin', function (e) {
+      if (!overlay.classList.contains('pd-open')) return;
+      if (!mimoOkna(e.target)) return;
+      var x = document.getElementById('individ-close');
+      if (x) x.focus();
+    });
+
+    function otvor(spustac) {
+      otvaral = spustac || null;
       overlay.classList.add('pd-open');
       document.body.classList.add('pd-okno-otvorene');
       var chat = document.getElementById('pch-panel');
       if (chat) chat.classList.remove('open');
+      var x = document.getElementById('individ-close');
+      if (x) x.focus();                // fokus do okna, až potom schovať pozadie
+      schovajPozadie();
     }
     function zavri() {
       overlay.classList.remove('pd-open');
       document.body.classList.remove('pd-okno-otvorene');
+      odkryPozadie();                  // pred vrátením fokusu
+      if (otvaral && typeof otvaral.focus === 'function') otvaral.focus();
+      otvaral = null;
     }
 
     /* Klik chytáme na dokumente, nie na jednotlivých odkazoch. Chat sa totiž
@@ -267,9 +357,10 @@
     document.addEventListener('click', function (e) {
       var t = e.target;
       if (!t || !t.closest) return;
-      if (!t.closest(VYBER)) return;
+      var spustac = t.closest(VYBER);
+      if (!spustac) return;
       e.preventDefault();
-      otvor();
+      otvor(spustac);
     });
 
     document.getElementById('individ-close').addEventListener('click', zavri);

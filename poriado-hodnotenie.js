@@ -15,7 +15,11 @@
 (function () {
   'use strict';
 
-  var ZDROJ    = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec?akcia=hodnotenie';
+  /* Adresu drzi poriado—meranie.js (v <head> bez defer, teda uz zbehol).
+     Zalozna kopia tu nie je zamerne - pozri dovod v poriado-dopyt.js. Keby
+     adresa chybala, v HTML ostanu zalozne cisla, presne ako pri zlyhanom
+     stahovani. */
+  var ZDROJ    = window.PORIADO_SKRIPT ? window.PORIADO_SKRIPT + '?akcia=hodnotenie' : '';
   var KLUC     = 'poriado-hodnotenie';
   var PLATNOST = 86400000;   /* 24 h — jeden návštevník sa pýta najviac raz denne */
 
@@ -72,7 +76,7 @@
   try { ulozene = JSON.parse(localStorage.getItem(KLUC) || 'null'); } catch (e) {}
   if (ulozene && ulozene.cas && (Date.now() - ulozene.cas) < PLATNOST) { pouzi(ulozene.data); return; }
 
-  if (!window.fetch) return;
+  if (!ZDROJ || !window.fetch) return;
 
   /* Až po načítaní stránky — dve čísla nie sú dôležitejšie ako rýchlosť. */
   window.addEventListener('load', function () {

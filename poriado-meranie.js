@@ -19,8 +19,8 @@
  *   - načítanie Meta Pixelu hneď, odosielanie až po súhlase
  *   - funkciu window.konverzia(gaNazov, fbNazov) na meranie konverzií
  *
- * Farby sú zapísané natvrdo, nie cez CSS premenné — podstránky majú vlastné
- * sady premenných a lišta musí vyzerať rovnako všade.
+ * Farby sa čítajú z palety stránky cez var(--premenná, #záložná). Záložná
+ * hodnota drží dnešnú farbu aj na 404.html, ktorá má v :root len tri premenné.
  */
 (function () {
   'use strict';
@@ -29,6 +29,18 @@
   var GA_ID     = 'G-BN8T9S3MTS';
   var PIXEL_ID  = '939652179152863';
   var ODKAZ_GDPR = 'ochrana-osobnych-udajov.html';
+
+  /* Adresa nasadeneho Apps Scriptu a jeho token — JEDINE MIESTO v celom repe.
+     Posielaju don tri skripty (zdroj navstevy, individualny dopyt, hodnotenie
+     z Google) a kazdy si ju predtym nosil vo vlastnej kopii. Pri novom
+     nasadeni skriptu sa adresa meni; ked sa opravila len na dvoch z troch
+     miest, tretia cast webu ticho prestala posielat data a nic to nenahlasilo.
+     Tento subor je na kazdej stranke v <head> bez defer, takze bezi prvy
+     a ostatne si hodnotu uz najdu hotovu. */
+  var SKRIPT = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec';
+  var TOKEN  = 'poriado2026';
+  window.PORIADO_SKRIPT = SKRIPT;
+  window.PORIADO_TOKEN  = TOKEN;
 
   /* ── 1. Consent Mode — musí bežať okamžite ── */
   window.dataLayer = window.dataLayer || [];
@@ -158,7 +170,7 @@
     try {
       if (localStorage.getItem(XID_KEY)) return;
       var n = new Uint8Array(16);
-      (window.crypto || window.msCrypto).getRandomValues(n);
+      window.crypto.getRandomValues(n);
       var h = '';
       for (var i = 0; i < n.length; i++) h += ('0' + n[i].toString(16)).slice(-2);
       localStorage.setItem(XID_KEY, h);
@@ -220,13 +232,6 @@
     } catch (e) {}
   };
 
-  /* Stav suhlasu pre ostatne skripty. Rezervacne okno ho posiela do Reenia,
-     ktore ma vlastne GA4 aj Pixel a inak meria aj tomu, kto cookies odmietol. */
-  window.poriadoSuhlas = function () {
-    var c = dajSuhlas();
-    return { analytics: !!(c && c.analytics), marketing: !!(c && c.marketing), zodpovedane: !!c };
-  };
-
   /* ── Zdroj návštevy ──
      Rezervácia ani dopyt doteraz nemali kanál, takže sa nedalo povedať, či
      objednávka prišla z reklamy, z vyhľadávania alebo od známeho.
@@ -283,7 +288,6 @@
   function citajZdroj() {
     var s = cookieHodnota(ZDROJ_KEY);
     if (!s) { try { s = localStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }
-    if (!s) { try { s = sessionStorage.getItem(ZDROJ_KEY) || ''; } catch (e) {} }  // staršie návštevy
     var ulozene = {};
     try { ulozene = s ? JSON.parse(s) : {}; } catch (e) { ulozene = {}; }
     if (!zdrojPamat) return ulozene;
@@ -386,8 +390,6 @@
 
      Riadok zároveň slúži ako záznam o súhlase: keď preň riadok nie je,
      server o tomto nákupe Mete ani Googlu nepovie nič. */
-  var ZDROJ_AKCIA = 'https://script.google.com/macros/s/AKfycbwQtR4rbzSBMcR4CG8koG4anzFlQmOOzKlZZPQN4g3Agz-ppnzu2NwuYzs4yT4kXadp/exec';
-  var ZDROJ_TOKEN = 'poriado2026';
   var odoslaneFazy = {};
 
   window.poriadoZaznamZdroja = function (faza, balik) {
@@ -403,7 +405,7 @@
         if (v === undefined || v === null || v === '') return;
         p.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(v).slice(0, 300)));
       }
-      pridaj('token', ZDROJ_TOKEN);
+      pridaj('token', TOKEN);
       pridaj('akcia', 'zdroj');
       pridaj('faza', faza);
       pridaj('balik', balik || '');
@@ -426,12 +428,12 @@
       try {
         if (navigator.sendBeacon) {
           var blob = new Blob([telo], { type: 'application/x-www-form-urlencoded' });
-          poslane = navigator.sendBeacon(ZDROJ_AKCIA, blob);
+          poslane = navigator.sendBeacon(SKRIPT, blob);
         }
       } catch (e) {}
       if (poslane) return;
       try {
-        fetch(ZDROJ_AKCIA, {
+        fetch(SKRIPT, {
           method: 'POST', mode: 'no-cors', keepalive: true,
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: telo
@@ -494,28 +496,35 @@
     '.pk-lista{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #e2e4ee;box-shadow:0 -8px 30px rgba(21,63,79,.12);padding:18px 0;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
     '.pk-lista.pk-vidno{display:block}',
     '.pk-vnutro{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}',
-    '.pk-text{color:#1c2530;font-size:.92rem;line-height:1.5;flex:1;min-width:260px}',
-    '.pk-text a{color:#13697c;font-weight:600;text-decoration:underline}',
+    '.pk-text{color:var(--ink,#1c2530);font-size:.92rem;line-height:1.5;flex:1;min-width:260px}',
+    '.pk-text a{color:var(--blue,#13697c);font-weight:600;text-decoration:underline}',
     '.pk-tlacidla{display:flex;gap:10px;flex-wrap:wrap}',
-    '.pk-btn{background:#13697c;color:#fff;padding:10px 20px;min-height:44px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
-    '.pk-btn:hover{background:#153f4f}',
-    '.pk-btn-ghost{background:transparent;color:#153f4f;border:2px solid #13697c}',
-    '.pk-btn-ghost:hover{background:#13697c;color:#fff}',
+    '.pk-btn{background:var(--blue,#13697c);color:#fff;padding:10px 20px;min-height:44px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
+    '.pk-btn:hover{background:var(--navy,#153f4f)}',
+    '.pk-btn-ghost{background:transparent;color:var(--navy,#153f4f);border:2px solid var(--blue,#13697c)}',
+    '.pk-btn-ghost:hover{background:var(--blue,#13697c);color:#fff}',
     '.pk-prekryv{position:fixed;inset:0;background:rgba(21,63,79,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}',
     '.pk-prekryv.pk-otvorene{display:flex}',
     '.pk-okno{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto;font-family:inherit}',
-    '.pk-okno h3{color:#153f4f;font-size:1.3rem;margin:0 0 14px}',
-    '.pk-okno p{color:#5b6675;font-size:.93rem;margin:0 0 16px;line-height:1.6}',
+    '.pk-okno h3{color:var(--navy,#153f4f);font-size:1.3rem;margin:0 0 14px}',
+    '.pk-okno p{color:var(--muted,#5b6675);font-size:.93rem;margin:0 0 16px;line-height:1.6}',
     '.pk-riadok{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid #e6e5f1}',
-    '.pk-riadok b{color:#1c2530;display:block;font-size:.95rem}',
-    '.pk-riadok span{color:#5b6675;font-size:.86rem;display:block;margin-top:2px}',
+    '.pk-riadok b{color:var(--ink,#1c2530);display:block;font-size:.95rem}',
+    '.pk-riadok span{color:var(--muted,#5b6675);font-size:.86rem;display:block;margin-top:2px}',
     '.pk-prep{position:relative;width:44px;height:24px;flex-shrink:0;margin-left:auto}',
     '.pk-prep input{opacity:0;width:0;height:0}',
     '.pk-posuvnik{position:absolute;inset:0;background:#c7cfda;border-radius:24px;cursor:pointer;transition:.2s}',
     '.pk-posuvnik:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}',
-    '.pk-prep input:checked+.pk-posuvnik{background:#13697c}',
+    '.pk-prep input:checked+.pk-posuvnik{background:var(--blue,#13697c)}',
     '.pk-prep input:checked+.pk-posuvnik:before{transform:translateX(20px)}',
-    '.pk-prep input:disabled+.pk-posuvnik{background:#13697c;opacity:.5;cursor:not-allowed}',
+    '.pk-prep input:disabled+.pk-posuvnik{background:var(--blue,#13697c);opacity:.5;cursor:not-allowed}',
+    /* Prepínač je skrytý <input> s nulovým rozmerom — obrys fokusu by na ňom
+       nebolo vidieť. Kreslíme ho preto na posuvník vedľa. Bez toho prepína
+       analytiku a marketing naslepo každý, kto ovláda web klávesnicou, a je
+       to jediná obrazovka, kde sa dá súhlas odvolať. :focus-visible sa pri
+       klikaní myšou nezobrazí, takže to vzhľad nemení. */
+    '.pk-prep input:focus-visible+.pk-posuvnik{outline:3px solid #ffd632;outline-offset:2px}',
+    '.pk-btn:focus-visible,.pk-text a:focus-visible{outline:3px solid #ffd632;outline-offset:2px}',
     '.pk-akcie{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}',
     '.pk-akcie .pk-btn{flex:1}',
     /* Mobil: kratšia lišta — tri rovnako veľké tlačidlá v jednom riadku. */
@@ -540,15 +549,18 @@
       '</div>' +
     '</div>' +
     '<div class="pk-prekryv" id="pk-okno-prekryv">' +
-      '<div class="pk-okno">' +
-        '<h3>Nastavenia cookies</h3>' +
+      '<div class="pk-okno" role="dialog" aria-modal="true" aria-labelledby="pk-nadpis">' +
+        '<h3 id="pk-nadpis">Nastavenia cookies</h3>' +
         '<p>Vyberte si, ktoré cookies môžeme používať. Voľbu môžete kedykoľvek zmeniť odkazom v pätičke.</p>' +
-        '<div class="pk-riadok"><div><b>Nevyhnutné</b><span>Potrebné na fungovanie stránky. Nedajú sa vypnúť.</span></div>' +
-          '<label class="pk-prep"><input type="checkbox" checked disabled><span class="pk-posuvnik"></span></label></div>' +
-        '<div class="pk-riadok"><div><b>Analytické</b><span>Anonymné štatistiky návštevnosti (Google Analytics).</span></div>' +
-          '<label class="pk-prep"><input type="checkbox" id="pk-analytika"><span class="pk-posuvnik"></span></label></div>' +
-        '<div class="pk-riadok"><div><b>Marketingové</b><span>Meranie účinnosti reklamy (Meta Pixel).</span></div>' +
-          '<label class="pk-prep"><input type="checkbox" id="pk-marketing"><span class="pk-posuvnik"></span></label></div>' +
+        '<div class="pk-riadok"><div><b id="pk-n-nevyhnutne">Nevyhnutné</b><span>Potrebné na fungovanie stránky. Nedajú sa vypnúť.</span></div>' +
+          /* Prepínač je skrytý <input> a <label> okolo neho nemá text — len prázdny
+             posuvník. Bez aria-labelledby ho čítačka ohlási ako holé „zaškrtávacie
+             políčko" a človek prepína analytiku s marketingom naslepo. */
+          '<label class="pk-prep"><input type="checkbox" checked disabled aria-labelledby="pk-n-nevyhnutne"><span class="pk-posuvnik"></span></label></div>' +
+        '<div class="pk-riadok"><div><b id="pk-n-analytika">Analytické</b><span>Anonymné štatistiky návštevnosti (Google Analytics).</span></div>' +
+          '<label class="pk-prep"><input type="checkbox" id="pk-analytika" aria-labelledby="pk-n-analytika"><span class="pk-posuvnik"></span></label></div>' +
+        '<div class="pk-riadok"><div><b id="pk-n-marketing">Marketingové</b><span>Meranie účinnosti reklamy (Meta Pixel).</span></div>' +
+          '<label class="pk-prep"><input type="checkbox" id="pk-marketing" aria-labelledby="pk-n-marketing"><span class="pk-posuvnik"></span></label></div>' +
         '<div class="pk-akcie">' +
           '<button type="button" class="pk-btn pk-btn-ghost" id="pk-ulozit">Uložiť výber</button>' +
           '<button type="button" class="pk-btn" id="pk-prijat-vsetko">Prijať všetko</button>' +
@@ -599,16 +611,34 @@
     na('pk-prijat',        function () { uloz({ necessary: true, analytics: true,  marketing: true  }); });
     na('pk-prijat-vsetko', function () { uloz({ necessary: true, analytics: true,  marketing: true  }); });
     na('pk-odmietnut',     function () { uloz({ necessary: true, analytics: false, marketing: false }); });
-    na('pk-nastavenia',    function () { okno.classList.add('pk-otvorene'); });
+    /* Fokus musí ísť do okna a po zatvorení sa vrátiť tam, odkiaľ prišiel —
+       inak aria-modal="true" klame: čítačke povie, že okolo dialógu nič nie je,
+       a fokus pritom sedí presne v tej skrytej časti. */
+    var otvaralOkno = null;
+    function otvorOkno(spustac) {
+      otvaralOkno = spustac || null;
+      okno.classList.add('pk-otvorene');
+      var prvy = okno.querySelector('h3');
+      if (prvy) { prvy.setAttribute('tabindex', '-1'); prvy.focus(); }
+    }
+    function zavriOkno() {
+      okno.classList.remove('pk-otvorene');
+      if (otvaralOkno && typeof otvaralOkno.focus === 'function') otvaralOkno.focus();
+      otvaralOkno = null;
+    }
+    na('pk-nastavenia',    function (e) { otvorOkno(e.currentTarget); });
     na('pk-ulozit',        function () { uloz({ necessary: true, analytics: aChk.checked, marketing: mChk.checked }); });
-    okno.addEventListener('click', function (e) { if (e.target === okno) okno.classList.remove('pk-otvorene'); });
+    okno.addEventListener('click', function (e) { if (e.target === okno) zavriOkno(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && okno.classList.contains('pk-otvorene')) zavriOkno();
+    });
 
     /* Odkaz "Nastavenia cookies" v pätičke — na každej stránke má id cookie-reopen */
     na('cookie-reopen', function (e) {
       e.preventDefault();
       var s = dajSuhlas();
       if (s) { aChk.checked = !!s.analytics; mChk.checked = !!s.marketing; }
-      okno.classList.add('pk-otvorene');
+      otvorOkno(e.currentTarget);
     });
 
     /* Rezervačnú konverziu (begin_checkout / InitiateCheckout) meria

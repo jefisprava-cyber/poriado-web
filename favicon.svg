@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Poriado">
   <title>Poriado</title>
   <!-- Pozadie: zaoblený štvorec 512×512, polomer rohu 110. -->
-  <path fill="#1F3864" d="M110 0h292a110 110 0 0 1 110 110v292a110 110 0 0 1-110 110H110A110 110 0 0 1 0 402V110A110 110 0 0 1 110 0Z"/>
-  <!-- Písmeno P: driek + miska s polkruhovým zakončením, vnútro vyrezané. -->
-  <path fill="#FFFFFF" fill-rule="evenodd" d="M162 132h123a81 81 0 0 1 0 162h-59v86h-64Zm64 45h38a36 36 0 0 1 0 72h-38Z"/>
-  <!-- Bodka -->
-  <circle fill="#2E75B6" cx="402.5" cy="402.5" r="40.5"/>
+  <path fill="#9633FD" d="M110 0h292a110 110 0 0 1 110 110v292a110 110 0 0 1-110 110H110A110 110 0 0 1 0 402V110A110 110 0 0 1 110 0Z"/>
+  <!-- Značka „P.“ — obrysy z písma Instrument Sans 700, rovnaké ako v logu. -->
+  <path fill="#FFFFFF" d="M56 421.49V90.51H213.21Q249.99 90.51 276.42 103.38Q302.85 116.25 317.33 139.24Q331.82 162.22 331.82 193.02Q331.82 223.82 317.1 247.27Q302.39 270.71 275.96 283.81Q249.53 296.91 213.21 296.91H112.08V242.67H209.54Q233.9 242.67 247.46 229.11Q261.02 215.55 261.02 193.48Q261.02 171.42 247.46 158.09Q233.9 144.75 209.54 144.75H126.79V421.49Z"/>
+  <path fill="#FFD632" d="M380.15 421.49V345.64H456V421.49Z"/>
 </svg>

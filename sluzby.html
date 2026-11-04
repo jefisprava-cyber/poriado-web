@@ -14,6 +14,8 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#9633fd">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sk_SK">
 <meta property="og:site_name" content="Poriado">
@@ -110,7 +112,27 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#855b16}
+  :root{--navy:#153f4f;--blue:#13697c;--light:#e4e0f7;--bg:#f7f6fb;--ink:#1c2530;--muted:#5b6675;--gold:#d4a44c;--gold-tmava:#bd8d33;--gold-text:#855b16;
+    /* ── Farebny beh stranky ──────────────────────────────────────────────
+       Tri pasy jednym smerom (petrolejova -> fialova). Su tu ako premenne
+       prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
+       pas zapisany natvrdo na piatich az siedmich miestach a .hero mal dokonca
+       dve pravidla, z ktorych to s premennymi prehravalo s tym nizsie. Prepis
+       :root tak na vzhlad nemal vplyv.
+       Oba konce svetleho pasu maju zamerne rovnaku svetlost (HSL L = 94 %):
+       nie je to stmavovanie zhora nadol, ale cisty posun odtienu. */
+    --beh-hore:#153f4f;             /* zhodne s --navy */
+    --beh-stred:#1e5168;
+    --beh-dole:#3d2a7a;
+    --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
+    /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
+       a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
+       dolnu tretinu pasu, presne tam, kde lezi karta s balikmi. */
+    --pas-uvod-mobil:linear-gradient(168deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
+    --pas-paticka:linear-gradient(180deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
+    --pas-svetly:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%);
+    /* Vlasova linka pod hlavickou. Zlata sa tu pouziva ako plocha, nie text. */
+    --linka-zlata:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%);}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   a{text-decoration:none;color:inherit}
@@ -118,7 +140,7 @@
   body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-synthesis:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   header{position:sticky;top:0;background:#fff;box-shadow:0 1px 0 rgba(21,42,77,.08);z-index:50}
-  header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
+  header::after{content:'';display:block;height:3px;background:var(--linka-zlata)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;max-width:1080px;margin:0 auto}
   .logo{font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:.5px}
   a.logo{display:inline-flex;align-items:center;min-height:44px}
@@ -130,8 +152,6 @@
   .btn:hover{background:var(--navy);transform:translateY(-1px)}
   .btn-rez,.nav-links a.btn-rez{background:var(--gold);color:var(--navy)}
   .btn-rez:hover,.nav-links a.btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
-  .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
-  .btn-ghost:hover{background:var(--blue);color:#fff}
   /* Na mobile sa odkazy skrývali a burger na podstránkach nebol, takže sa
      z nich nedalo prejsť nikam inam než na rezerváciu. */
   .nav{position:relative}
@@ -143,11 +163,10 @@
     .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0eef8;font-size:1rem}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
-  .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:60px 0 54px;text-align:center}
+  .hero{background:var(--pas-uvod);color:#fff;padding:60px 0 54px;text-align:center}
   .hero h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;margin-bottom:16px;letter-spacing:-.03em;text-wrap:balance}
   .hero p{max-width:660px;margin:0 auto;font-size:1.05rem;color:#f4f8fd}
   section{padding:clamp(56px,7vw,88px) 0}
-  .alt{background:var(--bg)}
   h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
   h3{color:var(--navy);font-size:1.1rem;margin-bottom:8px}
   .lead{color:var(--muted);max-width:720px;margin-bottom:26px}
@@ -156,18 +175,13 @@
   .card{background:#fff;border:1px solid #e6e5f1;border-radius:14px;padding:24px 22px}
   .alt .card{border:none;box-shadow:0 4px 14px rgba(21,63,79,.06)}
   .card p{color:var(--muted);font-size:.95rem}
-  .card .price{font-weight:800;color:var(--gold-text);font-size:1.05rem;margin-top:12px}
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
   .split>*{min-width:0}
   @media(max-width:840px){.split{grid-template-columns:1fr;gap:24px}}
   .split img{width:100%;height:auto;border-radius:16px;box-shadow:0 10px 30px rgba(21,63,79,.12)}
-  .odrazky{list-style:none;margin:18px 0 0;display:grid;gap:9px}
-  .odrazky li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.96rem}
-  .odrazky li b{color:var(--gold-text);flex:none;font-weight:800}
   .cena-pas{display:inline-block;background:var(--light);color:var(--navy);font-weight:800;padding:8px 16px;border-radius:9px;margin-top:18px}
   .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
   .addon{background:#fff;border:1px solid #e2e4ee;border-radius:11px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .alt .addon{border:none;box-shadow:0 4px 14px rgba(21,63,79,.06)}
   .addon span{color:var(--ink);font-size:.94rem}
   .addon b{color:var(--gold-text);font-weight:800;white-space:nowrap}
 .note{font-size:.88rem;color:#5f6875;margin-top:16px}
@@ -176,53 +190,41 @@
   .cta p{color:#f4f8fd;max-width:620px;margin:0 auto 26px}
   .cta .btn-ghost{background:transparent;color:#fff;border:2px solid #fff}
   .cta .btn-ghost:hover{background:rgba(255,255,255,.15)}
-  footer{background:linear-gradient(180deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%);color:var(--light);padding:40px 0 34px;text-align:center;font-size:.92rem}
+  footer{background:var(--pas-paticka);color:var(--light);padding:40px 0 34px;text-align:center;font-size:.92rem}
   footer .logo{color:#fff}
   /* Odkaz v pätičke bol odlisany len farbou. Kto farby nerozoznava,
      nevidel, ze je to odkaz — podciarknutie to riesi bez zmeny vzhladu. */
   footer p a{text-decoration:underline}
   footer a{color:#b9d4da}
-  /* Mobil: z porovnávacej tabuľky spravíme karty — žiadne vodorovné rolovanie.
-     Každý riadok je karta s názvom služby a troma označenými balíkmi. */
-  @media(max-width:640px){
-}
   /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
      Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
-     čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
-     celý pás. Rovnaký stav dostane aj fokus z klávesnice. */
-  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):hover,
-  a:not([class*="btn"]):not(.logo):not(.rev-bar):not([style*="border-bottom"]):focus-visible,
-  .rev-bar:hover .rev-cta, .rev-bar:focus-visible .rev-cta{
+     čiaru majú natrvalo. Rovnaký stav dostane aj fokus z klávesnice.
+     Pás s hodnotením z Googlu tu nie je, preto tu — na rozdiel od index.html
+     a tepovanie-bratislava.html — nie je výnimka :not(.rev-bar). Keby sem pás
+     pribudol, podčiarkne sa celý namiesto samotného „Pozrieť →"; výnimku treba
+     doplniť spolu s ním. */
+  a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):hover,
+  a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):focus-visible{
     text-decoration:underline;text-decoration-color:var(--gold);
     text-decoration-thickness:2px;text-underline-offset:4px
   }
-
-
 
   /* ═══════ PETROLEJOVÁ S FIALOVÝM PRECHODOM — len farby ═══════
      Stránka zostáva presne taká, aká je dnes. Mení sa len to, čo bolo modré.
      Jediný nový prvok palety je fialový koniec úvodného gradientu. */
 
-  /* Úvodný pás: petrolejová → modrá → fialová. Rovnaký gradient ako dnes,
-     len s tretím bodom, aby bol prechod plynulý a nie skok. */
-  .hero{background:linear-gradient(135deg,#153f4f 0%,#1e5168 42%,#3d2a7a 100%)}
   /* Na mobile prejde uhlopriečny prechod úzkym stĺpcom príliš rýchlo a fialová
      sa do záberu skoro nedostane. Takmer zvislý uhol jej dá dolnú tretinu pásu,
      presne tam, kde leží karta s balíkmi. */
   @media(max-width:820px){
-    .hero{background:linear-gradient(168deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%)}
+    .hero{background:var(--pas-uvod-mobil)}
   }
 
   /* Dekoračný kruh v úvode ležal na modrej; na fialovom konci by zmizol. */
-  .hero::before{border-color:#d4a44c;opacity:.20}
-
-  /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
-     tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
-  .hero .rev-stars{color:#efd7a6}
+  .hero::before{border-color:var(--gold);opacity:.20}
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:#b9d4da}
-  .pch-head b span{color:#d9eaed}
 
   /* Cenník namiesto porovnávacej tabuľky. Jediný rozdiel medzi balíkmi je
      čas, takže stĺpec s hodinovou sadzbou je celá informácia — tabuľka
@@ -259,12 +261,8 @@
      rovnaku svetlost (HSL L = 94 %): nie je to stmavovanie zhora nadol,
      ale cisty posun odtienu z petrolejovej do fialovej.
      Striedanie .alt sa tym rusi — pas nahradza pruhovanie. */
-  .pas{background:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%)}
+  .pas{background:var(--pas-svetly)}
   .pas .alt,.alt{background:transparent}
-
-
-
-
 
   </style>
 </head>
@@ -419,17 +417,26 @@
 <script src="poriado-chat.js" defer></script>
 
 <script>
-  /* Burger na podstránkach: rovnaké správanie ako na domovskej. */
+  /* Burger na podstránkach: rovnaké správanie ako na domovskej.
+     Zatvorenie po kliknutí na odkaz tu musí byť zvlášť — odkaz je vnútri menu,
+     takže poslucháč „klik mimo menu" ho nechytí. Bez toho zostalo menu na mobile
+     otvorené nad obsahom, na ktorý človek práve skočil (napr. #cennik). */
   (function(){
     var b=document.getElementById('nav-burger'), n=document.getElementById('nav-links');
     if(!b||!n) return;
-    function zavri(){ n.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+    function zavri(){
+      n.classList.remove('open');
+      b.setAttribute('aria-expanded','false');
+      b.setAttribute('aria-label','Otvoriť menu');
+    }
     b.setAttribute('aria-expanded','false');
     b.addEventListener('click', function(e){
       e.stopPropagation();
       var otvorene = n.classList.toggle('open');
       b.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+      b.setAttribute('aria-label', otvorene ? 'Zavrieť menu' : 'Otvoriť menu');
     });
+    n.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', zavri); });
     document.addEventListener('click', function(e){ if(!n.contains(e.target)) zavri(); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') zavri(); });
   })();

@@ -26,11 +26,19 @@
        3. ID a ceny v poriado-rezervacia.js
        4. ceny NARAZ na index.html, sluzby.html, faq.html,
           tepovanie-bratislava.html, rezervacia.html a v OG tagoch
-       5. lastmod v sitemap.xml -->
+       5. poriado-chat.js — styri odpovede nesu cely cennik vratane
+          priplatkov a zlavy; chat je na piatich strankach a odpoved
+          "Kolko stoji upratovanie?" si otvori najviac ludi
+       6. obchodne-podmienky.html — tam su sumy ZAVAZNE, podla toho
+          dokumentu sa ide pri spore
+       7. 404.html — veta "Byty a domy od 79,90 EUR"
+       8. lastmod v sitemap.xml -->
 <link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#9633fd">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sk_SK">
 <meta property="og:site_name" content="Poriado">
@@ -180,8 +188,28 @@
     --navy:#153f4f; --blue:#13697c; --light:#e4e0f7; --bg:#f7f6fb;
     --ink:#1c2530; --muted:#5b6675; --white:#fff; --gold:#d4a44c; --gold-tmava:#bd8d33;
     /* Zlata na plochy sa neda pouzit na text — na bielom ma len 2,3:1.
-       Na pisane sluzi tmavsia --gold-text (4,85:1), rovnako ako na sluzby.html. */
+       Na pisane sluzi tmavsia --gold-text (5,99:1), rovnako ako na sluzby.html. */
     --gold-text:#855b16;
+    /* ── Farebny beh stranky ──────────────────────────────────────────────
+       Tri pasy jednym smerom (petrolejova -> fialova). Su tu ako premenne
+       prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
+       pas zapisany natvrdo na piatich az siedmich miestach a .hero mal dokonca
+       dve pravidla, z ktorych to s premennymi prehravalo s tym nizsie. Prepis
+       :root tak na vzhlad nemal vplyv.
+       Oba konce svetleho pasu maju zamerne rovnaku svetlost (HSL L = 94 %):
+       nie je to stmavovanie zhora nadol, ale cisty posun odtienu. */
+    --beh-hore:#153f4f;             /* zhodne s --navy */
+    --beh-stred:#1e5168;
+    --beh-dole:#3d2a7a;
+    --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
+    /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
+       a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
+       dolnu tretinu pasu, presne tam, kde lezi karta s balikmi. */
+    --pas-uvod-mobil:linear-gradient(168deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
+    --pas-paticka:linear-gradient(180deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
+    --pas-svetly:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%);
+    /* Vlasova linka pod hlavickou. Zlata sa tu pouziva ako plocha, nie text. */
+    --linka-zlata:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -198,8 +226,6 @@
   .nav-links a:hover{color:var(--blue)}
   .btn{display:inline-block;background:var(--blue);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;transition:.2s;border:none;cursor:pointer;font-size:.95rem}
   .btn:hover{background:var(--navy);transform:translateY(-1px)}
-  .btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--blue)}
-  .btn-ghost:hover{background:var(--blue);color:#fff}
   .nav{position:relative}
   .nav-burger{display:none;background:none;border:none;font-size:26px;line-height:1;color:var(--navy);cursor:pointer;padding:4px 10px;min-width:44px;min-height:44px}
   @media(max-width:820px){
@@ -209,8 +235,8 @@
     .nav-links a:not(.btn){display:block;padding:13px 24px;border-bottom:1px solid #f0eef8;font-size:1rem}
     .nav-links .btn{margin:12px 24px 0;text-align:center}
   }
-  .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:clamp(40px,5.5vw,68px) 0 clamp(44px,5.5vw,60px);position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-190px;right:-150px;width:430px;height:430px;border:46px solid var(--gold);border-radius:50%;opacity:.22;pointer-events:none}
+  .hero{background:var(--pas-uvod);color:#fff;padding:clamp(40px,5.5vw,68px) 0 clamp(44px,5.5vw,60px);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-190px;right:-150px;width:430px;height:430px;border:46px solid var(--gold);border-radius:50%;opacity:.20;pointer-events:none}
   .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(26px,3.6vw,54px);align-items:center}
   .hero-text{min-width:0}
   .hero h1{color:#fff}
@@ -230,83 +256,31 @@
   .hero .btn:hover{background:var(--light)}
   .hero .btn-primary{font-size:1.04rem;padding:13px 30px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
   .hero .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32)}
-  .hero .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
-  .hero .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
   /* rezervacne tlacidla - znackova zlata s navy pismom (kontrast 5,1:1) */
   .btn-rez,.hero .btn-rez{background:var(--gold);color:var(--navy)}
   .btn-rez:hover,.hero .btn-rez:hover{background:var(--gold-tmava);color:var(--navy)}
   .nav-links a.btn-rez{background:var(--navy);color:#fff}
   .nav-links a.btn-rez:hover{background:#0f2e3a;color:#fff}
 
-  /* pas vyhod - suvisla mriezka s vlasovymi linkami namiesto plavajucich bubliniek */
-  .vyhody{background:#fff;padding:26px 0 6px}
-  .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .badge{display:block;background:#fff;border:1px solid #e2e4ee;border-radius:14px;padding:20px 18px}
-  .badge b{display:block;font-size:1rem;line-height:1.3;font-weight:700;color:var(--navy);margin-bottom:7px}
-  .badge span{display:block;font-size:.92rem;line-height:1.5;color:var(--muted)}
-  /* Pás dôvery pod recenziami — tri najčastejšie obavy pred objednaním. */
-  .badges.tri{grid-template-columns:repeat(3,1fr);margin-bottom:14px}
-  .badges.tri .badge{border-top:3px solid var(--gold)}
-  @media(max-width:760px){.badges.tri{grid-template-columns:1fr}}
   .dovera{background:transparent}
-  @media(max-width:1120px){.badges{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:900px){.badges,.badges.tri{grid-template-columns:1fr}}
-  @media(max-width:460px){.badges{gap:1px}.badge{padding:14px 12px}.badge b{font-size:.84rem}.badge span{font-size:.75rem}}
   section{padding:clamp(38px,4.8vw,62px) 0}
   .section-head{text-align:center;max-width:720px;margin:0 auto 32px}
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
   .section-head h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
-  .section-head p{color:#5b6675;font-size:1.05rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
-  .card{background:#fff;border:1px solid #e6e5f1;border-radius:14px;padding:30px 26px;transition:.2s}
-  .card:hover{box-shadow:0 14px 36px rgba(21,63,79,.12);transform:translateY(-3px);border-color:var(--light)}
-  .card .ic{width:50px;height:50px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px}
-  .card h3{color:var(--navy);font-size:1.18rem;margin-bottom:10px}
-  .card p{color:#5b6675;font-size:.96rem;margin-bottom:14px}
-  .card .price{font-weight:800;color:var(--blue);font-size:1.02rem}
   .znacka{color:var(--gold-text)}
   /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
      citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
-  
-  
-  
-  
-  
-  
-  
+
   /* Čo je v cene, patrí k cenám — nie medzi dlaždice o dôvere.
      Ako pás štítkov sa to prečíta jedným pohľadom, ako tri odstavce nie. */
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  .disclaimer{background:#fff7ed;border:1px solid #fce2c2;border-radius:12px;padding:16px 20px;margin-top:22px;color:#7a5a2e;font-size:.9rem}
-  .faq-list{max-width:760px;margin:0 auto}
-  details{background:#fff;border:1px solid #e6e5f1;border-radius:11px;margin-bottom:12px;overflow:hidden}
-  summary{padding:18px 22px;font-weight:700;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";font-size:1.4rem;color:var(--blue);font-weight:400}
-  details[open] summary::after{content:"\2212"}
-  details p{padding:0 22px 20px;color:#5b6675;font-size:.97rem}
-  footer{background:linear-gradient(180deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%);color:#c6d8dd;padding:40px 0;text-align:center;font-size:.92rem}
+  /* Svetly text na tmavej paticke: bezny text 7,04:1, odkazy 7,34:1. */
+  footer{background:var(--pas-paticka);color:#dbeaee;padding:40px 0;text-align:center;font-size:.92rem}
   footer .logo{color:#fff;margin-bottom:10px}
-  footer a{color:#b9d4da}
-  
+  footer a{color:#deeff2}
+
   header{box-shadow:0 1px 0 rgba(21,42,77,.08)}
-  header::after{content:'';display:block;height:3px;background:linear-gradient(90deg,rgba(228,178,96,0) 0%,#e6c584 18%,#d4a44c 50%,#e6c584 82%,rgba(228,178,96,0) 100%)}
+  header::after{content:'';display:block;height:3px;background:var(--linka-zlata)}
   /* Štyri sľuby namiesto deviatich. Pri deviatich rovnako ťažkých kartách
      oko nemá kde zastaviť a neprečíta ani jednu. Zvyšných päť sa presunulo
      tam, kde tá otázka vzniká — k cenám a k rezervačnému tlačidlu. */
@@ -339,26 +313,7 @@
 
   /* Záverečná výzva. Kto doscrolluje až sem, je najzaujatejší — a doteraz
      tu nedostal nič, na čo by klikol. */
-  
-  
-  
-  
-  
-  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   /* Hodnotenie v heroi — dôkaz patrí nad rozhodnutie, nie pod neho. */
   .hero .rev-bar{justify-content:flex-start;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);margin-top:26px;padding:20px 0 0}
   .hero .rev-bar .rev-num{color:#fff;font-weight:700}
@@ -366,7 +321,7 @@
   @media(max-width:880px){
     .hero .wrap{grid-template-columns:1fr}
     .hero::before{width:250px;height:250px;top:-120px;right:-100px;border-width:30px}
-    
+
   }
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
@@ -374,7 +329,7 @@
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #e2e4ee;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
   .rev-stars{color:#96691a;letter-spacing:2px;font-size:.98rem;white-space:nowrap}
-  .rev-count{color:#5b6675;font-size:.92rem}
+  .rev-count{color:var(--muted);font-size:.92rem}
   .rev-cta{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
   .rev-bar:hover .rev-cta{color:var(--navy);text-decoration:underline}
   /* rotujúce citáty — všetky ležia v jednej bunke mriežky, takže sa neposúva rozloženie */
@@ -388,23 +343,11 @@
   @media(prefers-reduced-motion:reduce){.rev-citaty blockquote{transition:none}}
   @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
   /* mobilna lepiaca lista */
   .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #e2e4ee;box-shadow:0 -6px 24px rgba(21,63,79,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
   .mlista.show{transform:translateY(0)}
   .mlista .cena{font-weight:800;color:var(--navy);font-size:1rem;line-height:1.15;flex:none}
-  .mlista .cena small{display:block;font-weight:600;color:#5b6675;font-size:.75rem}
+  .mlista .cena small{display:block;font-weight:600;color:var(--muted);font-size:.75rem}
   .mlista .btn{margin-left:auto;flex:1;max-width:215px;padding:13px 16px;font-size:.96rem;min-height:48px;text-align:center}
   @media(max-width:820px){.mlista{display:flex}body.ml-on{padding-bottom:74px}
     /* Bublina chatu sa s lištou zdvihne nad ňu — inak zakrýva koniec tlačidla
@@ -412,10 +355,7 @@
     body #pch-bubble{transition:transform .2s,bottom .25s ease}
     body.ml-on #pch-bubble{bottom:88px}
     body.ml-on #pch-panel{bottom:158px;max-height:calc(100vh - 178px)}}
-  
-  
-  
-  
+
   /* Odkazy sa pri nabehnutí myšou podčiarknu zlatou — rovnako na celom webe.
      Vynechávame tlačidlá (všetko s „btn" v triede), logo a odkazy, ktoré už zlatú
      čiaru majú natrvalo. Pri páse s recenziami sa podčiarkne len „Pozrieť →", nie
@@ -427,20 +367,13 @@
     text-decoration-thickness:2px;text-underline-offset:4px
   }
 
-  
-
-  /* Úvodný pás: petrolejová → modrá → fialová. Rovnaký gradient ako dnes,
-     len s tretím bodom, aby bol prechod plynulý a nie skok. */
-  .hero{background:linear-gradient(135deg,#153f4f 0%,#1e5168 42%,#3d2a7a 100%)}
   /* Na mobile prejde uhlopriečny prechod úzkym stĺpcom príliš rýchlo a fialová
      sa do záberu skoro nedostane. Takmer zvislý uhol jej dá dolnú tretinu pásu,
      presne tam, kde leží karta s balíkmi. */
   @media(max-width:820px){
-    .hero{background:linear-gradient(168deg,#153f4f 0%,#1e5168 34%,#3d2a7a 100%)}
+    .hero{background:var(--pas-uvod-mobil)}
   }
 
-  /* Dekoračný kruh v úvode ležal na modrej; na fialovom konci by zmizol. */
-  .hero::before{border-color:#d4a44c;opacity:.20}
 
   /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
      tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
@@ -448,15 +381,6 @@
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:#b9d4da}
-  .pch-head b span{color:#d9eaed}
-
-  
-  
-  
-  
-  
-  
-  
 
   /* Na mobile mal riadok panelu 120 px, lebo popis dostal stĺpec široký
      136 px a zalomil sa do troch riadkov. Pri piatich službách to je 600 px
@@ -465,14 +389,11 @@
      a urobí z nich priame položky mriežky riadka, takže sa dajú rozmiestniť
      bez zásahu do HTML — a keďže .nazov je obyčajný <span> bez role,
      prístupnosti to neuberie. */
-  
+
   /* Mobil je hlavná cieľová skupina — desať pixelov na sekciu je pri piatich
      sekciách a dvoch stranách sto pixelov rolovania. */
   @media(max-width:560px){
     section{padding:34px 0}
-  }
-  @media(max-width:360px){
-    .cen a{gap:8px;padding:11px 12px}
   }
   @media(max-width:880px){
     /* Panel vystúpil o 66 px vyššie, a tým sa prvá cena dostala presne pod
@@ -536,7 +457,6 @@
   /* Pripravovana sluzba: vidno ju, ale rezervovat sa neda. Bez odkazu,
      takze na nu nejde ani tuknut, ani sa na nu dostat tabulatorom. */
 
-
   /* Tri kroky — vratene v povodnom zneni aj vzhlade. */
   .kroky{list-style:none;counter-reset:krok;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:900px;margin:0 auto;padding:0}
   .krok{counter-increment:krok;position:relative;padding-left:52px}
@@ -584,12 +504,8 @@
      Biele karty na tomto pase NEZMIZNU — naopak. Dnes su biele na bielom
      (1,00:1) a drzi ich len ramik; na pase maju 1,13:1, takze su citelnejsie
      nez predtym. Ramiky ani tiene preto netreba menit. */
-  .pas{background:linear-gradient(180deg,#e8f3f7 0%,#ece8f7 100%)}
+  .pas{background:var(--pas-svetly)}
 
-  /* Text paticky — zostava svetly, paticka je stale tmava. Na novom gradiente
-     ma bezny text 7,04:1 a odkazy 7,34:1 (predtym 4,66 a 4,86). */
-  footer{color:#dbeaee}
-  footer a{color:#deeff2}
 
   /* Bublina chatu je fixne vpravo dole a na konci stranky sadala priamo na
      riadok odkazov — tuknutie na „Nastavenia cookies" otvorilo chat namiesto
@@ -629,14 +545,6 @@
     .hodiny{margin-top:26px}
     .hodiny .pocet{font-size:1.6rem;min-width:44px}
   }
-
-
-
-
-
-
-
-
 
   </style>
 </head>
@@ -858,7 +766,8 @@
 
 <script>
   /* Rovnaka obsluha ako na podstrankach: citacka obrazovky musi vediet,
-     ci je menu otvorene, a klavesnica ho musi vediet zavriet. */
+     ci je menu otvorene, klavesnica ho musi vediet zavriet a po kliknuti na
+     odkaz sa musi zatvorit samo. */
   (function(){
     var nb=document.getElementById('nav-burger'), nl=document.getElementById('nav-links');
     if(!nb||!nl) return;

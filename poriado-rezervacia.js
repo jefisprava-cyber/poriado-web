@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------------------
  * Vloženie na stránku:
  *
- *     <script src="poriado-rezervacia.js" defer><\/script>
+ *     <script src="poriado-rezervacia.js" defer></script>
  *
  * Okno sa otvorí:
  *   - klikom na čokoľvek s atribútom  data-open-rezervacia
@@ -20,8 +20,8 @@
  * z poriado-meranie.js. Meranie je teda na jednom mieste — v tomto súbore —
  * a nesmie sa duplikovať inde, inak by sa konverzia počítala dvakrát.
  *
- * Vlastné triedy majú predponu pr- a farby sú zapísané priamo, nie cez CSS
- * premenné — podstránky majú vlastné palety a okno musí vyzerať všade rovnako.
+ * Vlastné triedy majú predponu pr-. Farby sa čítajú z palety stránky
+ * cez var(--premenná, #záložná) — rovnako ako v poriado-dopyt.js.
  */
 (function () {
   'use strict';
@@ -111,12 +111,12 @@
     zehlenie:      { id: 178847, cena: 49.90, nazov: 'Žehlenie' }
   };
 
-  /* Meno iframu. Bookio ho vracia v každej správe ako pole iframeId (posiela
-     window.name), takže podľa neho odlíšime naše správy od cudzích. */
-  /* Naposledy zvolena kategoria — drzi sa vedla `posledny` (balik), aby sa
-     okno po zatvoreni a znovuotvoreni vratilo tam, kde clovek bol. */
+  /* Naposledy zvolená kategória — drží sa vedľa `posledny` (balík), aby sa
+     okno po zatvorení a znovuotvorení vrátilo tam, kde človek bol. */
   var poslednaKategoria = '';
 
+  /* Meno iframu. Bookio ho vracia v každej správe ako pole iframeId (posiela
+     window.name), takže podľa neho odlíšime naše správy od cudzích. */
   var RAM_NAZOV = 'poriado-bookio';
 
   /* Identifikátory kliku z reklamy sa do adresy widgetu ZÁMERNE nepridávajú.
@@ -133,18 +133,12 @@
      osobný údaj, posielať ho tretej strane bez účelu je horšie než ho
      neposlať. Zdroj si preto držíme u seba — pozri poriado-meranie.js,
      funkciu poriadoZaznamZdroja, a párovanie v ZDROJE-reklama.js. */
-  /* Okrem konkrétnej služby vieme predvoliť aj celú kategóriu. Používa to
-     karta „Upratovanie" na domovskej: bez kategórie by sa otvoril zoznam
-     všetkých siedmich služieb a človek by si v ňom musel nájsť tých päť
-     upratovacích medzi tepovaním a žehlením.
+  /* Kategória každej služby. Bookio od 27. 10. 2026 cez &service= službu
+     UŽ NEPREDVOLÍ — overené na 173509 aj 178847, oba skončia na výbere
+     kategórie. &category= funguje, takže ideme vždy cez ňu; preto má
+     kategóriu aj tepovanie a žehlenie, nielen upratovacie balíky.
      Kategórie v Bookiu (overené na jeho verejnom rozhraní 25. 10. 2026):
-       42936 Jednorázové upratovanie · 42935 Tepovanie · 42937 Žehlenie
-     Pri tepovaní a žehlení kategóriu nepoužívame — `&service=` predvolí
-     rovno tú jednu službu, čo je o krok menej. */
-  /* Kategoria kazdej sluzby. Bookio od 27. 10. 2026 cez &service= sluzbu
-     UZ NEPREDVOLI — overene na 173509 aj 178847, oba skoncia na vybere
-     kategorie. &category= funguje, takze ideme vzdy cez nu.
-     42936 Jednorazove upratovanie · 42935 Tepovanie · 42937 Zehlenie */
+       42936 Jednorázové upratovanie · 42935 Tepovanie · 42937 Žehlenie */
   var KATEGORIE = {
     mini: '42936', komfort: '42936', klasik: '42936',
     maxi: '42936', maxiTepovanie: '42936',
@@ -168,7 +162,7 @@
      pri všeobecnom tlačidle použijeme Klasik ako prostredný z piatich balíkov
      (Mini, Komfort, Klasik, Maxi, Maxi + tepovanie) — je to menej, než je
      priemer skutočných zákaziek s príplatkami, takže hodnotu skôr podceníme. */
-  var CENA_NEZNAMY_BALIK = 139.90;
+  var CENA_NEZNAMY_BALIK = SLUZBY.klasik.cena;
 
   /* item_id je kľúč balíka ('mini', 'klasik', …), nie číslo služby v Bookiu.
      Ten istý kľúč posiela do Mety aj dokončený nákup zo servera
@@ -251,10 +245,10 @@
     '.pr-okno{background:#fff;border-radius:16px;max-width:1000px;width:100%;padding:30px 22px;',
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
-      'color:#1c2530;line-height:1.6;text-align:left}',
-    '.pr-okno h3{color:#153f4f;font-size:1.4rem;margin:0 0 6px;font-weight:700}',
-    '.pr-sub{color:#5b6675;font-size:.95rem;margin:0 0 20px;line-height:1.55}',
-    '.pr-sub b{color:#153f4f}',
+      'color:var(--ink,#1c2530);line-height:1.6;text-align:left}',
+    '.pr-okno h3{color:var(--navy,#153f4f);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
+    '.pr-sub{color:var(--muted,#5b6675);font-size:.95rem;margin:0 0 20px;line-height:1.55}',
+    '.pr-sub b{color:var(--navy,#153f4f)}',
     /* Zákonné poučenie — patrí sem, ale nesmie prekričať vetu o tom, čo má
        zákazník urobiť. Preto menšie a svetlejšie, no stále nad 4,5:1. */
     '.pr-pozn{display:block;margin-top:8px;font-size:.85rem;color:#6b7684}',
@@ -265,7 +259,7 @@
       'background:#fff;border:1px solid #e2e4ee;box-shadow:0 4px 14px rgba(21,63,79,.14);',
       'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
       'display:flex;align-items:center;justify-content:center}',
-    '.pr-zavri:hover{color:#153f4f}',
+    '.pr-zavri:hover{color:var(--navy,#153f4f)}',
     '#bookio-obal{min-height:280px}',
     /* Výšku iframu nastavuje Bookio správou WIDGET_HEIGHT. Kým príde prvá,
        drží miesto min-height — inak okno na okamih preblikne prázdne.
@@ -275,8 +269,8 @@
     /* Záchranný odkaz: keď sa iframe nenačíta (blokovač, prísne nastavenie
        cookies v prehliadači), zákazník sa vie dostať do Bookia priamo. Je to
        bežný odkaz, takže funguje aj bez JavaScriptu. */
-    '.pr-nahrada{margin:14px 0 0;font-size:.9rem;color:#5b6675}',
-    '.pr-nahrada a{color:#153f4f}',
+    '.pr-nahrada{margin:14px 0 0;font-size:.9rem;color:var(--muted,#5b6675)}',
+    '.pr-nahrada a{color:var(--navy,#153f4f)}',
     /* Formulár priamo v stránke (rezervacia.html). Widget má vlastné biele
        pozadie, takže okolo neho stačí rámik a vzduch — nie druhá karta. */
     '.pr-vstranke{display:block;max-width:1000px;margin:0 auto}',
@@ -594,7 +588,13 @@
       var k = el.getAttribute('data-kategoria') || '';
       var rr = ramec();
       if (rr && ((b && SLUZBY[b]) || k) && rr.src !== adresa(b, k)) {
-        posledny = b;
+        /* Rovnaké overenie ako v otvor(). Dnes sem tlačidlo s kategóriou
+           bez balíka nepríde — startInline() beží len na rezervacia.html a tam
+           žiadne také nie je — ale na domovskej ich je šesť a keby sa niektoré
+           na túto stránku dostalo, `posledny` by zostalo null a do riadku
+           zdroja by šiel prázdny balík. Kľúč 'vsetky' je známa hodnota, s
+           ktorou vedia pracovať cenaBalika() aj parametreZaciatku(). */
+        posledny = b && SLUZBY[b] ? b : 'vsetky';
         rr.src = adresa(b, k);
         rr.style.height = '';
         rr.style.minHeight = '';
