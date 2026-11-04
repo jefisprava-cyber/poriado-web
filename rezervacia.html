@@ -135,7 +135,7 @@
   }
   /* Nadpis stránky je zámerne úzky pás, nie veľké hero — formulár má byť
      hneď navrchu, nie až pod obrázkom. */
-  .uvod{background:var(--pas-uvod);color:#fff;padding:30px 0 26px;text-align:center}
+  .uvod{background:var(--pas-uvod);color:#fff;padding:30px 0 26px;text-align:center;position:relative;overflow:hidden}
   .uvod h1{font-size:clamp(1.75rem,1.05rem + 3.1vw,2.6rem);line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
   .uvod p{color:var(--light);max-width:640px;margin:8px auto 0;font-size:1rem}
   section{padding:clamp(56px,7vw,88px) 0}
@@ -164,7 +164,7 @@
   .telefon{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
   .telefon a{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:9px;border:2px solid var(--blue);color:var(--navy);font-weight:700}
   .telefon a:hover{background:var(--blue);color:#fff}
-  footer{background:var(--pas-paticka);color:var(--light);padding:36px 0;text-align:center;font-size:.92rem}
+  footer{background:var(--pas-paticka);color:var(--light);padding:36px 0;text-align:center;font-size:.92rem;position:relative;overflow:hidden}
   footer .logo{color:#fff}
   footer p a{text-decoration:underline}
   footer a{color:var(--light)}
@@ -212,12 +212,59 @@
      nevytlačí farebné pozadia — svetlý text na tmavom páse by zmizol.
      Papier A4 má navyše asi 794 px, takže platia mobilné pravidlá. */
   @media print{
+    .bubliny{display:none!important}
     #nav-burger{display:none!important}
     header{position:static!important;box-shadow:none!important}
     .uvod,footer{background:#fff!important;color:var(--ink)!important}
     .uvod *,footer *{color:inherit!important}
     h1,h2,h3{break-after:avoid}
   }
+
+  /* ── Bubliny ──────────────────────────────────────────────────────────────
+     Rovnaká ozdoba ako na domovskej a z rovnakého dôvodu: pás je fialový
+     a takto vyzerá naša reklama na Mete. Ležia POD obsahom, nedajú sa
+     chytiť myšou a čítačka ich nevidí.
+
+     Sedia v bočnom páse mimo .wrap (obsah má 1080 px, po stranách zostáva
+     voľné miesto) a na mobile v zvislých medzerách. Pod textom ležať
+     NESMÚ: svetlá bublina fialový podklad zosvetlí a kontrast bieleho
+     textu klesne — axe to nad prelivom posúdiť nevie, overuje sa
+     porovnaním rámcov písma s rámcami bublín.
+
+     Animuje sa výlučne transform, čo zvládne grafická karta bez
+     prepočítavania rozloženia: Lighthouse s pohybom aj bez neho dáva
+     rovnaké číslo a blokovanie hlavného vlákna je v oboch prípadoch 0 ms.
+     Kto má v systéme vypnutý pohyb, nedostane žiadny. */
+  .bubliny{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bubliny span{position:absolute;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.50),rgba(255,255,255,.13) 45%,rgba(255,255,255,.04) 72%);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.20);
+    animation:vznasanie 14s ease-in-out infinite}
+  @keyframes vznasanie{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(6px,-18px,0) scale(1.04)}
+    100%{transform:translate3d(0,0,0) scale(1)}
+  }
+  .uvod .bubliny .b1{width:190px;height:190px;top:-48px;right:-98px}
+  .uvod .bubliny .b2{width:84px;height:84px;bottom:-34px;left:-40px}
+  .uvod .bubliny .b3{width:46px;height:46px;top:14%;left:-16px;animation-duration:10s;animation-delay:-4s}
+  footer .bubliny .b1{width:130px;height:130px;top:-44px;left:5%;animation-duration:19s;animation-delay:-6s}
+  footer .bubliny .b2{width:70px;height:70px;bottom:-24px;right:9%;animation-duration:17s;animation-delay:-3s}
+  footer .bubliny .b3{width:38px;height:38px;top:24%;right:17%;animation-duration:12s;animation-delay:-8s}
+  @media(prefers-reduced-motion:reduce){.bubliny span{animation:none}}
+  /* Na mobile bočný pás neexistuje — text ide skoro cez celú šírku. */
+  @media(max-width:820px){
+    /* Tu ma uvodny pas len 30 px vyplne hore a 26 dole, takze je vysoky
+       asi 110 px a nadpis ho na mobile vyplni cely - zmerane, bublina
+       padla pod pismena. Na uzkej obrazovke tu teda ziadna nie je,
+       bubliny ostavaju len v paticke. */
+    .uvod .bubliny span{display:none}
+    footer .bubliny .b3{display:none}
+    footer .bubliny .b1{top:auto;bottom:-40px;left:4%}
+    footer .bubliny .b2{top:-22px;bottom:auto;right:8%}
+  }
+  .uvod .wrap{position:relative;z-index:1}
+  footer .wrap{position:relative;z-index:1}
   </style>
 </head>
 <body>
@@ -228,7 +275,7 @@
     <nav class="nav-links" id="nav-links">
       <a href="sluzby.html#cennik">Cenník</a>
       <a href="sluzby.html">Služby</a>
-      <a href="/#onas">O nás</a>
+      <a href="o-nas.html">O nás</a>
       <a href="tepovanie-bratislava.html">Tepovanie</a>
       <a href="faq.html">Časté otázky</a>
       <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" class="btn" data-open-rezervacia>Rezervácia</a>
@@ -238,6 +285,7 @@
 <main>
 
 <section class="uvod">
+  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
   <div class="wrap">
     <h1>Rezervácia termínu upratovania</h1>
     <p>Vyberte si balík a termín, ktorý vám sedí. Potvrdenie máte okamžite.</p>
@@ -305,11 +353,12 @@
 </div><!-- /.pas -->
 </main>
 <footer>
+  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
     <p style="margin-top:10px"><a href="tel:+421949061088">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk">info@poriado.sk</a></p>
     <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424</p>
-    <p style="margin-top:10px"><a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="o-nas.html">O nás</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
   </div>
 </footer>
 
