@@ -5,13 +5,13 @@
   /* Na papieri by bublina aj panel ležali cez text na každej strane. */
   @media print{#pch-bubble,#pch-panel{display:none!important}}
   #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
-    background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;border:none;cursor:pointer;z-index:9990;
-    box-shadow:0 8px 24px rgba(58,14,155,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blue,#7424D6),var(--beh-dole,#9633FD));color:#fff;border:none;cursor:pointer;z-index:9990;
+    box-shadow:0 8px 24px rgba(71,22,131,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
     transition:transform .2s}
   #pch-bubble:hover{transform:scale(1.08)}
   #pch-panel{position:fixed;right:20px;bottom:92px;width:360px;max-width:calc(100vw - 32px);height:520px;
     max-height:calc(100vh - 120px);background:#fff;border-radius:16px;z-index:9991;display:none;flex-direction:column;
-    box-shadow:0 20px 60px rgba(58,14,155,.30);overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+    box-shadow:0 20px 60px rgba(71,22,131,.30);overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
   #pch-panel.open{display:flex}
   /* Viditelny fokus pre toho, kto chat ovlada klavesnicou. :focus-visible
      sa pri klikani mysou nezobrazi, takze to vzhlad nemeni.
@@ -19,8 +19,8 @@
      1,41:1 pri potrebnych 3,0; samotna tmava by splynula na fialovej
      hlavicke chatu (1,76:1). */
   #pch-bubble:focus-visible,#pch-close:focus-visible,.pch-chip:focus-visible,.pch-cta a:focus-visible{
-    outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}
-  .pch-head{background:linear-gradient(135deg,var(--navy,#3A0E9B),var(--blue,#631FF3));color:#fff;padding:14px 16px}
+    outline:3px solid var(--navy,#471683);outline-offset:2px;box-shadow:0 0 0 2px #fff}
+  .pch-head{background:linear-gradient(135deg,var(--blue,#7424D6),var(--beh-dole,#9633FD));color:#fff;padding:14px 16px}
   .pch-head b{font-size:1.05rem}
   .pch-head b span{color:var(--gold,#FFD632)}
   .pch-head small{display:block;color:var(--light,#F8F4FF);font-size:.75rem;margin-top:2px}
@@ -29,16 +29,16 @@
   .pch-msg{max-width:85%;padding:10px 13px;border-radius:14px;margin-bottom:10px;font-size:.88rem;line-height:1.5;
     white-space:pre-line;animation:pchIn .25s ease}
   .pch-bot{background:#fff;border:1px solid #E9E2F7;color:var(--ink,#1c2530);border-bottom-left-radius:4px}
-  .pch-user{background:var(--blue,#631FF3);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+  .pch-user{background:var(--blue,#7424D6);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
   @keyframes pchIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .pch-chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
-  .pch-chip{background:#fff;border:1.5px solid var(--blue,#631FF3);color:var(--navy,#3A0E9B);border-radius:20px;padding:7px 12px;
+  .pch-chip{background:#fff;border:1.5px solid var(--blue,#7424D6);color:var(--navy,#471683);border-radius:20px;padding:7px 12px;
     font-size:.8rem;font-weight:600;cursor:pointer;transition:.15s}
-  .pch-chip:hover{background:var(--blue,#631FF3);color:#fff}
+  .pch-chip:hover{background:var(--blue,#7424D6);color:#fff}
   .pch-cta{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #E9E2F7}
   .pch-cta a{flex:1;text-align:center;padding:10px 6px;border-radius:9px;font-size:.82rem;font-weight:700;text-decoration:none}
-  .pch-cta .p{background:var(--blue,#631FF3);color:#fff}
-  .pch-cta .p:hover{background:var(--navy,#3A0E9B)}
+  .pch-cta .p{background:var(--blue,#7424D6);color:#fff}
+  .pch-cta .p:hover{background:var(--blue-tmava,#5C1DAA)}
   .pch-cta .s{background:#e2f6ee;color:#0f7a54}
   .pch-cta .s:hover{background:#0b7d53;color:#fff}
   #pch-close{float:right;background:none;border:none;color:var(--light,#F8F4FF);font-size:22px;cursor:pointer;line-height:1;
@@ -145,7 +145,7 @@
       body.appendChild(el("div", "pch-msg pch-user", f.q));
       body.scrollTop = body.scrollHeight;
       var text = f.a;
-      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:var(--blue,#631FF3);font-weight:700">' + f.link.text + "</a>";
+      if (f.link) text += '\n\n<a href="' + f.link.href + '" style="color:var(--blue,#7424D6);font-weight:700">' + f.link.text + "</a>";
       bot(text, 450, function () {
         var odpoved = body.lastElementChild;   // práve vložená odpoveď
         bot("Pomôžem ešte s niečím?", 350, function () {

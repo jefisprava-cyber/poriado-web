@@ -224,7 +224,7 @@
        mobile po ~1500 px kalendára veľmi ľahko), ďalšie ťahanie prstom by sa
        prelialo na stránku pod oknom. overflow:hidden na <body> zámerne
        nedávam: na iOS stratí pozíciu rolovania stránky. (nález 8) */
-    '.pr-prekryv{position:fixed;inset:0;background:rgba(58,14,155,.55);display:none;',
+    '.pr-prekryv{position:fixed;inset:0;background:rgba(116,36,214,.55);display:none;',
       'align-items:flex-start;justify-content:center;padding:30px 16px;z-index:9995;',
       'overflow-y:auto;overscroll-behavior:contain}',
     '.pr-prekryv.pr-otvorene{display:flex}',
@@ -247,9 +247,9 @@
       'position:relative;box-shadow:0 30px 70px rgba(0,0,0,.35);',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;',
       'color:var(--ink,#1c2530);line-height:1.6;text-align:left}',
-    '.pr-okno h3{color:var(--navy,#3A0E9B);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
+    '.pr-okno h3{color:var(--navy,#471683);font-size:1.4rem;margin:0 0 6px;font-weight:700}',
     '.pr-sub{color:var(--muted,#5b6675);font-size:.95rem;margin:0 0 20px;line-height:1.55}',
-    '.pr-sub b{color:var(--navy,#3A0E9B)}',
+    '.pr-sub b{color:var(--navy,#471683)}',
     /* Zákonné poučenie — patrí sem, ale nesmie prekričať vetu o tom, čo má
        zákazník urobiť. Preto menšie a svetlejšie, no stále nad 4,5:1. */
     '.pr-pozn{display:block;margin-top:8px;font-size:.85rem;color:#6b7684}',
@@ -257,10 +257,10 @@
        (kalendár Bookia je dlhý), ostane hore na obrazovke a netreba sa vracať. */
     '.pr-zavri-obal{position:sticky;top:26px;height:0;z-index:5}',
     '.pr-zavri{position:absolute;top:-16px;right:-12px;width:44px;height:44px;border-radius:50%;',
-      'background:#fff;border:1px solid #E9E2F7;box-shadow:0 4px 14px rgba(58,14,155,.14);',
+      'background:#fff;border:1px solid #E9E2F7;box-shadow:0 4px 14px rgba(71,22,131,.14);',
       'font-size:1.6rem;color:#5f6875;cursor:pointer;line-height:1;padding:0;',
       'display:flex;align-items:center;justify-content:center}',
-    '.pr-zavri:hover{color:var(--navy,#3A0E9B)}',
+    '.pr-zavri:hover{color:var(--navy,#471683)}',
     '#bookio-obal{min-height:280px}',
     /* Výšku iframu nastavuje Bookio správou WIDGET_HEIGHT. Kým príde prvá,
        drží miesto min-height — inak okno na okamih preblikne prázdne.
@@ -271,7 +271,7 @@
        cookies v prehliadači), zákazník sa vie dostať do Bookia priamo. Je to
        bežný odkaz, takže funguje aj bez JavaScriptu. */
     '.pr-nahrada{margin:14px 0 0;font-size:.9rem;color:var(--muted,#5b6675)}',
-    '.pr-nahrada a{color:var(--navy,#3A0E9B)}',
+    '.pr-nahrada a{color:var(--navy,#471683)}',
     /* Formulár priamo v stránke (rezervacia.html). Widget má vlastné biele
        pozadie, takže okolo neho stačí rámik a vzduch — nie druhá karta. */
     '.pr-vstranke{display:block;max-width:1000px;margin:0 auto}',

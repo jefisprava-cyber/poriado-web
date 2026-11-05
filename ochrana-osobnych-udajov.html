@@ -18,7 +18,7 @@
 <style>
   @font-face{font-family:'Instrument Sans';src:url('pismo/instrument-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
 
-  :root{--navy:#3A0E9B;--blue:#631FF3;--light:#F8F4FF;--ink:#1c2530;--muted:#5b6675;--bg:#FAF7FF;--text-pravne:#2E2A3D;
+  :root{--navy:#471683;--blue:#7424D6; --blue-tmava:#5C1DAA;--light:#F8F4FF;--ink:#1c2530;--muted:#5b6675;--bg:#FAF7FF;--text-pravne:#2E2A3D;
     /* ── Farebny beh stranky ──────────────────────────────────────────────
        Tri pasy jednym smerom, od tmavej fialovej po tu z reklam. Su tu ako premenne
        prave preto, aby sa paleta menila na jedinom mieste: predtym bol kazdy
@@ -29,15 +29,14 @@
        maju nizsi kontrast. Drzia preto, ze nelezia na najsvetlejsom konci -
        overene dopoctom farby pod kazdym textom, nie odhadom. Kto bude pas
        menit, musi to premerat znova. */
-    --beh-hore:#3A0E9B;             /* zhodne s --navy */
-    --beh-stred:#631FF3;
+    --beh-stred:#7424D6;
     --beh-dole:#9633FD;   /* fialova z reklam na Mete */
-    --pas-uvod:linear-gradient(135deg,var(--beh-hore) 0%,var(--beh-stred) 42%,var(--beh-dole) 100%);
+    --pas-uvod:linear-gradient(135deg,var(--beh-stred) 0%,var(--beh-dole) 100%);
     /* Na mobile prejde uhlopriecny prechod uzkym stlpcom prilis rychlo
        a fialova sa do zaberu skoro nedostane. Takmer zvisly uhol jej da
        dolnu tretinu pasu, presne tam, kde lezi karta s balikmi. */
-    --pas-uvod-mobil:linear-gradient(168deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);
-    --pas-paticka:linear-gradient(180deg,var(--beh-hore) 0%,var(--beh-stred) 34%,var(--beh-dole) 100%);}
+    --pas-uvod-mobil:linear-gradient(168deg,var(--beh-stred) 0%,var(--beh-dole) 100%);
+    --pas-paticka:linear-gradient(180deg,var(--beh-stred) 0%,var(--beh-dole) 100%);}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7;font-synthesis:none}
   a{color:var(--blue)}
@@ -57,7 +56,7 @@
   .box{background:var(--bg);border:1px solid #E9E2F7;border-radius:12px;padding:18px 20px;margin:16px 0}
   table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}
   th,td{border:1px solid #E9E2F7;padding:9px 12px;text-align:left;vertical-align:top}
-  th{background:var(--navy);color:#fff}
+  th{background:var(--blue);color:#fff}
   .back{display:inline-block;margin-top:21px;padding:9px 0;font-weight:600}
   footer p{color:var(--light)}
   footer{background:var(--pas-paticka);color:var(--light);text-align:center;padding:26px 0;font-size:.9rem}

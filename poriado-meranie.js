@@ -495,20 +495,20 @@
   var CSS = [
     /* Na papieri sa lišta vypáli na každú stranu a prelepí text pod sebou. */
     '@media print{.pk-lista,.pk-prekryv{display:none!important}}',
-    '.pk-lista{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #E9E2F7;box-shadow:0 -8px 30px rgba(58,14,155,.12);padding:18px 0;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
+    '.pk-lista{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid #E9E2F7;box-shadow:0 -8px 30px rgba(71,22,131,.12);padding:18px 0;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
     '.pk-lista.pk-vidno{display:block}',
     '.pk-vnutro{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}',
     '.pk-text{color:var(--ink,#1c2530);font-size:.92rem;line-height:1.5;flex:1;min-width:260px}',
-    '.pk-text a{color:var(--blue,#631FF3);font-weight:600;text-decoration:underline}',
+    '.pk-text a{color:var(--blue,#7424D6);font-weight:600;text-decoration:underline}',
     '.pk-tlacidla{display:flex;gap:10px;flex-wrap:wrap}',
-    '.pk-btn{background:var(--blue,#631FF3);color:#fff;padding:10px 20px;min-height:44px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
-    '.pk-btn:hover{background:var(--navy,#3A0E9B)}',
-    '.pk-btn-ghost{background:transparent;color:var(--navy,#3A0E9B);border:2px solid var(--blue,#631FF3)}',
-    '.pk-btn-ghost:hover{background:var(--blue,#631FF3);color:#fff}',
-    '.pk-prekryv{position:fixed;inset:0;background:rgba(58,14,155,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}',
+    '.pk-btn{background:var(--blue,#7424D6);color:#fff;padding:10px 20px;min-height:44px;border-radius:9px;font-weight:700;border:none;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.2s}',
+    '.pk-btn:hover{background:var(--blue-tmava,#5C1DAA)}',
+    '.pk-btn-ghost{background:transparent;color:var(--navy,#471683);border:2px solid var(--blue,#7424D6)}',
+    '.pk-btn-ghost:hover{background:var(--blue,#7424D6);color:#fff}',
+    '.pk-prekryv{position:fixed;inset:0;background:rgba(116,36,214,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:210}',
     '.pk-prekryv.pk-otvorene{display:flex}',
     '.pk-okno{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto;font-family:inherit}',
-    '.pk-okno h3{color:var(--navy,#3A0E9B);font-size:1.3rem;margin:0 0 14px}',
+    '.pk-okno h3{color:var(--navy,#471683);font-size:1.3rem;margin:0 0 14px}',
     '.pk-okno p{color:var(--muted,#5b6675);font-size:.93rem;margin:0 0 16px;line-height:1.6}',
     '.pk-riadok{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid #E9E2F7}',
     '.pk-riadok b{color:var(--ink,#1c2530);display:block;font-size:.95rem}',
@@ -517,16 +517,16 @@
     '.pk-prep input{opacity:0;width:0;height:0}',
     '.pk-posuvnik{position:absolute;inset:0;background:#8A7AB0;border-radius:24px;cursor:pointer;transition:.2s}',
     '.pk-posuvnik:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}',
-    '.pk-prep input:checked+.pk-posuvnik{background:var(--blue,#631FF3)}',
+    '.pk-prep input:checked+.pk-posuvnik{background:var(--blue,#7424D6)}',
     '.pk-prep input:checked+.pk-posuvnik:before{transform:translateX(20px)}',
-    '.pk-prep input:disabled+.pk-posuvnik{background:var(--blue,#631FF3);opacity:.5;cursor:not-allowed}',
+    '.pk-prep input:disabled+.pk-posuvnik{background:var(--blue,#7424D6);opacity:.5;cursor:not-allowed}',
     /* Prepínač je skrytý <input> s nulovým rozmerom — obrys fokusu by na ňom
        nebolo vidieť. Kreslíme ho preto na posuvník vedľa. Bez toho prepína
        analytiku a marketing naslepo každý, kto ovláda web klávesnicou, a je
        to jediná obrazovka, kde sa dá súhlas odvolať. :focus-visible sa pri
        klikaní myšou nezobrazí, takže to vzhľad nemení. */
-    '.pk-prep input:focus-visible+.pk-posuvnik{outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
-    '.pk-btn:focus-visible,.pk-text a:focus-visible{outline:3px solid var(--navy,#3A0E9B);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
+    '.pk-prep input:focus-visible+.pk-posuvnik{outline:3px solid var(--navy,#471683);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
+    '.pk-btn:focus-visible,.pk-text a:focus-visible{outline:3px solid var(--navy,#471683);outline-offset:2px;box-shadow:0 0 0 2px #fff}',
     '.pk-akcie{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}',
     '.pk-akcie .pk-btn{flex:1}',
     /* Mobil: kratšia lišta — tri rovnako veľké tlačidlá v jednom riadku. */
