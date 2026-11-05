@@ -139,8 +139,8 @@
      doplniť spolu s ním. */
   a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):hover,
   a:not([class*="btn"]):not(.logo):not([style*="border-bottom"]):focus-visible{
-    text-decoration:underline;text-decoration-color:var(--gold-text);
-    text-decoration-thickness:2px;text-underline-offset:4px
+    text-decoration:underline;text-decoration-color:var(--gold);
+    text-decoration-thickness:3px;text-underline-offset:4px
   }
 
   /* ═══════ PETROLEJOVÁ S FIALOVÝM PRECHODOM — len farby ═══════
@@ -203,44 +203,118 @@
   .onas-text p{color:var(--ink);font-size:1.08rem;line-height:1.7;margin-bottom:18px}
   .onas-text p:last-child{margin-bottom:0}
 
-  /* ── Bubliny ──────────────────────────────────────────────────────────────
-     Rovnaká ozdoba ako na domovskej a z rovnakého dôvodu: pás je fialový
-     a takto vyzerá naša reklama na Mete. Ležia POD obsahom, nedajú sa
-     chytiť myšou a čítačka ich nevidí.
+  /* ═══════ BUBLINY ═══════
+     Priesvitné biele kruhy z našej reklamy na Mete — v úvodnom páse aj
+     v pätičke. Sú len ozdoba: ležia POD obsahom, nedajú sa chytiť myšou
+     a čítačka ich nevidí.
 
-     Sedia v bočnom páse mimo .wrap (obsah má 1080 px, po stranách zostáva
-     voľné miesto) a na mobile v zvislých medzerách. Pod textom ležať
-     NESMÚ: svetlá bublina fialový podklad zosvetlí a kontrast bieleho
-     textu klesne — axe to nad prelivom posúdiť nevie, overuje sa
-     porovnaním rámcov písma s rámcami bublín.
+     SVETLÁ BUBLINA POD TEXTOM JE KONTRASTNÝ PROBLÉM, nie kozmetika.
+     Fialový podklad ZOSVETLÍ, takže biely text nad ňou stratí kontrast:
+     najsvetlejší koniec pásu dáva bielej 5,01:1 a pod bublinou s 50 %
+     bielej je to pod 2:1. axe to nad prelivom posúdiť nevie — kontrola
+     „axe 0 porušení" tento problém NENÁJDE. Meria sa porovnaním rámcov
+     textových uzlov so ZAMETENOU plochou bublín (bubliny-kontrola.mjs).
 
-     Animuje sa výlučne transform, čo zvládne grafická karta bez
-     prepočítavania rozloženia: Lighthouse s pohybom aj bez neho dáva
-     rovnaké číslo a blokovanie hlavného vlákna je v oboch prípadoch 0 ms.
-     Kto má v systéme vypnutý pohyb, nedostane žiadny. */
-  .bubliny{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+     Preto sa bočné bubliny nekotvia k okraju OKNA, ale k okraju OBSAHU.
+     --okraj je voľné miesto vedľa .wrap (1080 px) a sú dve kotvy:
+       • v bočnom páse — vnútorná hrana aspoň 10 px pred obsahom. Na
+         širokej obrazovke je bočný pás široký, pod 1140 px žiadny:
+         bublina sa vtedy odsunie celá za okraj a zmizne. Do textu
+         nevojde pri žiadnej šírke. Starý zápis (right:-46px) to
+         nedržal — medzi 1080 a 1140 px sa bublina textu dotkla.
+       • vo výplni .wrap (22 px), ktorá je voľná pri KAŽDEJ šírke. Tieto
+         bubliny vidno aj na úzkom okne; majú preto --dx:0, lebo 14 px
+         rezervy unesie rast pri zväčšení, ale nie posun do strany.
+
+     Zvyšok sedí v medzerách, ktoré text nechal — nad ním, pod ním a za
+     nepriesvitnými pilulami cenníka. Text na bielej pilule alebo na
+     žltom tlačidle je krytý a bublina pod neho smie; text na páse nie.
+
+     Pohyb je VÝLUČNE transform — jediná vlastnosť (spolu s opacity),
+     ktorú prehliadač zvládne na grafickej karte a nemusí pri každej
+     snímke prepočítavať rozloženie stránky. Keby sa hýbalo cez
+     top/left, počítal by rozloženie 60× za sekundu a na staršom mobile
+     by to bolo cítiť. Rozkmit je v premenných --dx/--dy/--s, aby sa dal
+     na mobile stiahnuť jedným pravidlom: medzery medzi riadkami sú tam
+     nižšie než rozkmit na veľkej obrazovke. Kto má v systéme vypnutý
+     pohyb, nedostane žiadny. */
+  .bubliny{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+    --okraj:max(0px,(100% - 1080px)/2)}
   .bubliny span{position:absolute;border-radius:50%;
     background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.50),rgba(255,255,255,.13) 45%,rgba(255,255,255,.04) 72%);
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.20);
-    animation:vznasanie 14s ease-in-out infinite}
+    --dx:10px;--dy:-34px;--s:1.06;
+    animation:vznasanie 13s ease-in-out infinite}
   @keyframes vznasanie{
-    0%{transform:translate3d(0,0,0) scale(1)}
-    50%{transform:translate3d(6px,-18px,0) scale(1.04)}
-    100%{transform:translate3d(0,0,0) scale(1)}
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(var(--dx),var(--dy),0) scale(var(--s))}
   }
-  .hero .bubliny .b1{width:190px;height:190px;top:-48px;right:-98px}
-  .hero .bubliny .b2{width:84px;height:84px;bottom:-34px;left:-40px}
-  .hero .bubliny .b3{width:46px;height:46px;top:14%;left:-16px;animation-duration:10s;animation-delay:-4s}
-  footer .bubliny .b1{width:130px;height:130px;top:-44px;left:5%;animation-duration:19s;animation-delay:-6s}
-  footer .bubliny .b2{width:70px;height:70px;bottom:-24px;right:9%;animation-duration:17s;animation-delay:-3s}
-  footer .bubliny .b3{width:38px;height:38px;top:24%;right:17%;animation-duration:12s;animation-delay:-8s}
   @media(prefers-reduced-motion:reduce){.bubliny span{animation:none}}
-  /* Na mobile bočný pás neexistuje — text ide skoro cez celú šírku. */
+  /* --- úvodný pás --- */
+  .hero .bubliny .b1{width:190px;height:190px;top:-56px;right:calc(100% - var(--okraj) + 10px);--dy:-30px;--s:1.04;animation-duration:16s;animation-delay:-3s}
+  .hero .bubliny .b3{width:84px;height:84px;bottom:-40px;right:calc(100% - var(--okraj) + 16px);--dx:13px;--dy:-26px;animation-duration:12s;animation-delay:-1s}
+  .hero .bubliny .b2{width:46px;height:46px;top:40%;right:calc(100% - var(--okraj) - 14px);--dx:0px;--dy:-38px;--s:1.03;animation-duration:8s;animation-delay:-6s}
+  .hero .bubliny .b4{width:150px;height:150px;top:-30px;left:calc(100% - var(--okraj) + 12px);--dx:-10px;--dy:-28px;--s:1.05;animation-duration:15s;animation-delay:-7s}
+  .hero .bubliny .b6{width:96px;height:96px;bottom:-44px;left:calc(100% - var(--okraj) + 18px);--dx:-14px;--dy:-24px;animation-duration:13s;animation-delay:-9s}
+  .hero .bubliny .b5{width:38px;height:38px;top:46%;left:calc(100% - var(--okraj) - 14px);--dx:0px;--dy:-40px;--s:1.03;animation-duration:7s;animation-delay:-4s}
+  .hero .bubliny .b7{width:44px;height:44px;top:-14px;left:34%;--dx:12px;--dy:-14px;--s:1.06;animation-duration:9s;animation-delay:-2s}
+  .hero .bubliny .b8{width:32px;height:32px;top:-6px;left:58%;--dx:-9px;--dy:-12px;--s:1.07;animation-duration:7s;animation-delay:-5s}
+  .hero .bubliny .b9{width:50px;height:50px;bottom:-26px;left:46%;--dx:10px;--dy:-9px;--s:1.03;animation-duration:14s;animation-delay:-8s}
+  /* --- pätička --- */
+  footer .bubliny .b1{width:130px;height:130px;top:-44px;right:calc(100% - var(--okraj) + 10px);--dy:-28px;--s:1.05;animation-duration:14s;animation-delay:-2s}
+  footer .bubliny .b3{width:76px;height:76px;bottom:-34px;right:calc(100% - var(--okraj) + 18px);--dx:12px;--dy:-22px;animation-duration:11s;animation-delay:-4s}
+  footer .bubliny .b2{width:40px;height:40px;top:44%;right:calc(100% - var(--okraj) - 14px);--dx:0px;--dy:-38px;--s:1.03;animation-duration:8s;animation-delay:-7s}
+  footer .bubliny .b4{width:104px;height:104px;top:10%;left:calc(100% - var(--okraj) + 12px);--dx:-13px;--dy:-30px;animation-duration:15s;animation-delay:-6s}
+  footer .bubliny .b6{width:150px;height:150px;bottom:-58px;left:calc(100% - var(--okraj) + 20px);--dx:14px;--dy:-24px;--s:1.04;animation-duration:17s;animation-delay:-9s}
+  footer .bubliny .b5{width:36px;height:36px;top:52%;left:calc(100% - var(--okraj) - 14px);--dx:0px;--dy:-40px;--s:1.03;animation-duration:7s;animation-delay:-1s}
+  footer .bubliny .b7{width:54px;height:54px;top:-18px;left:30%;--dx:-12px;--dy:-20px;--s:1.06;animation-duration:10s;animation-delay:-3s}
+  footer .bubliny .b8{width:46px;height:46px;top:-8px;left:67%;--dx:9px;--dy:-16px;--s:1.07;animation-duration:8s;animation-delay:-5s}
+  footer .bubliny .b9{width:72px;height:72px;bottom:-44px;left:45%;--dx:-10px;--dy:-16px;--s:1.04;animation-duration:13s;animation-delay:-8s}
+  /* Na mobile je pás užší aj hustejšie popísaný: medzera medzi riadkami
+     má okolo 55 px, takže rozkmit 34 px by bublinu vniesol pod text.
+     Sťahuje sa jedným pravidlom pre všetky — selektor musí mať rovnakú
+     silu ako pravidlá s menom bubliny vyššie, inak ho prebijú. */
   @media(max-width:820px){
-    .hero .bubliny .b1{width:104px;height:104px;top:-72px;right:-30px}
-    .hero .bubliny .b2,.hero .bubliny .b3,footer .bubliny .b3{display:none}
-    footer .bubliny .b1{top:auto;bottom:-40px;left:4%}
-    footer .bubliny .b2{top:-22px;bottom:auto;right:8%}
+    .hero .bubliny .b1,
+    .hero .bubliny .b2,
+    .hero .bubliny .b3,
+    .hero .bubliny .b4,
+    .hero .bubliny .b5,
+    .hero .bubliny .b6,
+    .hero .bubliny .b7,
+    .hero .bubliny .b8,
+    .hero .bubliny .b9,
+    footer .bubliny .b1,
+    footer .bubliny .b2,
+    footer .bubliny .b3,
+    footer .bubliny .b4,
+    footer .bubliny .b5,
+    footer .bubliny .b6,
+    footer .bubliny .b7,
+    footer .bubliny .b8,
+    footer .bubliny .b9{--dx:5px;--dy:-14px;--s:1.04}
+    .hero .bubliny .b2,
+    .hero .bubliny .b5,
+    footer .bubliny .b2,
+    footer .bubliny .b5{--dx:0px}
+  }
+  /* Na mobile bočný pás neexistuje — text ide skoro cez celú šírku.
+     Bubliny sa presúvajú do zvislých medzier a za nepriesvitné plochy. */
+  @media(max-width:820px){
+    .hero .bubliny .b1{width:104px;height:104px;top:-70px;left:4%;right:auto;bottom:auto}
+    .hero .bubliny .b3{width:60px;height:60px;bottom:-30px;left:14%;right:auto;top:auto}
+    .hero .bubliny .b4{width:86px;height:86px;top:-54px;left:auto;right:6%;bottom:auto}
+    .hero .bubliny .b6{width:70px;height:70px;bottom:-36px;left:auto;right:12%;top:auto}
+    .hero .bubliny .b7{width:44px;height:44px;top:-14px;left:40%;right:auto;bottom:auto}
+    .hero .bubliny .b8{width:32px;height:32px;top:-6px;left:62%;right:auto;bottom:auto}
+    .hero .bubliny .b9{width:50px;height:50px;bottom:-26px;left:44%;right:auto;top:auto}
+    footer .bubliny .b1{width:70px;height:70px;top:4px;left:-10px;right:auto;bottom:auto}
+    footer .bubliny .b3{width:66px;height:66px;bottom:-24px;left:4%;right:auto;top:auto}
+    footer .bubliny .b4{width:70px;height:70px;top:4px;left:auto;right:-10px;bottom:auto}
+    footer .bubliny .b6{width:90px;height:90px;bottom:-30px;left:auto;right:6%;top:auto}
+    footer .bubliny .b7{width:54px;height:54px;top:-18px;left:8%;right:auto;bottom:auto}
+    footer .bubliny .b8{width:46px;height:46px;top:-8px;left:62%;right:auto;bottom:auto}
+    footer .bubliny .b9{width:66px;height:66px;bottom:-34px;left:46%;right:auto;top:auto}
   }
   .hero .wrap{position:relative;z-index:1}
   footer .wrap{position:relative;z-index:1}
@@ -264,7 +338,7 @@
 <main>
 
 <section class="hero">
-  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span><span class="b5"></span><span class="b6"></span><span class="b7"></span><span class="b8"></span><span class="b9"></span></div>
   <div class="wrap">
     <h1>Upratujeme v Bratislave, nie cez agentúru</h1>
     <p>Malý osobný tím s vlastným vybavením. Čo si dohodneme, dodržíme.</p>
@@ -298,7 +372,7 @@
 </div><!-- /.pas -->
 </main>
 <footer>
-  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+  <div class="bubliny" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span><span class="b5"></span><span class="b6"></span><span class="b7"></span><span class="b8"></span><span class="b9"></span></div>
   <div class="wrap">
     <div class="logo">Poriado<span>.</span></div>
     <p style="margin-top:10px"><a href="tel:+421949061088">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk">info@poriado.sk</a></p>
