@@ -480,7 +480,34 @@
   }
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
-  .reviews{background:transparent;padding-top:0}
+  .reviews{background:transparent;padding-top:clamp(30px,3.6vw,46px)}
+
+  /* ═══════ PANEL S RECENZIAMI ═══════
+     Citáty predtým ležali priamo na svetlom páse, bez nadpisu a bez
+     ohraničenia. Od okolitého textu sa nelíšili ničím, takže ich
+     čitateľ prečítal ako našu vlastnú vetu, nie ako cudzí hlas.
+
+     Plocha je ZÁMERNE tmavšia než pás (#E6D1FF proti #EFE7FF v mieste,
+     kde leží). Nesie len --ink a --navy: 11,00 a 8,73. Kto sem pridá
+     --muted, musí farbu plochy zosvetliť — sivá má na nej 4,14 a pod
+     normou. Svetlý pás sám sa stmaviť nedá: pri L 93 % spadne --muted
+     na 4,47, a ten je na ňom na desiatkach miest. */
+  .rev-panel{max-width:860px;margin:0 auto;background:#E6D1FF;border-radius:20px;
+    padding:clamp(24px,3.2vw,38px) clamp(20px,3vw,46px) clamp(18px,2.4vw,28px);text-align:center}
+  .rev-panel .section-head{margin:0 auto 2px}
+  .rev-panel .section-head h2{margin-bottom:0}
+  /* Veľká úvodzovka je ozdoba, nie text — čítačka ju preskočí a z citátov
+     sa preto párové úvodzovky odstránili, aby neboli dvakrát. */
+  .rev-panel .uvodzovka{display:block;font-family:Georgia,'Times New Roman',serif;
+    font-size:clamp(3rem,5.4vw,4.2rem);line-height:.8;color:var(--blue);opacity:.32;
+    margin:6px 0 -4px;user-select:none}
+  .rev-panel .rev-citaty{padding:2px 0 14px}
+  /* Pocet recenzii je inde --muted, tu nie: siva ma na tejto ploche 4,14
+     a spadla by pod normu. --ink ma 11,00 a zostava druhotny tym, ze je
+     mensi, nie tym, ze je bledsi. */
+  .rev-panel .rev-count{color:var(--ink)}
+  .rev-panel .rev-citaty blockquote{font-size:1.08rem}
+  .rev-panel .rev-bar{border-bottom:0;padding:4px 0 0}
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #E9E2F7;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
   .rev-stars{color:var(--gold-text);letter-spacing:2px;font-size:.98rem;white-space:nowrap}
@@ -499,7 +526,8 @@
   .rev-citaty blockquote.on{opacity:1;visibility:visible}
   .rev-citaty cite{display:block;margin-top:10px;font-style:normal;font-weight:700;color:var(--navy);font-size:.86rem}
   @media(prefers-reduced-motion:reduce){.rev-citaty blockquote{transition:none}}
-  @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote{font-size:.95rem}}
+  @media(max-width:640px){.rev-citaty{padding:16px 0 18px}.rev-citaty blockquote,
+    .rev-panel .rev-citaty blockquote{font-size:.98rem}}
 
   /* mobilna lepiaca lista */
   .mlista{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid #E9E2F7;box-shadow:0 -6px 24px rgba(71,22,131,.14);padding:10px 14px;display:none;align-items:center;gap:12px;transform:translateY(115%);transition:transform .25s ease}
@@ -812,13 +840,25 @@
 <div class="pas">
 <section id="recenzie" class="reviews">
   <div class="wrap">
-
+    <div class="rev-panel">
+      <div class="section-head">
+        <div class="kicker">Recenzie</div>
+        <h2>Naši zákazníci povedali</h2>
+      </div>
+      <span class="uvodzovka" aria-hidden="true">„</span>
     <div class="rev-citaty" id="rev-citaty">
-      <blockquote class="on">„Žiadne zdĺhavé objednávanie ani zbytočné obhliadky vopred — jednoducho prišli, upratali a výsledok bol perfektný. Stala som sa ich pravidelnou zákazníčkou a firmu som odporučila aj u nás v práci."<cite>Soňa M.</cite></blockquote>
-      <blockquote>„Hľadala som spoľahlivú upratovaciu firmu a toto bola trefa do čierneho. Pani upratovačka odviedla neskutočne skvelú prácu — dala si záležať aj na detailoch. Je skvelý pocit vrátiť sa do dokonale čistého domova."<cite>Alexandra A.</cite></blockquote>
-      <blockquote>„S upratovaním som bol veľmi spokojný. Všetko bolo urobené precízne, dôkladne a podľa mojich predstáv. Oceňujem profesionálny prístup, príjemné vystupovanie a dôraz na detaily."<cite>Dan A.</cite></blockquote>
-      <blockquote>„Pomer cena a kvalita výborná. Poctivé umývanie a upratovanie, bola som veľmi spokojná."<cite>Natália F.</cite></blockquote>
-      <blockquote>„Profesionálny prístup, rýchla komunikácia a kvalitne odvedená práca."<cite>Marek R.</cite></blockquote>
+      <blockquote class="on">Žiadne zdĺhavé objednávanie ani zbytočné obhliadky vopred — jednoducho prišli, upratali a výsledok bol perfektný. Stala som sa ich pravidelnou zákazníčkou a firmu som odporučila aj u nás v práci.<cite>Soňa M.</cite></blockquote>
+      <blockquote>Hľadala som spoľahlivú upratovaciu firmu a toto bola trefa do čierneho. Pani upratovačka odviedla neskutočne skvelú prácu — dala si záležať aj na detailoch. Je skvelý pocit vrátiť sa do dokonale čistého domova.<cite>Alexandra A.</cite></blockquote>
+      <blockquote>S upratovaním som bol veľmi spokojný. Všetko bolo urobené precízne, dôkladne a podľa mojich predstáv. Oceňujem profesionálny prístup, príjemné vystupovanie a dôraz na detaily.<cite>Dan A.</cite></blockquote>
+      <blockquote>Pomer cena a kvalita výborná. Poctivé umývanie a upratovanie, bola som veľmi spokojná.<cite>Natália F.</cite></blockquote>
+      <blockquote>Profesionálny prístup, rýchla komunikácia a kvalitne odvedená práca.<cite>Marek R.</cite></blockquote>
+    </div>
+      <a class="rev-bar" href="https://www.google.com/maps?cid=11735417404303540434" target="_blank" rel="noopener" data-rating="5.0">
+        <span class="rev-num">5,0</span>
+        <span class="rev-stars" aria-hidden="true"></span>
+        <span class="rev-count">33 recenzií na Google</span>
+        <span class="rev-cta">Pozrieť →</span>
+      </a>
     </div>
   </div>
 </section>
