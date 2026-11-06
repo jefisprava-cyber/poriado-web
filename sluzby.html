@@ -245,9 +245,17 @@
   .cenik .cas{font-weight:700;color:var(--navy);font-size:.97rem}
   .cenik .suma{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:74px}
   .cenik .hod{font-size:.78rem;font-weight:700;color:var(--gold-text);white-space:nowrap;text-align:right;min-width:92px}
+  /* Bezna cena pri permanentkach. Zamerne NIE zlatou ako .hod — zlata
+     oznacuje vyhodu, a toto je cena, ktoru zakaznik neplati. Muted ma
+     na bielej 5,83:1. */
+  .cenik .predtym{font-size:.78rem;font-weight:700;color:var(--muted);white-space:nowrap;text-align:right;min-width:92px}
+  /* Odkaz na kupu. Stranka ma globalny reset a{text-decoration:none;color:inherit},
+     takze obycajny odkaz v texte by vyzeral ako obycajny text — nedalo by sa
+     spoznat, ze je klikatelny. Pouziva preto existujucu triedu .btn. */
+  .kup{text-align:center;margin-top:22px}
   @media(max-width:420px){
     .cenik li{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px}
-    .cenik .hod{grid-column:1 / -1;text-align:left;min-width:0}
+    .cenik .hod,.cenik .predtym{grid-column:1 / -1;text-align:left;min-width:0}
   }
 
   /* Lepiaca hlavicka ma 75 px, takze skok na kotvu (#cennik, #ako, #recenzie...)
@@ -527,6 +535,23 @@
   </div>
 </section>
 
+<!-- POUKAZKY A PERMANENTKY -->
+<section id="poukazky">
+  <div class="wrap">
+    <div class="kicker">Viac upratovaní naraz</div>
+    <h2>Poukážky a permanentky</h2>
+    <p class="lead">Permanentka je niekoľko upratovaní kúpených naraz za nižšiu cenu. Platí 6 mesiacov a termíny si vyberáte priebežne — nemusíte ich plánovať dopredu.</p>
+    <ul class="cenik" role="list">
+      <li><span class="cas">3 × 3 hodiny</span><span class="suma">215,00 €</span><span class="predtym">bežne <s>239,70 €</s></span></li>
+      <li><span class="cas">3 × 4 hodiny</span><span class="suma">269,00 €</span><span class="predtym">bežne <s>299,70 €</s></span></li>
+      <li><span class="cas">4 × 3 hodiny</span><span class="suma">295,90 €</span><span class="predtym">bežne <s>319,60 €</s></span></li>
+      <li><span class="cas">4 × 4 hodiny</span><span class="suma">359,90 €</span><span class="predtym">bežne <s>399,60 €</s></span></li>
+    </ul>
+    <p class="note"><b>Na poukážky a permanentky sa nevzťahujú žiadne zľavy</b> vrátane kódu SOLIDARITA15 — množstevné poukážky sú už zvýhodnené v cene. Pri permanentke 4 × 4 hodiny ušetríte 39,70 €.</p>
+    <p class="kup"><a class="btn" href="https://services.bookio.com/poriado-sor759f2/gift-cards" target="_blank" rel="noopener">Kúpiť poukážku alebo permanentku</a></p>
+  </div>
+</section>
+
 <!-- DOPLNKOVE SLUZBY -->
 <section>
   <div class="wrap">
@@ -539,7 +564,7 @@
       <div class="addon"><span>Rebrík na okná vo výške — pri každom balíku</span><b>10 €</b></div>
     </div>
     <p class="note">K balíkom Maxi a Maxi s tepovaním stojí tepovanie 30 € za hodinu. Tepovanie sa účtuje po prvej hodine za každú začatú polhodinu — samostatné 25 €, k balíkom Mini, Komfort a Klasik 20 € a pri oboch Maxi 15 €. Pri rezervácii zaplatíte prvú hodinu, ďalší čas doúčtujeme faktúrou po skončení.</p>
-    <p class="note">Na okná vo výške treba rebrík — ak ho nemáte, donesieme vlastný za 10 € pri každom balíku. <b>Zľava −15 %</b> pre dôchodcov a ZŤP — zadajte kód <b>SOLIDARITA15</b> pri rezervácii. Zľava platí len na cenu služby, nie na príplatky.</p>
+    <p class="note">Na okná vo výške treba rebrík — ak ho nemáte, donesieme vlastný za 10 € pri každom balíku. <b>Zľava −15 %</b> pre dôchodcov a ZŤP — zadajte kód <b>SOLIDARITA15</b> pri rezervácii. Zľava platí len na cenu služby, nie na príplatky, a na poukážky a permanentky sa nevzťahuje.</p>
   </div>
 </section>
 
