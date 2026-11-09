@@ -1,0 +1,157 @@
+# Netlify — nastavenie nasadzovania pre www.poriado.sk
+# =====================================================
+# Web je čisté statické HTML bez buildu: žiadne npm, žiadny framework,
+# stránky ležia priamo v koreni repa. Netlify preto nič nezostavuje,
+# len vezme obsah priečinka taký, aký je.
+#
+# Hlavná doména zostáva www.poriado.sk — tá je v CNAME, v sitemape
+# a v 143 absolútnych odkazoch po celom webe (canonical, og:url,
+# štruktúrované dáta). Apex poriado.sk sa na ňu presmeruje, rovnako
+# ako to dnes robí GitHub Pages.
+
+[build]
+  publish = "."
+  # Žiadny build. Prázdny príkaz je zámer, nie opomenutie.
+  command = ""
+
+[build.processing]
+  # Netlify vie HTML/CSS/JS prepisovať a minifikovať. Nechávame to vypnuté:
+  # web je ladený ručne, skripty sa spoliehajú na poradie načítania
+  # (poriado-meranie.js beží prvý, bez defer) a tichý zásah do kódu
+  # tretej strany by sa hľadal veľmi ťažko.
+  skip_processing = true
+
+
+# ─────────────────────────────────────────────────────────────────────
+# PRESMEROVANIA
+# Netlify ich vyhodnocuje zhora nadol, platí prvé, ktoré sedí.
+# ─────────────────────────────────────────────────────────────────────
+
+# 1) Interné súbory repa. Na GitHub Pages dnes vracajú 404, ale Netlify
+#    by ich zo zverejneného priečinka vydal — sú v nich poznámky
+#    o projekte, ktoré na web nepatria. Preto ich výslovne zatvárame.
+[[redirects]]
+  from = "/CLAUDE.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/PROJECT-BRIEF.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/CNAME"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# 2) Apex → www. Primárne to rieši nastavenie hlavnej domény priamo
+#    v Netlify (Domain management → Primary domain), toto je poistka
+#    a zároveň zápis, z ktorého je zámer čitateľný.
+[[redirects]]
+  from = "https://poriado.sk/*"
+  to = "https://www.poriado.sk/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://poriado.sk/*"
+  to = "https://www.poriado.sk/:splat"
+  status = 301
+  force = true
+
+# 3) Stará stránka kancelárií. Bola verejná do 25. 10. 2026, keď sa
+#    stiahla, lebo ceny na nej neboli schválené. Dnes vracia 404, takže
+#    kto na ňu má odkaz alebo ju má v histórii, skončí naprázdno.
+#    Najbližší živý obsah je prehľad služieb, kde sú kancelárie uvedené.
+[[redirects]]
+  from = "/upratovanie-kancelarii-bratislava.html"
+  to = "/sluzby.html"
+  status = 301
+
+[[redirects]]
+  from = "/upratovanie-kancelarii-bratislava"
+  to = "/sluzby.html"
+  status = 301
+
+
+# ─────────────────────────────────────────────────────────────────────
+# HLAVIČKY
+# ─────────────────────────────────────────────────────────────────────
+
+# Bezpečnostné hlavičky pre celý web. Zámerne BEZ Content-Security-Policy
+# a BEZ Permissions-Policy: web načítava Bookio widget, Meta Pixel a GA4
+# a platba kartou beží v cudzom iframe — zle nastavená politika by ich
+# umlčala spôsobom, ktorý sa v prehliadači ťažko hľadá. Ak ich raz
+# pridáme, musí to byť s testom celej rezervácie vrátane platby.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# HTML sa nesmie cachovať natrvalo — čo sa pushne, má byť hneď online.
+# must-revalidate neznamená sťahovať zakaždým: prehliadač sa spýta
+# a dostane 304, ak sa nič nezmenilo.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Skripty nemajú v názve odtlačok obsahu (poriado-meranie.js, nie
+# poriado-meranie.a1b2c3.js), takže dlhá cache by znamenala, že oprava
+# sa k vracajúcim sa návštevníkom nedostane. Kým sa názvy nebudú
+# verziovať, musia sa overovať pri každej návšteve.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Písmo sa od vloženia do repa nezmenilo a ani nemá prečo — rok a immutable.
+[[headers]]
+  for = "/pismo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Fotky a ikony. Týždeň je kompromis: šetrí prenos, ale keď sa obrázok
+# vymení (napríklad vianočný za nesezónny v januári), nedrží sa pol roka.
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Sitemapu a robots.txt číta Google. Hodina stačí a zmena sa prejaví rýchlo.
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
