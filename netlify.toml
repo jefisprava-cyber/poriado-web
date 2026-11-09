@@ -21,15 +21,29 @@
   # tretej strany by sa hľadal veľmi ťažko.
   skip_processing = true
 
+# Pretty URLs musia zostať vypnuté. Keď sú zapnuté, Netlify presmeruje
+# /sluzby.html na /sluzby/ — ale canonical na každej stránke ukazuje na
+# adresu s .html, takže by web posielal Googlu dva rozporné signály
+# o tej istej stránke a presmeroval každý existujúci odkaz z výsledkov
+# hľadania. Toto je dnešný spôsob, ako to vypnúť; samotné skip_processing
+# vyššie je starší kľúč, ktorý už v dokumentácii Netlify nie je, a preto
+# sa na neho nedáme spoliehať.
+[build.processing.html]
+  pretty_urls = false
+
 
 # ─────────────────────────────────────────────────────────────────────
 # PRESMEROVANIA
 # Netlify ich vyhodnocuje zhora nadol, platí prvé, ktoré sedí.
 # ─────────────────────────────────────────────────────────────────────
 
-# 1) Interné súbory repa. Na GitHub Pages dnes vracajú 404, ale Netlify
-#    by ich zo zverejneného priečinka vydal — sú v nich poznámky
-#    o projekte, ktoré na web nepatria. Preto ich výslovne zatvárame.
+# 1) Interné súbory repa. CLAUDE.md, PROJECT-BRIEF.md ani .claude/ nie sú
+#    v gite (sú v .gitignore), takže pri nasadzovaní z GitHubu sa k Netlify
+#    vôbec nedostanú. Tieto pravidlá sú poistka na dva prípady: keby niekto
+#    v budúcnosti niektorý súbor pridal do gitu, a keby sa web raz nasadil
+#    z disku cez Netlify CLI, ktoré .gitignore nerieši. CNAME v gite JE,
+#    a na Netlify je zbytočný — ponechávame ho len preto, aby bol návrat
+#    na GitHub Pages otázkou prepnutia, nie dopisovania súborov.
 [[redirects]]
   from = "/CLAUDE.md"
   to = "/404.html"
@@ -50,6 +64,21 @@
 
 [[redirects]]
   from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Tieto dva v gite naopak SÚ. GitHub Pages ich dnes nevydáva, lebo Jekyll
+# vynecháva súbory začínajúce bodkou; Netlify takú výnimku nemá. Držíme ich
+# zatvorené, aby bol web po prechode presne tak prístupný ako dnes.
+[[redirects]]
+  from = "/.gitignore"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.gitattributes"
   to = "/404.html"
   status = 404
   force = true
