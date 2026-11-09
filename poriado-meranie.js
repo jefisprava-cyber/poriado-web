@@ -1,5 +1,6 @@
 /**
- * PORIADO — súhlas s cookies + meranie (GA4, Meta Pixel), spoločné pre celý web.
+ * PORIADO — súhlas s cookies + meranie (GA4, Meta Pixel, Clarity), spoločné
+ * pre celý web.
  *
  * VLOŽ DO <head> KAŽDEJ STRÁNKY značku script s atribútom
  *     src="poriado-meranie.js"  — a S atribútom defer.
@@ -23,6 +24,8 @@
  *   - uloženie voľby do localStorage pod kľúčom poriado_cookie_consent
  *   - načítanie GA4 hneď, meranie s cookies až po súhlase
  *   - načítanie Meta Pixelu hneď, odosielanie až po súhlase
+ *   - načítanie Microsoft Clarity (nahrávky relácií, teplotné mapy)
+ *     až po analytickom súhlase
  *   - funkciu window.konverzia(gaNazov, fbNazov) na meranie konverzií
  *
  * Farby sa čítajú z palety stránky cez var(--premenná, #záložná). Záložná
@@ -34,6 +37,10 @@
   var KEY       = 'poriado_cookie_consent';
   var GA_ID     = 'G-BN8T9S3MTS';
   var PIXEL_ID  = '939652179152863';
+  /* Microsoft Clarity. Prázdna hodnota = Clarity sa vôbec nenačíta, takže
+     tento kód môže v repe ležať aj predtým, než projekt v Clarity vznikne.
+     ID nájdeš v Clarity v Settings → Setup — je to reťazec typu 'abc123xyz'. */
+  var CLARITY_ID = 'zb4x3dn9en';
   var ODKAZ_GDPR = 'ochrana-osobnych-udajov.html';
 
   /* Adresa nasadeneho Apps Scriptu a jeho token — JEDINE MIESTO v celom repe.
@@ -190,6 +197,52 @@
     try { fbq('consent', 'grant'); fbq('track', 'PageView'); } catch (e) {}
   }
 
+  /* ── Microsoft Clarity — nahrávky relácií a teplotné mapy ──
+     Načíta sa AŽ po analytickom súhlase — inak než GA4 a Pixel vyššie.
+     Nie je to nedôslednosť, sú na to dva dôvody:
+
+       1. Clarity nahráva, čo človek na stránke robí — pohyb myšou, kliknutia,
+          posúvanie, obsah stránky. Pre taký záznam neexistuje nič ako
+          bezcookiový režim Consent Mode, takže bez súhlasu ho nemáme čím
+          obhájiť. Microsoft to od 31. 10. 2025 navyše sám vynucuje: pre
+          návštevy z EHP, Spojeného kráľovstva a Švajčiarska žiada platný
+          signál súhlasu, inak Clarity beží v okresanom režime.
+       2. Lighthouse na lištu nikdy neklikne, takže Clarity do merania
+          rýchlosti vôbec nevstúpi. Skóre z 9. 11. 2026 (98 mobil / 100
+          desktop) tým zostáva nedotknuté.
+
+     Čo Clarity NEUVIDÍ: obsah cudzích rámov. Celý rezervačný formulár beží
+     v Bookiu, takže nahrávka sa končí kliknutím na „Rezervovať“. */
+  var clarityNacitane = false;
+
+  function nacitajClarity() {
+    if (clarityNacitane || !CLARITY_ID) return;
+    clarityNacitane = true;
+    window.clarity = window.clarity || function () {
+      (window.clarity.q = window.clarity.q || []).push(arguments);
+    };
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.clarity.ms/tag/' + CLARITY_ID;
+    document.head.appendChild(s);
+  }
+
+  /* consentv2 je dnešné rozhranie Clarity; staré clarity('consent', true)
+     Microsoft označil za určené na vyradenie. Naše dve políčka v lište sa
+     naň mapujú presne: analytické → analytics_Storage, marketingové →
+     ad_Storage. Veľké S v názvoch nie je preklep, tak to má Microsoft
+     v dokumentácii. Pri odvolaní súhlasu Clarity sama zmaže svoje cookies
+     a ukončí reláciu. */
+  function nastavClaritySuhlas(c) {
+    if (!clarityNacitane) return;
+    try {
+      window.clarity('consentv2', {
+        ad_Storage:        c.marketing ? 'granted' : 'denied',
+        analytics_Storage: c.analytics ? 'granted' : 'denied'
+      });
+    } catch (e) {}
+  }
+
   function dajSuhlas() {
     try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
   }
@@ -208,6 +261,10 @@
     /* Skripty sú načítané už od začiatku, tu sa len odomyká meranie.
        GA4 si súhlas prevezme sám cez consent update vyššie. */
     if (c.marketing) povolPixel();
+    /* Clarity nahráva reláciu, preto sa načíta až tu. Stav dostáva vždy:
+       ak už beží a súhlas sa odvolal, nastavClaritySuhlas ju zastaví. */
+    if (c.analytics) nacitajClarity();
+    nastavClaritySuhlas(c);
     /* Súhlas mohol prísť až teraz — zdroj návštevy sme dovtedy držali len
        v pamäti a od tejto chvíle sa smie uložiť. */
     if (c.marketing && zdrojPamat) ulozZdroj(zdrojPamat);
