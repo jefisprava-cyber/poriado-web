@@ -34,9 +34,9 @@
        7. 404.html — veta "Byty a domy od 79,90 EUR"
        8. lastmod v sitemap.xml -->
 <link rel="preload" href="pismo/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#9633fd">
 <meta property="og:type" content="website">
@@ -50,7 +50,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="facebook-domain-verification" content="l8wso3zh8v20no0ac9i7fykpszv2s6" />
-<script src="poriado-meranie.js"></script>
+<script src="poriado-meranie.js" defer></script>
 <meta name="twitter:title" content="Poriado — Upratovanie Bratislava">
 <meta name="twitter:image" content="https://www.poriado.sk/og-image.png">
 <script type="application/ld+json">
@@ -411,18 +411,21 @@
   .section-head .kicker{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.82rem;margin-bottom:10px}
   .section-head h2{font-size:clamp(1.45rem,1rem + 1.75vw,2.05rem);letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
   /* „Poriado(k)" je jediné zvýraznené slovo v nadpisoch — slovná hračka,
-     nie informácia. Slovo je v značkovej fialovej z reklám (--beh-dole,
-     #9633FD): na svetlom páse má 4,19:1 na jeho spodnom konci a 4,49:1 na
-     hornom. Na bežný text by to nestačilo, na tento nadpis áno — je TUČNÝ
-     a má najmenej 23,2 px, a nad 18,7 px je hranica WCAG 3,0, nie 4,5.
+     nie informácia. Celé ide do značkovej žltej bubliny a písmo má farbu
+     zvyšku nadpisu (--navy), čo je na žltej 8,72:1.
 
-     Zátvorka je v značkovej žltej a tá má na tom istom páse 1,18:1, takže
-     ju takmer nevidno. Je to Filipovo vedomé rozhodnutie z 5. 11. 2026,
-     nie prehliadnutie: „(k)" má byť ozdoba a hračka sa prečíta aj bez
-     neho. Kto by to niekedy chcel čitateľné, jediná žltá, ktorou sa dá
-     písať, je --gold-text (7,74:1) — živá žltá to nikdy nebude. */
-  .znacka{color:var(--beh-dole)}
-  .znacka .zatv{color:var(--gold)}
+     Predtým bola zátvorka napísaná žltou priamo na podklade, teda 1,41:1 —
+     prakticky neviditeľná. Komentár, ktorý tu stál, to hájil tým, že text
+     leží na svetlom páse: nebola to pravda, sekcia #ako triedu .pas nemá
+     a pozadie je biele. PageSpeed to 9. 11. 2026 našiel ako jedinú chybu
+     dostupnosti na celej stránke a Filip sa rozhodol pre bublinu, aby žltá
+     v nadpise zostala — len už nie ako farba písma. To je napokon aj
+     pravidlo zapísané vyššie v :root: žltá je plocha, nie písmo.
+
+     Vodorovný padding je zámerne väčší než zvislý, aby bublina nezvýšila
+     riadkovanie nadpisu. Clone drží oba konce zaoblené, keby sa nadpis
+     niekedy zalomil uprostred slova. */
+  .znacka{color:var(--navy);background:var(--gold);border-radius:8px;padding:.04em .2em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
   /* Ako to funguje — tri kroky. Cislovanie berieme z poradia <li>, aby ho
      citacky precitali spolu s textom a nemuseli sme ho pisat do HTML. */
 
@@ -941,7 +944,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Ako to funguje</div>
-      <h2>Od rezervácie po <span class="znacka">Poriado<span class="zatv">(k)</span></span> za tri kroky</h2>
+      <h2>Od rezervácie po <span class="znacka">Poriado(k)</span> za tri kroky</h2>
     </div>
     <ol class="kroky">
       <li class="krok"><b>Vyberiete balík a termín</b><span>Online, bez obhliadky. Potvrdenie máte okamžite.</span></li>

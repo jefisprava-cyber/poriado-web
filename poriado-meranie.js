@@ -2,14 +2,20 @@
  * PORIADO — súhlas s cookies + meranie (GA4, Meta Pixel), spoločné pre celý web.
  *
  * VLOŽ DO <head> KAŽDEJ STRÁNKY značku script s atribútom
- *     src="poriado-meranie.js"  — a BEZ atribútu defer.
+ *     src="poriado-meranie.js"  — a S atribútom defer.
  *     (Ukážku značky tu zámerne nepíšem celú: sekvencia ukončujúcej
  *      script značky by v komentári predčasne ukončila celý skript,
  *      keby ho niekto vložil priamo do stránky.)
  *
- * Bez defer preto, že Google Consent Mode musí nastaviť predvolené "denied"
- * skôr, než sa čokoľvek meracie vôbec načíta. Zvyšok (lišta, tlačidlá) sa
- * dorobí až po načítaní stránky, takže to nič nespomalí.
+ * S defer od 9. 11. 2026. Predtým bol bez neho, s odôvodnením, že Consent
+ * Mode musí nastaviť predvolené "denied" skôr, než sa načíta čokoľvek
+ * meracie. To odôvodnenie neplatilo: GA4 aj Pixel načítava TENTO súbor a až
+ * po nastavení súhlasu, takže poradie je dané vnútri skriptu, nie tým, kedy
+ * sa skript spustí. Bez defer bol pritom jediným zdrojom, ktorý blokoval
+ * prvé vykreslenie stránky — PageSpeed mu 9. 11. pripisoval až 1 980 ms na
+ * mobile. Ostatné skripty (rezervacia, dopyt, hodnotenie, chat) sú tiež
+ * defer a ležia nižšie v dokumente, takže window.PORIADO_SKRIPT nájdu
+ * hotový. Zvyšok (lišta, tlačidlá) sa dorobí až po načítaní stránky.
  *
  * Súbor rieši všetko naraz:
  *   - Consent Mode v2 v POKROČILOM režime (default denied → update po súhlase)
