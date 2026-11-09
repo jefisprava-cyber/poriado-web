@@ -112,6 +112,20 @@
   to = "/sluzby.html"
   status = 301
 
+# 4) Ikony, ktoré si prehliadače a náhľadové roboty pýtajú samy, hoci na ne
+#    v HTML neodkazujeme: apple-touch-icon-precomposed.png a varianty
+#    s rozmerom v názve. Na GitHub Pages dostávali 404 aj s celou chybovou
+#    stránkou, teda 3,6 kB za kus — v meraní Pingdom z 9. 11. to boli štyri
+#    z osemnástich požiadaviek na stránku. /favicon.ico odvtedy existuje
+#    a apple-touch-icon má udaný rozmer, takže ich už nemá čo pýtať; toto
+#    je poistka pre botov, ktorí sa pýtajú tak či tak.
+#    Status 200 je prepis, nie presmerovanie: adresa sa nemení a vráti sa
+#    obsah ikony, ktorú naozaj máme.
+[[redirects]]
+  from = "/apple-touch-icon-*"
+  to = "/apple-touch-icon.png"
+  status = 200
+
 
 # ─────────────────────────────────────────────────────────────────────
 # HLAVIČKY
