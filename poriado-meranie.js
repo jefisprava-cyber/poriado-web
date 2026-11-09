@@ -40,7 +40,7 @@
   /* Microsoft Clarity. Prázdna hodnota = Clarity sa vôbec nenačíta, takže
      tento kód môže v repe ležať aj predtým, než projekt v Clarity vznikne.
      ID nájdeš v Clarity v Settings → Setup — je to reťazec typu 'abc123xyz'. */
-  var CLARITY_ID = '';
+  var CLARITY_ID = 'zb4x3dn9en';
   var ODKAZ_GDPR = 'ochrana-osobnych-udajov.html';
 
   /* Adresa nasadeneho Apps Scriptu a jeho token — JEDINE MIESTO v celom repe.
