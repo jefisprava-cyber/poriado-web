@@ -486,7 +486,11 @@
       pridaj('balik', balik || '');
       pridaj('cas', new Date().toISOString());
       KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
-      ['fbp', 'fbc', 'ga_cid', 'ga_sid', 'cas_kliku', 'referrer', 'vstup']
+      /* Zoznam je vymenovaný ručne, takže nové pole v poriadoZdroj() sa sem
+         musí dopísať zvlášť — inak sa spočíta a zahodí. Presne to sa stalo
+         14. 11. 2026 poľu „suhlas": v hárku ostal prázdny stĺpec, hoci web
+         hodnotu poznal. */
+      ['fbp', 'fbc', 'ga_cid', 'ga_sid', 'suhlas', 'cas_kliku', 'referrer', 'vstup']
         .forEach(function (k) { pridaj(k, z[k]); });
       /* User agent prehliadača. Meta ho pri webových udalostiach vyžaduje —
          bez neho sa konverzia nedá odoslať ako udalosť z webu a nespáruje sa
