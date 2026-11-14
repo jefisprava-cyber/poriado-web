@@ -285,7 +285,11 @@
   footer .bubliny .b5{width:36px;height:36px;top:52%;left:calc(100% - var(--okraj) - 14px);--dx:0px;--dy:-40px;--s:1.03;animation-duration:7s;animation-delay:-1s}
   footer .bubliny .b7{width:54px;height:54px;top:-18px;left:30%;--dx:-12px;--dy:-20px;--s:1.06;animation-duration:10s;animation-delay:-3s}
   footer .bubliny .b8{width:46px;height:46px;top:-8px;left:67%;--dx:9px;--dy:-16px;--s:1.07;animation-duration:8s;animation-delay:-5s}
-  footer .bubliny .b9{width:72px;height:72px;bottom:-44px;left:45%;--dx:-10px;--dy:-16px;--s:1.04;animation-duration:13s;animation-delay:-8s}
+  /* bottom bolo -44px a --dy -16px: bublina sa pri animácii dvíhala
+     12 px do riadku s odkazmi a glyfy „Ochrana osobných údajov“ padli
+     na jej najsvetlejšie miesto — kontrast 2,57. Nižšie a s kratšou
+     dráhou sa textu už nedotkne (najnižší kontrast v pätičke 5,00). */
+  footer .bubliny .b9{width:72px;height:72px;bottom:-54px;left:45%;--dx:-10px;--dy:-8px;--s:1.04;animation-duration:13s;animation-delay:-8s}
   /* Východiskový rozkmit na mobile. Je tu preto, že bubliny vo výplni
      .wrap nemajú mobilné pravidlo s polohou (ich kotva drží pri každej
      šírke), takže by inak zostali na hodnotách pre veľkú obrazovku.
@@ -334,7 +338,9 @@
     footer .bubliny .b1{width:70px;height:70px;top:4px;left:-10px;right:auto;bottom:auto;--dx:11px;--dy:-30px;--s:1.08}
     footer .bubliny .b3{width:66px;height:66px;bottom:-24px;left:4%;right:auto;top:auto;--dx:-10px;--dy:-32px;--s:1.07}
     footer .bubliny .b4{width:70px;height:70px;top:4px;left:auto;right:-10px;bottom:auto;--dx:-11px;--dy:-28px;--s:1.08}
-    footer .bubliny .b6{width:90px;height:90px;bottom:-30px;left:auto;right:6%;top:auto;--dx:12px;--dy:-30px;--s:1.06}
+    /* To isté na mobile, len iná bublina: b6 sa dvíhala o 30 px pod
+       „Nastavenia cookies“ — kontrast 2,65. Po úprave 5,05. */
+    footer .bubliny .b6{width:90px;height:90px;bottom:-46px;left:auto;right:6%;top:auto;--dx:12px;--dy:-14px;--s:1.06}
     footer .bubliny .b7{width:54px;height:54px;top:-14px;left:8%;right:auto;bottom:auto;--dx:-15px;--dy:-26px;--s:1.09}
     footer .bubliny .b8{width:46px;height:46px;top:-8px;left:62%;right:auto;bottom:auto;--dx:13px;--dy:-24px;--s:1.09}
     footer .bubliny .b9{width:66px;height:66px;bottom:-34px;left:46%;right:auto;top:auto;--dx:-9px;--dy:-30px;--s:1.07}
@@ -380,6 +386,7 @@
          zároveň vypína vyskakovacie okno — inak by sa formulár načítal dvakrát.
          Odsek vnútri skript prepíše; bez JavaScriptu ostane a návštevník sa
          cez odkaz dostane k rezervácii tak či tak. -->
+    <p class="poucenie">Najprv si vyberte balík a doplnky, až potom dátum a čas.</p>
     <div id="pr-inline">
       <p class="pr-nacitava">Načítavame rezervačný kalendár…
         <a href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk" target="_blank" rel="noopener">Otvoriť rezerváciu v novom okne</a></p>
@@ -435,7 +442,7 @@
     <div class="logo">Poriado<span>.</span></div>
     <p style="margin-top:10px"><a href="tel:+421949061088">+421 949 061 088</a> &nbsp;·&nbsp; <a href="tel:+421949076917">+421 949 076 917</a> &nbsp;·&nbsp; <a href="mailto:info@poriado.sk">info@poriado.sk</a></p>
     <p style="margin-top:8px">CARTHEN, s.r.o. &nbsp;·&nbsp; IČO 48 058 424</p>
-    <p style="margin-top:10px"><a href="o-nas.html">O nás</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
+    <p style="margin-top:10px"><a href="o-nas.html">O nás</a> &nbsp;·&nbsp; <a href="poukazky.html">Poukážky</a> &nbsp;·&nbsp; <a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;·&nbsp; <a href="obchodne-podmienky.html">Obchodné podmienky</a> &nbsp;·&nbsp; <a href="#" id="cookie-reopen">Nastavenia cookies</a></p>
   </div>
 </footer>
 

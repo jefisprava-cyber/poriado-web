@@ -408,6 +408,18 @@
     if (!gaIdent.cid) zistiGaIdent();
     if (gaIdent.cid) z.ga_cid = gaIdent.cid;
     if (gaIdent.sid) z.ga_sid = gaIdent.sid;
+
+    /* Rozhodnutie o analytickom súhlase musí ísť do záznamu spolu s tými
+       identifikátormi — inak sa platný ga_cid nedá odlíšiť od bezcenného.
+       Keď je analytics_storage = 'denied', gtag('get') hodnotu stále VRÁTI,
+       ale pri každom načítaní stránky inú a bez cookie _ga. Nákup poslaný
+       neskôr zo servera s takým ga_cid by v GA4 založil nového používateľa
+       a novú reláciu bez zdroja — teda nákup bez jedinej návštevy. A poslať
+       ho je zároveň obchádzanie súhlasu: Measurement Protocol pole na
+       analytics_storage nemá, takže serverová udalosť prejde vždy.
+       Overené 14. 11. 2026 v dokumentácii Google. */
+    var cs = dajSuhlas();
+    z.suhlas = !cs ? 'nezvolil' : (cs.analytics ? 'analytika-ano' : 'analytika-nie');
     return z;
   };
 

@@ -292,6 +292,7 @@
       '<h3 id="pr-nadpis">Rezervácia termínu</h3>' +
       '<p class="pr-sub">' + TEXTY[PLATBA] + '</p>' +
       '<div id="bookio-obal"></div>' +
+      '<p class="pr-pozn"><b>Čo bude po zaplatení:</b> platbu dokončíte na stránke Bookia, ktoré nám vedie kalendár — preto vás formulár na konci prehodí k nemu. Potvrdenie vám odtiaľ príde okamžite a je v ňom aj odkaz na zrušenie. Faktúru pošleme my, e-mailom do 24 hodín. Priority si povieme až na mieste.</p>' +
       '<p class="pr-nahrada">Nenačítal sa kalendár? ' +
         '<a href="' + ZAKLAD + '" target="_blank" rel="noopener">Otvorte rezerváciu v novom okne</a>.</p>' +
       '<p class="pr-pozn">' + POUCENIE + '</p>' +
