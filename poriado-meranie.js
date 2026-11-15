@@ -336,6 +336,21 @@
     return !!(c && c.marketing);
   }
 
+  /* Zápis cookie do prehliadača a zápis riadku na náš server sú dve rôzne
+     otázky a doteraz ich rozhodovala jedna podmienka. Cookie je prístup
+     k zariadeniu, preto smieUkladatZdroj() vyššie zostáva na marketingovom
+     súhlase. Riadok v hárku ale potrebuje aj GA4: serverový nákup sa bez
+     ga_cid nepripojí k žiadnej návšteve, a ga_cid stojí na ANALYTICKOM
+     súhlase. Keď riadok nevznikne, GA4 sa o nákupe nedozvie nikdy — hoci
+     legálne dozvedieť môže.
+     Odmerané 15. 11. 2026: päť z ôsmich nespárovaných platených rezervácií
+     nemalo v šesťhodinovom okne ani jeden riadok. Server ho nemá z čoho
+     vyrobiť, keď mu ho prehliadač nepošle. */
+  function smieZaznamZdroja() {
+    var c = dajSuhlas();
+    return !!(c && (c.marketing || c.analytics));
+  }
+
   function ulozZdroj(z) {
     zdrojPamat = z;
     if (!smieUkladatZdroj()) return;
@@ -469,8 +484,12 @@
 
   window.poriadoZaznamZdroja = function (faza, balik) {
     try {
-      if (!smieUkladatZdroj()) return;
+      if (!smieZaznamZdroja()) return;
       if (odoslaneFazy[faza]) return;               // jedna fáza = jeden riadok
+
+      /* Marketingový súhlas rozhoduje o tom, ČO v riadku bude — nie o tom,
+         či riadok vznikne. Bez neho ide do hárka len analytická časť. */
+      var maMarketing = maMarketingovySuhlas();
 
       var z = window.poriadoZdroj();
       odoslaneFazy[faza] = true;
@@ -485,18 +504,32 @@
       pridaj('faza', faza);
       pridaj('balik', balik || '');
       pridaj('cas', new Date().toISOString());
-      KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
-      /* Zoznam je vymenovaný ručne, takže nové pole v poriadoZdroj() sa sem
+      /* Zoznamy sú vymenované ručne, takže nové pole v poriadoZdroj() sa sem
          musí dopísať zvlášť — inak sa spočíta a zahodí. Presne to sa stalo
          14. 11. 2026 poľu „suhlas": v hárku ostal prázdny stĺpec, hoci web
          hodnotu poznal. */
-      ['fbp', 'fbc', 'ga_cid', 'ga_sid', 'suhlas', 'cas_kliku', 'referrer', 'vstup']
+
+      /* LEN S MARKETINGOVÝM SÚHLASOM: identifikátory kliku z reklamy a cookies
+         od Meta Pixela. Bez neho ich nepošleme vôbec — ani vtedy, keď _fbp
+         v prehliadači ostala zo staršej návštevy, kedy súhlas ešte platil.
+         User agent je tiež tu: potrebuje ho výhradne Meta, a tej bez
+         marketingového súhlasu neposielame nič. Sem patrí user agent
+         ZÁKAZNÍKA; keby sme ho dopĺňali až na serveri, poslali by sme user
+         agent Googlu. */
+      if (maMarketing) {
+        KLIKY.concat(UTM).forEach(function (k) { pridaj(k, z[k]); });
+        ['fbp', 'fbc', 'cas_kliku'].forEach(function (k) { pridaj(k, z[k]); });
+        pridaj('ua', navigator.userAgent);
+      }
+
+      /* S ANALYTICKÝM SÚHLASOM: ga_cid a ga_sid pripoja serverový nákup
+         k relácii, ktorú GA4 už pozná z prehliadača — vrátane toho, odkiaľ
+         návštevník prišiel. Práve preto tu utm_* netreba: zdroj relácie má
+         GA4 z vlastného zásahu pri načítaní stránky a náš riadok by ho len
+         duplikoval. Pole „suhlas" musí ísť vždy, inak sa platný ga_cid nedá
+         odlíšiť od bezcenného — a serverová brána ho kontroluje. */
+      ['ga_cid', 'ga_sid', 'suhlas', 'referrer', 'vstup']
         .forEach(function (k) { pridaj(k, z[k]); });
-      /* User agent prehliadača. Meta ho pri webových udalostiach vyžaduje —
-         bez neho sa konverzia nedá odoslať ako udalosť z webu a nespáruje sa
-         s človekom. Sem patrí user agent ZÁKAZNÍKA; keby sme ho dopĺňali až
-         na serveri, poslali by sme user agent Googlu. */
-      pridaj('ua', navigator.userAgent);
       var telo = p.join('&');
 
       /* sendBeacon prežije aj odchod zo stránky — a práve vtedy ho
