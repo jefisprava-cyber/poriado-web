@@ -776,6 +776,33 @@
   @media(max-width:860px){
     .hodiny{margin-top:26px}
   }
+  /* TELEFÓN: 2×2 na celú šírku stĺpca a zarovnané doľava rovnako ako text
+     nad nimi. Strop šírky aj centrovanie z väčších obrazoviek sa tu rušia —
+     inak pilulky visia v strede a ich ľavý okraj nesedí s nadpisom.
+     Mriežku drží samotné .hodiny, takže netreba štyri odkazy obaľovať
+     ďalším divom; nadpis a podtitul idú cez oba stĺpce. Odsadenie medzi
+     nimi preberá gap, preto majú margin-bottom:0. */
+  @media(max-width:560px){
+    .hodiny{max-width:none;margin-inline:0;
+      display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .hodiny h2,.hodiny p.pod{grid-column:1/-1;margin-bottom:0}
+    /* V dvoch stĺpcoch sa riadok [ikona | názov | cena] vedľa seba nezmestí,
+       takže sa obsah karty postaví pod seba — a zvislá linka pri ikone tým
+       stráca zmysel. */
+    .hodiny a.riadok{grid-template-columns:1fr;justify-items:start;
+      gap:0;margin-bottom:0;padding:11px 11px 12px}
+    /* margin-inline:0 tu NIE JE zbytočné. Stránka má o kus vyššie všeobecné
+       pravidlo .ikona{margin:0 auto 12px} pre dlaždice v sekcii „Prečo práve
+       my". Platí aj na tieto ikony, lebo trieda je rovnaká, a automatické
+       bočné okraje ikonu vycentrujú v bunke bez ohľadu na justify-self.
+       Na desktope to vidieť nebolo — tam je stĺpec široký presne na ikonu,
+       takže auto nemá čo rozdeliť. */
+    .hodiny .ikona{grid-row:1;grid-column:1;justify-self:start;width:auto;
+      padding-right:0;border-right:0;margin:0 0 6px}
+    .hodiny .nazov{grid-row:2;grid-column:1}
+    .hodiny .cas{grid-row:3;grid-column:1;margin-top:5px}
+    .hodiny .suma{grid-row:4;grid-column:1;align-self:start;margin-top:9px}
+  }
   /* Na najuzsich telefonoch (320 px) by sa dlazdica, nazov a cena vedla
      seba nezmestili — dlazdica, stitok aj cena sa zuzia, rozlozenie zostava.
      Stredny stlpec je minmax(0,1fr), takze sa SMIE zmensit pod sirku obsahu;
