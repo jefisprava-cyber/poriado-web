@@ -383,7 +383,11 @@
     footer .bubliny .b9{width:66px;height:66px;bottom:-34px;left:46%;right:auto;top:auto;--dx:-9px;--dy:-30px;--s:1.07}
     .hero .bubliny .b10{display:none}
   }
-  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(26px,3.6vw,54px);align-items:center}
+  /* Úvod je užší než zvyšok stránky (980 namiesto spoločných 1080 px).
+     Na širokej obrazovke sa inak text aj pilulky rozťahovali do šírky, v
+     ktorej sa riadok ťažko číta a cenovka je od názvu ďaleko. Ostatné
+     sekcie zostávajú na 1080 — užší je zámerne len úvod. */
+  .hero .wrap{position:relative;z-index:1;max-width:980px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(26px,3.6vw,54px);align-items:center}
   .hero-text{min-width:0}
   .hero h1{color:#fff}
   .hero h1 .cena{color:var(--gold)}
@@ -481,13 +485,16 @@
   /* Záverečná výzva. Kto doscrolluje až sem, je najzaujatejší — a doteraz
      tu nedostal nič, na čo by klikol. */
 
-  /* Hodnotenie v heroi — dôkaz patrí nad rozhodnutie, nie pod neho. */
-  .hero .rev-bar{justify-content:flex-start;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);margin-top:26px;padding:20px 0 0}
-  .hero .rev-bar .rev-num{color:#fff;font-weight:700}
-  .hero .rev-bar .rev-count,.hero .rev-bar .rev-cta{color:#fff}
+  /* Pravidlá pre .hero .rev-bar tu boli do 15. 11. 2026 — pás s hodnotením
+     z úvodu zmizol, lebo ten istý je o kus nižšie v sekcii Recenzie.
+     Pravidlá išli s ním; keby sa pás niekedy vracal, patrí sem späť aj
+     prefarbenie na bielu, inak by na fialovej nebol vidieť. */
   @media(max-width:880px){
     .hero .wrap{grid-template-columns:1fr}
-
+    /* Mriežka sa zrútila do jedného stĺpca — strop šírky pilúl tu zostáva,
+       ale miesto k pravému okraju sa tlačia na stred. Inak by viseli vpravo
+       a vľavo od nich by bola diera. */
+    .hodiny{margin-inline:auto}
   }
 
   /* --- Google hodnotenie: jeden striedmy riadok pod hlavičkou --- */
@@ -521,7 +528,19 @@
   .rev-panel .rev-bar{border-bottom:0;padding:4px 0 0}
   .rev-bar{display:flex;align-items:baseline;justify-content:center;gap:6px 14px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid #E9E2F7;transition:.18s}
   .rev-num{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.5px}
-  .rev-stars{color:var(--gold-text);letter-spacing:2px;font-size:.98rem;white-space:nowrap}
+  /* Hviezdičky boli do 15. 11. 2026 v --gold-text (#6B4E00). Bola to tmavá
+     olivová, ktorá na svetlofialovom paneli splynula na šmuhu — hodnotenie
+     vyzeralo, akoby tam hviezdičky vôbec neboli.
+     Teraz sú v značkovej žltej, ale žltá na svetlom podklade má sama osebe
+     1,4:1, takže by bez pomoci zmizla úplne. Drží ich preto tenký obrys
+     v --gold-text, ktorý má na paneli 6,1:1 — tvar je čitateľný aj pre
+     človeka, ktorý žltú nerozozná. paint-order musí byť stroke pred fill,
+     inak by obrys prekryl výplň a hviezda by stmavla.
+     Keby prehliadač text-stroke nevedel, zostane čistá žltá: hviezdičky sú
+     aria-hidden a hodnotenie „5,0" stojí slovom hneď vedľa nich, takže sa
+     tým nestráca žiadna informácia. */
+  .rev-stars{color:var(--gold);letter-spacing:3px;font-size:1.2rem;white-space:nowrap;
+    -webkit-text-stroke:.75px var(--gold-text);paint-order:stroke fill}
   .rev-count{color:var(--muted);font-size:.92rem}
   .rev-cta{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
   /* Farbu tu ZAMERNE nenastavujeme. Pas je v uvode na fialovom prelive,
@@ -584,10 +603,10 @@
 
   /* Hviezdičky hodnotenia sedia na svetlejšom mieste gradientu — tmavá zlatá
      tam má kontrast 1,0 a sú neviditeľné. Platí to aj na dnešnom webe. */
-  /* Svetlejsia zlta nez --gold: pas s recenziami lezi na spodku uvodu,
-     teda v 60-63 %% prelivu, a plna zlta tam ma pri 375 px len 4,29:1.
-     Tento odtien ma 4,94:1 aj v najhorsom bode. */
-  .hero .rev-stars{color:#FFE88A}
+  /* Pravidlo .hero .rev-stars (svetlejšia žltá #FFE88A kvôli prelivu) tu
+     bolo do 15. 11. 2026. Odišlo spolu s pásom hodnotenia z úvodu. Keby sa
+     pás niekedy vracal na fialové pozadie, patrí sem späť — plná --gold má
+     na spodku prelivu pri 375 px len 4,29:1, kým tento odtieň 4,94:1. */
 
   /* Bodka v logu na tmavých podkladoch: petrolejová na petrolejovej splynie. */
   footer .logo span{color:var(--gold)}
@@ -715,16 +734,19 @@
      bielu, co je tu uz spravne — .pod lezi na fialovej. Kto sem prida
      text na BIELY podklad pilule, musi mu dat farbu pravidlom s dvoma
      triedami, inak prehra a text zmizne. */
-  .hodiny{align-self:center}
+  /* Pilulky majú vlastný strop šírky a tlačia sa k pravému okraju. Bez neho
+     sa roztiahnu na celý stĺpec mriežky a cenovka odletí od názvu tak
+     ďaleko, že sa dvojica prestane čítať ako jeden riadok. */
+  .hodiny{align-self:center;max-width:352px;margin-left:auto}
   .hodiny h2{font-size:1.02rem;font-weight:700;letter-spacing:0;color:#fff;margin-bottom:4px}
-  .hodiny p.pod{font-size:.86rem;color:var(--light);margin-bottom:14px}
+  .hodiny p.pod{font-size:.86rem;color:var(--light);margin-bottom:12px}
   /* Tri stlpce: dlazdica s ikonou | nazov nad stitkom s casom | cena.
      Stitok lezi POD nazvom pri kazdej sirke. Predtym boli vedla seba a az
      pod 420 px sa prelamovali zvlastnym pravidlom — jedno rozlozenie pre
      vsetko je o jednu vec menej, co sa moze rozsypat. */
   .hodiny a.riadok{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
-    align-items:center;gap:0 12px;background:#fff;border-radius:14px;
-    padding:11px 12px;margin-bottom:9px;
+    align-items:center;gap:0 10px;background:#fff;border-radius:13px;
+    padding:8px 10px;margin-bottom:7px;
     color:var(--ink);position:relative;box-shadow:0 8px 22px rgba(15,25,45,.17)}
   .hodiny a.riadok:last-of-type{margin-bottom:0}
   .hodiny a.riadok:hover .nazov b,.hodiny a.riadok:focus-visible .nazov b{text-decoration:underline;
@@ -732,21 +754,25 @@
   /* Dlazdica s ikonou. Zamerne ta ista svetlofialova ako stitok s casom —
      pilula tak drzi dve farby a nie tri. Ikona je ozdoba (aria-hidden),
      nesie ju nazov vedla nej. */
-  .hodiny .ikona{grid-column:1;grid-row:1/3;width:38px;height:38px;border-radius:11px;
-    background:#EDE4FF;display:flex;align-items:center;justify-content:center}
-  .hodiny .ikona svg{width:20px;height:20px;fill:none;stroke:var(--blue);
-    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  /* Ikona nesedí v dlaždici — v predlohe z Mety leží priamo na bielej karte
+     a od textu ju delí vlasová zvislá linka. Je obrysová, nie plná, a väčšia
+     než názov vedľa nej: je to jediný obrázok v celom riadku, tak nech robí
+     prácu za obrázok. */
+  .hodiny .ikona{grid-column:1;grid-row:1/3;display:flex;align-items:center;justify-content:center;
+    padding-right:10px;border-right:1px solid rgba(71,22,131,.16)}
+  .hodiny .ikona svg{width:28px;height:28px;fill:none;stroke:var(--blue);
+    stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
   .hodiny .nazov{grid-column:2;grid-row:1}
-  .hodiny .nazov b{font-weight:700;color:var(--ink);font-size:1rem;display:block}
-  .hodiny .cas{grid-column:2;grid-row:2;justify-self:start;margin-top:5px;
-    display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
-    background:#EDE4FF;color:var(--navy);border-radius:999px;padding:4px 10px 4px 8px;
-    font-size:.78rem;font-weight:700}
-  .hodiny .cas svg{width:13px;height:13px;flex:none;fill:none;stroke:var(--blue);
+  .hodiny .nazov b{font-weight:700;color:var(--ink);font-size:.95rem;display:block}
+  .hodiny .cas{grid-column:2;grid-row:2;justify-self:start;margin-top:3px;
+    display:inline-flex;align-items:center;gap:4px;white-space:nowrap;
+    background:#EDE4FF;color:var(--navy);border-radius:999px;padding:3px 9px 3px 7px;
+    font-size:.74rem;font-weight:700}
+  .hodiny .cas svg{width:12px;height:12px;flex:none;fill:none;stroke:var(--blue);
     stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .hodiny .suma{grid-column:3;grid-row:1/3;align-self:center;
-    background:var(--gold);color:var(--navy);border-radius:10px;padding:7px 11px;
-    font-weight:700;font-size:1rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+    background:var(--gold);color:var(--navy);border-radius:9px;padding:6px 9px;
+    font-weight:700;font-size:.95rem;white-space:nowrap;font-variant-numeric:tabular-nums}
   @media(max-width:860px){
     .hodiny{margin-top:26px}
   }
@@ -756,12 +782,20 @@
      stitok ma white-space:nowrap, takze by pri dlhom texte vytiekol POD
      cenovku. Odmerane na 320 px pri riadku Poukazky — preto je stitok
      kratky („6 mesiacov") a tu este o nieco mensi. */
+  /* Štítok pri Poukážkach nesie dve slová („Darčekové aj permanentky"),
+     takže na úzkom telefóne by s white-space:nowrap vytiekol pod cenovku —
+     stredný stĺpec je minmax(0,1fr) a smie sa zmenšiť pod šírku obsahu.
+     Tu sa preto smie zalomiť. Štítky služieb („1 hodina", „2 hodiny") sú
+     krátke a nezalomia sa ani tak. */
+  @media(max-width:460px){
+    .hodiny .cas{white-space:normal}
+  }
   @media(max-width:360px){
-    .hodiny a.riadok{gap:0 9px;padding:10px}
-    .hodiny .ikona{width:32px;height:32px;border-radius:9px}
-    .hodiny .ikona svg{width:17px;height:17px}
-    .hodiny .cas{font-size:.73rem;padding:4px 8px 4px 7px}
-    .hodiny .suma{padding:6px 9px;font-size:.94rem}
+    .hodiny a.riadok{gap:0 8px;padding:8px}
+    .hodiny .ikona{padding-right:8px}
+    .hodiny .ikona svg{width:25px;height:25px}
+    .hodiny .cas{font-size:.71rem;padding:3px 8px 3px 6px}
+    .hodiny .suma{padding:6px 8px;font-size:.92rem}
   }
 
 
@@ -818,13 +852,10 @@
         <a href="tel:+421949061088"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.3 3.6-1.8 1.4a11 11 0 0 0 5 5l1.4-1.8 3.6 1.3v2.6a2 2 0 0 1-2.2 2A15 15 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>alebo zavolajte +421 949 061 088</a>
       </div>
     </div>
-
-      <a class="rev-bar" href="https://www.google.com/maps?cid=11735417404303540434" target="_blank" rel="noopener" data-rating="5.0">
-        <span class="rev-num">5,0</span>
-        <span class="rev-stars" aria-hidden="true"></span>
-        <span class="rev-count">33 recenzií na Google</span>
-        <span class="rev-cta">Pozrieť →</span>
-        </a>
+    <!-- Pas s hodnotenim z Googlu tu bol do 15. 11. 2026. Odstraneny preto,
+         ze ten isty pas je o kusok nizsie v sekcii Recenzie — v uvode bol
+         druhy raz. poriado-hodnotenie.js berie VSETKY .rev-bar cez
+         querySelectorAll, takze ten v recenziach sa dopina dalej. -->
     </div>
     <!-- Pravy stlpec uvodnej mriezky. Od 15. 11. 2026 su to SLUZBY, nie
          rebrik balikov: rebrik (Mini az Maxi + tepovanie) zostal na
@@ -839,30 +870,33 @@
          s rezervaciou. Pri upratovani je zamerne prazdne — skript z neho
          spravi 'vsetky', co pri parovani sadne na ktorykolvek balik. -->
     <div class="hodiny">
-      <h2>Iba u nás</h2>
+      <h2>Slušne, seriózne a na rovinu</h2>
       <p class="pod">Cena je konečná. Prostriedky, umytie okien aj doprava sú v nej.</p>
       <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42936" data-open-rezervacia data-kategoria="42936">
-        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11.6 3.4l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/><path d="M18 14.6l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7z"/></svg></span>
+        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.8 2.5h4.3a1.2 1.2 0 0 1 1.2 1.2v1.1a1.2 1.2 0 0 1-1.2 1.2H6.8z"/><path d="M3.3 3.4h3.5v1.6H3.3z"/><path d="M12.3 4.3h.8a1.7 1.7 0 0 1 1.7 1.7v.8"/><path d="M7.7 6v1.6"/><path d="M10.3 6v1.6"/><path d="M7.6 7.6h2.9a2.5 2.5 0 0 1 2.5 2.5v8.5a2 2 0 0 1-2 2H7.1a2 2 0 0 1-2-2v-8.5a2.5 2.5 0 0 1 2.5-2.5z"/><path d="M17.3 6Q18 8.2 20.2 8.9Q18 9.6 17.3 11.8Q16.6 9.6 14.4 8.9Q16.6 8.2 17.3 6Z"/><path d="M20.6 12Q21 13.2 22.2 13.6Q21 14 20.6 15.2Q20.2 14 19 13.6Q20.2 13.2 20.6 12Z"/></svg></span>
         <span class="nazov"><b>Upratovanie</b></span>
         <span class="cas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.2 1.9"/></svg>od 3 hodín</span>
         <span class="suma">79,90 €</span>
       </a>
       <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42935&amp;service=173509" data-open-rezervacia data-balik="tepovanie" data-kategoria="42935">
-        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6.4" rx="1.8"/><path d="M5.6 11V8.4a1.8 1.8 0 0 1 1.8-1.8h9.2a1.8 1.8 0 0 1 1.8 1.8V11"/><path d="M7.4 11V9.6h9.2V11"/></svg></span>
+        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.4 12.7V8.5a2 2 0 0 1 2-2h6.1a2 2 0 0 1 2 2v4.2"/><path d="M4.3 11.4a1.9 1.9 0 0 1 1.9 1.9v2.2h10.5v-2.2a1.9 1.9 0 0 1 3.8 0V17a1.4 1.4 0 0 1-1.4 1.4H3.8A1.4 1.4 0 0 1 2.4 17v-3.7a1.9 1.9 0 0 1 1.9-1.9z"/><path d="M6.2 13.5h10.5"/><path d="M4.6 18.4v1.5"/><path d="M18.4 18.4v1.5"/><path d="M19.4 3.3Q20 5.3 22 5.9Q20 6.5 19.4 8.5Q18.8 6.5 16.8 5.9Q18.8 5.3 19.4 3.3Z"/></svg></span>
         <span class="nazov"><b>Tepovanie</b></span>
         <span class="cas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.2 1.9"/></svg>1 hodina</span>
         <span class="suma">55 €</span>
       </a>
       <a class="riadok" href="https://services.bookio.com/poriado-sor759f2/widget?lang=sk&amp;category=42937&amp;service=178847" data-open-rezervacia data-balik="zehlenie" data-kategoria="42937">
-        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.8 17.2h16.4"/><path d="M20 14.4H4.6c0-3.5 2.9-6.4 6.4-6.4h3.3c3.1 0 5.7 2.6 5.7 5.7z"/><path d="M8.7 8V7.1a1.5 1.5 0 0 1 1.5-1.5h4.6"/></svg></span>
+        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.8 15c1.5-3.6 5-6 8.9-6h2a4.3 4.3 0 0 1 4.3 4.3V15z"/><path d="M3.4 15.9h16.2v1.3a1.4 1.4 0 0 1-1.4 1.4H4.8a1.4 1.4 0 0 1-1.4-1.4z"/><path d="M7.6 10.1V8.6A2.3 2.3 0 0 1 9.9 6.3h4.2a2.3 2.3 0 0 1 2.3 2.3v1.4"/><path d="M8.6 21q.7-.9 0-1.8"/><path d="M11.6 21q.7-.9 0-1.8"/><path d="M14.6 21q.7-.9 0-1.8"/></svg></span>
         <span class="nazov"><b>Žehlenie</b></span>
         <span class="cas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.2 1.9"/></svg>2 hodiny</span>
         <span class="suma">49,90 €</span>
       </a>
       <a class="riadok" href="poukazky.html">
-        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.2 11.2h15.6v7.6a1.4 1.4 0 0 1-1.4 1.4H5.6a1.4 1.4 0 0 1-1.4-1.4z"/><path d="M3.2 7.9h17.6v3.3H3.2z"/><path d="M12 7.9v12.3"/><path d="M12 7.9S10.6 3.6 8.4 3.6a2.2 2.2 0 0 0 0 4.3z"/><path d="M12 7.9s1.4-4.3 3.6-4.3a2.2 2.2 0 0 1 0 4.3z"/></svg></span>
+        <span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.6 11.6h12.6v7.4a1.5 1.5 0 0 1-1.5 1.5H6.1a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M3.5 8.2h14.8v3.4H3.5z"/><path d="M10.9 8.2v12.3"/><path d="M10.9 8.2S9.6 4.2 7.6 4.2a2 2 0 0 0 0 4z"/><path d="M10.9 8.2s1.3-4 3.3-4a2 2 0 0 1 0 4z"/><path d="M20.3 13.6Q20.8 15.2 22.4 15.7Q20.8 16.2 20.3 17.8Q19.8 16.2 18.2 15.7Q19.8 15.2 20.3 13.6Z"/></svg></span>
         <span class="nazov"><b>Poukážky</b></span>
-        <span class="cas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.2 1.9"/></svg>6 mesiacov</span>
+        <!-- Bez hodiniek: pri poukážke nejde o trvanie, ale o to, aké dve
+             podoby má. Hodinky by tu klamali a štítok by sa na telefóne
+             zalomil na dva riadky. -->
+        <span class="cas">Darček aj permanentka</span>
         <span class="suma">od 79,90 €</span>
       </a>
     </div>
