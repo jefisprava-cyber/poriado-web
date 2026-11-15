@@ -201,14 +201,36 @@
       fd.set('sprava', fd.get('text') || '');
       fd.delete('text');
       /* Odkiaľ návštevník prišiel — bez toho sa v CRM nedá povedať, ktorý
-         kanál dopyt priniesol. Zapamätal si to poriado-meranie.js pri príchode. */
+         kanál dopyt priniesol. Zapamätal si to poriado-meranie.js pri príchode.
+
+         ROZHODUJE SÚHLAS — pridané 15. 11. 2026. Dovtedy odtiaľ odchádzali
+         surové gclid, fbclid, _fbp aj utm_* úplne bez ohľadu na to, čo
+         návštevník v cookie lište zvolil. Hranica vedie medzi
+         IDENTIFIKÁTOROM a NÁZVOM KANÁLA:
+           • gclid, gbraid, wbraid, fbclid, msclkid, _fbp a _fbc sú
+             identifikátory konkrétneho kliku konkrétneho človeka a existujú
+             na jediný účel — dodatočne nahrať konverziu do Google Ads alebo
+             Mety. To je reklama, takže idú VÝHRADNE s marketingovým súhlasom.
+             utm_* sú s nimi, lebo spolu tvoria údaj o reklamnej kampani.
+           • veta „Google Ads · kampaň jesen" nikoho neidentifikuje, nikam
+             von sa neposiela a slúži nám len na to, aby sme vedeli, ktorý
+             kanál dopyt priniesol. Na ňu stačí ANALYTICKÝ súhlas — rovnaká
+             hranica ako pri zdroji rezervácie (smieZaznamZdroja
+             v poriado-meranie.js).
+         Kto nezvolil nič alebo odmietol všetko, neposiela ani jedno z toho.
+         Keby accessor chýbal, neposiela sa nič: zamknuté, nie otvorené. */
       var eventId = 'dopyt-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
       try {
-        if (typeof window.poriadoZdrojText === 'function') fd.set('zdroj', window.poriadoZdrojText());
-        /* Okrem vety pre človeka posielame aj surové identifikátory kliku.
-           Veta „prišiel z Google Ads" sa pekne číta, ale dodatočne nahrať
-           konverziu do Google Ads alebo Mety sa dá len s týmito hodnotami. */
-        if (typeof window.poriadoZdroj === 'function') {
+        var suhlas = (typeof window.poriadoSuhlas === 'function')
+          ? window.poriadoSuhlas()
+          : { analytika: false, marketing: false };
+
+        if ((suhlas.analytika || suhlas.marketing) &&
+            typeof window.poriadoZdrojText === 'function') {
+          fd.set('zdroj', window.poriadoZdrojText());
+        }
+
+        if (suhlas.marketing && typeof window.poriadoZdroj === 'function') {
           var z = window.poriadoZdroj();
           ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'fbp', 'fbc',
            'utm_source', 'utm_medium', 'utm_campaign', 'cas_kliku']

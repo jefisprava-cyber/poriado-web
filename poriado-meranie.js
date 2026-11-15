@@ -405,6 +405,21 @@
     } catch (e) {}
   }
 
+  /* Rozhodnutie o súhlase pre ostatné skripty. Vracia kópiu, nie uložený
+     objekt: poriado-meranie.js je jediný vlastník tohto údaja a žiadny iný
+     súbor si nemá pamätať názov kľúča v úložisku ani ho prepisovať — je to
+     to isté pravidlo, pre ktoré nemá adresa Apps Scriptu záložné kópie.
+     Pridané 15. 11. 2026 pre poriado-dopyt.js, ktorý dovtedy posielal
+     identifikátory kliku bez ohľadu na súhlas. */
+  window.poriadoSuhlas = function () {
+    var c = dajSuhlas();
+    return {
+      zvolil:    !!c,
+      analytika: !!(c && c.analytics),
+      marketing: !!(c && c.marketing)
+    };
+  };
+
   window.poriadoZdroj = function () {
     var z = citajZdroj();
     /* _fbp a _fbc zakladá Meta Pixel sám; pri dodatočnom posielaní konverzie
