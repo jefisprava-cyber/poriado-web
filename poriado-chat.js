@@ -4,9 +4,13 @@
   var CSS = `
   /* Na papieri by bublina aj panel ležali cez text na každej strane. */
   @media print{#pch-bubble,#pch-panel{display:none!important}}
+  /* Zlty prstenec je box-shadow, nie border: nezvacsi prvok ani neuberie
+     z fialovej plochy a nezavisi na box-sizing zo stranky (widget si CSS
+     vklada sam). Pri :focus-visible ho prstenec fokusu nahradi — to je
+     spravne, fokus ma byt citatelny aj na ukor ozdoby. */
   #pch-bubble{position:fixed;right:12px;bottom:20px;width:52px;height:52px;border-radius:50%;
     background:linear-gradient(135deg,var(--blue,#7424D6),var(--beh-dole,#9633FD));color:#fff;border:none;cursor:pointer;z-index:9990;
-    box-shadow:0 8px 24px rgba(71,22,131,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 2px var(--gold,#FFD632),0 8px 24px rgba(71,22,131,.35);font-size:26px;display:flex;align-items:center;justify-content:center;
     transition:transform .2s}
   #pch-bubble:hover{transform:scale(1.08)}
   #pch-panel{position:fixed;right:20px;bottom:92px;width:360px;max-width:calc(100vw - 32px);height:520px;
