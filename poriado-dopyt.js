@@ -89,8 +89,9 @@
     '<div class="pd-okno" role="dialog" aria-modal="true" aria-labelledby="pd-nadpis">' +
       '<div class="pd-zavri-obal"><button class="pd-zavri" id="individ-close" type="button" aria-label="Zavrieť">&times;</button></div>' +
       '<h3 id="pd-nadpis">Individuálny dopyt</h3>' +
-      '<p class="pd-sub">Pre Airbnb, kancelárie a špeciálne priestory. Napíšte nám, čo potrebujete, ' +
-        'a ozveme sa do 24 hodín s ponukou na mieru.</p>' +
+      '<p class="pd-sub">Napíšte nám, čo potrebujete — vytepovať konkrétny kus, upratať Airbnb, ' +
+        'kanceláriu alebo špeciálny priestor. Fotka nám pomôže pripraviť presnejšiu ponuku. ' +
+        'Ozveme sa do 24 hodín.</p>' +
       '<form id="individ-form" action="' + AKCIA + '" method="POST">' +
         '<input type="hidden" name="token" value="' + TOKEN + '">' +
         '<input type="text" name="hp" class="pd-hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
@@ -101,10 +102,10 @@
         '<label for="i-email">E-mail</label>' +
         '<input type="email" id="i-email" name="email" required autocomplete="email" inputmode="email" placeholder="vas@email.sk">' +
         '<label for="i-text">Správa</label>' +
-        '<textarea id="i-text" name="text" rows="4" placeholder="O aký priestor ide, aká je jeho veľkosť, čo potrebujete a kedy — čím viac napíšete, tým presnejšiu ponuku pripravíme."></textarea>' +
-        '<label for="i-foto">Fotky priestoru (nepovinné, max ' + MAX_FOTIEK + ')</label>' +
+        '<textarea id="i-text" name="text" rows="4" placeholder="Čo treba vyčistiť alebo upratať, akú to má veľkosť a kedy by sa vám to hodilo — čím viac napíšete, tým presnejšiu ponuku pripravíme."></textarea>' +
+        '<label for="i-foto">Fotky (nepovinné, max ' + MAX_FOTIEK + ')</label>' +
         '<input type="file" id="i-foto" class="pd-foto" accept="image/*" multiple>' +
-        '<p class="pd-foto-note">Nahrajte fotky miestností — pripravíme presnejšiu ponuku bez obhliadky. ' +
+        '<p class="pd-foto-note">Nahrajte fotky toho, čo treba vyčistiť alebo upratať — pripravíme presnejšiu ponuku bez obhliadky. ' +
           '<span class="pd-foto-stav"></span></p>' +
         /* Text musi byt v jednom <span>: .pd-gdpr je flex a kazde dieta je stlpec,
              takze bez obalu sa suhlas rozsypal na tri stlpce vedla seba. */
