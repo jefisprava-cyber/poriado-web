@@ -102,7 +102,7 @@
        tepovania). ID 180204 overené na verejnom API Bookia 25. 10. 2026. */
     maxi:          { id: 173508, cena: 169.90, nazov: 'Maxi' },
     maxiTepovanie: { id: 180204, cena: 199.90, nazov: 'Maxi + tepovanie' },
-    tepovanie:     { id: 173509, cena: 55, nazov: 'Tepovanie' },
+    tepovanie:     { id: 173509, cena: 49.90, nazov: 'Tepovanie' },
     /* Žehlenie bolo v Bookiu založené, ale tu chýbalo. Dôsledok: odkaz
        na žehlenie otvoril všeobecný zoznam služieb namiesto predvolenej
        služby (o jedno tuknutie viac) a dokončená rezervácia sa do Googlu
@@ -195,7 +195,7 @@
        Berieme NAJDLHŠÍ názov, ktorý sa v reťazci našiel. „8h Maxi + tepovanie"
        obsahuje aj „Maxi", aj „Tepovanie" — pri prvej zhode by rezervácia za
        199,90 € odišla do Googlu aj Mety ako Maxi za 169,90 € alebo ako hodina
-       tepovania za 55 €. Medzery a plus z názvov odstraňujeme, aby sedelo aj
+       tepovania za 49,90 €. Medzery a plus z názvov odstraňujeme, aby sedelo aj
        „Maxi+tepovanie" bez medzier. */
     var najdlhsi = '';
     var cena = 0;
