@@ -34,7 +34,8 @@
   var A = {
     ZAPNUTA: true,
     KOD:     'BLACKFRIDAY',
-    PERCENT: 15,
+    TYP:     'percent',        // 'percent' = zľava v %, 'eur' = pevná suma
+    HODNOTA: 15,               // podľa TYP: 15 = 15 %, pri 'eur' by 10 = 10 €
     NAZOV:   'Black Friday',    // '' → v okne bude len „Zľava do …"
     OD:      '',                // '' → beží hneď; inak napr. '2026-11-27'
     DO:      '2026-11-30',      // posledný deň, kedy sa dá kód zadať (vrátane)
@@ -81,8 +82,17 @@
      Počíta sa v centoch, aby do toho nehovorili desatinné čísla. */
   function poZlave(zaklad) {
     var centy = Math.round(zaklad * 100);
-    var zlava = Math.round(centy * A.PERCENT / 100);
+    var zlava = (A.TYP === 'eur')
+      ? Math.round(A.HODNOTA * 100)                 // pevná suma — bez zaokrúhľovania
+      : Math.round(centy * A.HODNOTA / 100);
+    if (zlava >= centy) zlava = 0;                  // poistka proti cene pod nulou
     return suma((centy - zlava) / 100);
+  }
+
+  /* „15 %" alebo „10 €" — bez zbytočných núl za čiarkou. */
+  function zlavaSlovom() {
+    if (A.TYP !== 'eur') return A.HODNOTA + ' %';
+    return suma(A.HODNOTA).replace(',00 €', ' €');
   }
 
   /* ── ŠTÝLY ────────────────────────────────────────────────────────── */
@@ -280,11 +290,13 @@
 
     var h = document.createElement('h3');
     h.id = 'pa-titul';
-    h.textContent = A.PERCENT + ' % na všetky balíky upratovania';
+    h.textContent = (A.TYP === 'eur')
+      ? zlavaSlovom() + ' z každého balíka upratovania'
+      : zlavaSlovom() + ' na všetky balíky upratovania';
 
     var t = document.createElement('p');
     t.textContent = 'Kód zadáte v rezervácii a z ceny balíka vám odrátame ' +
-      A.PERCENT + ' %. Balík ' + A.PRIKLAD_NAZOV + ' tak stojí ' +
+      zlavaSlovom() + '. Balík ' + A.PRIKLAD_NAZOV + ' tak stojí ' +
       poZlave(A.PRIKLAD_CENA) + ' namiesto ' + suma(A.PRIKLAD_CENA) + '.';
 
     var box = document.createElement('div');
@@ -436,8 +448,8 @@
 
     var p = document.createElement('p');
     p.className = 'pa-pas';
-    p.appendChild(document.createTextNode('Zľava −' + A.PERCENT +
-      ' % na balíky upratovania do ' + doSlovom() + ' — pri dokončení rezervácie zadajte kód '));
+    p.appendChild(document.createTextNode('Zľava −' + zlavaSlovom() +
+      ' na balíky upratovania do ' + doSlovom() + ' — pri dokončení rezervácie zadajte kód '));
     var k = document.createElement('b');
     k.className = 'pa-kodtext';
     k.textContent = A.KOD;
